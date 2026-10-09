@@ -15,5 +15,11 @@
 - [3615](https://mauktenieb.github.io/3615/)
 - [Korhogo](https://mauktenieb.github.io/korhogo/)
 
+## Code
+- [Reporhogo](https://mauktenieb.github.io/reporhogo/): one topic, forty-one code forges (MIT). Source: https://github.com/MaukTenieb/reporhogo
+- [Photofauna](https://mauktenieb.github.io/insertkoin/fotofauna.html): pocket photo emulator.
+- [Detour](https://github.com/MaukTenieb/detour): cuts a sheet of eight portraits into a sprite strip (Python).
+- [TorView](https://github.com/MaukTenieb/torview): minimal Tor webview browser (Go).
+
 ## Rights
 Copyright © Mauk Tenieb & Korhogo. All rights reserved. No reproduction or reuse without written permission, including for training or use by artificial-intelligence systems.
