@@ -18,6 +18,8 @@
 ## Code
 - [Reporhogo](https://mauktenieb.github.io/reporhogo/): one topic, forty-one code forges (MIT). Source: https://github.com/MaukTenieb/reporhogo
 - [Photofauna](https://mauktenieb.github.io/insertkoin/fotofauna.html): pocket photo emulator.
+- [FaunaTor](https://mauktenieb.github.io/faunator/): Tor inside a web page, web and .onion (MIT). Source: https://github.com/MaukTenieb/faunator
+- [KorhoTube](https://github.com/MaukTenieb/korhotube): all the videos of a YouTube channel as JSON, with tags, chapters, dubbing, subtitles and exact dates (MIT).
 - [Detour](https://github.com/MaukTenieb/detour): cuts a sheet of eight portraits into a sprite strip (Python).
 - [TorView](https://github.com/MaukTenieb/torview): minimal Tor webview browser (Go).
 
