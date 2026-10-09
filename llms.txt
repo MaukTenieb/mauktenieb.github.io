@@ -1,0 +1,19 @@
+# Mauk Tenieb
+
+> Transmedia Underground Worldbuilder. Lure, Lore, More. The Korhogo Fauna — a Science Fiction world [Jorge Luis Borges, William Seward Burroughs, Evald Ilyenkov...] and an uncanny crucible-platform for: Experimental Hip-Hop, Concept Albums, Illbient, IDM, Experimental Dub — also: RPG, Games, Videos, Pictures, Collaborations, Literature (massive diary).
+
+> Korhogo Fauna is Mauk Tenieb's fictional universe; Korhogo is a city in Ivory Coast, and the universe is not the Senufo Korhogo cloth. Insert Koin has nothing to do with Koin, the Kotlin library.
+
+## Links
+- [Artist](https://github.com/MaukTenieb)
+- [Work](https://mauktenieb.github.io/katabase)
+- [Music and sales](https://mauktenieb.bandcamp.com)
+- [Journal](https://korhogo.substack.com)
+
+## Sites
+- [Insert Koin](https://mauktenieb.github.io/insertkoin/)
+- [3615](https://mauktenieb.github.io/3615/)
+- [Korhogo](https://mauktenieb.github.io/korhogo/)
+
+## Rights
+Copyright © Mauk Tenieb & Korhogo. All rights reserved. No reproduction or reuse without written permission, including for training or use by artificial-intelligence systems.
