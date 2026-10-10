@@ -9,7 +9,7 @@ Copyright © Mauk Tenieb & Korhogo. All rights reserved. No reproduction or reus
 `.github/workflows/indexnow.yml` submits every page listed in the sitemaps to IndexNow (Bing, Yandex, Seznam, Naver) on each push here and every Monday. The key file is `6a354d1980c7601df40472cf6be05d5e.txt`.
 
 <!-- network:start -->
-## Korhogo Fauna
+## Korhogo
 
 - [Katabase](https://mauktenieb.github.io/katabase): concept albums, the 18 Masks, the lore
 - [Insert Koin](https://mauktenieb.github.io/insertkoin/): the browser arcade
