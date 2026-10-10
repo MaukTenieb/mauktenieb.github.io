@@ -137,6 +137,29 @@ def substack(sub):
 src('substack_korhogo', substack('korhogo'))
 src('substack_mauktenieb', substack('mauktenieb'))
 
+
+# ---------- Substack: public JSON endpoints (the HTML pages are behind a browser check) ----------
+def substack_api():
+    out = {}
+    for name, url in [('profile', 'https://substack.com/api/v1/user/mauktenieb/public_profile'),
+                      ('korhogo', 'https://korhogo.substack.com/api/v1/homepage_data'),
+                      ('korhogo_archive', 'https://korhogo.substack.com/api/v1/archive?sort=new&limit=12'),
+                      ('mauktenieb', 'https://mauktenieb.substack.com/api/v1/homepage_data')]:
+        st, _, p = get(url, 'application/json', UA)
+        try: d = json.loads(p)
+        except Exception: d = None
+        if name == 'profile' and isinstance(d, dict):
+            d = {k: d.get(k) for k in ('name', 'handle', 'bio', 'photo_url')} | {'publications': [{'name': (u.get('publication') or {}).get('name'), 'subdomain': (u.get('publication') or {}).get('subdomain'), 'hero_text': (u.get('publication') or {}).get('hero_text')} for u in d.get('publicationUsers', [])]}
+        elif name.endswith('archive') and isinstance(d, list):
+            d = [{'title': x.get('title'), 'subtitle': x.get('subtitle'), 'date': x.get('post_date'), 'url': x.get('canonical_url')} for x in d]
+        elif isinstance(d, dict):
+            pub = d.get('publication') or (d.get('pub') or {})
+            d = {k: pub.get(k) for k in ('name', 'subdomain', 'hero_text', 'copyright', 'author_name', 'author_bio')} if pub else {'keys': list(d)[:20]}
+        out[name] = {'status': st, 'data': d}
+        time.sleep(1)
+    return out
+src('substack_api', substack_api)
+
 # ---------- Discogs, MusicBrainz, Wikidata: public APIs ----------
 def discogs():
     st, _, p = get('https://api.discogs.com/artists/9104440', 'application/json', BOT)
