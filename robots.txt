@@ -38,5 +38,4 @@ Sitemap: https://mauktenieb.github.io/sitemap.xml
 Sitemap: https://mauktenieb.github.io/insertkoin/sitemap.xml
 Sitemap: https://mauktenieb.github.io/3615/sitemap.xml
 Sitemap: https://mauktenieb.github.io/katabase/sitemap.xml
-Sitemap: https://mauktenieb.github.io/korhogo/sitemap.xml
 Sitemap: https://mauktenieb.github.io/reporhogo/sitemap.xml
