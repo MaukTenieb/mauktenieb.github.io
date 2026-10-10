@@ -127,10 +127,12 @@ src('youtube', youtube)
 # ---------- Substack ----------
 def substack(sub):
     def f():
-        st, _, p = get('https://%s.substack.com/about' % sub)
-        body = re.search(r'<div class="[^"]*about[^"]*"[^>]*>(.*?)</div>\s*</div>', p, re.S)
-        return {'url': 'https://%s.substack.com' % sub, 'status': st, **meta(p, 'description', 'og:description', 'og:title'),
-                'about': text(body.group(1))[:4000] if body else ''}
+        st, _, p = get('https://%s.substack.com/feed' % sub, 'application/rss+xml', BOT)
+        ch = re.search(r'<channel>(.*?)<item>', p, re.S)
+        tag = lambda t: html.unescape(re.sub(r'<!\[CDATA\[|\]\]>', '', (re.search(r'<%s>(.*?)</%s>' % (t, t), ch.group(1), re.S) or re.search('()', '')).group(1))).strip() if ch else ''
+        items = re.findall(r'<item>.*?<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>', p, re.S)
+        return {'url': 'https://%s.substack.com' % sub, 'status': st, 'title': tag('title'), 'description': tag('description'),
+                'latest_posts': [html.unescape(i) for i in items[:20]]}
     return f
 src('substack_korhogo', substack('korhogo'))
 src('substack_mauktenieb', substack('mauktenieb'))
@@ -204,6 +206,8 @@ def simple(name, url):
         return {'url': url, 'status': st, 'final_url': final, **meta(p, 'description', 'og:description', 'og:title')}
     src(name, f)
 simple('threadless', 'https://korhogo.threadless.com/')
+simple('spotify', 'https://open.spotify.com/artist/46TR4jGT6eQwpw27q6zSQ5')
+simple('bandlab', 'https://www.bandlab.com/mauktenieb')
 simple('slaps', 'https://slaps.com/user/mauktenieb')
 simple('ethnocloud', 'https://ethnocloud.com/Mauk_Tenieb___The_Korhogo_Fauna/')
 simple('facebook', 'https://www.facebook.com/mauktenieb/')
