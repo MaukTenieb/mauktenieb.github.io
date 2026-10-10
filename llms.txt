@@ -24,3 +24,4 @@
 
 ## Rights
 Copyright © Mauk Tenieb & Korhogo. All rights reserved. No reproduction or reuse without written permission, including for training or use by artificial-intelligence systems.
+- [Insert Koin notes](https://mauktenieb.github.io/insertkoin/notes/): technical notes on how Insert Koin gets made
