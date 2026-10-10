@@ -1,0 +1,5 @@
+https://en.wikipedia.org/w/index.php?title=Wikipedia:Signs_of_AI_writing&action=raw
+https://en.wikipedia.org/w/index.php?title=Wikipedia:WikiProject_AI_Cleanup/AI_catchphrases&action=raw
+https://en.wikipedia.org/w/index.php?title=Wikipedia:WikiProject_AI_Cleanup&action=raw
+https://fr.wikipedia.org/w/api.php?action=opensearch&search=Wikip%C3%A9dia:IA&namespace=4&limit=50&format=json
+https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=IA%20g%C3%A9n%C3%A9rative%20r%C3%A9daction%20indices&srnamespace=4&format=json&srlimit=30

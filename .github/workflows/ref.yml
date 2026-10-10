@@ -1,0 +1,23 @@
+# Reference fetch: downloads the reference pages listed in .github/ref/urls.txt into the branch ref,
+# for documentation work (writing guides, standards). Runs when the list changes.
+name: Reference fetch
+on:
+  push:
+    branches: [main]
+    paths: ['.github/ref/urls.txt']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p /tmp/ref && cd /tmp/ref
+          i=0; while read -r u; do [ -z "$u" ] && continue; i=$((i+1))
+            curl -sSL -A 'MaukTenieb-ref/1.0 (+https://github.com/MaukTenieb)' "$u" -o "ref-$i.txt" || true
+            echo "$i $u" >> index.txt; done < "$GITHUB_WORKSPACE/.github/ref/urls.txt"
+          git init -q -b ref && git config user.name ref && git config user.email actions@users.noreply.github.com
+          git add . && git commit -qm "Reference pages $(date -u +%F)"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:ref
