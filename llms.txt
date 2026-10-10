@@ -13,7 +13,6 @@
 ## Sites
 - [Insert Koin](https://mauktenieb.github.io/insertkoin/)
 - [3615](https://mauktenieb.github.io/3615/)
-- [Korhogo](https://mauktenieb.github.io/korhogo/)
 
 ## Code
 - [Reporhogo](https://mauktenieb.github.io/reporhogo/): one topic, forty-one code forges (MIT). Source: https://github.com/MaukTenieb/reporhogo
