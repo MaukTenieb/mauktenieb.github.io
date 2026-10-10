@@ -1,0 +1,32 @@
+# Bio watch: reads the live biography of Mauk Tenieb on every profile and keeps a dated copy
+# in the branch bio-watch (bios.md, bios.json), so drift between profiles can be seen and fixed.
+# Runs when the script changes, every Monday, and by hand (Actions > Bio watch > Run workflow).
+name: Bio watch
+on:
+  push:
+    branches: [main]
+    paths: ['.github/bio-watch/**', '.github/workflows/bio-watch.yml']
+  schedule:
+    - cron: '41 5 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read every profile
+        run: |
+          mkdir -p /tmp/out && cd /tmp/out
+          python3 "$GITHUB_WORKSPACE/.github/bio-watch/watch.py"
+      - name: Keep the copy in the bio-watch branch
+        run: |
+          cd /tmp/out
+          git init -q -b bio-watch
+          git config user.name "bio-watch"; git config user.email "actions@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git fetch -q origin bio-watch && git reset -q --soft origin/bio-watch || true
+          git add bios.md bios.json
+          git commit -qm "Bios checked $(date -u +%F)" || exit 0
+          git push -q origin HEAD:bio-watch
