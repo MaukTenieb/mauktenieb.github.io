@@ -2,7 +2,7 @@
 # Bio watch: reads the current, live biography of Mauk Tenieb on every profile, from public endpoints,
 # and writes bios.json + bios.md. Standard library only. Run by .github/workflows/bio-watch.yml.
 # Copyright © Mauk Tenieb & Korhogo. All rights reserved. No use for training artificial intelligence.
-import json, re, html, sys, time, urllib.request, urllib.error
+import json, re, html, sys, time, urllib.request, urllib.error, urllib.parse
 
 UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36'
 BOT = 'MaukTenieb-bio-watch/1.0 (+https://github.com/MaukTenieb/mauktenieb.github.io)'
@@ -17,6 +17,14 @@ def get(url, accept='text/html', ua=UA, headers=None):
         return e.code, url, ''
     except Exception as e:
         return 0, url, str(e)
+
+RELAY = 'https://korhotube.mauktenieb.workers.dev/?bio='
+def getr(url, accept='text/html', ua=UA, headers=None):
+    # direct first; when the site refuses data-centre addresses, through the author's Cloudflare Worker
+    st, u, p = get(url, accept, ua, headers)
+    if st == 200: return st, u, p
+    st2, u2, p2 = get(RELAY + urllib.parse.quote(url, safe=''), accept, ua, headers)
+    return (st2, url + ' (relay)', p2) if st2 == 200 else (st, u, p)
 
 def meta(page, *names):
     out = {}
@@ -127,7 +135,7 @@ src('youtube', youtube)
 # ---------- Substack ----------
 def substack(sub):
     def f():
-        st, _, p = get('https://%s.substack.com/feed' % sub, 'application/rss+xml', BOT)
+        st, _, p = getr('https://%s.substack.com/feed' % sub, 'application/rss+xml', BOT)
         ch = re.search(r'<channel>(.*?)<item>', p, re.S)
         tag = lambda t: html.unescape(re.sub(r'<!\[CDATA\[|\]\]>', '', (re.search(r'<%s>(.*?)</%s>' % (t, t), ch.group(1), re.S) or re.search('()', '')).group(1))).strip() if ch else ''
         items = re.findall(r'<item>.*?<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>', p, re.S)
@@ -143,9 +151,9 @@ def substack_api():
     out = {}
     for name, url in [('profile', 'https://substack.com/api/v1/user/mauktenieb/public_profile'),
                       ('korhogo', 'https://korhogo.substack.com/api/v1/homepage_data'),
-                      ('korhogo_archive', 'https://korhogo.substack.com/api/v1/archive?sort=new&limit=12'),
+                      ('korhogo_archive', 'https://korhogo.substack.com/api/v1/archive'),
                       ('mauktenieb', 'https://mauktenieb.substack.com/api/v1/homepage_data')]:
-        st, _, p = get(url, 'application/json', UA)
+        st, _, p = getr(url, 'application/json', UA)
         try: d = json.loads(p)
         except Exception: d = None
         if name == 'profile' and isinstance(d, dict):
@@ -238,7 +246,7 @@ simple('facebook', 'https://www.facebook.com/mauktenieb/')
 # ---------- Instagram (often refused to robots; kept for the record) ----------
 def instagram(user):
     def f():
-        st, _, p = get('https://i.instagram.com/api/v1/users/web_profile_info/?username=%s' % user, 'application/json', UA, {'x-ig-app-id': '936619743392459'})
+        st, _, p = getr('https://www.instagram.com/api/v1/users/web_profile_info/?username=%s' % user, 'application/json', UA, {'x-ig-app-id': '936619743392459'})
         u = (json.loads(p).get('data') or {}).get('user') or {} if st == 200 else {}
         return {'url': 'https://www.instagram.com/%s/' % user, 'status': st, 'full_name': u.get('full_name'), 'biography': u.get('biography'),
                 'external_url': u.get('external_url'), 'bio_links': [b.get('url') for b in u.get('bio_links') or []]}
@@ -248,7 +256,7 @@ for u in ['mauktenieb', 'route6166', 'gorbuzsadr', 'mauktenieb2', 'mauktenieb3']
 
 # ---------- X ----------
 def xprofile():
-    st, _, p = get('https://syndication.twitter.com/srv/timeline-profile/screen-name/mauktenieb')
+    st, _, p = getr('https://syndication.twitter.com/srv/timeline-profile/screen-name/mauktenieb')
     nd = re.search(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', p, re.S)
     u = {}
     if nd:
