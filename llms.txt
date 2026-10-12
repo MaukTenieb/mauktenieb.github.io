@@ -15,7 +15,7 @@
 - [3615](https://mauktenieb.github.io/3615/)
 
 ## Code
-- [Reporhogo](https://mauktenieb.github.io/reporhogo/): one topic, forty-one code forges (MIT). Source: https://github.com/MaukTenieb/reporhogo
+- [Reporhogo](https://mauktenieb.github.io/reporhogo/): searches forty-one code forges for a topic (MIT). Source: https://github.com/MaukTenieb/reporhogo
 - [Photofauna](https://mauktenieb.github.io/insertkoin/fotofauna.html): pocket photo emulator.
 - [FaunaTor](https://mauktenieb.github.io/faunator/): Tor inside a web page, web and .onion (MIT). Source: https://github.com/MaukTenieb/faunator
 - [KorhoTube](https://github.com/MaukTenieb/korhotube): all the videos of a YouTube channel as JSON, with tags, chapters, dubbing, subtitles and exact dates (MIT).
