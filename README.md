@@ -29,3 +29,5 @@ Built for the works above. The licence is in each repository.
 - [Photofauna](https://github.com/MaukTenieb/Photofauna): the pocket photo emulator
 - [TorView](https://github.com/MaukTenieb/torview): a minimal Tor browser, Go
 <!-- network:end -->
+
+Method for transmedia creators (one truth, two layers): [METHOD.md](METHOD.md).
