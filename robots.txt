@@ -1,6 +1,7 @@
 # Search and answer engines: welcome
 User-agent: *
 Allow: /
+Disallow: /mb/
 
 # Answer engines that cite and link (search, not training): explicitly welcome
 User-agent: OAI-SearchBot
