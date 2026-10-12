@@ -21,11 +21,11 @@ select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid va
 <header><h1>MusicBrainz · Mauk Tenieb et les avatars</h1>
 <p class="dim">Une sortie par bouton. MusicBrainz s'ouvre dans un nouvel onglet avec la fiche remplie : relis, puis « Enter edit ». Cette page relit MusicBrainz à chaque ouverture et coche ce qui y est déjà.</p></header>
 <section><h2>Avant tout</h2><p>Connecte-toi une fois : <a href="https://musicbrainz.org/login" target="_blank" rel="noopener">musicbrainz.org/login</a></p></section>
-<section><h2>1 · Les labels</h2><div id="label"></div></section>
-<section><h2>2 · Les artistes</h2><div id="artists"></div></section>
-<section><h2>3 · Les sorties</h2><div class="bar" id="bar"></div>
+<section><h2>1 · Les artistes</h2><div id="artists"></div></section>
+<section><h2>2 · Les sorties</h2><div class="bar" id="bar"></div>
 <p style="margin:8px 0"><select id="filter"><option value="todo">À envoyer</option><option value="all">Toutes</option><option value="done">Déjà sur MusicBrainz</option></select></p>
 <div id="rels"></div></section>
+<p class="dim" id="label"></p>
 <p class="dim">Données : Bandcamp (mauktenieb, tsimtsumrec) et chaîne YouTube @mauktenieb, préparées le <span id="gen"></span>. Les faits seulement : titres, dates, durées, liens, labels Korhogo et Tsimtsum Rec.</p>
 </main>
 <script>
@@ -49,15 +49,15 @@ function drawArtists(){document.getElementById('artists').innerHTML=D.artists.ma
 function done(r){const ids=r.artists.map(n=>MBID[n]);if(ids.some(x=>!x))return false;const k=norm(r.title);return ids.some(id=>(RG[id]||new Set()).has(k))}
 function fields(r){const f=[['name',r.title]];r.artists.forEach((n,i)=>{f.push([`artist_credit.names.${i}.name`,n],[`artist_credit.names.${i}.artist.name`,n],[`artist_credit.names.${i}.mbid`,MBID[n]||''],[`artist_credit.names.${i}.join_phrase`,r.joins[i]||''])});
  f.push(['type',r.type.toLowerCase()]);(r.secondary||[]).forEach(s=>f.push(['type',s.toLowerCase()]));f.push(['status','official']);
- if(r.date){f.push(['events.0.date.year',r.date[0]],['events.0.date.month',r.date[1]],['events.0.date.day',r.date[2]])}f.push(['events.0.country','XW'],['labels.0.mbid',LABELS[labelOf(r)]||''],['mediums.0.format','Digital Media']);
+ if(r.date){f.push(['events.0.date.year',r.date[0]],['events.0.date.month',r.date[1]],['events.0.date.day',r.date[2]])}f.push(['events.0.country','XW'],...(LABELS[labelOf(r)]?[['labels.0.mbid',LABELS[labelOf(r)]]]:[['labels.0.name',labelOf(r)]]),['mediums.0.format','Digital Media']);
  r.tracks.forEach((t,j)=>{f.push([`mediums.0.track.${j}.number`,j+1],[`mediums.0.track.${j}.name`,t[0]]);if(t[1])f.push([`mediums.0.track.${j}.length`,t[1]])});
  r.urls.forEach((u,k)=>f.push([`urls.${k}.url`,u[0]],[`urls.${k}.link_type`,u[1]]));f.push(['edit_note',r.note+' — seeded from the artist\'s own catalogue data.']);return f}
 function drawReleases(){const mode=document.getElementById('filter').value;let n=0,d=0;
- const html=D.releases.map((r,i)=>{const ok=done(r),ready=r.artists.every(a=>MBID[a])&&!!LABELS[labelOf(r)];n++;if(ok)d++;
+ const html=D.releases.map((r,i)=>{const ok=done(r),ready=r.artists.every(a=>MBID[a]);n++;if(ok)d++;
   if(mode==='todo'&&ok||mode==='done'&&!ok)return '';
   return `<div class="row"><div class="t"><span class="dim">${esc(r.artists.map((a,k)=>a+(r.joins[k]||'')).join(''))}</span> · <b>${esc(r.title)}</b></div>
   <form method="post" action="https://musicbrainz.org/release/add" target="_blank" accept-charset="UTF-8">${fields(r).map(([k,v])=>`<input type="hidden" name="${esc(k)}" value="${esc(v)}">`).join('')}<button ${ok||!ready?'disabled':''}>${ok?'Déjà là':'Envoyer'}</button></form>
-  <div class="m">${r.date?r.date.join('-'):''} · ${r.type}${(r.secondary||[]).length?' (mixtape)':''} · ${r.tracks.length} titre(s) · ${r.source==='bandcamp'?'Bandcamp':'YouTube'} · genres : ${esc((r.genres||[]).join(', '))}${!ready&&!ok?' · <span class="st wait">artiste ou label à créer d\'abord</span>':''}</div></div>`}).join('');
+  <div class="m">${r.date?r.date.join('-'):''} · ${r.type}${(r.secondary||[]).length?' (mixtape)':''} · ${r.tracks.length} titre(s) · ${r.source==='bandcamp'?'Bandcamp':'YouTube'} · genres : ${esc((r.genres||[]).join(', '))}${!ready&&!ok?' · <span class="st wait">artiste à créer d\'abord</span>':''}</div></div>`}).join('');
  document.getElementById('rels').innerHTML=html||'<p class="dim">Rien à afficher.</p>';
  document.getElementById('bar').innerHTML=`<span>Sorties <b>${n}</b></span><span>Déjà sur MusicBrainz <b>${d}</b></span><span>À envoyer <b>${n-d}</b></span>`}
 document.getElementById('filter').onchange=drawReleases;
@@ -67,7 +67,7 @@ async function findArtist(a){if(a.name==='Mauk Tenieb'||a.name==='Tsimtsum'){con
 async function groups(id){const s=new Set();for(let off=0;off<1000;off+=100){const j=await q(`release-group?artist=${id}&limit=100&offset=${off}&fmt=json`);if(!j)break;(j['release-groups']||[]).forEach(g=>s.add(norm(g.title)));if(off+100>=(j['release-group-count']||0))break}RG[id]=s}
 function labelURL(LB){const p=new URLSearchParams();p.set('edit-label.name',LB.name);p.set('edit-label.type_id',LB.type_id);p.set('edit-label.area.name',LB.area);p.set('edit-label.comment',LB.comment);p.set('edit-label.period.begin_date.year',LB.begin);
  LB.urls.forEach((u,i)=>{p.set(`edit-label.url.${i}.text`,u[0]);p.set(`edit-label.url.${i}.link_type_id`,u[1])});p.set('edit-label.edit_note',`Label of the releases on Bandcamp (${LB.urls[1][0]}), Discogs label ${LB.discogs}.`);return 'https://musicbrainz.org/label/create?'+p}
-function drawLabel(){document.getElementById('label').innerHTML=LBS.map(LB=>{const id=LABELS[LB.name];return `<div class="row"><div class="t"><b>${esc(LB.name)}</b> <span class="dim">${esc(LB.what)}</span></div>${id?`<a class="btn" style="background:var(--ok)" href="https://musicbrainz.org/label/${id}" target="_blank" rel="noopener">Sur MusicBrainz</a>`:`<a class="btn" href="${esc(labelURL(LB))}" target="_blank" rel="noopener">Créer</a>`}<div class="m st ${id?'ok':'wait'}">${id?'existe':(id===null?'à créer':'recherche…')}</div></div>`}).join('')}
+function drawLabel(){document.getElementById('label').innerHTML='Labels : '+LBS.map(LB=>{const id=LABELS[LB.name];return id?`<a href="https://musicbrainz.org/label/${id}" target="_blank" rel="noopener">${esc(LB.name)}</a>`:`${esc(LB.name)} (<a href="${esc(labelURL(LB))}" target="_blank" rel="noopener">créer</a>)`}).join(' · ')}
 async function findLabel(LB){const j=await q('url?resource='+encodeURIComponent('https://www.discogs.com/label/'+LB.discogs)+'&inc=label-rels&fmt=json');const rel=j&&(j.relations||[]).find(x=>x.label);if(rel)return rel.label.id;
  const k=await q('label?query='+encodeURIComponent(`label:"${LB.name}" AND comment:Tenieb`)+'&fmt=json');const h=k&&(k.labels||[]).find(x=>x.name===LB.name&&/tenieb/i.test(x.disambiguation||''));return h?h.id:null}
 drawLabel();drawArtists();drawReleases();
