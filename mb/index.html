@@ -39,7 +39,7 @@ const labelOf=r=>r.label||(r.urls.some(u=>/tsimtsumrec/.test(u[0]))?'Tsimtsum Re
 const norm=s=>(s||'').normalize('NFKD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'');
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 async function get1(path){for(let k=0;k<4;k++){try{const x=await fetch(API+path,{headers:{Accept:'application/json'}});if(x.ok)return x.json();if(x.status===404)return null;}catch(e){}await new Promise(r=>setTimeout(r,2000*(k+1)))}throw new Error('MusicBrainz busy')}
-function q(path){busy=busy.catch(()=>{}).then(()=>new Promise(r=>setTimeout(r,1100))).then(()=>get1(path));return busy}
+let QN=0;function q(path){busy=busy.catch(()=>{}).then(()=>new Promise(r=>setTimeout(r,1100))).then(()=>get1(path)).finally(()=>{QN++;if(!LOADED)drawGuide()});return busy}
 document.getElementById('gen').textContent=D.generated;
 function sortName(a){return a.name==='Mauk Tenieb'?'Tenieb, Mauk':a.name}
 function createURL(a){const p=new URLSearchParams();p.set('edit-artist.name',a.name);p.set('edit-artist.sort_name',sortName(a));p.set('edit-artist.type_id',a.type_id);
@@ -88,7 +88,7 @@ function step(){
  if(rest.length)return{kind:'reload',title:'Sorties envoyées',todo:['Clique sur le bouton violet ci-dessous : la page se recharge et vérifie chaque sortie sur MusicBrainz.']};
  return{kind:'end',title:'Tout est sur MusicBrainz',todo:['Écris « fini » à Claude.']}}
 function drawGuide(){const g=document.getElementById('guide');
- if(!LOADED){g.innerHTML='<p class="n">Guide</p><p>Lecture de MusicBrainz… attends que ce cadre affiche un bouton.</p>';return}
+ if(!LOADED){g.innerHTML=`<p class="n">Guide</p><p>Lecture de MusicBrainz : ${QN} questions posées sur environ 25. Le bouton apparaît tout seul, en moins d'une minute. Garde la page ouverte.</p>`;return}
  const s=step();
  const btn=s.kind==='end'?'':s.kind==='reload'?'<button class="go" id="go">Recharger la page</button>':s.kind==='release'?'<button class="go" id="go">Ouvrir sur MusicBrainz</button>':`<a class="btn go" id="go" href="${esc(s.href)}" target="_blank" rel="noopener">Ouvrir sur MusicBrainz</a>`;
  g.innerHTML=`<p class="n">Guide</p><p><b>${esc(s.title)}</b></p><ol>${s.todo.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>${btn}`;
