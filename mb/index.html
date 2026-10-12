@@ -61,7 +61,7 @@ function drawReleases(){const mode=document.getElementById('filter').value;let n
   if(mode==='todo'&&ok||mode==='done'&&!ok)return '';
   return `<div class="row"><div class="t"><span class="dim">${esc(r.artists.map((a,k)=>a+(r.joins[k]||'')).join(''))}</span> · <b>${esc(r.title)}</b></div>
   <form method="post" action="https://musicbrainz.org/release/add" target="_blank" accept-charset="UTF-8">${fields(r).map(([k,v])=>`<input type="hidden" name="${esc(k)}" value="${esc(v)}">`).join('')}<button ${ok||!ready?'disabled':''}>${ok?'Déjà là':'Envoyer'}</button></form>
-  <div class="m">${r.date?r.date.join('-'):''} · ${r.type}${(r.secondary||[]).length?' (mixtape)':''} · ${r.tracks.length} titre(s) · ${r.source==='bandcamp'?'Bandcamp':'YouTube'} · genres : ${esc((r.genres||[]).join(', '))}${!ready&&!ok?' · <span class="st wait">artiste à créer d\'abord</span>':''}</div></div>`}).join('');
+  <div class="m">${r.date?r.date.join('-'):''} · ${r.type}${(r.secondary||[]).length?' (mixtape)':''} · ${r.tracks.length} titre(s) · ${r.source==='bandcamp'?'Bandcamp':'YouTube'}${!ready&&!ok?' · <span class="st wait">artiste à créer d\'abord</span>':''}</div></div>`}).join('');
  document.getElementById('rels').innerHTML=html||'<p class="dim">Liste vide pour ce filtre.</p>';
  document.getElementById('bar').innerHTML=`<span>Sorties <b>${n}</b></span><span>Déjà sur MusicBrainz <b>${d}</b></span><span>À envoyer <b>${n-d}</b></span>`}
 document.getElementById('filter').onchange=drawReleases;
