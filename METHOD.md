@@ -20,7 +20,7 @@ How Mauk Tenieb keeps the public data of Korhogo consistent across YouTube, Band
 5. Write only what differs, keep every replaced text, and allow one run to restore the previous state.
 6. Report the count of records the chain rewrites, keeps and sees refused.
 
-Tools in the open: [Reporhogo](https://github.com/MaukTenieb/reporhogo) searches forty-one forges for one topic; [KorhoTube](https://github.com/MaukTenieb/korhotube) reads a YouTube channel as JSON.
+Tools in the open: [Reporhogo](https://github.com/MaukTenieb/reporhogo) searches forty-one code forges for a topic; [KorhoTube](https://github.com/MaukTenieb/korhotube) reads a YouTube channel as JSON.
 
 ---
 
