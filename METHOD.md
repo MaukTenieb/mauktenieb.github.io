@@ -26,7 +26,7 @@ Tools in the open: [Reporhogo](https://github.com/MaukTenieb/reporhogo) searches
 
 # Comment Mauk Tenieb tient cohérentes les données publiques de Korhogo
 
-La méthode couvre YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, ses sites et Wikidata. Mauk Tenieb a fixé cette méthode en octobre 2026.
+La méthode couvre YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, ses sites et Wikidata. Mauk Tenieb fixe cette méthode en octobre 2026.
 
 ## Principes
 
