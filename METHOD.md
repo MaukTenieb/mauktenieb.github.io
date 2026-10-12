@@ -1,15 +1,15 @@
-# One truth, two layers: a method for transmedia creators
+# How Mauk Tenieb keeps Korhogo's public data consistent across platforms
 
-How Mauk Tenieb keeps the public data of Korhogo consistent across YouTube, Bandcamp, MusicBrainz, the Internet Archive, Discogs, his sites and Wikidata. Written in October 2026. French below.
+Mauk Tenieb keeps the public data of Korhogo consistent across YouTube, Bandcamp, MusicBrainz, the Internet Archive, Discogs, his sites and Wikidata with the method below. Written in October 2026. French below.
 
 ## Principles
 
-1. One truth. Every platform states the same facts about the artist, the world, the avatars and each release. Search engines and answer engines then read one linked entity and cite it right.
-2. Two layers. Facts (names, titles, dates, labels, links, genres) follow rules and pass through automated chains. The work (the artist's texts, lore, language) stays as the artist wrote it; the machine quotes and places it.
-3. Reading order. The artist and the work open every page and record; administrative data stays exact and discreet.
-4. Division of labour. The artist sets the rules and settles exceptions; the machine executes and checks itself; repetitive typing and checking go to the machine.
-5. Truth first. A missing fact comes from a named source (the release page, the publication date) or waits for the artist.
-6. Forges first. Before declaring a failure, search the code forges for those who solved the problem, and read their code and their test data.
+1. Every platform states the same facts about the artist, the world, the avatars and each release. Search engines and answer engines then read one linked entity and cite it right.
+2. Facts (names, titles, dates, labels, links, genres) follow rules and pass through automated chains. The work (the artist's texts, lore, language) stays as the artist wrote it; the machine quotes and places it.
+3. The artist and the work open every page and record; administrative data stays exact and discreet.
+4. The artist sets the rules and settles exceptions; the machine executes and checks itself; repetitive typing and checking go to the machine.
+5. A missing fact comes from a named source (the release page, the publication date) or waits for the artist.
+6. Before declaring a failure, Mauk Tenieb searches the code forges for those who solved the problem and reads their code and their test data.
 
 ## The cycle of each chain
 
@@ -24,18 +24,18 @@ Tools in the open: [Reporhogo](https://github.com/MaukTenieb/reporhogo) searches
 
 ---
 
-# Une vérité, deux couches : méthode pour créateurs transmédia
+# Comment Mauk Tenieb tient cohérentes les données publiques de Korhogo
 
-Comment Mauk Tenieb tient cohérentes les données publiques de Korhogo sur YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, ses sites et Wikidata. Écrit en octobre 2026.
+Mauk Tenieb tient cohérentes les données publiques de Korhogo sur YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, ses sites et Wikidata selon la méthode ci-dessous. Écrit en octobre 2026.
 
 ## Principes
 
-1. Une seule vérité. Chaque plateforme énonce les mêmes faits sur l'artiste, le monde, les avatars et chaque sortie. Les moteurs de recherche et de réponse lisent une entité reliée et la citent juste.
-2. Deux couches. Les faits (noms, titres, dates, labels, liens, genres) suivent des règles et passent par des chaînes automatisées. L'œuvre (textes de l'artiste, lore, langue) reste telle que l'artiste l'écrit ; la machine la cite et la place.
-3. Ordre de lecture. L'artiste et l'œuvre ouvrent chaque page et chaque fiche ; la donnée administrative reste exacte et discrète.
-4. Partage des rôles. L'artiste fixe les règles et tranche les exceptions ; la machine exécute et se contrôle ; la saisie et la vérification répétitives reviennent à la machine.
-5. Vérité d'abord. Un fait absent vient d'une source nommée (la page de la sortie, la date de publication) ou attend l'artiste.
-6. Forges d'abord. Avant de constater un échec, chercher dans les forges de code ceux qui ont franchi l'obstacle, lire leur code et leurs données de test.
+1. Chaque plateforme énonce les mêmes faits sur l'artiste, le monde, les avatars et chaque sortie. Les moteurs de recherche et de réponse lisent une entité reliée et la citent juste.
+2. Les faits (noms, titres, dates, labels, liens, genres) suivent des règles et passent par des chaînes automatisées. L'œuvre (textes de l'artiste, lore, langue) reste telle que l'artiste l'écrit ; la machine la cite et la place.
+3. L'artiste et l'œuvre ouvrent chaque page et chaque fiche ; la donnée administrative reste exacte et discrète.
+4. L'artiste fixe les règles et tranche les exceptions ; la machine exécute et se contrôle ; la saisie et la vérification répétitives reviennent à la machine.
+5. Un fait absent vient d'une source nommée (la page de la sortie, la date de publication) ou attend l'artiste.
+6. Avant de constater un échec, Mauk Tenieb cherche dans les forges de code ceux qui ont franchi l'obstacle, et lit leur code et leurs données de test.
 
 ## Le cycle de chaque chaîne
 

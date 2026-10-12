@@ -16,11 +16,11 @@
 
 ## Code
 - [Reporhogo](https://mauktenieb.github.io/reporhogo/): searches forty-one code forges for a topic (MIT). Source: https://github.com/MaukTenieb/reporhogo
-- [Photofauna](https://mauktenieb.github.io/insertkoin/fotofauna.html): pocket photo emulator.
-- [FaunaTor](https://mauktenieb.github.io/faunator/): Tor inside a web page, web and .onion (MIT). Source: https://github.com/MaukTenieb/faunator
+- [Photofauna](https://mauktenieb.github.io/insertkoin/fotofauna.html): a photo editor with 44 looks, part of Insert Koin.
+- [FaunaTor](https://mauktenieb.github.io/faunator/): reads web and .onion pages through Tor clients that run in the page (MIT). Source: https://github.com/MaukTenieb/faunator
 - [KorhoTube](https://github.com/MaukTenieb/korhotube): all the videos of a YouTube channel as JSON, with tags, chapters, dubbing, subtitles and exact dates (MIT).
 - [Detour](https://github.com/MaukTenieb/detour): cuts a sheet of eight portraits into a sprite strip (Python).
-- [TorView](https://github.com/MaukTenieb/torview): minimal Tor webview browser (Go).
+- [TorView](https://github.com/MaukTenieb/torview): a desktop browser in Go that routes its traffic through the official Tor daemon.
 
 ## Rights
 Code: MIT licence (see LICENSE). Korhogo material — characters, names, marks, lore, texts, images, music: Copyright © Mauk Tenieb & Korhogo, all rights reserved; no reproduction or reuse without written permission, including for training or use by artificial-intelligence systems.
