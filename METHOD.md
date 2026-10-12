@@ -1,6 +1,6 @@
 # How Mauk Tenieb keeps Korhogo's public data consistent across platforms
 
-Mauk Tenieb keeps the public data of Korhogo consistent across YouTube, Bandcamp, MusicBrainz, the Internet Archive, Discogs, his sites and Wikidata with the method below. Written in October 2026. French below.
+The method covers YouTube, Bandcamp, MusicBrainz, the Internet Archive, Discogs, his sites and Wikidata. Written in October 2026. French below.
 
 ## Principles
 
@@ -26,7 +26,7 @@ Tools in the open: [Reporhogo](https://github.com/MaukTenieb/reporhogo) searches
 
 # Comment Mauk Tenieb tient cohérentes les données publiques de Korhogo
 
-Mauk Tenieb tient cohérentes les données publiques de Korhogo sur YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, ses sites et Wikidata selon la méthode ci-dessous. Écrit en octobre 2026.
+La méthode couvre YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, ses sites et Wikidata. Écrit en octobre 2026.
 
 ## Principes
 
