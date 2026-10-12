@@ -12,7 +12,7 @@ Code: MIT licence (see `LICENSE`). Korhogo material — characters, names, marks
 ## Korhogo
 
 - [Katabase](https://mauktenieb.github.io/katabase): concept albums, the 18 Masks, the lore
-- [Insert Koin](https://mauktenieb.github.io/insertkoin/): the games and machines of Korhogo in the browser
+- [Insert Koin](https://mauktenieb.github.io/insertkoin/): Mauk Tenieb's Korhogo world, games and machines in a browser
 - [3615 KORHOGO](https://mauktenieb.github.io/3615/): the Minitel terminal
 - [Bandcamp](https://mauktenieb.bandcamp.com): music and sales
 - [Substack](https://korhogo.substack.com): the journal
