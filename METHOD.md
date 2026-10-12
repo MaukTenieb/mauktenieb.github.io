@@ -1,6 +1,6 @@
 # How Mauk Tenieb keeps Korhogo's public data consistent across platforms
 
-The method covers YouTube, Bandcamp, MusicBrainz, the Internet Archive, Discogs, his sites and Wikidata. Written in October 2026. French below.
+The method covers YouTube, Bandcamp, MusicBrainz, the Internet Archive, Discogs, his sites and Wikidata. Mauk Tenieb set this method in October 2026. French below.
 
 ## Principles
 
@@ -9,7 +9,7 @@ The method covers YouTube, Bandcamp, MusicBrainz, the Internet Archive, Discogs,
 3. The artist and the work open every page and record; administrative data stays exact and discreet.
 4. The artist sets the rules and settles exceptions; the machine executes and checks itself; repetitive typing and checking go to the machine.
 5. A missing fact comes from a named source (the release page, the publication date) or waits for the artist.
-6. Before declaring a failure, Mauk Tenieb searches the code forges for those who solved the problem and reads their code and their test data.
+6. Before declaring a failure, the method searches the code forges for those who solved the problem and reads their code and their test data.
 
 ## The cycle of each chain
 
@@ -20,13 +20,13 @@ The method covers YouTube, Bandcamp, MusicBrainz, the Internet Archive, Discogs,
 5. Write only what differs, keep every replaced text, and allow one run to restore the previous state.
 6. Report the count of records the chain rewrites, keeps and sees refused.
 
-Tools in the open: [Reporhogo](https://github.com/MaukTenieb/reporhogo) searches forty-one code forges for a topic; [KorhoTube](https://github.com/MaukTenieb/korhotube) reads a YouTube channel as JSON.
+Tools in the open: [Reporhogo](https://github.com/MaukTenieb/reporhogo) searches forty-one code forges for a topic; [KorhoTube](https://github.com/MaukTenieb/korhotube) lists the public videos of a YouTube channel as JSON.
 
 ---
 
 # Comment Mauk Tenieb tient cohérentes les données publiques de Korhogo
 
-La méthode couvre YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, ses sites et Wikidata. Écrit en octobre 2026.
+La méthode couvre YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, ses sites et Wikidata. Mauk Tenieb a fixé cette méthode en octobre 2026.
 
 ## Principes
 
@@ -35,7 +35,7 @@ La méthode couvre YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, se
 3. L'artiste et l'œuvre ouvrent chaque page et chaque fiche ; la donnée administrative reste exacte et discrète.
 4. L'artiste fixe les règles et tranche les exceptions ; la machine exécute et se contrôle ; la saisie et la vérification répétitives reviennent à la machine.
 5. Un fait absent vient d'une source nommée (la page de la sortie, la date de publication) ou attend l'artiste.
-6. Avant de constater un échec, Mauk Tenieb cherche dans les forges de code ceux qui ont franchi l'obstacle, et lit leur code et leurs données de test.
+6. Avant de constater un échec, la méthode cherche dans les forges de code ceux qui ont franchi l'obstacle, et lit leur code et leurs données de test.
 
 ## Le cycle de chaque chaîne
 
@@ -45,5 +45,7 @@ La méthode couvre YouTube, Bandcamp, MusicBrainz, Internet Archive, Discogs, se
 4. Faire relire l'ensemble par un relecteur indépendant, jusqu'à zéro faute ; chaque nouvelle règle déclenche une relecture complète, qui attrape les régressions.
 5. Écrire seulement ce qui diffère, garder chaque texte remplacé, permettre à un seul passage de restaurer l'état antérieur.
 6. Compter les fiches que la chaîne réécrit, garde, ou voit refusées.
+
+Outils publics : [Reporhogo](https://github.com/MaukTenieb/reporhogo) cherche un sujet dans quarante et une forges de code et liste les dépôts trouvés ; [KorhoTube](https://github.com/MaukTenieb/korhotube) liste les vidéos publiques d'une chaîne YouTube en JSON.
 
 Code: MIT licence. Korhogo material: Copyright © Mauk Tenieb & Korhogo, all rights reserved; training of artificial intelligence on it requires written permission.

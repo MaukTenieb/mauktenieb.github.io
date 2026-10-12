@@ -6,16 +6,22 @@ Disallow: /mb/
 # Answer engines that cite and link (search, not training): explicitly welcome
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /mb/
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /mb/
 User-agent: PerplexityBot
 Allow: /
+Disallow: /mb/
 User-agent: Perplexity-User
 Allow: /
+Disallow: /mb/
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /mb/
 User-agent: Claude-User
 Allow: /
+Disallow: /mb/
 
 # Model-training crawlers: no
 User-agent: GPTBot
