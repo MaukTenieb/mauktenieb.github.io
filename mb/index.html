@@ -17,9 +17,12 @@ button,.btn{font:600 13px var(--sans);background:var(--acc);color:var(--bg);bord
 button:disabled{opacity:.35;cursor:not-allowed}form{margin:0}
 .bar{display:flex;flex-wrap:wrap;gap:8px 16px;font:13px var(--mono);color:var(--dim)}.bar b{color:var(--ink)}
 select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:6px}
+.guide{position:sticky;top:0;z-index:2;background:var(--panel);border:2px solid var(--acc);border-radius:10px;padding:14px;display:grid;gap:10px}
+.guide .go{font-size:17px;padding:14px 18px;width:100%}.guide ol{margin:0;padding-left:20px}.guide .n{font:13px var(--mono);color:var(--dim)}
 </style></head><body><main>
-<header><h1>MusicBrainz · Mauk Tenieb et les avatars</h1>
+<header><h1>MusicBrainz · Mauk Tenieb et les Masks</h1>
 <p class="dim">Une sortie par bouton. MusicBrainz s'ouvre dans un nouvel onglet avec la fiche remplie : relis, puis « Enter edit ». Cette page relit MusicBrainz à chaque ouverture et coche ce qui y est déjà.</p></header>
+<section class="guide" id="guide"><p class="n">Guide</p><p>Lecture de MusicBrainz…</p></section>
 <section><h2>Avant tout</h2><p>Connecte-toi une fois : <a href="https://musicbrainz.org/login" target="_blank" rel="noopener">musicbrainz.org/login</a></p></section>
 <section><h2>1 · Les artistes</h2><div id="artists"></div></section>
 <section><h2>2 · Les sorties</h2><div class="bar" id="bar"></div><p class="dim" id="slow"></p>
@@ -71,6 +74,30 @@ function drawLabel(){document.getElementById('label').innerHTML='Labels : '+LBS.
 async function findLabel(LB){const j=await q('url?resource='+encodeURIComponent('https://www.discogs.com/label/'+LB.discogs)+'&inc=label-rels&fmt=json');const rel=j&&(j.relations||[]).find(x=>x.label);if(rel)return rel.label.id;
  const k=await q('label?query='+encodeURIComponent(LB.other?`label:"${LB.name}"`:`label:"${LB.name}" AND comment:(Tenieb OR Korhogo)`)+'&fmt=json');const h=k&&(k.labels||[]).find(x=>x.name.toLowerCase()===LB.name.toLowerCase()&&(LB.other||/tenieb|korhogo/i.test(x.disambiguation||'')));return h?h.id:null}
 drawLabel();drawArtists();drawReleases();
+// guide: one button, the next action, the exact clicks; the machine keeps the order and the count
+const SENT=new Set(); let LOADED=false;
+function step(){
+ if(LBS.some(LB=>LABELS[LB.name]===undefined)||D.artists.some(a=>MBID[a.name]===undefined))return{kind:'reload',title:'MusicBrainz répond lentement',todo:['Attends une minute.','Clique sur le bouton violet ci-dessous.']};
+ const la=LBS.find(LB=>!LABELS[LB.name]&&LABELS[LB.name]!==undefined&&!SENT.has('L'+LB.name));
+ if(la)return{kind:'label',key:'L'+la.name,title:`Label ${la.name}`,href:labelURL(la),todo:['Clique sur le bouton violet ci-dessous.','Dans l\'onglet MusicBrainz qui s\'ouvre, clique sur « Enter edit » tout en bas.','Reviens sur cet onglet.']};
+ const left=D.artists.filter(a=>!MBID[a.name]);const ar=left.find(a=>!SENT.has('A'+a.name));
+ if(ar)return{kind:'artist',key:'A'+ar.name,title:`Artiste ${D.artists.length-left.length+left.indexOf(ar)+1} sur ${D.artists.length} : ${ar.name}`,href:createURL(ar),todo:['Clique sur le bouton violet ci-dessous.','Dans l\'onglet MusicBrainz qui s\'ouvre, clique sur « Enter edit » tout en bas.','Reviens sur cet onglet.']};
+ if(left.length)return{kind:'reload',title:'Artistes envoyés',todo:['Attends 10 secondes.','Clique sur le bouton violet ci-dessous : la page se recharge et passe aux sorties.']};
+ const all=D.releases.map((r,i)=>[r,i]);const rest=all.filter(([r])=>!done(r));const nx=rest.find(([r,i])=>!SENT.has('R'+i));
+ if(nx){const [r,i]=nx;return{kind:'release',key:'R'+i,i,title:`Sortie ${all.length-rest.length+rest.indexOf(nx)+1} sur ${all.length} : ${r.title}`,todo:['Clique sur le bouton violet ci-dessous.','Si MusicBrainz affiche une page de confirmation, clique sur son bouton.','Dans l\'éditeur MusicBrainz, clique sur l\'onglet « Edit note » en haut.','Clique sur « Enter edit » en bas.','Reviens sur cet onglet.']}}
+ if(rest.length)return{kind:'reload',title:'Sorties envoyées',todo:['Clique sur le bouton violet ci-dessous : la page se recharge et vérifie chaque sortie sur MusicBrainz.']};
+ return{kind:'end',title:'Tout est sur MusicBrainz',todo:['Écris « fini » à Claude.']}}
+function drawGuide(){const g=document.getElementById('guide');
+ if(!LOADED){g.innerHTML='<p class="n">Guide</p><p>Lecture de MusicBrainz… attends que ce cadre affiche un bouton.</p>';return}
+ const s=step();
+ const btn=s.kind==='end'?'':s.kind==='reload'?'<button class="go" id="go">Recharger la page</button>':s.kind==='release'?'<button class="go" id="go">Ouvrir sur MusicBrainz</button>':`<a class="btn go" id="go" href="${esc(s.href)}" target="_blank" rel="noopener">Ouvrir sur MusicBrainz</a>`;
+ g.innerHTML=`<p class="n">Guide</p><p><b>${esc(s.title)}</b></p><ol>${s.todo.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>${btn}`;
+ const go=document.getElementById('go');if(!go)return;
+ go.onclick=()=>{if(s.kind==='reload'){location.reload();return}
+  if(s.kind==='release'){const f=document.createElement('form');f.method='post';f.action='https://musicbrainz.org/release/add';f.target='_blank';f.acceptCharset='UTF-8';
+   fields(D.releases[s.i]).forEach(([k,v])=>{const x=document.createElement('input');x.type='hidden';x.name=k;x.value=v;f.appendChild(x)});document.body.appendChild(f);f.submit();f.remove()}
+  SENT.add(s.key);setTimeout(drawGuide,300)}}
+drawGuide();
 (async()=>{for(const LB of LBS){try{LABELS[LB.name]=await findLabel(LB)}catch(e){LABELS[LB.name]=undefined}drawLabel();drawReleases()}for(const a of D.artists){try{MBID[a.name]=await findArtist(a)}catch(e){MBID[a.name]=undefined;document.getElementById('slow').textContent='MusicBrainz répond lentement : recharge la page dans une minute.'}drawArtists();drawReleases()}
- for(const a of D.artists)if(MBID[a.name]){try{await groups(MBID[a.name])}catch(e){}drawReleases()}})();
+ for(const a of D.artists)if(MBID[a.name]){try{await groups(MBID[a.name])}catch(e){}drawReleases()}LOADED=true;drawGuide()})();
 </script></body></html>
