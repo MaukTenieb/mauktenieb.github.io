@@ -22,7 +22,7 @@ select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid va
 <p class="dim">Une sortie par bouton. MusicBrainz s'ouvre dans un nouvel onglet avec la fiche remplie : relis, puis « Enter edit ». Cette page relit MusicBrainz à chaque ouverture et coche ce qui y est déjà.</p></header>
 <section><h2>Avant tout</h2><p>Connecte-toi une fois : <a href="https://musicbrainz.org/login" target="_blank" rel="noopener">musicbrainz.org/login</a></p></section>
 <section><h2>1 · Les artistes</h2><div id="artists"></div></section>
-<section><h2>2 · Les sorties</h2><div class="bar" id="bar"></div>
+<section><h2>2 · Les sorties</h2><div class="bar" id="bar"></div><p class="dim" id="slow"></p>
 <p style="margin:8px 0"><select id="filter"><option value="todo">À envoyer</option><option value="all">Toutes</option><option value="done">Déjà sur MusicBrainz</option></select></p>
 <div id="rels"></div></section>
 <p class="dim" id="label"></p>
@@ -51,7 +51,7 @@ function fields(r){const f=[['name',r.title]];r.artists.forEach((n,i)=>{f.push([
  f.push(['type',r.type.toLowerCase()]);(r.secondary||[]).forEach(s=>f.push(['type',s.toLowerCase()]));f.push(['status','official']);
  if(r.date){f.push(['events.0.date.year',r.date[0]],['events.0.date.month',r.date[1]],['events.0.date.day',r.date[2]])}f.push(['events.0.country','XW'],...(LABELS[labelOf(r)]?[['labels.0.mbid',LABELS[labelOf(r)]]]:[['labels.0.name',labelOf(r)]]),['mediums.0.format','Digital Media']);
  r.tracks.forEach((t,j)=>{f.push([`mediums.0.track.${j}.number`,j+1],[`mediums.0.track.${j}.name`,t[0]]);if(t[1]&&r.type!=='Single')f.push([`mediums.0.track.${j}.length`,t[1]])});
- r.urls.forEach((u,k)=>f.push([`urls.${k}.url`,u[0]],[`urls.${k}.link_type`,u[1]]));f.push(['edit_note',r.note+'. Seeded from the artist\'s own catalogue data.']);return f}
+ r.urls.forEach((u,k)=>f.push([`urls.${k}.url`,u[0]],[`urls.${k}.link_type`,u[1]]));f.push(['edit_note','Seeded from the artist\'s own catalogue data. '+r.note]);return f}
 function drawReleases(){const mode=document.getElementById('filter').value;let n=0,d=0;
  const html=D.releases.map((r,i)=>{const ok=done(r),ready=r.artists.every(a=>MBID[a]);n++;if(ok)d++;
   if(mode==='todo'&&ok||mode==='done'&&!ok)return '';
@@ -71,6 +71,6 @@ function drawLabel(){document.getElementById('label').innerHTML='Labels : '+LBS.
 async function findLabel(LB){const j=await q('url?resource='+encodeURIComponent('https://www.discogs.com/label/'+LB.discogs)+'&inc=label-rels&fmt=json');const rel=j&&(j.relations||[]).find(x=>x.label);if(rel)return rel.label.id;
  const k=await q('label?query='+encodeURIComponent(`label:"${LB.name}" AND comment:Tenieb`)+'&fmt=json');const h=k&&(k.labels||[]).find(x=>x.name===LB.name&&/tenieb/i.test(x.disambiguation||''));return h?h.id:null}
 drawLabel();drawArtists();drawReleases();
-(async()=>{for(const LB of LBS){try{LABELS[LB.name]=await findLabel(LB)}catch(e){LABELS[LB.name]=undefined}drawLabel();drawReleases()}for(const a of D.artists){try{MBID[a.name]=await findArtist(a)}catch(e){MBID[a.name]=undefined;document.getElementById('bar').textContent='MusicBrainz répond lentement : recharge la page dans une minute.'}drawArtists();drawReleases()}
+(async()=>{for(const LB of LBS){try{LABELS[LB.name]=await findLabel(LB)}catch(e){LABELS[LB.name]=undefined}drawLabel();drawReleases()}for(const a of D.artists){try{MBID[a.name]=await findArtist(a)}catch(e){MBID[a.name]=undefined;document.getElementById('slow').textContent='MusicBrainz répond lentement : recharge la page dans une minute.'}drawArtists();drawReleases()}
  for(const a of D.artists)if(MBID[a.name]){try{await groups(MBID[a.name])}catch(e){}drawReleases()}})();
 </script></body></html>
