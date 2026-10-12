@@ -12,7 +12,7 @@ Code: MIT licence (see `LICENSE`). Korhogo material — characters, names, marks
 ## Korhogo
 
 - [Katabase](https://mauktenieb.github.io/katabase): concept albums, the 18 Masks, the lore
-- [Insert Koin](https://mauktenieb.github.io/insertkoin/): Mauk Tenieb's browser games set in Korhogo
+- [Insert Koin](https://mauktenieb.github.io/insertkoin/): the games and machines of Korhogo in the browser
 - [3615 KORHOGO](https://mauktenieb.github.io/3615/): the Minitel terminal
 - [Bandcamp](https://mauktenieb.bandcamp.com): music and sales
 - [Substack](https://korhogo.substack.com): the journal
@@ -24,7 +24,7 @@ Built for the works above. The licence is in each repository.
 
 - [Detour](https://github.com/MaukTenieb/detour): cuts portrait sheets into sprite strips and places the eye lights
 - [FaunaTor](https://github.com/MaukTenieb/faunator): reads web and .onion pages through Tor clients that run in the page
-- [KorhoTube](https://github.com/MaukTenieb/korhotube): lists every video of a YouTube channel as JSON
+- [KorhoTube](https://github.com/MaukTenieb/korhotube): lists the public videos of a YouTube channel as JSON
 - [Reporhogo](https://github.com/MaukTenieb/reporhogo): searches forty-one code forges for a topic and lists the repositories it finds
 - [Photofauna](https://github.com/MaukTenieb/Photofauna): a photo editor with 44 looks, part of Insert Koin
 - [TorView](https://github.com/MaukTenieb/torview): a desktop browser in Go that routes its traffic through the official Tor daemon
