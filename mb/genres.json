@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-12",
+ "generated": "2026-10-16",
  "rule": "genres: illbient, idm, experimental hip hop + up to 2 local official genres; tags: Concept Albums, Experimental Dub, Ethnotronica, Free Improvisation + up to 3 local words. Tsimtsum: its own words.",
  "rows": [
   {
@@ -3778,6 +3778,25 @@
     "illbient",
     "idm",
     "experimental hip hop"
+   ],
+   "tags": [
+    "Concept Albums",
+    "Experimental Dub",
+    "Ethnotronica",
+    "Free Improvisation"
+   ]
+  },
+  {
+   "title": "Gatekeepin' the Fuck Out",
+   "artists": "Honey Buzzard",
+   "source": "bandcamp",
+   "type": "EP",
+   "url": "https://mauktenieb.bandcamp.com/album/honey-buzzard-gatekeepin-the-fuck-out-ep",
+   "genres": [
+    "illbient",
+    "idm",
+    "experimental hip hop",
+    "braindance"
    ],
    "tags": [
     "Concept Albums",
