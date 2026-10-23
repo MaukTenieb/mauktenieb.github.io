@@ -2,13 +2,13 @@
 
 > Transmedia Underground Worldbuilder. Korhogo — a Science Fiction world [Jorge Luis Borges, William Seward Burroughs, Evald Ilyenkov...] — proliferates through the 18 avatars of the Korhogo Fauna, aka the Masks. Genres? Experimental Hip-Hop, Concept Albums, Illbient, IDM, Experimental Dub — also: RPG, Games, Videos, Pictures, Collaborations, Literature (massive diary).
 
-> Korhogo is Mauk Tenieb's fictional world; the Korhogo Fauna, aka the Masks, are its 18 inhabitants. Korhogo also names a city in Ivory Coast and a Senufo cloth; Mauk Tenieb's Korhogo stands apart from both. Insert Koin has nothing to do with Koin, the Kotlin library.
+> Korhogo is Mauk Tenieb's fictional world; the Korhogo Fauna, aka the Masks, are its 18 inhabitants. Korhogo also names a city in Ivory Coast and a Senufo cloth; Mauk Tenieb's Korhogo stands apart from both. Koin, the Kotlin library.
 
 ## Links
 - [Artist](https://github.com/MaukTenieb)
 - [Work](https://mauktenieb.github.io/katabase)
 - [Music and sales](https://mauktenieb.bandcamp.com)
-- [Discography — MusicBrainz](https://musicbrainz.org/artist/701a6795-f583-4567-b8f4-0d05f961d63f)
+- [Discography: MusicBrainz](https://musicbrainz.org/artist/701a6795-f583-4567-b8f4-0d05f961d63f)
 - [Journal](https://korhogo.substack.com)
 
 ## Sites
@@ -24,5 +24,5 @@
 - [TorView](https://github.com/MaukTenieb/torview): a desktop browser in Go that routes its traffic through the official Tor daemon.
 
 ## Rights
-Code: MIT licence (see LICENSE). Korhogo material — characters, names, marks, lore, texts, images, music: Copyright © Mauk Tenieb & Korhogo, all rights reserved; no reproduction or reuse without written permission, including for training or use by artificial-intelligence systems.
-- [Insert Koin notes](https://mauktenieb.github.io/insertkoin/notes/): technical notes on how Insert Koin gets made
+Code under MIT, method under CC BY 4.0, Korhogo material reserved (characters, names, marks, lore, texts, images, videos, music). Credit for any reuse: Mauk Tenieb & Korhogo. A person may use an AI assistant to read, explain and adapt the code and the method; training of AI models: reserved. Details: LICENSE.
+- [Insert Koin notes](https://mauktenieb.github.io/insertkoin/notes/): technical notes on the making of Insert Koin

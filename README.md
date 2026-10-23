@@ -4,7 +4,7 @@ Root of Mauk Tenieb's sites: a link page, `robots.txt` for the whole domain (sea
 
 **Online: https://mauktenieb.github.io/**
 
-Code: MIT licence (see `LICENSE`). Korhogo material — characters, names, marks, lore, texts, images, music: Copyright © Mauk Tenieb & Korhogo, all rights reserved; no reproduction or reuse without written permission, including for training or use by artificial-intelligence systems.
+Code under MIT, method under CC BY 4.0, Korhogo material reserved (characters, names, marks, lore, texts, images, videos, music). Credit for any reuse: Mauk Tenieb & Korhogo. A person may use an AI assistant to read, explain and adapt the code and the method; training of AI models: reserved. Details: LICENSE.
 
 `.github/workflows/indexnow.yml` submits every page listed in the sitemaps to IndexNow (Bing, Yandex, Seznam, Naver) on each push here and every Monday. The key file is `6a354d1980c7601df40472cf6be05d5e.txt`.
 
