@@ -1,0 +1,2 @@
+# GitHub Pages: publish the TDM reservation (W3C TDMRep) at /.well-known/tdmrep.json
+include: [".well-known"]
