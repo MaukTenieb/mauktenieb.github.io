@@ -14,6 +14,7 @@
 ## Sites
 - [Insert Koin](https://mauktenieb.github.io/insertkoin/)
 - [3615](https://mauktenieb.github.io/3615/)
+- [Hervé Delboy, alchimie](https://mauktenieb.github.io/alchimie-delboy/): Hervé Delboy's site on alchemy (1999–2016), put back online as he wrote it, until it returns to its owner. Why it sits in the Korhogo network, in Mauk Tenieb's words, French and English: [Korhogo, Delboy, l'Idéel](https://github.com/MaukTenieb/method/blob/main/KORHOGO-DELBOY-IDEEL.md)
 
 ## Code
 - [Reporhogo](https://mauktenieb.github.io/reporhogo/): searches forty-one code forges for a topic (MIT). Source: https://github.com/MaukTenieb/reporhogo
