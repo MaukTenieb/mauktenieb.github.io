@@ -1,0 +1,110 @@
+/* Borne Insert Koin (site d'essai) : la page d'Insert Koin, habillée en borne d'arcade.
+   Un meuble, un écran 4:3 aussi grand que la fenêtre le permet, un panneau de boutons, une porte à Koins.
+   L'habit (bois, plastique, laiton) suit le programme à l'écran : html[data-habit]. */
+html.borne{--wood:#2b1d14;--grain1:rgba(255,255,255,.035);--grain2:rgba(0,0,0,.18);--tmold:#8f1f1a;--bezel:#070606;--bezel-edge:#26221f;
+  --panel1:#2a2724;--panel2:#191715;--marq1:#f7d77a;--marq2:#e39a2c;--marq3:#7c3c12;--marq-ink:#2a0f05;--grille:#151311;--lab:#e9e1cf;
+  --scrW:min(calc(100vw - 44px),calc((100vh - 110px) * 4 / 3),1180px)}
+html.borne[data-habit=minitel]{--wood:#e3dbc6;--grain1:rgba(0,0,0,.025);--grain2:rgba(0,0,0,.04);--tmold:#c9bfa6;--bezel:#cfc6ae;--bezel-edge:#a99e83;
+  --panel1:#d6cdb6;--panel2:#c2b89e;--marq1:#e2d9c1;--marq2:#d2c8ad;--marq3:#b3a88d;--marq-ink:#4a4036;--grille:#cfc5aa;--lab:#2f2a22}
+html.borne[data-habit=vhs]{--wood:#5a3a22;--grain1:rgba(255,220,170,.06);--grain2:rgba(0,0,0,.2);--tmold:#a7a39b;--bezel:#141311;--bezel-edge:#a7a39b;
+  --panel1:#2b2a28;--panel2:#161514;--marq1:#e7e7e3;--marq2:#a9a8a3;--marq3:#6f6e6a;--marq-ink:#1d1c1b;--grille:#1a1612}
+html.borne[data-habit=liseuse]{--wood:#3a2416;--grain1:rgba(255,210,150,.05);--grain2:rgba(0,0,0,.22);--tmold:#b8892f;--bezel:#a57a2c;--bezel-edge:#e8cf8a;
+  --panel1:#4a2f1c;--panel2:#2a1a0e;--marq1:#f8efd6;--marq2:#e3d2a8;--marq3:#c8b07a;--marq-ink:#3a2416;--grille:#1c140e}
+html.borne[data-habit=photo]{--wood:#1c1c1e;--grain1:rgba(255,255,255,.03);--grain2:rgba(0,0,0,.3);--tmold:#3c3c40;--bezel:#0a0a0b;--bezel-edge:#4a4a50;
+  --panel1:#2a2a2e;--panel2:#141416;--marq1:#d9d9dc;--marq2:#9a9aa0;--marq3:#55555a;--marq-ink:#111;--grille:#111113}
+html.borne[data-habit=korong]{--tmold:#ffa726;--marq1:#ffe3a0;--marq2:#ffa726;--marq3:#7a3d06}
+
+html.borne body{background:#0b0908;overflow-x:hidden;padding-inline:0}
+html.borne .wrap{width:calc(var(--scrW) + 32px);max-width:none;margin:0 auto;padding:0;gap:0;box-sizing:border-box;
+  background-color:var(--wood);background-image:repeating-linear-gradient(92deg,var(--grain1) 0 2px,transparent 2px 7px),repeating-linear-gradient(88deg,var(--grain2) 0 1px,transparent 1px 13px);
+  border-left:8px solid var(--tmold);border-right:8px solid var(--tmold);border-radius:12px 12px 0 0;box-shadow:0 30px 70px rgba(0,0,0,.75);transition:background-color .5s,border-color .5s;padding-inline:0!important}
+
+/* fronton : haut-parleurs du juke-box à gauche, enseigne au centre, réglages à droite */
+html.borne .bar{position:relative;top:auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;gap:10px;padding:10px 10px 6px;background:none}
+html.borne .bar .dock{min-height:64px;border-radius:6px;padding:8px 10px;box-sizing:border-box;flex-wrap:wrap;align-content:center;gap:8px;
+  background-color:var(--grille);background-image:radial-gradient(circle at center,rgba(0,0,0,.75) 0 2.2px,transparent 2.6px);background-size:9px 9px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.35)}
+html.borne .bar .dock:last-child{justify-content:flex-end}
+html.borne .bar .brand{order:0;grid-column:2;grid-row:1;min-width:clamp(180px,34vw,440px);border:0;border-radius:6px;padding:6px 18px;cursor:pointer;
+  font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(2rem,5.4vw,4.4rem);line-height:1;letter-spacing:.05em;color:var(--marq-ink);
+  background:radial-gradient(ellipse at 50% 55%,var(--marq1) 0%,var(--marq2) 45%,var(--marq3) 100%);box-shadow:inset 0 0 0 4px rgba(0,0,0,.35),inset 0 0 40px rgba(0,0,0,.3),0 0 28px rgba(255,190,90,.18);text-shadow:0 1px 0 rgba(255,240,200,.5)}
+html.borne .bar .dock:first-of-type{grid-column:1;grid-row:1}
+html.borne .bar .dock:last-of-type{grid-column:3;grid-row:1}
+html.borne .b-habit{display:block;font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.28em;color:var(--marq-ink);opacity:.8;margin-top:2px}
+
+/* caméra de Kapture, au-dessus de l'écran */
+html.borne .b-cam{display:flex;justify-content:center;align-items:center;gap:8px;padding:6px 0 4px}
+html.borne .b-cam #kapture{display:inline-flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;color:var(--lab);font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.2em}
+html.borne .b-cam #kapture::before{content:"";width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#6c86a8 0 2px,#14202e 3px 6px,#050505 7px);box-shadow:0 0 0 3px rgba(0,0,0,.45),0 0 0 4px rgba(255,255,255,.08)}
+
+/* l'écran */
+html.borne .b-screen{position:relative;width:var(--scrW);aspect-ratio:4/3;margin:0 auto;box-sizing:border-box;border-radius:24px;background:var(--bezel);padding:clamp(6px,1.1vw,14px);
+  box-shadow:inset 0 0 0 2px var(--bezel-edge),0 0 0 5px rgba(0,0,0,.55);transition:background .5s}
+html.borne .b-glass{position:relative;width:100%;height:100%;border-radius:16px;overflow:hidden;background:#000}
+html.borne .b-glass::after{content:"";position:absolute;inset:0;z-index:40;pointer-events:none;border-radius:16px;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px),radial-gradient(ellipse at 30% 12%,rgba(255,255,255,.07),transparent 40%);box-shadow:inset 0 0 60px rgba(0,0,0,.65)}
+html.borne[data-habit=liseuse] .b-glass::after{background:none;box-shadow:inset 0 0 24px rgba(60,40,10,.25)}
+html.borne[data-habit=minitel] .b-glass,html.borne[data-habit=minitel] .b-glass::after{border-radius:34px/30px}
+html.borne .b-attract{position:absolute;inset:0;z-index:1}
+html.borne .b-attract iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+html.borne .b-date{position:absolute;left:3%;top:3.5%;z-index:30;display:grid;gap:6px;pointer-events:none;font-family:"Press Start 2P",monospace;color:#ffe9a8;text-shadow:0 0 8px rgba(255,200,90,.6),0 2px 0 #000}
+html.borne .b-date b{font-weight:400;font-size:clamp(.62rem,1.4vw,1rem)}
+html.borne .b-date i{font-style:normal;font-size:clamp(.5rem,.9vw,.66rem);color:#bcd0f4}
+html.borne:not([data-habit=repos]) .b-attract{display:none}
+html.borne:not([data-habit=repos]) .b-date{visibility:hidden}
+
+/* chaque programme s'ouvre dans l'écran */
+html.borne .b-glass>#select,html.borne .b-glass>#game,html.borne .b-glass>#calque{position:absolute;inset:0;z-index:10;overflow:auto;background:var(--bg);margin:0}
+html.borne .b-glass>[hidden]{display:none!important}
+html.borne #calque .cbar{display:none}
+html.borne #calque .cframe{position:absolute;inset:0;height:auto;min-height:0;margin:0;border:0}
+html.borne #game{display:flex;flex-direction:column}
+html.borne #game .stage{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center}
+html.borne #game .stage canvas#cv{max-width:100%;max-height:100%;width:auto;height:auto}
+html.borne #select .lobby{max-width:none}
+
+/* le panneau : #home reste affiché sous l'écran, avec ses cabinets devenus boutons d'arcade */
+html.borne #home,html.borne #home[hidden]{display:block!important;position:relative;padding:0 0 4px}
+html.borne #home .hero{display:none}
+html.borne .b-panel{position:relative;margin-top:14px;padding:16px 16px 12px;background:linear-gradient(180deg,var(--panel1),var(--panel2));border-top:4px solid rgba(0,0,0,.35);box-shadow:inset 0 2px 0 rgba(255,255,255,.05)}
+html.borne .b-panel .cabinets{grid-template-columns:repeat(auto-fill,minmax(clamp(128px,16vw,176px),1fr));gap:12px;margin:0}
+html.borne .b-panel .cab{min-height:clamp(78px,9vw,104px);border:0;border-radius:10px;background:#000 var(--th) center/cover no-repeat;
+  box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--nc) 70%,#000),inset 0 -8px 0 rgba(0,0,0,.45),inset 0 6px 10px rgba(255,255,255,.18),0 6px 0 #0b0a09,0 10px 16px rgba(0,0,0,.55);
+  transition:transform .06s,box-shadow .06s}
+html.borne .b-panel .cab::before{background:linear-gradient(180deg,rgba(7,6,10,.15),rgba(7,6,10,.82));border-radius:10px}
+html.borne .b-panel .cab:active{transform:translateY(4px);box-shadow:inset 0 0 0 3px var(--nc),inset 0 -4px 0 rgba(0,0,0,.45),0 2px 0 #0b0a09,0 0 24px color-mix(in srgb,var(--nc) 55%,transparent)}
+html.borne .b-panel .cab:hover,html.borne .b-panel .cab:focus-within,html.borne .b-panel .cab.lit{box-shadow:inset 0 0 0 3px var(--nc),inset 0 -8px 0 rgba(0,0,0,.45),0 6px 0 #0b0a09,0 0 26px color-mix(in srgb,var(--nc) 60%,transparent)}
+html.borne .b-panel .cab b{font-size:clamp(1.15rem,2vw,1.6rem);color:#fff;text-shadow:0 0 10px var(--nc),0 2px 4px #000}
+html.borne .b-panel .cab.on-air{box-shadow:inset 0 0 0 4px var(--nc),0 6px 0 #0b0a09,0 0 30px var(--nc)}
+html.borne .b-panel .menu{margin:14px 0 2px}
+html.borne .b-panel .menu a,html.borne .b-panel .menu button{color:var(--lab)}
+html.borne #home .copy{color:var(--lab);opacity:.7;text-align:center}
+
+/* tilt : Baku Boom */
+html.borne .b-tilt{position:absolute;right:16px;top:-30px;z-index:5;width:76px;height:44px;border-radius:6px;border:0;cursor:pointer;
+  font-family:"Bebas Neue",Impact,sans-serif;font-size:1.7rem;letter-spacing:.08em;color:#fff4e6;background:linear-gradient(180deg,#ff5b3c,#b8231a);box-shadow:0 4px 0 #4d0f0a,0 0 16px rgba(255,80,50,.55)}
+html.borne .b-tilt:active{transform:translateY(3px);box-shadow:0 1px 0 #4d0f0a,0 0 22px rgba(255,80,50,.8)}
+
+/* porte à Koins */
+html.borne .b-door{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(16px,5vw,48px);padding:18px 12px 26px;border-top:6px solid rgba(0,0,0,.5);
+  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),linear-gradient(180deg,#9b9790,#6d6a64 60%,#58554f)}
+html.borne .b-slot{display:grid;justify-items:center;gap:10px;width:112px;padding:14px 0;border:0;border-radius:8px;cursor:pointer;background:linear-gradient(180deg,#26231f,#121110);box-shadow:inset 0 0 0 3px #4a4640,0 3px 6px rgba(0,0,0,.6)}
+html.borne .b-slot span{width:70px;padding:10px 0;border-radius:4px;background:linear-gradient(180deg,#ff6a3d,#c2321f);font-family:"Press Start 2P",monospace;font-size:8px;color:#2b0b05;box-shadow:0 0 14px rgba(255,90,50,.7)}
+html.borne .b-slot i{display:block;width:6px;height:42px;border-radius:3px;background:#000;box-shadow:0 0 0 3px #77736c}
+html.borne .b-door #koins{display:flex;align-items:center;gap:12px;min-width:170px;justify-content:center;padding:16px 18px;border-radius:6px;background:#0b0a09;box-shadow:inset 0 0 0 3px #3d3934;
+  font-family:"Press Start 2P",monospace;font-size:1.3rem;color:#ff9a3c;text-shadow:0 0 10px rgba(255,140,40,.7)}
+html.borne .b-door #kal{font-family:"DM Mono",monospace}
+html.borne .b-doorlab{font-family:"DM Mono",monospace;font-size:.6rem;letter-spacing:.24em;color:#1f1c19}
+
+@media (max-width:700px){
+  html.borne{--scrW:calc(100vw - 20px)}
+  html.borne .wrap{border-left-width:4px;border-right-width:4px;width:100%;margin:0}
+  html.borne .b-screen{width:calc(100% - 10px)}
+  html.borne .bar{grid-template-columns:1fr;gap:6px}
+  html.borne .bar .brand{grid-column:1;grid-row:1;min-width:0}
+  html.borne .bar .dock:first-of-type{grid-column:1;grid-row:2}
+  html.borne .bar .dock:last-of-type{grid-column:1;grid-row:3}
+  html.borne .b-screen{border-radius:14px;padding:5px}
+  html.borne .b-glass,html.borne .b-glass::after{border-radius:10px}
+  html.borne .b-panel .cabinets{grid-template-columns:repeat(2,minmax(0,1fr))}
+  html.borne .b-tilt{top:-26px;right:10px}
+}

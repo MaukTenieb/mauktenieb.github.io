@@ -2,26 +2,33 @@
 User-agent: *
 Allow: /
 Disallow: /mb/
+Disallow: /borne/
 
 # Answer engines that cite and link (search, not training): explicitly welcome
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /mb/
+Disallow: /borne/
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /mb/
+Disallow: /borne/
 User-agent: PerplexityBot
 Allow: /
 Disallow: /mb/
+Disallow: /borne/
 User-agent: Perplexity-User
 Allow: /
 Disallow: /mb/
+Disallow: /borne/
 User-agent: Claude-SearchBot
 Allow: /
 Disallow: /mb/
+Disallow: /borne/
 User-agent: Claude-User
 Allow: /
 Disallow: /mb/
+Disallow: /borne/
 
 # Model-training crawlers: no
 User-agent: GPTBot
