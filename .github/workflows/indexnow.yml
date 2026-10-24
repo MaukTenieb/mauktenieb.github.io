@@ -1,4 +1,4 @@
-# Tells Bing, Yandex, Seznam, Naver (IndexNow) about every page of every site on mauktenieb.github.io.
+# Tells Bing, Yandex, Seznam, Naver (IndexNow) about every page of every site on mauktenieb.github.io, Hervé Delboy's alchemy site included.
 # Runs on each push here, every Monday, and by hand (Actions > IndexNow > Run workflow).
 name: IndexNow
 on:
@@ -19,7 +19,7 @@ jobs:
           sleep 120  # let Pages publish the key file first
           KEY=6a354d1980c7601df40472cf6be05d5e
           HOST=mauktenieb.github.io
-          urls=$( (for s in sitemap.xml insertkoin/sitemap.xml 3615/sitemap.xml katabase/sitemap.xml; do
+          urls=$( (for s in sitemap.xml insertkoin/sitemap.xml 3615/sitemap.xml katabase/sitemap.xml reporhogo/sitemap.xml alchimie-delboy/sitemap.xml; do
             curl -fsSL "https://$HOST/$s" 2>/dev/null | grep -o '<loc>[^<]*</loc>' | sed 's/<[^>]*>//g' || true
           done; echo "https://$HOST/korhogo/") | sort -u)  # korhogo/ is retired: it now redirects to Insert Koin, submitted so engines see the move
           echo "$urls"
