@@ -413,6 +413,8 @@ body:not(.on-home) .info,body:not(.on-home) .foot{display:none}
 /* in full screen the score comes inside the table */
 @media (prefers-reduced-motion:reduce){.stage .turn,.stage .turn i{animation:none}.stage .turn{display:none!important}}
 </style>
+<style id="b-veil">html:not(.borne-ready) body{background:#0b0908!important}html:not(.borne-ready) body>*{visibility:hidden!important}</style>
+<script>setTimeout(function(){document.documentElement.classList.add("borne-ready")},5000)</script>
 <link rel="stylesheet" href="borne-cabinet.css">
 </head>
 <body>

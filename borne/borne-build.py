@@ -14,7 +14,7 @@ def once(s, old, new):
 
 s = rd("insertkoin.html")
 s = once(s, "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">')
-s = once(s, "</head>", '<link rel="stylesheet" href="borne-cabinet.css">\n</head>')
+s = once(s, "</head>", '<style id="b-veil">html:not(.borne-ready) body{background:#0b0908!important}html:not(.borne-ready) body>*{visibility:hidden!important}</style>\n<script>setTimeout(function(){document.documentElement.classList.add("borne-ready")},5000)</script>\n<link rel="stylesheet" href="borne-cabinet.css">\n</head>')
 i = s.rfind("</body>")
 s = s[:i] + '<script src="borne-cabinet.js"></script>\n' + s[i:]
 # crochets de la borne dans le code de la page (fermé dans une fonction) : go, goHome, openGame, et une poignée

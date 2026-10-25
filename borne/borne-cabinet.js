@@ -310,4 +310,6 @@
   paintBell();
 
   dress('repos');
+  /* la page d'origine reste voilée jusqu'ici : le visiteur voit la borne d'emblée */
+  requestAnimationFrame(function(){root.classList.add('borne-ready');});
 })();

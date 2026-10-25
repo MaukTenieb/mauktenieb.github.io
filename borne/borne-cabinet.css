@@ -241,7 +241,6 @@ html.borne .b-door #kal{display:none}
   html.borne .b-keys{flex:1 1 100%}
   html.borne .b-panel .cabinets,html.borne .b-panel .b-subgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
   html.borne .b-boom{order:3;margin-left:auto;flex-direction:row}
-  html.borne .b-row2{margin-top:-46px;width:calc(100% - 110px)}
 }
 
 /* la plante : au survol, de quoi l'entretenir */
@@ -403,3 +402,24 @@ html.borne .b-glass.b-snow::before{animation:bsnow .55s steps(6) forwards;opacit
   background:repeating-radial-gradient(circle at 37% 61%,rgba(255,255,255,.9) 0 1px,rgba(0,0,0,.9) 1px 2px,rgba(160,160,160,.8) 2px 3px),repeating-linear-gradient(0deg,rgba(255,255,255,.15) 0 2px,transparent 2px 4px)}
 @keyframes bsnow{0%{opacity:1;background-position:0 0}50%{opacity:1;background-position:13px 7px}100%{opacity:0;background-position:-9px 21px}}
 @media (prefers-reduced-motion:reduce){html.borne .b-glass.b-snow::before{animation:none;opacity:0}}
+
+/* ---------- tenue à toutes les tailles (25 oct., 12 h) : fronton en grille souple, porte qui tient, borne couchée ---------- */
+html.borne .bar{grid-template-columns:minmax(0,1fr) minmax(0,2.2fr) minmax(0,1fr)!important}
+html.borne .bar .brand{min-width:0!important;overflow:hidden;white-space:nowrap;font-size:clamp(1.5rem,min(4.6vh,3.4vw),3.2rem)!important}
+html.borne .bar .dock{min-width:0!important;width:auto!important;max-width:100%!important;overflow:hidden;box-sizing:border-box;margin:0!important;left:auto!important;position:relative!important}
+html.borne #radio-toggle{max-width:100%;min-width:0;overflow:hidden}
+html.borne #radio-toggle>*{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html.borne .b-row2{margin-top:14px!important;width:auto!important}
+html.borne .b-door{flex-wrap:wrap;justify-content:center;row-gap:12px}
+html.borne .b-knobs{gap:14px}
+@media (max-width:700px){
+  html.borne .bar{grid-template-columns:minmax(0,1fr)!important}
+  html.borne .b-door{width:calc(100% - 24px);padding:12px 10px}
+  html.borne .b-slot b{font-size:8px}
+  html.borne .b-knobs{gap:10px}
+}
+@media (max-height:520px) and (orientation:landscape){
+  html.borne{--scrW:min(calc(100vw - 80px),520px)}
+  html.borne[data-prog]{--gh:calc(100dvh - 120px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 120px) * 4 / 3)) !important}
+  html.borne[data-prog] .b-bezelfoot{position:absolute;right:-64px;top:0;flex-direction:column;align-items:flex-end}
+}
