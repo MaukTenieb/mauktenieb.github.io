@@ -120,7 +120,7 @@ html.borne .b-panel .cab{min-height:clamp(78px,8vw,100px);border:0;border-radius
 html.borne .b-panel .cab::before{background:linear-gradient(180deg,rgba(7,6,10,.15),rgba(7,6,10,.82));border-radius:10px}
 html.borne .b-panel .cab:active{transform:translateY(4px);box-shadow:inset 0 0 0 3px var(--nc),inset 0 -4px 0 rgba(0,0,0,.45),0 2px 0 #0b0a09,0 0 24px color-mix(in srgb,var(--nc) 55%,transparent)}
 html.borne .b-panel .cab:hover,html.borne .b-panel .cab:focus-within,html.borne .b-panel .cab.lit{box-shadow:inset 0 0 0 3px var(--nc),inset 0 -8px 0 rgba(0,0,0,.45),0 6px 0 #0b0a09,0 0 26px color-mix(in srgb,var(--nc) 60%,transparent)}
-html.borne .b-panel .cabinets{grid-template-columns:repeat(5,minmax(0,1fr))}
+html.borne .b-panel .cabinets{grid-template-columns:repeat(4,minmax(0,1fr))}
 html.borne .b-panel .cab b{font-size:clamp(1.15rem,1.8vw,1.55rem);color:#fff;text-shadow:0 0 10px var(--nc),0 2px 4px #000}
 html.borne .b-panel .cab.on-air{box-shadow:inset 0 0 0 4px var(--nc),0 6px 0 #0b0a09,0 0 30px var(--nc)}
 
@@ -135,8 +135,23 @@ html.borne .b-panel.b-unfold .b-sub .cab:nth-child(4){animation-delay:.15s}html.
 @keyframes bunfold{from{opacity:0;transform:translateY(18px) scale(.9)}}
 html.borne .b-panel .b-group::after{content:"▾";position:absolute;right:10px;top:6px;z-index:2;color:var(--nc);font-size:1.1rem;text-shadow:0 0 8px var(--nc)}
 
+/* autocollants : le grand paysage des Burrows sous le fronton ; la marque Mauk Tenieb sur le panneau */
+html.borne .b-sticker{border:0;cursor:pointer;padding:0;font:inherit}
+html.borne .b-land{position:relative;display:block;width:calc(100% - 28px);height:clamp(64px,8vw,104px);margin:2px auto 8px;border-radius:10px;overflow:hidden;
+  background:#222 url(poster-800.webp) center 42%/cover no-repeat;box-shadow:0 0 0 4px #f4efe4,0 0 0 5px rgba(0,0,0,.35),0 6px 12px rgba(0,0,0,.5);transform:rotate(-.4deg);
+  filter:saturate(.85) contrast(1.05)}
+html.borne .b-land::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,.22),transparent 30%,transparent 70%,rgba(255,255,255,.12)),linear-gradient(180deg,transparent 40%,rgba(0,0,0,.55))}
+html.borne .b-land::after{content:"";position:absolute;right:-2px;top:-2px;width:26px;height:26px;background:linear-gradient(225deg,#0b0908 50%,#e9e2d0 50%);box-shadow:-2px 2px 4px rgba(0,0,0,.35)}
+html.borne .b-land span{position:absolute;left:16px;bottom:8px;font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(1.3rem,2.6vw,2.2rem);letter-spacing:.14em;color:#fff4dc;text-shadow:0 2px 0 #000,0 0 12px rgba(0,0,0,.8)}
+html.borne .b-land:hover,html.borne .b-land:focus-visible{filter:saturate(1.1) contrast(1.1) brightness(1.08)}
+html.borne .b-badge{display:inline-grid;line-height:.86;margin:14px 0 0 2px;padding:8px 14px 6px;border-radius:8px;background:linear-gradient(180deg,#f2e9d6,#d8cbb0);
+  box-shadow:inset 0 0 0 2px #1d1a16,inset 0 0 0 4px #f2e9d6,0 3px 6px rgba(0,0,0,.45);transform:rotate(-2deg);vertical-align:middle}
+html.borne .b-badge b{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:1.45rem;letter-spacing:.12em;color:#b8231a;text-shadow:1px 1px 0 #1d1a16}
+html.borne .b-badge b+b{color:#1d1a16;text-shadow:none}
+html.borne .b-badge:hover,html.borne .b-badge:focus-visible{transform:rotate(-2deg) scale(1.05)}
+
 /* les liens du bas : petits boutons ronds, chacun avec son nom */
-html.borne .b-panel .menu{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 18px;margin:16px 0 4px}
+html.borne .b-panel .menu{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:12px 22px;margin:16px 0 4px 24px;vertical-align:middle}
 html.borne .b-panel .menu a,html.borne .b-panel .menu button{position:relative;display:inline-block;border:0;padding:42px 0 0;background:none;color:var(--lab);font-size:.62rem;letter-spacing:.18em;white-space:nowrap;min-width:44px;text-align:center;overflow:visible}
 html.borne .b-panel .menu a::before,html.borne .b-panel .menu button::before{content:"";position:absolute;top:0;left:50%;margin-left:-17px;width:34px;height:34px;border-radius:50%;
   background:radial-gradient(circle at 40% 32%,color-mix(in srgb,var(--mc,#c9a84c) 40%,#fff),var(--mc,#c9a84c) 55%,color-mix(in srgb,var(--mc,#c9a84c) 55%,#000));
