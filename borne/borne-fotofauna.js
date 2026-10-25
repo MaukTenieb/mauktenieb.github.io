@@ -1,4 +1,4 @@
-/* FotoFauna dans la borne : le logo déclenche ; la caméra avant ou arrière ; trois façons de prendre.
+/* FotoFauna dans la borne : l'écran et le logo déclenchent ; la caméra avant ou arrière ; trois façons de prendre.
    UNE : la prise devient l'image, la caméra se ferme (comme avant).
    SUPERPOSER : chaque prise se fond dans les précédentes (moyenne des poses), la pile reste visible en fantôme sur le viseur ; ✓ la termine.
    PELLICULE : chaque prise part à part sur le disque et dans la bande du bas ; la caméra reste ouverte ; une vignette ouvre sa photo.
@@ -61,6 +61,13 @@
       strip.appendChild(b);while(strip.children.length>MAX)strip.firstChild.remove();
       [].forEach.call(strip.children,function(x,i){x.lastChild.textContent=i+1;});strip.scrollLeft=strip.scrollWidth;paint();return;}
     stopCam();var im=await open(c);saveRaw(im);};
+  /* ---------- l'écran lui-même déclenche : un appui sur le viseur prend la photo, ou lance et arrête la vidéo ---------- */
+  var p0=null;
+  stage.addEventListener('pointerdown',function(e){if(!CAM||e.target.closest('button'))return;p0=[e.clientX,e.clientY];});
+  stage.addEventListener('pointerup',function(e){if(!CAM||!p0||e.target.closest('button'))return;var d=Math.hypot(e.clientX-p0[0],e.clientY-p0[1]);p0=null;if(d>12)return;
+    var r=stage.getBoundingClientRect(),o=document.createElement('i');o.className='ff-tap';o.style.left=(e.clientX-r.left)+'px';o.style.top=(e.clientY-r.top)+'px';stage.appendChild(o);setTimeout(function(){o.remove();},500);
+    $('shutter').click();});
+  new MutationObserver(function(){stage.classList.toggle('ff-live',!!CAM);}).observe(row,{attributes:true,attributeFilter:['hidden']});
   addEventListener('resize',placeGhost);
   paint();
 })();
