@@ -225,7 +225,7 @@
     o.querySelector('[data-x]').onclick=close;o.querySelector('[data-p]').onclick=function(){try{f.contentWindow.focus();f.contentWindow.print();}catch(e){window.print();}};
     addEventListener('keydown',function esc(e){if(e.key==='Escape'&&document.body.contains(o)){removeEventListener('keydown',esc);close();}});}
   land.onclick=function(){full('/katabase/','BURROWS');};
-  badge.onclick=function(){full('borne-bio.html','MAUK TENIEB');};
+  badge.onclick=function(){window.open('https://github.com/mauktenieb','_blank','noopener');};badge.title='github.com/mauktenieb';
   wrap.addEventListener('click',function(e){var a=e.target.closest('[data-swap="bio"]');if(!a)return;e.preventDefault();e.stopPropagation();full('borne-bio.html','MAUK TENIEB');},true);
 
   /* ---------- SkopoRhogo tourne seulement quand il est à l'écran ---------- */
