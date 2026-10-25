@@ -4,6 +4,10 @@
       dans le groupe, sauf dans FaunInvaders et le VHS, qui reçoivent les flèches ; un appui sur la boule envoie Espace. La manette se déplace par son socle. */
 (function(){
   var root=document.documentElement;
+  /* la charte commune, à l'essai : #charte l'allume, #sanscharte l'éteint ; le choix reste dans ce navigateur */
+  function charte(){var h=location.hash;try{if(/sanscharte/.test(h))localStorage.removeItem('borne.charte');else if(/charte/.test(h))localStorage.setItem('borne.charte','1');}catch(e){}
+    var on=false;try{on=localStorage.getItem('borne.charte')==='1';}catch(e){on=/charte/.test(h)&&!/sanscharte/.test(h);}root.classList.toggle('b-charte',on);}
+  charte();addEventListener('hashchange',charte);
   /* ---------- 1. le jeu à la taille de l'écran ---------- */
   var MAXZ=2.4;
   function panel(){var k=document.getElementById('kg-root');if(!k||!k.offsetParent)return null;var kr=k.getBoundingClientRect(),A=kr.width*kr.height,best=null;

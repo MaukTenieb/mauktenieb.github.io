@@ -12,7 +12,7 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 - Écran d'attente : une des vingt-sept images de Mauk Tenieb (attente-01 à attente-27), au hasard, le temps que la borne se monte.
 - Cadre : l'enseigne Burrows, éclairée, au-dessus de l'écran ; l'autocollant Lore collé de travers au coin ; sous l'écran, les Koins et la dynamite Baku Boom (le mot BAKU BOOM s'allume à l'activation) ; dans un programme, la manette en miroir.
 - Écran : les Koins en haut à gauche à l'accueil, avec le décompte de la Koin gratuite à zéro ; SkopoRhogo à la minute exacte de l'heure du visiteur ; chaque programme s'ouvre dedans, et le meuble se replie autour de l'écran, qui prend la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale.
-- Panneau : BC, TL, IG en rangée de départ ; la manette au milieu, entre quatre touches-pavés lumineuses, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (liseuse, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; la plaque émaillée Mauk Tenieb (la bio) sur le bord avant.
+- Panneau : BC, TL, IG en rangée de départ ; la manette au milieu, entre quatre touches-pavés lumineuses, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (BakuBook, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; la plaque émaillée Mauk Tenieb (la bio) sur le bord avant.
 - Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les boutons SKIN (bois, métal, 1960), FX, FR · EN, sur leur plaque à droite de la porte ; tout en bas, le copyright.
 
 ## Grammaire commune
@@ -33,7 +33,7 @@ D'un programme à l'autre : un glissé depuis le bord de l'écran, ou un toucher
 - `borne-aimant.js` : les blocs aimantés ; souris, appuyer puis glisser ; doigt, appui long ; ramené près de sa place, le bloc s'y recolle ; positions gardées par skin.
 - `borne-jeu.js` : chaque jeu agrandi et centré à la mesure de l'écran ; la manette choisit et enfonce les touches à l'accueil, envoie flèches et Espace dans les jeux ; son socle la déplace.
 - `borne-skopo.js` : SkopoRhogo à l'heure du visiteur.
-- `borne-fauneye.html` : FaunEye, le lecteur universel (stock de fac-similés, fichiers du visiteur, Internet Archive, Gutenberg, Wikisource, Google Books ; zoom, loupe, vignettes, typographie).
+- `borne-fauneye.html` : BakuBook, le lecteur universel (stock de fac-similés, fichiers du visiteur, Internet Archive, Gutenberg, Wikisource, Google Books ; zoom, loupe, vignettes, typographie).
 - `borne-fotofauna.js`, `borne-fotofauna.css` : FotoFauna, le logo et le viseur déclenchent ; caméra avant ou arrière ; Une, Superposer, Pellicule.
 - `borne-frames.css` : retouches de Reporhogo et de FaunaTor.
 - `borne-bio.html` : la bio, lue en direct du README du profil GitHub.

@@ -61,7 +61,7 @@
     c.querySelector('button').addEventListener('click',function(){play(g);});return c;}
   var GROUPS={korhogame:{t:'KORHOGAME',th:'thumb-puck.jpg',nc:'#ffa726',items:[['puck','KORONG!','thumb-puck.jpg','#ffa726'],['chess','FAUNA CHESS','thumb-chess.jpg','#ab47bc'],
       ['faunarratics','FAUNARRATIK','thumb-faunarratics.jpg','#4fc3f7']],extra:[['fi','FAUNINVADERS','borne-big-fi.jpg','#c9a84c',3],['bb','SAMPLER','borne-big-bb.jpg','#ff7043',2]]},
-    fauneye:{t:'FAUNEYE',th:'borne-fauneye.jpg',nc:'#e2c27a',items:[['fauneye','LISEUSE','borne-fauneye.jpg','#e2c27a'],['vhs','VHS','thumb-vhs.jpg','#b9d84a'],['photo','FOTOFAUNA','thumb-photo.jpg','#ff5a5a']]},
+    fauneye:{t:'FAUNEYE',th:'borne-fauneye.jpg',nc:'#e2c27a',items:[['fauneye','BAKUBOOK','borne-fauneye.jpg','#e2c27a'],['vhs','VHS','thumb-vhs.jpg','#b9d84a'],['photo','FOTOFAUNA','thumb-photo.jpg','#ff5a5a']]},
     surf:{t:'SURFAUNA',th:'thumb-repo.jpg',nc:'#7fe0ff',items:[['repo','REPORHOGO','thumb-repo.jpg','#b9d84a'],['tor','FAUNATOR','thumb-repo.jpg','#9e9e9e']]}};
   function group(g){var G=GROUPS[g],c=el('div','cab b-group');c.dataset.grp='g-'+g;c.style.cssText='--th:url('+G.th+');--nc:'+G.nc;
     c.innerHTML='<button type="button" class="hit" aria-expanded="false"><b></b></button>';c.querySelector('b').textContent=G.t;
@@ -177,7 +177,7 @@
   var ORDER=['chess','fi','puck','faunarratics','bb','c4','hang','mm','erratic','fauneye','vhs','photo','terminal','repo','tor'];
   var GRP=[['chess','fi','puck','faunarratics','bb','c4','hang','mm','erratic'],['fauneye','vhs','photo'],['terminal'],['repo','tor']];
   var NAME={chess:'FAUNA CHESS',fi:'FAUNINVADERS',puck:'KORONG!',faunarratics:'FAUNARRATIK',bb:'SAMPLER',c4:'KONNECT4',hang:'AKASZTÓFA',mm:'MASTERMIND',erratic:'ERRATIK',
-    fauneye:'LISEUSE',vhs:'VHS',photo:'FOTOFAUNA',terminal:'3615',repo:'REPORHOGO',tor:'FAUNATOR'};
+    fauneye:'BAKUBOOK',vhs:'VHS',photo:'FOTOFAUNA',terminal:'3615',repo:'REPORHOGO',tor:'FAUNATOR'};
   var CUR=null,SWAP=false;
   function launch(g){if(KATA.indexOf(g)>=0)kata(g);else IK().go&&IK().go(g);}
   var dots=el('div','b-dots');dots.setAttribute('role','tablist');scr.appendChild(dots);
