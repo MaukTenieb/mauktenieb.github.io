@@ -69,16 +69,17 @@
     var st=null,lastStep=0;
     stick.addEventListener('pointerdown',function(e){var r=stick.getBoundingClientRect();if(e.clientY>r.top+r.height*.74)return;/* le socle : il déplace la manette */
       e.stopPropagation();e.preventDefault();st={x:e.clientX,y:e.clientY,id:e.pointerId,moved:false};try{stick.setPointerCapture(e.pointerId);}catch(_){}
-      stick.classList.add('b-grip');},true);
+      stick.classList.add('b-grip');if(window.__borneSon)window.__borneSon.press();},true);
     stick.addEventListener('pointermove',function(e){if(!st||e.pointerId!==st.id)return;var dx=e.clientX-st.x,dy=e.clientY-st.y,ax=Math.abs(dx),ay=Math.abs(dy);
       if(window.__borneTilt)window.__borneTilt(dx/38,dy/38);
+      if((ax>14)!==!!st.sw){st.sw=ax>14;if(window.__borneSon)window.__borneSon.tick();}
       if(ax>10||ay>10)st.moved=true;
       var set=[];if(dx<-14)set.push('ArrowLeft');if(dx>14)set.push('ArrowRight');if(dy<-14)set.push('ArrowUp');if(dy>14)set.push('ArrowDown');
       var cur=window.__borneCur&&window.__borneCur(),arrows=/^(fi|vhs)$/.test(cur||'');
       if(inGame()&&arrows)hold(set);
       else if(inGame()){var n2=performance.now();if((set.indexOf('ArrowLeft')>=0||set.indexOf('ArrowRight')>=0)&&n2-lastStep>700&&window.__borneZap){lastStep=n2;window.__borneZap(set.indexOf('ArrowLeft')>=0?-1:1);}}
       else{var n=performance.now();if(set.length&&n-lastStep>320){lastStep=n;mark(set.indexOf('ArrowLeft')>=0||set.indexOf('ArrowUp')>=0?-1:1);}}},true);
-    function end(e){if(!st||e.pointerId!==st.id)return;var m=st.moved;st=null;stick.classList.remove('b-grip');if(window.__borneTilt)window.__borneTilt(0,0);hold([]);
+    function end(e){if(!st||e.pointerId!==st.id)return;var m=st.moved;st=null;stick.classList.remove('b-grip');if(window.__borneTilt)window.__borneTilt(0,0);if(m&&window.__borneSon)window.__borneSon.twang(1);hold([]);
       if(!m)press();}
     stick.addEventListener('pointerup',end,true);stick.addEventListener('pointercancel',end,true);
     stick.addEventListener('click',function(e){e.stopPropagation();},true);}

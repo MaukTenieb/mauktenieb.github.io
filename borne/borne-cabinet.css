@@ -870,3 +870,11 @@ html.borne .b-online i{width:5px;height:5px;border-radius:50%;background:#5dff8a
 html.borne .b-online b{font-weight:500;color:rgba(235,225,205,.7)}
 @keyframes bonline{50%{opacity:.35;box-shadow:0 0 2px #5dff8a}}
 @media (max-width:520px){html.borne .b-online span{display:none}}
+
+/* ---------- enfoncements : la touche descend sous le doigt (elle rétrécit, son ombre se tasse), remonte en rebondissant ---------- */
+html.borne .b-panel .cab.b-down{scale:.955!important;filter:brightness(1.18)!important;transition:scale .04s ease-out}
+html.borne .b-panel .cab.b-down::before{opacity:1!important}
+html.borne .b-panel .cab.b-up{animation:bkeyup .42s cubic-bezier(.2,1.8,.4,1)}
+@keyframes bkeyup{0%{scale:.955}45%{scale:1.02}70%{scale:.995}100%{scale:1}}
+html.borne .b-row2 .menu a.b-down{scale:.9!important;filter:brightness(1.25)}
+html.borne .b-row2 .menu a.b-up{animation:bkeyup .38s cubic-bezier(.2,1.8,.4,1)}

@@ -33,6 +33,7 @@ D'un programme à l'autre : un glissé depuis le bord de l'écran, ou un toucher
 - `borne-aimant.js` : les blocs aimantés ; souris, appuyer puis glisser ; doigt, appui long ; ramené près de sa place, le bloc s'y recolle ; positions gardées par skin.
 - La manette a un ressort : poussée, elle dépasse, cogne sa butée, tremble et revient ; le panneau encaisse le choc ; elle suit la boule saisie, les flèches et les glissés sur l'écran.
 - `borne-presence.js` : Online Applicants, une diode et un chiffre au pied de l'écran ; chaque visiteur s'annonce toutes les 20 s sous un numéro tiré au hasard, sur un canal MQTT public (trois relais) ; zéro nom, zéro cookie.
+- `borne-son.js` : les sons de la mécanique, synthétisés à la volée avec du hasard à chaque coup (touches, micro-contacts, ressort et butée de la manette, crans des molettes, Koin qui sonne et tombe, TILT de Baku Boom, blocs aimantés) ; la machine ronronne et s'échauffe quand on joue ; FX coupe tout.
 - `borne-jeu.js` : chaque jeu agrandi et centré à la mesure de l'écran ; la manette choisit et enfonce les touches à l'accueil, envoie flèches et Espace dans les jeux ; son socle la déplace.
 - `borne-skopo.js` : SkopoRhogo à l'heure du visiteur.
 - `borne-fauneye.html` : BakuBook, le lecteur universel (stock de fac-similés, fichiers du visiteur, Internet Archive, Gutenberg, Wikisource, Google Books ; zoom, loupe, vignettes, typographie).

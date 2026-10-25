@@ -36,7 +36,7 @@
     });
     return [bx!=null?bx:x,by!=null?by:y,false];
   }
-  function grab(b,e){drag.on=true;b.el.classList.add('b-held');root.classList.add('b-holding');
+  function grab(b,e){drag.on=true;try{window.__borneSon&&window.__borneSon.suck();}catch(_){}b.el.classList.add('b-held');root.classList.add('b-holding');
     try{b.el.setPointerCapture(e.pointerId);}catch(_){}
     if(navigator.vibrate)try{navigator.vibrate(12);}catch(_){}}
   function down(e){if(e.button>0||drag)return;var b=of(e.target);if(!b)return;
@@ -48,7 +48,7 @@
     e.preventDefault();var s=snap(drag.b,drag.dx+mx,drag.dy+my);put(drag.b,s[0],s[1],false);drag.b.el.classList.toggle('b-docked',s[2]);}
   function up(e){if(!drag||e.pointerId!==drag.id)return;clearTimeout(drag.t);var d=drag;drag=null;
     if(!d.on)return;suppress=Date.now();d.b.el.classList.remove('b-held','b-docked');root.classList.remove('b-holding');
-    var s=snap(d.b,d.b.dx,d.b.dy);put(d.b,s[0],s[1],true);save();}
+    var s=snap(d.b,d.b.dx,d.b.dy);put(d.b,s[0],s[1],true);save();try{window.__borneSon&&setTimeout(window.__borneSon.clack,120);}catch(_){}}
   document.addEventListener('pointerdown',down,true);
   document.addEventListener('pointermove',move,{capture:true,passive:false});
   document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);
