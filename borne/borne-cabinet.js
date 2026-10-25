@@ -372,3 +372,30 @@
   addEventListener('pointermove',function(e){at(e.clientX,e.clientY);},{passive:true});
   addEventListener('scroll',function(){if(matchMedia('(pointer:coarse)').matches){px=.5+.5*Math.sin(scrollY/240);py=.5;if(!raf)raf=requestAnimationFrame(paint);}},{passive:true});
 })();
+
+/* ---------- la Koin animée (25 oct.) : elle tourne sur elle-même dans le compteur ; payée, elle vole du compteur jusqu'à la fente et y tombe ;
+   gagnée, elle tombe du haut de l'écran dans le compteur ---------- */
+(function(){
+  var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function $(i){return document.getElementById(i);}
+  function coin(cls){var c=document.createElement('span');c.className='b-kspin '+(cls||'');c.innerHTML='<i></i>';c.setAttribute('aria-hidden','true');return c;}
+  function setup(){var k=$('koins');if(!k||k._spin)return !!k;k._spin=1;var ic=k.querySelector('i');if(ic)ic.replaceWith(coin('b-kicon'));return true;}
+  function fly(from,to,cb,drop){if(RM||!from||!to||!document.body.animate){cb&&cb();return;}
+    var a=from.getBoundingClientRect(),b=to.getBoundingClientRect(),c=coin('b-kfly');document.body.appendChild(c);
+    var x0=a.left+a.width/2-20,y0=a.top+a.height/2-20,x1=b.left+b.width/2-20,y1=b.top+b.height/2-20+(drop?-6:0),lift=-Math.min(220,Math.abs(x1-x0)*.3+90);
+    c.style.left=x0+'px';c.style.top=y0+'px';
+    var an=c.animate([{transform:'translate(0,0) scale(.7)'},{transform:'translate('+(x1-x0)*.5+'px,'+((y1-y0)*.5+lift)+'px) scale(1.25)',offset:.5},{transform:'translate('+(x1-x0)+'px,'+(y1-y0)+'px) scale('+(drop?.8:.6)+')'}],{duration:900,easing:'cubic-bezier(.45,.05,.55,.95)',fill:'forwards'});
+    an.onfinish=function(){if(drop){var d=c.animate([{transform:'translate('+(x1-x0)+'px,'+(y1-y0)+'px) scale(.8)',clipPath:'inset(0 0 0 0)'},{transform:'translate('+(x1-x0)+'px,'+(y1-y0+26)+'px) scale(.8)',clipPath:'inset(0 0 100% 0)'}],{duration:320,easing:'ease-in',fill:'forwards'});d.onfinish=function(){c.remove();cb&&cb();};}
+      else{c.remove();cb&&cb();}};}
+  var last=null;
+  function watch(){var kn=$('kn');if(!kn)return;var v=parseInt((kn.textContent||'').trim(),10);if(isNaN(v)){return;}
+    if(last!==null&&v!==last){var k=$('koins'),slot=document.querySelector('.b-slot'),scr=document.querySelector('.b-glass');
+      if(v<last){/* payée : du compteur à la fente */var s=slot&&slot.querySelector('i')||slot;if(s&&s.getBoundingClientRect().bottom>0&&s.getBoundingClientRect().top<innerHeight)fly(k,s,null,true);else if(scr)fly(k,scr,null,true);else spin(k);}
+      else spin(k);}
+    last=v;}
+  function spin(k){var i=k&&k.querySelector('.b-kicon');if(!i)return;i.classList.remove('b-kgo');void i.offsetWidth;i.classList.add('b-kgo');}
+  function boot(){if(!setup()){setTimeout(boot,500);return;}var kn=$('kn');new MutationObserver(watch).observe(kn,{childList:true,characterData:true,subtree:true});watch();}
+  setTimeout(boot,600);
+  /* la fente : une vraie Koin y tombe en tournant */
+  document.addEventListener('click',function(e){var s=e.target.closest&&e.target.closest('.b-slot');if(!s||RM)return;var c=coin('b-kslot');s.appendChild(c);setTimeout(function(){c.remove();},700);},true);
+})();
