@@ -9,7 +9,7 @@
     ['burrows','.b-land'],['lore','.b-lore'],['koins','.b-bezelfoot #koins'],['boom','.b-bezelfoot .b-boom'],
     ['boutons','.b-row2 .menu'],['manette','.b-panel .cabinets > .b-stick'],['plaque','.b-plate .b-badge'],['fente','.b-slot'],['molettes','.b-knobs']
   ];
-  var MAG=14,HOME=26,LONG=330;
+  var MAG=14,HOME=26,LONG=220;
   var blocks=[],drag=null,suppress=0;
   function skin(){return root.dataset.skin||'bois';}
   function key(){return 'borne.aimant.'+skin();}
@@ -55,6 +55,12 @@
   document.addEventListener('touchmove',function(e){if(drag&&drag.on)e.preventDefault();},{capture:true,passive:false});
   document.addEventListener('contextmenu',function(e){if(drag||Date.now()-suppress<600){if(of(e.target))e.preventDefault();}},true);
   document.addEventListener('click',function(e){if(Date.now()-suppress<350&&of(e.target)){e.preventDefault();e.stopImmediatePropagation();}},true);
+  /* MIX : les compartiments s'empilent au hasard, de travers, les uns sur les autres ; puis chacun retrouve sa place */
+  window.__borneMix=function(on){var vw=innerWidth,vh=innerHeight;blocks.forEach(function(b,i){if(!b.el.offsetParent)return;
+      if(!on){var sv=load()[b.id]||[0,0];put(b,sv[0],sv[1],true);return;}var r=b.el.getBoundingClientRect(),l0=r.left-b.dx,t0=r.top-b.dy;
+      var x=(Math.random()*.7+.15)*vw-r.width/2-l0,y=(scrollY?0:0)+(Math.random()*.7+.15)*vh-r.height/2-t0;
+      setTimeout(function(){put(b,Math.round(x),Math.round(y),true);b.el.style.rotate=((Math.random()*2-1)*9).toFixed(1)+'deg';b.el.style.zIndex=40+Math.floor(Math.random()*30);try{window.__borneSon&&window.__borneSon.clack();}catch(e){}},i*45);});
+    if(!on)blocks.forEach(function(b){b.el.style.rotate='';b.el.style.zIndex='';});};
   /* un autre skin, d'autres places */
   new MutationObserver(function(){var saved=load();blocks.forEach(function(b){var s=saved[b.id]||[0,0];put(b,s[0],s[1],true);});}).observe(root,{attributes:true,attributeFilter:['data-skin']});
   function start(){collect();}
