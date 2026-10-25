@@ -281,3 +281,32 @@ html.borne .b-bell{width:34px;height:34px;padding:0;border:0;border-radius:50%;c
 html.borne .b-bell.on{filter:none;box-shadow:inset 0 0 0 1px #ffe08a,0 0 12px rgba(255,224,138,.5)}
 html.borne .b-bell:hover,html.borne .b-bell:focus-visible{box-shadow:inset 0 0 0 1px #ffe08a}
 html.borne[data-skin="1960"][data-mode=arcade]:not([data-habit=fauneye]) #home .copy{color:#3a2a20}
+
+/* KorhoGame déplié : les grands jeux à gauche, Katabatik et ses mini-jeux à droite */
+html.borne .b-panel .b-subgrid.b-split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,3fr);gap:16px}
+html.borne .b-side{display:grid;gap:10px;align-content:start}
+html.borne .b-big{grid-template-columns:repeat(auto-fill,minmax(clamp(112px,11vw,150px),1fr))}
+html.borne .b-minis{grid-template-columns:repeat(2,minmax(0,1fr));padding-left:16px;border-left:2px dashed rgba(244,143,177,.35)}
+html.borne .b-minis .cab{min-height:clamp(52px,6vh,70px)}
+html.borne .b-minis .cab b{font-size:clamp(.95rem,1.3vw,1.2rem)}
+html.borne .b-face{position:absolute;right:8px;top:4px;z-index:2;font-style:normal;font-size:1.4rem;line-height:1;color:var(--nc);text-shadow:0 0 8px var(--nc)}
+html.borne .b-die{grid-column:1 / -1;display:flex;align-items:center;justify-content:center;gap:14px;min-height:clamp(58px,7vh,76px);border:0;border-radius:10px;cursor:pointer;
+  background:radial-gradient(circle at 30% 30%,#3a1a26,#160a10);box-shadow:inset 0 0 0 3px #f48fb1,inset 0 -6px 0 rgba(0,0,0,.45),0 5px 0 #0b0a09;color:#fff}
+html.borne .b-die span{display:inline-block;font-size:2.8rem;line-height:1;color:#f48fb1;text-shadow:0 0 14px #f48fb1;transform:rotate(var(--r,0deg));transition:transform .07s}
+html.borne .b-die b{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:1.5rem;letter-spacing:.08em;text-shadow:0 0 10px #f48fb1}
+html.borne .b-die:active{transform:translateY(3px)}
+html.borne .b-panel .cab.lit{box-shadow:inset 0 0 0 4px var(--nc),0 0 26px var(--nc)}
+html.borne .kb-tab[data-action*="'bb'"],html.borne .kb-tab[data-action*="'fi'"],html.borne #fi-panel .kb-back,html.borne #bb-panel .kb-back{display:none!important}
+
+/* grands jeux : l'écran prend la hauteur de la fenêtre ; FaunInvaders : écran vertical */
+html.borne[data-big=wide]{--gw:min(calc(100vw - 80px),calc((100vh - 24px) * 4 / 3));--gh:calc(var(--gw) * .75)}
+html.borne[data-big=tate]{--gh:calc(100vh - 24px);--gw:min(calc(100vw - 80px),calc(var(--gh) * .75))}
+@media (max-width:700px){
+  html.borne .b-panel .b-subgrid.b-split{grid-template-columns:minmax(0,1fr)}
+  html.borne .b-minis{padding:12px 0 0;border-left:0;border-top:2px dashed rgba(244,143,177,.35)}
+  html.borne .b-big{grid-template-columns:repeat(2,minmax(0,1fr))}
+  html.borne[data-big=wide]{--gw:var(--scrW);--gh:calc(var(--scrW) * .75)}
+  html.borne[data-big=tate]{--gw:var(--scrW);--gh:min(calc(100vh - 24px),calc(var(--scrW) * 4 / 3))}
+}
+html.borne .b-panel .b-subgrid.b-split{grid-template-columns:minmax(0,3fr) minmax(0,2fr)}
+html.borne .b-minis .cab b{font-size:clamp(.9rem,1.05vw,1.05rem)!important;letter-spacing:0!important;white-space:nowrap;max-width:none!important;overflow:visible!important}

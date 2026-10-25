@@ -50,8 +50,16 @@
   function tile(k,title,th,nc){var c=cabOf(k);if(c)return c;c=el('div','cab');c.style.cssText='--th:url('+th+');--nc:'+nc;
     c.innerHTML='<button type="button" class="hit" data-go="'+k+'"><b></b></button>';c.querySelector('b').textContent=title;
     c.querySelector('button').addEventListener('click',function(){IK().go&&IK().go(k);});return c;}
+  /* KorhoGame : les grands jeux d'un côté ; de l'autre, Katabatik : le dé choisit parmi les mini-jeux (⚀ à ⚃ ; ⚄ et ⚅ : le hasard) */
+  var KATA=['c4','bb','hang','mm','fi'],DICE='⚀⚁⚂⚃⚄⚅';
+  var MINIS=[['c4','KONNECT4','borne-mini-c4.jpg','#f48fb1'],['hang','AKASZTÓFA','borne-mini-hang.jpg','#f48fb1'],['mm','MASTERMIND','borne-mini-mm.jpg','#f48fb1'],['erratic','ERRATIK','thumb-erratic.jpg','#42a5f5']];
+  function kata(g){var d=document.querySelector('.cab.dice b');if(d)d.dataset.d=DICE[KATA.indexOf(g)];IK().go&&IK().go('katabatik');}
+  function play(g){if(g==='erratic')IK().go&&IK().go('erratic');else kata(g);}
+  function ktile(g,title,th,nc,face){var c=el('div','cab b-kata');c.style.cssText='--th:url('+th+');--nc:'+nc;
+    c.innerHTML='<button type="button" class="hit" data-kata="'+g+'"><b></b>'+(face!=null?'<i class="b-face">'+DICE[face]+'</i>':'')+'</button>';c.querySelector('b').textContent=title;
+    c.querySelector('button').addEventListener('click',function(){play(g);});return c;}
   var GROUPS={korhogame:{t:'KORHOGAME',th:'thumb-puck.jpg',nc:'#ffa726',items:[['puck','KORONG!','thumb-puck.jpg','#ffa726'],['chess','FAUNA CHESS','thumb-chess.jpg','#ab47bc'],
-      ['erratic','ERRATIK','thumb-erratic.jpg','#42a5f5'],['faunarratics','FAUNARRATIK','thumb-faunarratics.jpg','#4fc3f7'],['katabatik','KATABATIK','thumb-katabatik.jpg','#f48fb1']]},
+      ['faunarratics','FAUNARRATIK','thumb-faunarratics.jpg','#4fc3f7']],extra:[['fi','FAUNINVADERS','borne-big-fi.jpg','#c9a84c',3],['bb','SAMPLER','borne-big-bb.jpg','#ff7043',2]]},
     fauneye:{t:'FAUNEYE',th:'borne-fauneye.jpg',nc:'#e2c27a',items:[['fauneye','LISEUSE','borne-fauneye.jpg','#e2c27a'],['vhs','VHS','thumb-vhs.jpg','#b9d84a'],['photo','FOTOFAUNA','thumb-photo.jpg','#ff5a5a']]},
     surf:{t:'SURFAUNA',th:'thumb-repo.jpg',nc:'#7fe0ff',items:[['repo','REPORHOGO','thumb-repo.jpg','#b9d84a'],['tor','FAUNATOR','thumb-repo.jpg','#9e9e9e']]}};
   function group(g){var G=GROUPS[g],c=el('div','cab b-group');c.style.cssText='--th:url('+G.th+');--nc:'+G.nc;
@@ -60,6 +68,18 @@
   if(cabs){
     /* les programmes des groupes vont en réserve ; les cabinets sans place y restent branchés (dé, chambre, Mask de Bio) */
     Object.keys(GROUPS).forEach(function(g){GROUPS[g].els=GROUPS[g].items.map(function(it){var c=tile(it[0],it[1],it[2],it[3]);store.appendChild(c);return c;});});
+    var KG=GROUPS.korhogame;(KG.extra||[]).forEach(function(it){var c=ktile(it[0],it[1],it[2],it[3]);KG.els.push(c);store.appendChild(c);});
+    var ORD=['chess','fi','puck','faunarratics','bb'],keyOf=function(c){var b=c.querySelector('[data-go],[data-kata]');return b.dataset.go||b.dataset.kata;};
+    KG.els.sort(function(a,b){return ORD.indexOf(keyOf(a))-ORD.indexOf(keyOf(b));});
+    /* le côté des mini-jeux : le dé, puis chaque mini-jeu sous sa face */
+    var die=el('button','b-die','<span>'+DICE[0]+'</span><b>KATABATIK</b>');die.type='button';die.setAttribute('aria-label','Katabatik');
+    KG.minis=[die].concat(MINIS.map(function(m,i){return ktile(m[0],m[1],m[2],m[3],i);}));KG.minis.forEach(function(c){store.appendChild(c);});
+    var rolling=false;die.onclick=function(){if(rolling)return;rolling=true;var n=0,N=9,f=Math.floor(Math.random()*6),sp=die.querySelector('span');
+      var iv=setInterval(function(){var x=++n>=N?f:Math.floor(Math.random()*6);sp.textContent=DICE[x];sp.style.setProperty('--r',(n>=N?0:(Math.random()-.5)*90)+'deg');
+        try{IK().tone&&IK().tone(300+Math.random()*500,.03,'square',.02);}catch(e){}
+        if(n>=N){clearInterval(iv);var g=f<4?MINIS[f][0]:MINIS[Math.floor(Math.random()*4)][0];
+          [].forEach.call(subG.querySelectorAll('[data-kata]'),function(b){b.closest('.cab').classList.toggle('lit',b.dataset.kata===g);});
+          setTimeout(function(){rolling=false;play(g);},650);}},70);};
     var sk=cabOf('skopo');if(sk)sk.remove();
     var mt=tile('terminal','3615','thumb-3615.jpg','#66bb6a');
     [].slice.call(cabs.children).forEach(function(c){if(c.classList.contains('cab'))store.appendChild(c);});
@@ -71,9 +91,12 @@
     var bc=el('a',null,'BC');bc.href='https://mauktenieb.bandcamp.com';bc.target='_blank';bc.rel='noopener';bc.style.setProperty('--mc','#1da0c3');menu.insertBefore(bc,menu.firstChild);}
   var subT=el('div','b-subbar','<button type="button" class="b-fold" aria-label="◀">◀</button><b></b>'),subG=el('div','b-subgrid');sub.appendChild(subT);sub.appendChild(subG);
   var openG=null;
-  function unfold(g){var G=GROUPS[g];openG=g;subG.innerHTML='';G.els.forEach(function(c){subG.appendChild(c);});subT.querySelector('b').textContent=G.t;
+  function unfold(g){var G=GROUPS[g];openG=g;subG.innerHTML='';subT.querySelector('b').textContent=G.t;
+    if(G.minis){var big=el('div','b-side b-big'),mini=el('div','b-side b-minis');G.els.forEach(function(c){big.appendChild(c);});G.minis.forEach(function(c){mini.appendChild(c);});
+      subG.appendChild(big);subG.appendChild(mini);subG.classList.add('b-split');}
+    else{subG.classList.remove('b-split');G.els.forEach(function(c){subG.appendChild(c);});}
     sub.hidden=false;if(cabs)cabs.hidden=true;panel.classList.remove('b-unfold');void panel.offsetWidth;panel.classList.add('b-unfold');}
-  function fold(){if(!openG)return;GROUPS[openG].els.forEach(function(c){store.appendChild(c);});openG=null;sub.hidden=true;if(cabs)cabs.hidden=false;}
+  function fold(){if(!openG)return;GROUPS[openG].els.concat(GROUPS[openG].minis||[]).forEach(function(c){store.appendChild(c);});[].forEach.call(subG.querySelectorAll('.lit'),function(c){c.classList.remove('lit');});openG=null;sub.hidden=true;if(cabs)cabs.hidden=false;}
   subT.querySelector('.b-fold').onclick=fold;
 
   /* ---------- la porte : la fente, le son, la langue ---------- */
@@ -110,14 +133,19 @@
     [120,500,800,1100].forEach(function(t){setTimeout(relayout,t);});
     if(h==='repos')wake();else sleep();}
   function mark(k){[cabs,subG].forEach(function(r){if(r)r.querySelectorAll('.cab').forEach(function(c){var b=c.querySelector('[data-go]');c.classList.toggle('on-air',!!b&&b.dataset.go===k);});});}
-  window.__borneGo=function(k){
+  /* les grands jeux agrandissent l'écran à la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale, comme les bornes de 1978 */
+  function bigOf(k){if(k==='katabatik'){var d=document.querySelector('.cab.dice b'),f=d?DICE.indexOf(d.dataset.d):-1;return f===4?'tate':f===1?'wide':'';}
+    return {puck:'wide',chess:'wide',faunarratics:'wide'}[k]||'';}
+  function setBig(v){if(v)root.dataset.big=v;else delete root.dataset.big;
+    if(v)setTimeout(function(){scr.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});relayout();},820);}
+  window.__borneGo=function(k){setBig(bigOf(k));
     if(k==='fauneye'){IK().ac&&IK().ac();dress('fauneye');mark(k);IK().openCalque('borne-fauneye.html','FAUNEYE');return true;}
     if(k==='skopo'){dress('arcade');mark(k);IK().openCalque('skoporhogo-borne.html','SkopoRhogo');return true;}
     if(k==='visit'){full('/katabase/','BURROWS');return true;}
     dress(HABIT[k]||'arcade',!!DEVICE[k]);mark(k);
     /* programme refusé (Koins à zéro) : la borne reprend son habit de repos */
-    setTimeout(function(){if(document.body.className.indexOf('on-home')>=0){dress('repos');mark(null);}},120);return false;};
-  window.__borneHome=function(){dress('repos');mark(null);};
+    setTimeout(function(){if(document.body.className.indexOf('on-home')>=0){dress('repos');mark(null);setBig('');}},120);return false;};
+  window.__borneHome=function(){dress('repos');mark(null);if(root.dataset.big){setBig('');scrollTo({top:0,behavior:'smooth'});}};
   window.__borneGame=function(k){if(k==='kapture')dress('photo',true);};
 
   /* ---------- Baku Boom : un coup de tilt, pour tous les boutons Baku Boom de la page ---------- */
