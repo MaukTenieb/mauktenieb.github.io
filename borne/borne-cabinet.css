@@ -748,3 +748,12 @@ html.borne .b-badge::before{left:9px}html.borne .b-badge::after{right:9px}
 html.borne .b-plate .b-badge b,html.borne .b-badge b{font-family:var(--f-sign),"Bebas Neue",Impact,sans-serif!important;font-size:1.05rem!important;letter-spacing:.32em!important;margin-right:-.32em;
   line-height:1;white-space:nowrap;color:#d9b97c!important;text-shadow:0 -1px 0 rgba(0,0,0,.9),0 1px 0 rgba(255,230,180,.18)!important}
 html.borne[data-skin="1960"] .b-copy{color:rgba(40,30,22,.55)!important}
+
+/* ---------- 25 oct., 15 h 50 : dans un appareil (VHS, Minitel, FotoFauna, FaunEye), le meuble garde son skin ; seul le cadre de l'écran prend l'habit de l'appareil ---------- */
+html.borne[data-skin=bois]:is([data-mode=device],[data-habit=fauneye]) .wrap{background-color:#2b1d14!important;background-image:url(skin-bois-flanc.webp)!important;background-size:384px 384px!important}
+html.borne[data-skin=bois]:is([data-mode=device],[data-habit=fauneye]) .b-panel{background:#1a1816 url(skin-bois-panneau.webp) center/cover no-repeat!important}
+html.borne[data-skin=metal]:is([data-mode=device],[data-habit=fauneye]) .wrap{background-color:#5d6166!important;background-image:url(skin-metal-flanc.webp)!important;background-size:384px 384px!important}
+html.borne[data-skin=metal]:is([data-mode=device],[data-habit=fauneye]) .b-panel{background:#3a3d41 url(skin-metal-panneau.webp) center/cover no-repeat!important}
+html.borne[data-skin="1960"]:is([data-mode=device],[data-habit=fauneye]) .wrap{background-color:#e8dcc2!important;background-image:url(skin-1960-flanc.webp)!important;background-size:496px 298px!important}
+html.borne[data-skin="1960"]:is([data-mode=device],[data-habit=fauneye]) .b-panel{background:#2a6f6a var(--v-panneau) center/cover no-repeat!important}
+html.borne[data-skin=metal] .b-slot b{left:5%!important;width:35%!important;gap:.4em!important;font-size:clamp(5.5px,.62vw,7px)!important;letter-spacing:0}
