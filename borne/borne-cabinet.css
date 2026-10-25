@@ -565,3 +565,45 @@ html.borne .b-boom i,html.borne .b-bezelfoot .b-boom i{width:48px!important;heig
 html.borne body:not(.on-home) .b-boom i{filter:drop-shadow(0 0 6px rgba(220,40,30,.55)) drop-shadow(0 3px 3px rgba(0,0,0,.5))}
 html.borne .b-boom:hover i,html.borne .b-boom:focus-visible i{transform:rotate(-3deg) scale(1.08)}
 html.borne .b-boom:active i{transform:rotate(-3deg) translateY(2px) scale(.96)}
+
+/* ---------- touches : gros pavés électroluminescents, capuchon translucide éclairé par-dessous, légende imprimée (25 oct., 14 h) ---------- */
+html.borne .b-panel .cab{min-height:0!important;aspect-ratio:5/4;padding:0;border:0!important;border-radius:9px;overflow:visible;
+  background:linear-gradient(180deg,#2c2b29,#0e0d0c)!important;box-shadow:0 0 0 2px #050505,inset 0 1px 0 rgba(255,255,255,.14),0 6px 0 #050505,0 11px 18px rgba(0,0,0,.6)!important;transition:transform .06s,box-shadow .2s}
+html.borne .b-panel .cab::before{content:"";position:absolute;inset:8px;border-radius:5px;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 42%,color-mix(in srgb,var(--nc) 55%,#fff) 0%,var(--nc) 46%,color-mix(in srgb,var(--nc) 45%,#000) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),inset 0 0 22px rgba(0,0,0,.55),inset 0 -8px 12px rgba(0,0,0,.35);opacity:.62;transition:opacity .2s,filter .2s}
+html.borne .b-panel .cab::after{content:"";position:absolute;inset:8px;border-radius:5px;z-index:1;pointer-events:none;display:block!important;width:auto!important;height:auto!important;box-shadow:none!important;
+  background:linear-gradient(160deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,.08) 34%,transparent 50%),var(--th) center/cover no-repeat;mix-blend-mode:luminosity;opacity:.32}
+html.borne .b-panel .cab .hit{position:absolute;inset:8px;z-index:2;display:grid;place-items:center;align-content:center;padding:6px;text-align:center;border-radius:5px}
+html.borne .b-panel .cab b{color:#140c06!important;font-size:clamp(1rem,1.7vw,1.45rem)!important;letter-spacing:.06em;line-height:1;text-shadow:0 1px 0 rgba(255,255,255,.45)!important}
+html.borne .b-panel .cab b::after{color:#140c06!important;text-shadow:none!important}
+html.borne .b-panel .cab:hover::before,html.borne .b-panel .cab:focus-within::before{opacity:.9}
+html.borne .b-panel .cab:hover,html.borne .b-panel .cab:focus-within{box-shadow:0 0 0 2px #050505,inset 0 1px 0 rgba(255,255,255,.14),0 6px 0 #050505,0 0 26px color-mix(in srgb,var(--nc) 55%,transparent)!important}
+html.borne .b-panel .cab.on-air::before,html.borne .b-panel .cab.lit::before{opacity:1;filter:brightness(1.15)}
+html.borne .b-panel .cab.on-air,html.borne .b-panel .cab.lit{box-shadow:0 0 0 2px #050505,0 6px 0 #050505,0 0 34px var(--nc)!important}
+html.borne .b-panel .cab:active{transform:translateY(4px)}
+html.borne .b-panel .cab:active::before{opacity:1;filter:brightness(1.3)}
+html.borne .b-panel .cabinets>.cab:nth-child(1):active,html.borne .b-panel .cabinets>.cab:nth-child(5):active{transform:translateY(18px)}
+html.borne .b-panel .b-face{z-index:3;color:#140c06;text-shadow:none}
+html.borne .b-minis .cab{aspect-ratio:auto;min-height:62px!important}
+@media (max-width:700px){html.borne .b-panel .cab{aspect-ratio:4/3}html.borne .b-panel .cab b{font-size:1.05rem!important}}
+
+/* Baku Boom : le mot s'affiche seulement à l'activation, en grand sur l'écran */
+html.borne .b-boom span{display:none}
+html.borne .b-bbflash{position:absolute;left:50%;top:50%;z-index:60;pointer-events:none;transform:translate(-50%,-50%);font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(2.6rem,9vw,7rem);letter-spacing:.08em;color:#fff4e6;
+  text-shadow:0 0 18px #ff5b3c,0 0 42px #b8231a,0 4px 0 #000;animation:bbflash 1.15s ease-out forwards;white-space:nowrap}
+@keyframes bbflash{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}}
+
+/* la manette en miroir, sous l'écran, quand un programme est ouvert */
+html.borne .b-stick-mini{display:none;width:40px!important;height:52px!important;margin-left:auto}
+html.borne .b-stick-mini i{width:40px!important;height:52px!important}
+html.borne[data-prog] .b-stick-mini{display:block}
+html.borne[data-prog] .b-bezelfoot .b-boom{margin-left:12px}
+html.borne .b-panel .cab::before{opacity:.82}
+html.borne .b-panel .cab::after{mix-blend-mode:multiply;opacity:.18;background:linear-gradient(160deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.1) 30%,transparent 48%),var(--th) center/cover no-repeat}
+html.borne .b-panel .cab .hit{justify-items:center!important;text-align:center!important}
+html.borne .b-panel .cab .hit b{display:block;width:100%;text-align:center;position:static!important}
+html.borne .b-panel .cab .hit b::after{display:none!important}
+html.borne .b-panel .cab .hit b{border-bottom:0!important;padding-bottom:0!important}
+html.borne .b-panel .cab::before{background:radial-gradient(ellipse at 50% 42%,color-mix(in srgb,var(--nc) 78%,#fff) 0%,var(--nc) 42%,color-mix(in srgb,var(--nc) 62%,#000) 100%)!important;opacity:.92}
+html.borne .b-panel .cab::after{opacity:.12}

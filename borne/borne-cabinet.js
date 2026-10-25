@@ -41,7 +41,7 @@
   var row1=el('div','b-row1'),row2=el('div','b-row2'),sub=el('div','b-sub'),store=el('div','b-store');sub.hidden=true;store.hidden=true;
   var stick=el('div','b-stick','<i></i>');stick.setAttribute('aria-hidden','true');
   var keys=el('div','b-keys');if(cabs)keys.appendChild(cabs);keys.appendChild(sub);
-  var bb=el('button','b-boom','<i></i><span>BAKU BOOM</span>');bb.type='button';bb.setAttribute('aria-label','Baku Boom');foot.appendChild(bb);
+  var bb=el('button','b-boom','<i></i>');bb.type='button';bb.setAttribute('aria-label','Baku Boom');foot.appendChild(bb);
   row1.appendChild(keys);
   if(menu)row2.appendChild(menu);
   /* console : les boutons BC TL IG en rangée de départ, au-dessus ; la manette au milieu, deux touches de chaque côté ; la plaque du fabricant sur le bord avant */
@@ -204,6 +204,7 @@
   window.__borneBoom=function(cb){if(tilting)return;tilting=true;
     try{IK().burst&&IK().burst(90,'lowpass',.35,.5);IK().tone&&IK().tone(70,.5,'sawtooth',.06,-30);IK().tone&&IK().tone(1046,.08,'square',.025,0,.45);}catch(e){}
     wrap.classList.remove('b-shake');void wrap.offsetWidth;wrap.classList.add('b-shake');hab.textContent='TILT';hab.classList.add('tilt');
+    var fl=el('div','b-bbflash','BAKU BOOM');glass.appendChild(fl);setTimeout(function(){fl.remove();},1200);
     glass.classList.remove('b-on');glass.classList.add('b-off');
     setTimeout(function(){try{cb&&cb();}catch(e){}glass.classList.remove('b-off');glass.classList.add('b-on');},480);
     setTimeout(function(){glass.classList.remove('b-on');wrap.classList.remove('b-shake');hab.classList.remove('tilt');hab.textContent=LABEL[root.dataset.habit]||'';tilting=false;},1150);};
@@ -227,7 +228,8 @@
   document.addEventListener('visibilitychange',function(){if(document.hidden)sleep();else if(root.dataset.habit==='repos')wake();});
 
   /* ---------- la manette, en miroir : elle penche avec les flèches et les glissés dans l'écran ---------- */
-  var tilt=function(x,y){stick.style.setProperty('--x',x);stick.style.setProperty('--y',y);},held={};
+  var mini=el('div','b-stick b-stick-mini','<i></i>');mini.setAttribute('aria-hidden','true');foot.insertBefore(mini,bb);
+  var tilt=function(x,y){[stick,mini].forEach(function(s){s.style.setProperty('--x',x);s.style.setProperty('--y',y);});},held={};
   var KX={ArrowLeft:-1,ArrowRight:1,a:-1,q:-1,d:1},KY={ArrowUp:-1,ArrowDown:1,w:-1,z:-1,s:1};
   var clamp=function(v){return Math.max(-1,Math.min(1,v));};
   function fromKeys(){var x=0,y=0;Object.keys(held).forEach(function(k){x+=KX[k]||0;y+=KY[k]||0;});tilt(clamp(x),clamp(y));}
@@ -293,6 +295,8 @@
     if(document.body.className.indexOf('on-home')>=0){fold();return;}e.preventDefault();bb.click();}
   addEventListener('keydown',escHome);
   function hookFrame(f){if(f.__esc)return;f.__esc=1;var on=function(){try{var w=f.contentWindow,d=w.document;w.addEventListener('keydown',function(e){if(e.key==='Escape')setTimeout(function(){escHome(e);},0);if(e.key==='PageUp'||e.key==='PageDown')navKey(e);});
+      var f0=null;w.addEventListener('pointerdown',function(e){f0=[e.clientX,e.clientY];},true);w.addEventListener('pointermove',function(e){if(f0)tilt(clamp((e.clientX-f0[0])/70),clamp((e.clientY-f0[1])/70));},true);
+      w.addEventListener('pointerup',function(){f0=null;tilt(0,0);},true);w.addEventListener('keydown',function(e){if(KX[e.key]!=null||KY[e.key]!=null){held[e.key]=1;fromKeys();}},true);w.addEventListener('keyup',function(e){if(held[e.key]){delete held[e.key];fromKeys();}},true);
       [].forEach.call(d.querySelectorAll('iframe'),hookFrame);new MutationObserver(function(){[].forEach.call(d.querySelectorAll('iframe'),hookFrame);}).observe(d.documentElement,{childList:true,subtree:true});
       if(/3615/.test(w.location.pathname)&&!d.getElementById('b-3615')){var st=d.createElement('style');st.id='b-3615';st.textContent='#lg{display:none!important}';(d.head||d.documentElement).appendChild(st);}}catch(x){}};
     f.addEventListener('load',on);on();}
