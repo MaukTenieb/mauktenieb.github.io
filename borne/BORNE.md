@@ -9,7 +9,7 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 ## Le meuble, de haut en bas
 - Toit : une plante qui suit les mois du calendrier républicain ; au survol, EAU, SOLEIL, TAILLE l'entretiennent ; la caméra Kapture.
 - Fronton : l'enseigne entre deux haut-parleurs ; Motel Sound joue dès l'arrivée, son coupé, une cloche barrée ouvre le son.
-- Écran d'attente : une des seize images de Mauk Tenieb (attente-01 à attente-16), au hasard, le temps que la borne se monte.
+- Écran d'attente : une des vingt-trois images de Mauk Tenieb (attente-01 à attente-23), au hasard, le temps que la borne se monte.
 - Cadre : l'enseigne Burrows, éclairée, au-dessus de l'écran ; l'autocollant Lore collé de travers au coin ; sous l'écran, les Koins et la dynamite Baku Boom (le mot BAKU BOOM s'allume à l'activation) ; dans un programme, la manette en miroir.
 - Écran : les Koins en haut à gauche à l'accueil, avec le décompte de la Koin gratuite à zéro ; SkopoRhogo à la minute exacte de l'heure du visiteur ; chaque programme s'ouvre dedans, et le meuble se replie autour de l'écran, qui prend la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale.
 - Panneau : BC, TL, IG en rangée de départ ; la manette au milieu, entre quatre touches-pavés lumineuses, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (liseuse, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; la plaque émaillée Mauk Tenieb (la bio) sur le bord avant.
