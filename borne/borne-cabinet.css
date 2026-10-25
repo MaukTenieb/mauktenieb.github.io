@@ -807,3 +807,11 @@ html.borne .b-sheen{position:absolute;inset:0;border-radius:inherit;pointer-even
 html.borne .b-lore .b-sheen{mix-blend-mode:overlay;background:linear-gradient(115deg,transparent calc(var(--rx,.5)*100% - 40%),rgba(255,170,230,.45) calc(var(--rx,.5)*100% - 14%),rgba(255,255,255,.9) calc(var(--rx,.5)*100%),rgba(150,230,255,.45) calc(var(--rx,.5)*100% + 14%),transparent calc(var(--rx,.5)*100% + 40%))}
 html.borne .b-badge .b-sheen{mix-blend-mode:screen;opacity:.35}
 @media (prefers-reduced-motion:reduce){html.borne .b-gl,html.borne .b-sheen{display:none}}
+
+/* ---------- blocs aimantés : saisis, ils s'aspirent vers le doigt ; posés, ils claquent en place ---------- */
+html.borne .b-mag{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html.borne .b-mag.b-held{z-index:80!important;cursor:grabbing!important;filter:drop-shadow(0 18px 22px rgba(0,0,0,.55)) brightness(1.06);animation:bsuck .22s cubic-bezier(.3,1.6,.5,1) both}
+html.borne .b-mag.b-held.b-docked{filter:drop-shadow(0 4px 6px rgba(0,0,0,.5)) drop-shadow(0 0 10px rgba(255,214,140,.6))}
+@keyframes bsuck{0%{scale:1}35%{scale:.93}100%{scale:1.06}}
+html.borne .b-mag:not(.b-held){scale:1;transition:scale .25s cubic-bezier(.2,1.5,.4,1)}
+html.borne.b-holding,html.borne.b-holding *{cursor:grabbing!important}
