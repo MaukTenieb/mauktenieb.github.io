@@ -54,9 +54,9 @@
     b.addEventListener('click',function(){IK().go&&IK().go(k);});if(menu)menu.appendChild(b);}
   var GROUPS={korhogame:{t:'KORHOGAME',th:'thumb-puck.jpg',nc:'#ffa726',items:[['puck','KORONG!','thumb-puck.jpg','#ffa726'],['chess','FAUNA CHESS','thumb-chess.jpg','#ab47bc'],
       ['erratic','ERRATIK','thumb-erratic.jpg','#42a5f5'],['faunarratics','FAUNARRATIK','thumb-faunarratics.jpg','#4fc3f7'],['katabatik','KATABATIK','thumb-katabatik.jpg','#f48fb1']]},
-    fauneye:{t:'FAUNEYE',th:'borne-fauneye.jpg',nc:'#e2c27a',items:[['fauneye','LISEUSE','borne-fauneye.jpg','#e2c27a'],['vhs','VHS','thumb-vhs.jpg','#b9d84a'],['photo','PHOTOFAUNA','thumb-photo.jpg','#ff5a5a']]},
-    /* nom à venir : l'outil de surf, de consultation et de requête */
-    surf:{t:'REPORHOGO · FAUNATOR',th:'thumb-repo.jpg',nc:'#b9d84a',items:[['repo','REPORHOGO','thumb-repo.jpg','#b9d84a'],['tor','FAUNATOR','thumb-repo.jpg','#9e9e9e']]}};
+    fauneye:{t:'FAUNEYE',th:'borne-fauneye.jpg',nc:'#e2c27a',items:[['fauneye','LISEUSE','borne-fauneye.jpg','#e2c27a'],['vhs','VHS','thumb-vhs.jpg','#b9d84a'],['photo','FOTOFAUNA','thumb-photo.jpg','#ff5a5a']]},
+    /* SurFauna : surf, consultation et requête (Reporhogo, FaunaTor) */
+    surf:{t:'SURFAUNA',th:'thumb-repo.jpg',nc:'#b9d84a',items:[['repo','REPORHOGO','thumb-repo.jpg','#b9d84a'],['tor','FAUNATOR','thumb-repo.jpg','#9e9e9e']]}};
   if(cabs){
     /* les programmes des groupes vont en réserve, hors de la vue */
     Object.keys(GROUPS).forEach(function(g){GROUPS[g].els=GROUPS[g].items.map(function(it){var c=tile(it[0],it[1],it[2],it[3]);store.appendChild(c);return c;});});
@@ -94,7 +94,7 @@
   /* l'habit suit le programme ; les appareils transforment le meuble */
   var HABIT={terminal:'minitel',kal:'minitel',vhs:'vhs',photo:'photo',kapture:'photo',fauneye:'fauneye',puck:'korong',room:'korong'};
   var DEVICE={terminal:1,kal:1,vhs:1,photo:1,kapture:1};
-  var LABEL={minitel:'3615',vhs:'FAUNEYE · VHS',photo:'FAUNEYE · PHOTOFAUNA',fauneye:'FAUNEYE',korong:'KORHOGAME · KORONG!',arcade:'',repos:''};
+  var LABEL={minitel:'3615',vhs:'FAUNEYE · VHS',photo:'FAUNEYE · FOTOFAUNA',fauneye:'FAUNEYE',korong:'KORHOGAME · KORONG!',arcade:'',repos:''};
   var morphT=0;
   function relayout(){try{window.dispatchEvent(new Event('resize'));}catch(e){}
     try{var f=$('cf');if(f&&f.contentWindow)f.contentWindow.dispatchEvent(new Event('resize'));}catch(e){}}
