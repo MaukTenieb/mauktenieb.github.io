@@ -49,6 +49,41 @@
     P.querySelectorAll('.mm-peg[title]').forEach(function(e){e.classList.toggle('b-koin',!!KOIN[e.title]);});}
   setInterval(paintMM,400);
 
+
+  /* ---------- Immersion : l'écran seul, en plein écran ; glissés à gauche ou à droite pour changer de programme ---------- */
+  var imm=false;
+  function setImm(on){imm=on;root.classList.toggle('b-immersion',on);var d=document;
+    try{if(on&&!d.fullscreenElement&&root.requestFullscreen)root.requestFullscreen({navigationUI:'hide'}).catch(function(){});
+      else if(!on&&d.fullscreenElement&&d.exitFullscreen)d.exitFullscreen().catch(function(){});}catch(e){}
+    try{window.__borneSon&&window.__borneSon.clack();}catch(e){}setTimeout(soon,350);}
+  document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&imm)setImm(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&imm)setImm(false);});
+  /* en immersion, un glissé qui part d'un bord de l'écran change de programme ; ailleurs, le geste reste au programme (pages du BakuBook, jeux) */
+  function swipeOn(doc){if(!doc||doc._bswipe)return;doc._bswipe=1;var s=null,w=doc.defaultView||window;
+    function W(){return window.innerWidth;}
+    w.addEventListener('pointerdown',function(e){if(!imm)return;var x=e.screenX-(window.screenX||0);s=null;var fx=0;try{var fe=w.frameElement;if(fe)fx=fe.getBoundingClientRect().left;}catch(_){}var gx=e.clientX+fx;
+      if(gx<56||gx>W()-56)s={x:e.screenX,y:e.screenY,lx:e.screenX,ly:e.screenY,t:performance.now()};},true);
+    w.addEventListener('pointermove',function(e){if(s){s.lx=e.screenX;s.ly=e.screenY;}},true);
+    function end(){if(!imm||!s)return;var dx=s.lx-s.x,dy=s.ly-s.y,dt=performance.now()-s.t;s=null;
+      if(Math.abs(dx)>70&&Math.abs(dx)>1.6*Math.abs(dy)&&dt<700&&window.__borneZap){window.__borneZap(dx<0?1:-1);if(window.__borneTilt){window.__borneTilt(dx<0?1.4:-1.4,0);setTimeout(function(){window.__borneTilt(0,0);},120);}}}
+    w.addEventListener('pointerup',end,true);w.addEventListener('pointercancel',end,true);}
+  swipeOn(document);
+  setInterval(function(){document.querySelectorAll('iframe').forEach(function(f){try{swipeOn(f.contentDocument);}catch(e){}});},1500);
+  function mountImm(){var foot=document.querySelector('.b-bezelfoot'),glass=document.querySelector('.b-glass');if(!foot||!glass){setTimeout(mountImm,600);return;}
+    var b=document.createElement('button');b.type='button';b.className='b-imm';b.setAttribute('aria-label','Immersion');b.innerHTML='<i></i><span>IMMERSION</span>';
+    b.onclick=function(){setImm(!imm);};var boom=foot.querySelector('.b-boom');foot.insertBefore(b,boom);
+    var x=document.createElement('button');x.type='button';x.className='b-imm-x';x.setAttribute('aria-label','Sortir');x.textContent='✕';x.onclick=function(){setImm(false);};glass.appendChild(x);}
+  mountImm();
+
+  /* ---------- le Minitel : lettres plus lumineuses par défaut ---------- */
+  setInterval(function(){document.querySelectorAll('iframe').forEach(function(f){try{var d=f.contentDocument;if(!d||!d.querySelector('.crt canvas')||d.getElementById('b-lum'))return;
+    var st=d.createElement('style');st.id='b-lum';st.textContent='.crt canvas,.crt.color canvas{filter:brightness(1.55) contrast(1.06) drop-shadow(0 0 2.5px rgba(226,240,230,.6))!important}html.ike-on .crt canvas,html.ike-on .crt.color canvas{filter:var(--ike-filter,contrast(1)) brightness(1.55)!important}';
+    d.head.appendChild(st);}catch(e){}});},1000);
+
+  /* ---------- la Kam de Kapture : FRONT ou BAK ---------- */
+  var face='BAK';
+  setInterval(function(){var f=document.getElementById('kapture-flip');if(!f)return;if(!f._b){f._b=1;f.addEventListener('click',function(){face=face==='BAK'?'FRONT':'BAK';f.textContent=face;},true);}if(f.textContent!==face)f.textContent=face;},700);
+
   /* ---------- 2. la manette ---------- */
   var KC={ArrowLeft:37,ArrowUp:38,ArrowRight:39,ArrowDown:40,' ':32};
   function target(){var f=document.activeElement&&document.activeElement.tagName==='IFRAME'?document.activeElement:null;

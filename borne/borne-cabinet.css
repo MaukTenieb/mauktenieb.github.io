@@ -917,3 +917,17 @@ html.borne .bar .dock:first-of-type .b-bell svg{width:14px;height:14px}
   html.borne .bar .dock:first-of-type{background-size:cover!important}
   html.borne .bar .dock:first-of-type #radio-toggle{grid-column:1!important}html.borne .bar .dock:first-of-type #export-pl{grid-column:2!important}html.borne .bar .dock:first-of-type .b-bell{grid-column:3!important}
 }
+
+/* ---------- Immersion ---------- */
+html.borne .b-imm{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;margin-right:10px;border:0;border-radius:3px;cursor:pointer;background:var(--lcd-bg,#0b0907);
+  box-shadow:inset 0 0 0 1px var(--lcd-edge,#3a2e22),0 1px 0 rgba(255,255,255,.06);color:rgba(255,179,71,.6);font:500 9px/1 'DM Mono',monospace;letter-spacing:.16em}
+html.borne .b-imm i{width:12px;height:9px;border:1.5px solid currentColor;border-radius:1px;box-sizing:border-box;position:relative}
+html.borne .b-imm:hover{color:var(--lcd-ink,#ffb347)}
+@media (max-width:520px){html.borne .b-imm span{display:none}}
+html.borne .b-imm-x{display:none}
+html.borne.b-immersion,html.borne.b-immersion body{overflow:hidden!important;background:#000!important}
+html.borne.b-immersion .b-glass{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;border-radius:0!important;z-index:9000!important;margin:0!important}
+html.borne.b-immersion .b-imm-x{display:grid;place-items:center;position:absolute;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));z-index:99;width:44px;height:44px;border:0;border-radius:50%;
+  background:rgba(0,0,0,.45);color:rgba(255,255,255,.7);font-size:16px;cursor:pointer;opacity:.35;transition:opacity .2s}
+html.borne.b-immersion .b-imm-x:hover{opacity:1}
+html.borne.b-immersion .b-edge,html.borne.b-immersion .b-attract{opacity:.25}
