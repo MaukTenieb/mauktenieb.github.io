@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FaunEye — Borne Insert Koin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&amp;family=IM+Fell+English+SC&amp;display=swap" rel="stylesheet">
+<style>
+:root{--paper:#e9dfc8;--ink:#2e2213;--brass1:#f0d58c;--brass2:#b8892f;--wood:#3a2416;--dim:#6b5a3e}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{display:flex;flex-direction:column;background:var(--paper);background-image:radial-gradient(rgba(120,90,40,.06) 1px,transparent 1.4px);background-size:5px 5px;color:var(--ink);font-family:'IM Fell English',Georgia,serif}
+button,input,select{font:inherit}
+.tabs{flex:none;display:flex;gap:4px;padding:6px 8px 0;background:linear-gradient(180deg,#1c120a,#2b1c10);overflow-x:auto}
+.tabs button{flex:none;border:0;border-radius:6px 6px 0 0;padding:8px 12px;cursor:pointer;background:#4a2f1c;color:#e9d9b4;font-family:'IM Fell English SC',serif;font-size:15px}
+.tabs button[aria-selected=true]{background:var(--paper);color:var(--ink)}
+.tabs .eye{margin-right:auto;padding:8px 10px 8px 4px;color:var(--brass1);font:20px 'IM Fell English SC',serif;letter-spacing:.06em;display:flex;align-items:center;gap:8px}
+.tabs .eye svg{width:26px;height:18px}
+.pane{flex:none;display:none;padding:10px 12px;border-bottom:1px solid #cdbf9e;max-height:42%;overflow:auto}
+.pane.on{display:block}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row input[type=search],.row input[type=url]{flex:1 1 220px;min-width:0;padding:8px 10px;border:1px solid #b9a77f;border-radius:4px;background:#f6f0e2;color:var(--ink)}
+.row select{padding:7px;border:1px solid #b9a77f;border-radius:4px;background:#f6f0e2}
+.brass{height:38px;min-width:44px;padding:0 12px;border:0;border-radius:19px;cursor:pointer;background:linear-gradient(180deg,var(--brass1),var(--brass2) 60%,#8a6320);color:#2b1c08;font:15px 'IM Fell English SC',serif;box-shadow:0 3px 0 #4a3210,inset 0 1px 0 rgba(255,255,255,.6)}
+.hits{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+.hit{display:grid;gap:4px;align-content:start;text-align:left;border:1px solid #cdbf9e;border-radius:4px;padding:8px;background:#f6f0e2;cursor:pointer;color:var(--ink)}
+.hit img{width:100%;height:120px;object-fit:cover;background:#ddd2b8}
+.hit b{font-weight:400;font-style:italic;font-size:15px;line-height:1.15}
+.hit small{color:var(--dim);font-size:12px;line-height:1.2}
+.note{color:var(--dim);font-size:13px;margin:8px 0 0}
+.shelf{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.shelf button{flex:1 0 128px;min-height:56px;border:0;border-radius:3px 3px 1px 1px;padding:6px 8px;cursor:pointer;font:15px/1.1 'IM Fell English',serif;color:#f3e7c8;box-shadow:inset 3px 0 0 rgba(255,255,255,.12),inset -3px 0 0 rgba(0,0,0,.3)}
+.shelf button small{display:block;font-size:12px;opacity:.85}
+.view{position:relative;flex:1 1 auto;min-height:0;display:flex;gap:16px;padding:10px 14px;overflow:hidden}
+.stage{position:relative;flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:center;overflow:auto}
+.stage.z{align-items:flex-start;justify-content:flex-start}
+.stage img,.stage canvas{max-width:100%;max-height:100%;box-shadow:0 4px 14px rgba(60,40,10,.35);background:#fff;cursor:zoom-in}
+.stage.z img,.stage.z canvas{max-width:none;max-height:none;width:200%;cursor:zoom-out}
+.stage article{align-self:stretch;width:100%;max-width:44em;margin:0 auto;overflow:auto;padding:4px 18px 40px;font-size:19px;line-height:1.55;background:none}
+.stage article img{max-width:100%;height:auto;box-shadow:none}
+.stage .epub,.stage iframe{width:100%;height:100%;border:0;background:#fff}
+.side{flex:0 0 clamp(150px,26%,240px);display:flex;flex-direction:column;gap:8px;padding-top:4px;overflow:auto}
+.side .au{font-family:'IM Fell English SC',serif;font-size:15px;letter-spacing:.05em;color:#7a5a2a}
+.side .ti{font-style:italic;font-size:clamp(20px,2.4vw,27px);line-height:1.05}
+.side .ed{font-size:15px}
+.side .src{margin-top:auto;font:12px/1.4 Georgia,serif;color:var(--dim)}
+.side a{color:#7a4f1d}
+.bar{flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;padding:8px;background:linear-gradient(180deg,#4a2f1c,#2a1a0e);border-top:3px solid var(--brass2)}
+.bar output{min-width:100px;text-align:center;color:#f0d58c;font:15px 'IM Fell English',serif}
+.wait{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:italic;color:#7a5a2a;pointer-events:none;text-align:center;padding:20px}
+.drop{border:2px dashed #b9a77f;border-radius:6px;padding:16px;text-align:center;color:var(--dim)}
+.drop.over{background:#f6f0e2;border-color:var(--brass2)}
+@media (max-width:640px){.view{flex-direction:column;padding:8px}.side{flex:none;flex-direction:row;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.side .src{margin:0;width:100%}.tabs .eye span{display:none}}
+</style>
+</head>
+<body>
+<nav class="tabs" role="tablist">
+<div class="eye"><svg viewBox="0 0 26 18" aria-hidden="true"><path d="M1 9C5 2.5 9 1 13 1s8 1.5 12 8c-4 6.5-8 8-12 8S5 15.5 1 9z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="13" cy="9" r="4.2" fill="currentColor"/><circle cx="14.4" cy="7.6" r="1.2" fill="#2b1c10"/></svg><span>FaunEye</span></div>
+<button type="button" role="tab" data-p="stock" aria-selected="true"></button>
+<button type="button" role="tab" data-p="file"></button>
+<button type="button" role="tab" data-p="ia">Internet Archive</button>
+<button type="button" role="tab" data-p="gut">Gutenberg</button>
+<button type="button" role="tab" data-p="ws">Wikisource</button>
+<button type="button" role="tab" data-p="gb">Google Books</button>
+</nav>
+<section class="pane on" id="p-stock"><div class="shelf" id="shelf"></div></section>
+<section class="pane" id="p-file">
+<label class="drop" id="drop"><span id="dropT"></span><input type="file" id="fin" multiple accept=".pdf,.epub,.cbz,.zip,.txt,.md,.html,.htm,image/*" hidden></label>
+</section>
+<section class="pane" id="p-ia"><form class="row" data-s="ia"><input type="search" name="q" aria-label="Internet Archive"><button class="brass" type="submit">⌕</button></form><div class="hits"></div><p class="note" data-n="ia"></p></section>
+<section class="pane" id="p-gut"><form class="row" data-s="gut"><input type="search" name="q" aria-label="Gutenberg"><button class="brass" type="submit">⌕</button></form><div class="hits"></div></section>
+<section class="pane" id="p-ws"><form class="row" data-s="ws"><select name="l" aria-label="Wikisource"><option value="fr">fr</option><option value="en">en</option><option value="la">la</option><option value="de">de</option><option value="it">it</option></select><input type="search" name="q" aria-label="Wikisource"><button class="brass" type="submit">⌕</button></form><div class="hits"></div></section>
+<section class="pane" id="p-gb"><form class="row" data-s="gb"><input type="search" name="q" aria-label="Google Books"><button class="brass" type="submit">⌕</button></form><div class="hits"></div><p class="note" data-n="gb"></p></section>
+<main class="view">
+<div class="stage" id="stage"><div class="wait" id="wait"></div></div>
+<aside class="side" aria-live="polite"><span class="au" id="au"></span><span class="ti" id="ti"></span><span class="ed" id="ed"></span><span class="src" id="src"></span></aside>
+</main>
+<div class="bar">
+<button class="brass" type="button" id="prev" aria-label="◀">◀</button>
+<output id="num"></output>
+<button class="brass" type="button" id="next" aria-label="▶">▶</button>
+<button class="brass" type="button" id="zoom"></button>
+<button class="brass" type="button" id="mode" hidden></button>
+</div>
+<script>
+/* FaunEye : le lecteur universel de la borne. Le stock (fac-similés du domaine public), les fichiers du visiteur
+   (PDF, EPUB, images, CBZ, texte), et des recherches en direct : Internet Archive, Gutenberg, Wikisource, Google Books.
+   Rien n'est stocké sur le site : chaque page vient de sa source au fil de la lecture ; les fichiers restent dans le navigateur. */
+(function(){
+  var L=(function(){try{return localStorage.getItem('ik.lang')==='fr'?'fr':'en';}catch(e){return 'en';}})();
+  var T={fr:{stock:'En stock',file:'Fichiers',drop:'Glissez un PDF, un EPUB, des images, un CBZ ou un texte — ou touchez ici.',p:'page',w:'Page en chemin…',
+      src:'Source : ',full:'ouvrir à la source',zoom:'Loupe',txt:'Texte',fac:'Fac-similé',none:'Aucun résultat.',err:'Source injoignable depuis ce navigateur.',
+      ia:'Livres numérisés : titre, auteur, sujet.',gb:'Livres en lecture libre chez Google.',load:'Chargement…',ext:'La source refuse la lecture dans une autre page : '},
+    en:{stock:'In stock',file:'Files',drop:'Drop a PDF, an EPUB, images, a CBZ or a text — or tap here.',p:'page',w:'Page on its way…',
+      src:'Source: ',full:'open at the source',zoom:'Loupe',txt:'Text',fac:'Facsimile',none:'Nothing found.',err:'Source out of reach from this browser.',
+      ia:'Scanned books: title, author, subject.',gb:'Free-to-read books at Google.',load:'Loading…',ext:'The source refuses reading inside another page: '}}[L];
+  document.documentElement.lang=L;
+  var $=function(i){return document.getElementById(i);},stage=$('stage'),wait=$('wait'),cur=null,saved={};
+  try{saved=JSON.parse(localStorage.getItem('borne.fauneye')||'{}')||{};}catch(e){}
+  function keep(){if(cur&&cur.key){saved[cur.key]=cur.i;try{localStorage.setItem('borne.fauneye',JSON.stringify(saved));}catch(e){}}}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function scr(src){return new Promise(function(ok,ko){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=ko;document.head.appendChild(s);});}
+
+  /* onglets */
+  document.querySelector('[data-p=stock]').textContent=T.stock;document.querySelector('[data-p=file]').textContent=T.file;$('dropT').textContent=T.drop;
+  document.querySelector('[data-n=ia]').textContent=T.ia;document.querySelector('[data-n=gb]').textContent=T.gb;$('zoom').textContent=T.zoom;
+  [].forEach.call(document.querySelectorAll('.tabs [data-p]'),function(b){b.onclick=function(){
+    [].forEach.call(document.querySelectorAll('.tabs [data-p]'),function(x){x.setAttribute('aria-selected',x===b?'true':'false');});
+    [].forEach.call(document.querySelectorAll('.pane'),function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.p);});};});
+
+  /* le lecteur : pages (images ou canevas), texte (article), EPUB, page de la source */
+  function side(au,ti,ed,src,href){$('au').textContent=au||'';$('ti').textContent=ti||'';$('ed').textContent=ed||'';
+    $('src').innerHTML=src?(T.src+(href?'<a href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(src)+'</a>':esc(src))):'';}
+  function clear(){stage.classList.remove('z');[].slice.call(stage.children).forEach(function(c){if(c!==wait)c.remove();});wait.textContent='';$('mode').hidden=true;}
+  function num(){$('num').textContent=cur&&cur.n?T.p+' '+(cur.i+1)+' / '+cur.n:'';}
+  function showPage(){if(!cur||!cur.page)return;wait.textContent=T.w;var el=cur.page(cur.i,stage.classList.contains('z'));
+    Promise.resolve(el).then(function(node){[].slice.call(stage.children).forEach(function(c){if(c!==wait)c.remove();});stage.insertBefore(node,wait);
+      if(node.tagName==='IMG'){node.onload=function(){wait.textContent='';};node.onerror=function(){wait.textContent=T.err;};}else wait.textContent='';
+      node.onclick=function(){stage.classList.toggle('z');showPage();};num();keep();
+      if(cur.pre&&cur.i+1<cur.n)cur.pre(cur.i+1);}).catch(function(){wait.textContent=T.err;});}
+  function openPages(o){clear();cur=o;cur.i=saved[o.key]!=null?Math.min(saved[o.key],o.n-1):(o.start||0);side(o.au,o.ti,o.ed,o.srcName,o.href);showPage();
+    if(o.text){$('mode').hidden=false;$('mode').textContent=T.txt;$('mode').onclick=function(){openText(o.text(),o);};}}
+  function openArticle(html,o){clear();var a=document.createElement('article');a.innerHTML=html;stage.insertBefore(a,wait);
+    cur={key:o.key,n:0,i:0,art:a,au:o.au,ti:o.ti};side(o.au,o.ti,o.ed,o.srcName,o.href);num();
+    try{var y=saved[o.key];if(y)setTimeout(function(){a.scrollTop=y;},60);}catch(e){}
+    a.addEventListener('scroll',function(){saved[o.key]=a.scrollTop;try{localStorage.setItem('borne.fauneye',JSON.stringify(saved));}catch(e){}});
+    if(o.back){$('mode').hidden=false;$('mode').textContent=T.fac;$('mode').onclick=function(){openPages(o.back);};}}
+  function openText(p,o){wait.textContent=T.load;Promise.resolve(p).then(function(t){openArticle('<pre style="white-space:pre-wrap;font:inherit">'+esc(t)+'</pre>',{key:o.key+'#t',au:o.au,ti:o.ti,ed:o.ed,srcName:o.srcName,href:o.href,back:o});})
+    .catch(function(){wait.textContent=T.err;});}
+  function openFrame(url,o){clear();var f=document.createElement('iframe');f.src=url;f.title=o.ti||'';f.setAttribute('allowfullscreen','');stage.insertBefore(f,wait);cur={n:0,i:0};side(o.au,o.ti,o.ed,o.srcName,o.href);num();}
+  function step(d){if(!cur)return;if(cur.rend){d>0?cur.rend.next():cur.rend.prev();return;}
+    if(cur.art){cur.art.scrollBy({top:d*cur.art.clientHeight*.9,behavior:'smooth'});return;}
+    if(!cur.page)return;var n=Math.max(0,Math.min(cur.n-1,cur.i+d));if(n!==cur.i){cur.i=n;showPage();}}
+  $('prev').onclick=function(){step(-1);};$('next').onclick=function(){step(1);};
+  $('zoom').onclick=function(){if(cur&&cur.page){stage.classList.toggle('z');showPage();}else if(cur&&cur.art){var s=parseFloat(cur.art.style.fontSize)||19;cur.art.style.fontSize=(s>=27?19:s+4)+'px';}};
+  addEventListener('keydown',function(e){if(e.target.tagName==='INPUT')return;if(e.key==='ArrowLeft')step(-1);else if(e.key==='ArrowRight')step(1);});
+  var x0=null;stage.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  stage.addEventListener('touchend',function(e){if(x0==null||stage.classList.contains('z'))return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)step(dx<0?1:-1);x0=null;});
+
+  /* Internet Archive : pages servies une à une ; le texte reconnu en second mode */
+  function iaBook(id,meta){var n=meta.n,o={key:'ia:'+id,n:n,start:meta.start||0,au:meta.au,ti:meta.ti,ed:meta.ed,srcName:'Internet Archive',href:'https://archive.org/details/'+id,
+      page:function(i,z){var im=new Image();im.alt=(meta.ti||id)+', '+T.p+' '+(i+1);im.src='https://archive.org/download/'+id+'/page/n'+i+'_w'+(z?1800:1000)+'.jpg';return im;},
+      pre:function(i){new Image().src='https://archive.org/download/'+id+'/page/n'+i+'_w1000.jpg';}};
+    if(meta.txt)o.text=function(){return fetch('https://archive.org/download/'+id+'/'+meta.txt).then(function(r){if(!r.ok)throw 0;return r.text();});};
+    openPages(o);}
+  function iaOpen(id,base){wait.textContent=T.load;fetch('https://archive.org/metadata/'+encodeURIComponent(id)).then(function(r){return r.json();}).then(function(m){
+      var md=m.metadata||{},files=m.files||[],txt=(files.filter(function(f){return /_djvu\.txt$/.test(f.name);})[0]||{}).name,
+      n=+md.imagecount||files.filter(function(f){return /\.(jp2|jpg)$/i.test(f.name)&&/_(jp2|raw)?\//.test(f.name);}).length||1;
+      iaBook(id,{n:base&&base.n||n,start:base&&base.start,au:base&&base.au||[].concat(md.creator||'')[0],ti:base&&base.ti||[].concat(md.title||id)[0],ed:base&&base.ed||[].concat(md.date||md.year||'')[0],txt:txt});})
+    .catch(function(){if(base)iaBook(id,base);else wait.textContent=T.err;});}
+
+  /* le stock */
+  var STOCK=[
+    {id:'atalantafugiensh00maie',n:232,start:20,au:'Michael Maier',ti:'Atalanta fugiens',ed:'Oppenheim, Johann Theodor de Bry, 1618',c:'#6b1f1a'},
+    {id:'b14557551_0002',n:44,start:0,au:'Altus',ti:'Mutus liber',ed:'La Rochelle, Pierre Savouret, 1677',c:'#2f3f2a'},
+    {id:'BIUSante_pharma_res011411',n:581,start:221,au:'Anonyme',ti:'Rosarium philosophorum',ed:'Artis auriferae, vol. II, Bâle, Conrad Waldkirch, 1593',c:'#3a2a52'},
+    {id:'bub_gb_1JucGqXnWb4C',n:888,start:0,au:'Recueil',ti:'Musaeum hermeticum',ed:'Francfort, Hermann von Sand, 1678',c:'#5a3a1a'},
+    {id:'cu31924012366088',n:232,start:0,au:'Trad. Arthur Edward Waite',ti:'The Turba Philosophorum',ed:'Londres, George Redway, 1896',c:'#1f2f44'}];
+  STOCK.forEach(function(k){var s=document.createElement('button');s.type='button';s.style.background=k.c;s.innerHTML=esc(k.ti)+'<small>'+esc(k.ed.replace(/^.*, /,''))+'</small>';
+    s.onclick=function(){iaOpen(k.id,k);};$('shelf').appendChild(s);});
+
+  /* recherches */
+  function hits(pane,list){var h=pane.querySelector('.hits');h.innerHTML='';if(!list.length){h.innerHTML='<p class="note">'+T.none+'</p>';return;}
+    list.forEach(function(x){var b=document.createElement('button');b.type='button';b.className='hit';
+      b.innerHTML=(x.img?'<img loading="lazy" alt="" src="'+esc(x.img)+'">':'')+'<b>'+esc(x.ti)+'</b><small>'+esc([x.au,x.ed].filter(Boolean).join(' · '))+'</small>';
+      b.onclick=x.open;h.appendChild(b);});}
+  function fail(pane){pane.querySelector('.hits').innerHTML='<p class="note">'+T.err+'</p>';}
+  var SEARCH={
+    ia:function(q,f,pane){return fetch('https://archive.org/advancedsearch.php?q='+encodeURIComponent('('+q+') AND mediatype:texts')+'&fl[]=identifier&fl[]=title&fl[]=creator&fl[]=year&rows=36&output=json')
+      .then(function(r){return r.json();}).then(function(j){hits(pane,(j.response.docs||[]).map(function(d){return{ti:[].concat(d.title)[0],au:[].concat(d.creator||'')[0],ed:d.year||'',img:'https://archive.org/services/img/'+d.identifier,open:function(){iaOpen(d.identifier);}};}));});},
+    gut:function(q,f,pane){return fetch('https://gutendex.com/books/?search='+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(j){
+      hits(pane,(j.results||[]).map(function(b){var F=b.formats||{},html=F['text/html']||F['text/html; charset=utf-8'],txt=F['text/plain; charset=utf-8']||F['text/plain; charset=us-ascii']||F['text/plain'];
+        var o={key:'gut:'+b.id,ti:b.title,au:(b.authors[0]||{}).name,ed:(b.languages||[]).join(', '),srcName:'Project Gutenberg',href:'https://www.gutenberg.org/ebooks/'+b.id};
+        return{ti:b.title,au:o.au,ed:o.ed,img:F['image/jpeg'],open:function(){wait.textContent=T.load;var u=html||txt;
+          fetch(u).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(t){if(u===html){var d=new DOMParser().parseFromString(t,'text/html');[].forEach.call(d.querySelectorAll('script,style,link'),function(x){x.remove();});openArticle(d.body.innerHTML,o);}else openArticle('<pre style="white-space:pre-wrap;font:inherit">'+esc(t)+'</pre>',o);})
+          .catch(function(){clear();side(o.au,o.ti,o.ed,o.srcName,o.href);wait.innerHTML=esc(T.ext)+'<a href="'+esc(o.href)+'" target="_blank" rel="noopener">gutenberg.org</a>';});}};}));});},
+    ws:function(q,f,pane){var l=f.l.value;return fetch('https://'+l+'.wikisource.org/w/api.php?action=query&list=search&srlimit=30&format=json&origin=*&srsearch='+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(j){
+      hits(pane,((j.query||{}).search||[]).map(function(s){return{ti:s.title,ed:l+'.wikisource.org',open:function(){wait.textContent=T.load;
+        fetch('https://'+l+'.wikisource.org/w/api.php?action=parse&format=json&origin=*&disableeditsection=1&prop=text&page='+encodeURIComponent(s.title)).then(function(r){return r.json();}).then(function(p){
+          var d=new DOMParser().parseFromString(p.parse.text['*'],'text/html');[].forEach.call(d.querySelectorAll('.ws-noexport,.noprint,style,.mw-editsection'),function(x){x.remove();});
+          [].forEach.call(d.querySelectorAll('a[href^="/wiki/"]'),function(a){a.href='https://'+l+'.wikisource.org'+a.getAttribute('href');a.target='_blank';});
+          openArticle(d.body.innerHTML,{key:'ws:'+l+':'+s.title,ti:s.title,ed:l+'.wikisource.org',srcName:'Wikisource (CC BY-SA)',href:'https://'+l+'.wikisource.org/wiki/'+encodeURIComponent(s.title)});}).catch(function(){wait.textContent=T.err;});}};}));});},
+    gb:function(q,f,pane){return fetch('https://www.googleapis.com/books/v1/volumes?filter=free-ebooks&maxResults=36&q='+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(j){
+      hits(pane,(j.items||[]).map(function(v){var i=v.volumeInfo||{};var o={ti:i.title,au:(i.authors||[])[0],ed:i.publishedDate||'',srcName:'Google Books',href:i.infoLink};
+        return{ti:i.title,au:o.au,ed:o.ed,img:((i.imageLinks||{}).thumbnail||'').replace('http:','https:'),open:function(){openFrame('https://books.google.com/books?id='+encodeURIComponent(v.id)+'&pg=PP1&output=embed',o);}};}));});}};
+  [].forEach.call(document.querySelectorAll('form[data-s]'),function(f){f.onsubmit=function(e){e.preventDefault();var q=f.q.value.trim();if(!q)return;var pane=f.parentNode;
+    pane.querySelector('.hits').innerHTML='<p class="note">'+T.load+'</p>';SEARCH[f.dataset.s](q,f,pane).catch(function(){fail(pane);});};});
+
+  /* fichiers du visiteur : rien ne quitte le navigateur */
+  var JSZIP='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
+      PDFW='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',EPUBJS='https://cdnjs.cloudflare.com/ajax/libs/epub.js/0.3.93/epub.min.js';
+  function imgPages(urls,name){openPages({key:'f:'+name,n:urls.length,ti:name,srcName:T.file,page:function(i){var im=new Image();im.alt=name+', '+T.p+' '+(i+1);im.src=urls[i];return im;}});}
+  function openFiles(fs){fs=[].slice.call(fs);if(!fs.length)return;var f=fs[0],n=f.name.toLowerCase();wait.textContent=T.load;
+    if(fs.every(function(x){return /^image\//.test(x.type);})){fs.sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true});});return imgPages(fs.map(function(x){return URL.createObjectURL(x);}),fs.length>1?fs[0].name+' …':f.name);}
+    if(/\.pdf$/.test(n))return scr(PDFJS).then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc=PDFW;return f.arrayBuffer();}).then(function(b){return pdfjsLib.getDocument({data:b}).promise;}).then(function(doc){
+      openPages({key:'f:'+f.name,n:doc.numPages,ti:f.name,srcName:T.file,page:function(i,z){return doc.getPage(i+1).then(function(p){var vp=p.getViewport({scale:1}),k=Math.min(3,(z?2400:1400)/vp.width),v=p.getViewport({scale:k});
+        var c=document.createElement('canvas');c.width=v.width;c.height=v.height;return p.render({canvasContext:c.getContext('2d'),viewport:v}).promise.then(function(){return c;});});}});}).catch(function(){wait.textContent=T.err;});
+    if(/\.(cbz|zip)$/.test(n))return scr(JSZIP).then(function(){return JSZip.loadAsync(f);}).then(function(z){var ks=Object.keys(z.files).filter(function(k){return /\.(jpe?g|png|webp|gif)$/i.test(k)&&!z.files[k].dir;}).sort(function(a,b){return a.localeCompare(b,undefined,{numeric:true});});
+      return Promise.all(ks.map(function(k){return z.files[k].async('blob').then(function(b){return URL.createObjectURL(b);});})).then(function(u){imgPages(u,f.name);});}).catch(function(){wait.textContent=T.err;});
+    if(/\.epub$/.test(n))return scr(JSZIP).then(function(){return scr(EPUBJS);}).then(function(){return f.arrayBuffer();}).then(function(b){clear();var d=document.createElement('div');d.className='epub';stage.insertBefore(d,wait);
+      var book=ePub(b),rend=book.renderTo(d,{width:'100%',height:'100%',spread:'none'});rend.display();cur={rend:rend,n:0,i:0};side('',f.name,'',T.file);num();
+      book.loaded.metadata.then(function(m){side(m.creator,m.title||f.name,m.pubdate,T.file);});}).catch(function(){wait.textContent=T.err;});
+    f.text().then(function(t){if(/\.html?$/.test(n)){var d=new DOMParser().parseFromString(t,'text/html');[].forEach.call(d.querySelectorAll('script'),function(x){x.remove();});openArticle(d.body.innerHTML,{key:'f:'+f.name,ti:f.name,srcName:T.file});}
+      else openArticle('<pre style="white-space:pre-wrap;font:inherit">'+esc(t)+'</pre>',{key:'f:'+f.name,ti:f.name,srcName:T.file});});}
+  var drop=$('drop');$('fin').onchange=function(){openFiles(this.files);};
+  ['dragover','dragenter'].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('over');});});
+  ['dragleave','drop'].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('over');if(ev==='drop'&&e.dataTransfer)openFiles(e.dataTransfer.files);});});
+
+  iaOpen(STOCK[0].id,STOCK[0]);
+})();
+</script>
+</body>
+</html>

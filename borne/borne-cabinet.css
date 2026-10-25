@@ -1,56 +1,102 @@
 /* Borne Insert Koin (site d'essai) : la page d'Insert Koin, habillée en borne d'arcade.
-   Un meuble, un écran 4:3 aussi grand que la fenêtre le permet, un panneau de boutons, une porte à Koins.
-   L'habit (bois, plastique, laiton) suit le programme à l'écran : html[data-habit]. */
+   Un meuble ; un écran 4:3 large des deux tiers de la fenêtre ; un panneau de boutons.
+   html[data-habit] : les matières (bois, plastique, chrome, laiton) ; html[data-mode=device] : la borne devient
+   l'appareil (VHS, Photofauna, Kapture, 3615), ses commandes à droite de l'écran, ou dessous sur téléphone. */
 html.borne{--wood:#2b1d14;--grain1:rgba(255,255,255,.035);--grain2:rgba(0,0,0,.18);--tmold:#8f1f1a;--bezel:#070606;--bezel-edge:#26221f;
-  --panel1:#2a2724;--panel2:#191715;--marq1:#f7d77a;--marq2:#e39a2c;--marq3:#7c3c12;--marq-ink:#2a0f05;--grille:#151311;--lab:#e9e1cf;
-  --scrW:min(calc(100vw - 44px),calc((100vh - 110px) * 4 / 3),1180px)}
+  --panel1:#2a2724;--panel2:#191715;--marq1:#f7d77a;--marq2:#e39a2c;--marq3:#7c3c12;--marq-ink:#2a0f05;--grille:#151311;--hole:rgba(0,0,0,.8);--lab:#e9e1cf;
+  --scrW:max(320px,min(66vw,calc(88vh - 70px)));--ctl:clamp(calc(var(--scrW) + 300px),calc(var(--scrW) / .7),calc(var(--scrW) + 460px));
+  --gw:var(--scrW);--gh:calc(var(--scrW) * .75);--pad:clamp(6px,1.1vw,14px)}
+html.borne[data-mode=device]{--gw:var(--ctl)}
 html.borne[data-habit=minitel]{--wood:#e3dbc6;--grain1:rgba(0,0,0,.025);--grain2:rgba(0,0,0,.04);--tmold:#c9bfa6;--bezel:#cfc6ae;--bezel-edge:#a99e83;
-  --panel1:#d6cdb6;--panel2:#c2b89e;--marq1:#e2d9c1;--marq2:#d2c8ad;--marq3:#b3a88d;--marq-ink:#4a4036;--grille:#cfc5aa;--lab:#2f2a22}
+  --panel1:#d6cdb6;--panel2:#c2b89e;--marq1:#e2d9c1;--marq2:#d2c8ad;--marq3:#b3a88d;--marq-ink:#4a4036;--grille:#cfc5aa;--hole:rgba(60,52,40,.75);--lab:#2f2a22}
 html.borne[data-habit=vhs]{--wood:#5a3a22;--grain1:rgba(255,220,170,.06);--grain2:rgba(0,0,0,.2);--tmold:#a7a39b;--bezel:#141311;--bezel-edge:#a7a39b;
   --panel1:#2b2a28;--panel2:#161514;--marq1:#e7e7e3;--marq2:#a9a8a3;--marq3:#6f6e6a;--marq-ink:#1d1c1b;--grille:#1a1612}
-html.borne[data-habit=liseuse]{--wood:#3a2416;--grain1:rgba(255,210,150,.05);--grain2:rgba(0,0,0,.22);--tmold:#b8892f;--bezel:#a57a2c;--bezel-edge:#e8cf8a;
+html.borne[data-habit=fauneye]{--wood:#3a2416;--grain1:rgba(255,210,150,.05);--grain2:rgba(0,0,0,.22);--tmold:#b8892f;--bezel:#a57a2c;--bezel-edge:#e8cf8a;
   --panel1:#4a2f1c;--panel2:#2a1a0e;--marq1:#f8efd6;--marq2:#e3d2a8;--marq3:#c8b07a;--marq-ink:#3a2416;--grille:#1c140e}
 html.borne[data-habit=photo]{--wood:#1c1c1e;--grain1:rgba(255,255,255,.03);--grain2:rgba(0,0,0,.3);--tmold:#3c3c40;--bezel:#0a0a0b;--bezel-edge:#4a4a50;
   --panel1:#2a2a2e;--panel2:#141416;--marq1:#d9d9dc;--marq2:#9a9aa0;--marq3:#55555a;--marq-ink:#111;--grille:#111113}
 html.borne[data-habit=korong]{--tmold:#ffa726;--marq1:#ffe3a0;--marq2:#ffa726;--marq3:#7a3d06}
 
-html.borne body{background:#0b0908;overflow-x:hidden;padding-inline:0}
-html.borne .wrap{width:calc(var(--scrW) + 32px);max-width:none;margin:0 auto;padding:0;gap:0;box-sizing:border-box;
+html.borne,html.borne body{overflow-x:hidden}
+html.borne body{background:#0b0908;padding-inline:0}
+html.borne article.info{max-width:100%;overflow:hidden}
+html.borne .wrap{width:calc(var(--gw) + 2 * var(--pad) + 32px);max-width:100vw;margin:0 auto;padding:0 0 18px!important;gap:0;box-sizing:border-box;
   background-color:var(--wood);background-image:repeating-linear-gradient(92deg,var(--grain1) 0 2px,transparent 2px 7px),repeating-linear-gradient(88deg,var(--grain2) 0 1px,transparent 1px 13px);
-  border-left:8px solid var(--tmold);border-right:8px solid var(--tmold);border-radius:12px 12px 0 0;box-shadow:0 30px 70px rgba(0,0,0,.75);transition:background-color .5s,border-color .5s;padding-inline:0!important}
+  border-left:8px solid var(--tmold);border-right:8px solid var(--tmold);border-radius:12px 12px 6px 6px;box-shadow:0 30px 70px rgba(0,0,0,.75);
+  transition:width .75s cubic-bezier(.6,.05,.3,1),background-color .7s,border-color .7s}
 
-/* fronton : haut-parleurs du juke-box à gauche, enseigne au centre, réglages à droite */
-html.borne .bar{position:relative;top:auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;gap:10px;padding:10px 10px 6px;background:none}
-html.borne .bar .dock{min-height:64px;border-radius:6px;padding:8px 10px;box-sizing:border-box;flex-wrap:wrap;align-content:center;gap:8px;
-  background-color:var(--grille);background-image:radial-gradient(circle at center,rgba(0,0,0,.75) 0 2.2px,transparent 2.6px);background-size:9px 9px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.35)}
-html.borne .bar .dock:last-child{justify-content:flex-end}
-html.borne .bar .brand{order:0;grid-column:2;grid-row:1;min-width:clamp(180px,34vw,440px);border:0;border-radius:6px;padding:6px 18px;cursor:pointer;
-  font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(2rem,5.4vw,4.4rem);line-height:1;letter-spacing:.05em;color:var(--marq-ink);
-  background:radial-gradient(ellipse at 50% 55%,var(--marq1) 0%,var(--marq2) 45%,var(--marq3) 100%);box-shadow:inset 0 0 0 4px rgba(0,0,0,.35),inset 0 0 40px rgba(0,0,0,.3),0 0 28px rgba(255,190,90,.18);text-shadow:0 1px 0 rgba(255,240,200,.5)}
+/* fronton : deux haut-parleurs, l'enseigne au centre */
+html.borne .bar{position:relative;top:auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;gap:12px;padding:12px 12px 6px;background:none}
+html.borne .bar .dock{min-height:clamp(96px,11vw,136px);border-radius:10px;padding:10px;box-sizing:border-box;display:flex;flex-wrap:wrap;align-content:flex-end;justify-content:center;gap:8px;
+  background-color:var(--grille);background-image:radial-gradient(circle at center,var(--hole) 0 3.2px,transparent 3.7px);background-size:12px 12px;
+  box-shadow:inset 0 0 0 4px rgba(0,0,0,.4),inset 0 0 0 6px rgba(255,255,255,.05),inset 0 0 30px rgba(0,0,0,.5);transition:transform .12s}
+html.borne .bar .dock::before{content:"";flex:0 0 100%;height:0}
+html.borne .bar:has(#radio-note.on) .dock{animation:bspk .48s ease-in-out infinite alternate}
+html.borne .bar:has(#radio-note.on) .dock:last-of-type{animation-delay:.24s}
+@keyframes bspk{from{transform:scale(1)}to{transform:scale(1.012);box-shadow:inset 0 0 0 4px rgba(0,0,0,.4),inset 0 0 0 6px rgba(255,224,138,.12),inset 0 0 40px rgba(0,0,0,.35)}}
+html.borne .bar .brand{grid-column:2;grid-row:1;min-width:clamp(180px,30vw,440px);border:0;border-radius:8px;padding:6px 18px;cursor:pointer;
+  font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(2rem,5vw,4.2rem);line-height:1;letter-spacing:.05em;color:var(--marq-ink);
+  background:radial-gradient(ellipse at 50% 55%,var(--marq1) 0%,var(--marq2) 45%,var(--marq3) 100%);box-shadow:inset 0 0 0 4px rgba(0,0,0,.35),inset 0 0 40px rgba(0,0,0,.3),0 0 28px rgba(255,190,90,.18);text-shadow:0 1px 0 rgba(255,240,200,.5);transition:background .7s,color .7s}
 html.borne .bar .dock:first-of-type{grid-column:1;grid-row:1}
 html.borne .bar .dock:last-of-type{grid-column:3;grid-row:1}
-html.borne .b-habit{display:block;font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.28em;color:var(--marq-ink);opacity:.8;margin-top:2px}
+html.borne .b-habit{display:block;font-family:"DM Mono",monospace;font-size:.62rem;letter-spacing:.28em;color:var(--marq-ink);opacity:.8;margin-top:2px;min-height:1em}
+html.borne .b-habit.tilt{font-family:"Bebas Neue",Impact,sans-serif;font-size:1.3rem;letter-spacing:.3em;color:#b8231a;opacity:1;animation:btilt .16s steps(2) infinite}
+@keyframes btilt{50%{opacity:.15}}
 
-/* caméra de Kapture, au-dessus de l'écran */
-html.borne .b-cam{display:flex;justify-content:center;align-items:center;gap:8px;padding:6px 0 4px}
-html.borne .b-cam #kapture{display:inline-flex;align-items:center;gap:8px;background:none;border:0;cursor:pointer;color:var(--lab);font-family:"DM Mono",monospace;font-size:.66rem;letter-spacing:.2em}
-html.borne .b-cam #kapture::before{content:"";width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#6c86a8 0 2px,#14202e 3px 6px,#050505 7px);box-shadow:0 0 0 3px rgba(0,0,0,.45),0 0 0 4px rgba(255,255,255,.08)}
+/* bandeau sous le fronton : fente à Koins et compteur, objectif de Kapture, réglages */
+html.borne .b-strip{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 14px 8px;flex-wrap:wrap}
+html.borne .b-strip>div{display:flex;align-items:center;gap:10px}
+html.borne .b-slot{position:relative;display:flex;align-items:center;gap:10px;height:46px;padding:0 14px 0 10px;border:0;border-radius:6px;cursor:pointer;
+  background:linear-gradient(180deg,#2a2622,#141210);box-shadow:inset 0 0 0 2px #4a4640,0 2px 4px rgba(0,0,0,.6);color:#ffd9a0}
+html.borne .b-slot i{position:relative;display:block;width:8px;height:30px;border-radius:4px;background:#000;box-shadow:0 0 0 3px #77736c,0 0 10px rgba(255,120,60,.55);overflow:visible}
+html.borne .b-slot b{display:grid;text-align:left;font-weight:400;line-height:1.15}
+html.borne .b-slot b span:first-child{font-family:"Press Start 2P",monospace;font-size:10px;color:#ff9a3c}
+html.borne .b-slot b span:last-child{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;color:#d8cdb8}
+html.borne .b-coin{position:absolute;left:-30px;top:6px;width:22px;height:22px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 35% 30%,#fff3c4,#ffd54f 45%,#c9a84c 80%);box-shadow:0 0 10px rgba(255,213,79,.8);animation:bcoin .55s cubic-bezier(.5,0,.8,.4) forwards}
+@keyframes bcoin{0%{transform:translate(0,0) rotate(0)}60%{transform:translate(36px,0) rotate(90deg) scaleX(.25)}100%{transform:translate(36px,10px) rotate(90deg) scaleX(.2);opacity:0}}
+html.borne .b-strip #koins{display:flex;align-items:center;gap:8px;height:46px;padding:0 14px;border-radius:6px;background:#0b0a09;box-shadow:inset 0 0 0 2px #3d3934;
+  font-family:"Press Start 2P",monospace;font-size:1rem;color:#ff9a3c;text-shadow:0 0 8px rgba(255,140,40,.6)}
+html.borne .b-strip #kapture{display:inline-flex;align-items:center;gap:7px;background:none;border:0;cursor:pointer;color:var(--lab);opacity:.55;font-family:"DM Mono",monospace;font-size:.58rem;letter-spacing:.22em;transition:opacity .2s}
+html.borne .b-strip #kapture:hover,html.borne .b-strip #kapture:focus-visible{opacity:.95}
+html.borne .b-strip #kapture .rec{display:none}
+html.borne .b-strip #kapture::before{content:"";width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a5a70 0 1.5px,#10161e 2.5px 5px,#050505 5.5px);box-shadow:0 0 0 2px rgba(0,0,0,.5)}
+html.borne .b-strip .dk{font-family:"DM Mono",monospace}
+html.borne .b-strip #kal{height:46px}
 
 /* l'écran */
-html.borne .b-screen{position:relative;width:var(--scrW);aspect-ratio:4/3;margin:0 auto;box-sizing:border-box;border-radius:24px;background:var(--bezel);padding:clamp(6px,1.1vw,14px);
-  box-shadow:inset 0 0 0 2px var(--bezel-edge),0 0 0 5px rgba(0,0,0,.55);transition:background .5s}
-html.borne .b-glass{position:relative;width:100%;height:100%;border-radius:16px;overflow:hidden;background:#000}
-html.borne .b-glass::after{content:"";position:absolute;inset:0;z-index:40;pointer-events:none;border-radius:16px;
+html.borne .b-screen{position:relative;width:max-content;max-width:100%;margin:0 auto;box-sizing:border-box;border-radius:24px;background:var(--bezel);padding:var(--pad);
+  box-shadow:inset 0 0 0 2px var(--bezel-edge),0 0 0 5px rgba(0,0,0,.55);transition:background .7s,border-radius .7s}
+html.borne .b-glass{position:relative;width:var(--gw);height:var(--gh);max-width:calc(100vw - 40px);border-radius:16px;overflow:hidden;background:#000;
+  transition:width .75s cubic-bezier(.6,.05,.3,1),height .75s cubic-bezier(.6,.05,.3,1),border-radius .7s}
+html.borne .b-glass::after{content:"";position:absolute;inset:0;z-index:40;pointer-events:none;border-radius:inherit;
   background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px),radial-gradient(ellipse at 30% 12%,rgba(255,255,255,.07),transparent 40%);box-shadow:inset 0 0 60px rgba(0,0,0,.65)}
-html.borne[data-habit=liseuse] .b-glass::after{background:none;box-shadow:inset 0 0 24px rgba(60,40,10,.25)}
-html.borne[data-habit=minitel] .b-glass,html.borne[data-habit=minitel] .b-glass::after{border-radius:34px/30px}
-html.borne .b-attract{position:absolute;inset:0;z-index:1}
+html.borne[data-mode=device] .b-glass::after,html.borne[data-habit=fauneye] .b-glass::after{background:none;box-shadow:none}
+html.borne[data-habit=minitel] .b-screen{border-radius:30px}
+html.borne .b-attract{position:absolute;inset:0;z-index:1;cursor:zoom-in}
 html.borne .b-attract iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 html.borne .b-date{position:absolute;left:3%;top:3.5%;z-index:30;display:grid;gap:6px;pointer-events:none;font-family:"Press Start 2P",monospace;color:#ffe9a8;text-shadow:0 0 8px rgba(255,200,90,.6),0 2px 0 #000}
-html.borne .b-date b{font-weight:400;font-size:clamp(.62rem,1.4vw,1rem)}
-html.borne .b-date i{font-style:normal;font-size:clamp(.5rem,.9vw,.66rem);color:#bcd0f4}
+html.borne .b-date b{font-weight:400;font-size:clamp(.62rem,1.3vw,1rem)}
+html.borne .b-date i{font-style:normal;font-size:clamp(.5rem,.85vw,.66rem);color:#bcd0f4}
 html.borne:not([data-habit=repos]) .b-attract{display:none}
 html.borne:not([data-habit=repos]) .b-date{visibility:hidden}
+
+/* passage d'un meuble à l'autre : l'écran se voile de lumière, les matières se fondent */
+html.borne .b-glass::before{content:"";position:absolute;inset:-20%;z-index:45;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at 50% 50%,rgba(255,250,230,.95) 0,rgba(255,224,138,.55) 22%,rgba(140,180,255,.25) 45%,transparent 70%),
+  conic-gradient(from 0deg,transparent 0 10%,rgba(255,240,200,.35) 12%,transparent 14% 36%,rgba(200,220,255,.3) 38%,transparent 40% 62%,rgba(255,240,200,.35) 64%,transparent 66% 88%,rgba(200,220,255,.3) 90%,transparent 92%)}
+html.borne .b-morph .b-glass::before{animation:bmorph .95s ease-in-out}
+@keyframes bmorph{0%{opacity:0;transform:scale(.4) rotate(0)}40%{opacity:1;transform:scale(1) rotate(40deg)}100%{opacity:0;transform:scale(1.4) rotate(90deg)}}
+html.borne .b-morph .b-glass>*{animation:bveil .95s ease-in-out}
+@keyframes bveil{40%{filter:blur(6px) brightness(1.8) saturate(.4)}}
+
+/* Baku Boom : la borne prend un coup de tilt, l'écran s'éteint comme un vieux tube, puis se rallume */
+html.borne .wrap.b-shake{animation:bshake .5s cubic-bezier(.36,.07,.19,.97)}
+@keyframes bshake{10%,90%{transform:translate(-2px,1px) rotate(-.3deg)}20%,80%{transform:translate(4px,-2px) rotate(.5deg)}30%,50%,70%{transform:translate(-7px,2px) rotate(-.8deg)}40%,60%{transform:translate(7px,-1px) rotate(.8deg)}}
+html.borne .b-glass.b-off>*{animation:boff .42s ease-in forwards}
+@keyframes boff{0%{transform:scale(1,1);filter:brightness(1)}55%{transform:scale(1,.006);filter:brightness(4)}100%{transform:scale(0,.006);filter:brightness(6)}}
+html.borne .b-glass.b-on>*{animation:bon .5s ease-out}
+@keyframes bon{0%{transform:scale(0,.006);filter:brightness(6)}45%{transform:scale(1,.006);filter:brightness(4)}100%{transform:scale(1,1);filter:brightness(1)}}
 
 /* chaque programme s'ouvre dans l'écran */
 html.borne .b-glass>#select,html.borne .b-glass>#game,html.borne .b-glass>#calque{position:absolute;inset:0;z-index:10;overflow:auto;background:var(--bg);margin:0}
@@ -62,49 +108,71 @@ html.borne #game .stage{flex:1 1 auto;min-height:0;display:flex;align-items:cent
 html.borne #game .stage canvas#cv{max-width:100%;max-height:100%;width:auto;height:auto}
 html.borne #select .lobby{max-width:none}
 
-/* le panneau : #home reste affiché sous l'écran, avec ses cabinets devenus boutons d'arcade */
-html.borne #home,html.borne #home[hidden]{display:block!important;position:relative;padding:0 0 4px}
+/* le panneau : #home reste affiché, ses cabinets devenus boutons d'arcade ; l'appareil le remplace */
+html.borne #home,html.borne #home[hidden]{display:block!important;position:relative;padding:0}
 html.borne #home .hero{display:none}
-html.borne .b-panel{position:relative;margin-top:14px;padding:16px 16px 12px;background:linear-gradient(180deg,var(--panel1),var(--panel2));border-top:4px solid rgba(0,0,0,.35);box-shadow:inset 0 2px 0 rgba(255,255,255,.05)}
-html.borne .b-panel .cabinets{grid-template-columns:repeat(auto-fill,minmax(clamp(128px,16vw,176px),1fr));gap:12px;margin:0}
-html.borne .b-panel .cab{min-height:clamp(78px,9vw,104px);border:0;border-radius:10px;background:#000 var(--th) center/cover no-repeat;
-  box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--nc) 70%,#000),inset 0 -8px 0 rgba(0,0,0,.45),inset 0 6px 10px rgba(255,255,255,.18),0 6px 0 #0b0a09,0 10px 16px rgba(0,0,0,.55);
-  transition:transform .06s,box-shadow .06s}
+html.borne .b-panel{position:relative;margin-top:14px;padding:18px 16px 12px;background:linear-gradient(180deg,var(--panel1),var(--panel2));border-top:4px solid rgba(0,0,0,.35);box-shadow:inset 0 2px 0 rgba(255,255,255,.05);transition:opacity .4s}
+html.borne[data-mode=device] .b-panel .cabinets,html.borne[data-mode=device] .b-panel .b-sub{display:none!important}
+html.borne .b-panel .b-subgrid{display:grid}
+html.borne .b-panel .cabinets,html.borne .b-panel .b-subgrid{grid-template-columns:repeat(auto-fill,minmax(clamp(128px,14vw,170px),1fr));gap:12px;margin:0}
+html.borne .b-panel .cab{min-height:clamp(78px,8vw,100px);border:0;border-radius:10px;background:#000 var(--th) center/cover no-repeat;
+  box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--nc) 70%,#000),inset 0 -8px 0 rgba(0,0,0,.45),inset 0 6px 10px rgba(255,255,255,.18),0 6px 0 #0b0a09,0 10px 16px rgba(0,0,0,.55);transition:transform .06s,box-shadow .06s}
 html.borne .b-panel .cab::before{background:linear-gradient(180deg,rgba(7,6,10,.15),rgba(7,6,10,.82));border-radius:10px}
 html.borne .b-panel .cab:active{transform:translateY(4px);box-shadow:inset 0 0 0 3px var(--nc),inset 0 -4px 0 rgba(0,0,0,.45),0 2px 0 #0b0a09,0 0 24px color-mix(in srgb,var(--nc) 55%,transparent)}
 html.borne .b-panel .cab:hover,html.borne .b-panel .cab:focus-within,html.borne .b-panel .cab.lit{box-shadow:inset 0 0 0 3px var(--nc),inset 0 -8px 0 rgba(0,0,0,.45),0 6px 0 #0b0a09,0 0 26px color-mix(in srgb,var(--nc) 60%,transparent)}
-html.borne .b-panel .cab b{font-size:clamp(1.15rem,2vw,1.6rem);color:#fff;text-shadow:0 0 10px var(--nc),0 2px 4px #000}
+html.borne .b-panel .cabinets{grid-template-columns:repeat(5,minmax(0,1fr))}
+html.borne .b-panel .cab b{font-size:clamp(1.15rem,1.8vw,1.55rem);color:#fff;text-shadow:0 0 10px var(--nc),0 2px 4px #000}
 html.borne .b-panel .cab.on-air{box-shadow:inset 0 0 0 4px var(--nc),0 6px 0 #0b0a09,0 0 30px var(--nc)}
-html.borne .b-panel .menu{margin:14px 0 2px}
-html.borne .b-panel .menu a,html.borne .b-panel .menu button{color:var(--lab)}
-html.borne #home .copy{color:var(--lab);opacity:.7;text-align:center}
 
-/* tilt : Baku Boom */
-html.borne .b-tilt{position:absolute;right:16px;top:-30px;z-index:5;width:76px;height:44px;border-radius:6px;border:0;cursor:pointer;
-  font-family:"Bebas Neue",Impact,sans-serif;font-size:1.7rem;letter-spacing:.08em;color:#fff4e6;background:linear-gradient(180deg,#ff5b3c,#b8231a);box-shadow:0 4px 0 #4d0f0a,0 0 16px rgba(255,80,50,.55)}
-html.borne .b-tilt:active{transform:translateY(3px);box-shadow:0 1px 0 #4d0f0a,0 0 22px rgba(255,80,50,.8)}
+/* un groupe déplié : ses programmes prennent la place des cinq touches */
+html.borne .b-sub[hidden],html.borne .b-panel .cabinets[hidden]{display:none!important}
+html.borne .b-subbar{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+html.borne .b-subbar b{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:1.5rem;letter-spacing:.08em;color:var(--lab)}
+html.borne .b-fold{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;background:radial-gradient(circle at 40% 32%,#fff3c4,#c9a84c 60%,#6b4e12);color:#2a1a04;font-size:1rem;box-shadow:0 3px 0 #0b0a09}
+html.borne .b-panel.b-unfold .b-sub .cab{animation:bunfold .45s cubic-bezier(.3,1.4,.5,1) backwards}
+html.borne .b-panel.b-unfold .b-sub .cab:nth-child(2){animation-delay:.05s}html.borne .b-panel.b-unfold .b-sub .cab:nth-child(3){animation-delay:.1s}
+html.borne .b-panel.b-unfold .b-sub .cab:nth-child(4){animation-delay:.15s}html.borne .b-panel.b-unfold .b-sub .cab:nth-child(5){animation-delay:.2s}
+@keyframes bunfold{from{opacity:0;transform:translateY(18px) scale(.9)}}
+html.borne .b-panel .b-group::after{content:"▾";position:absolute;right:10px;top:6px;z-index:2;color:var(--nc);font-size:1.1rem;text-shadow:0 0 8px var(--nc)}
 
-/* porte à Koins */
-html.borne .b-door{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(16px,5vw,48px);padding:18px 12px 26px;border-top:6px solid rgba(0,0,0,.5);
-  background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),linear-gradient(180deg,#9b9790,#6d6a64 60%,#58554f)}
-html.borne .b-slot{display:grid;justify-items:center;gap:10px;width:112px;padding:14px 0;border:0;border-radius:8px;cursor:pointer;background:linear-gradient(180deg,#26231f,#121110);box-shadow:inset 0 0 0 3px #4a4640,0 3px 6px rgba(0,0,0,.6)}
-html.borne .b-slot span{width:70px;padding:10px 0;border-radius:4px;background:linear-gradient(180deg,#ff6a3d,#c2321f);font-family:"Press Start 2P",monospace;font-size:8px;color:#2b0b05;box-shadow:0 0 14px rgba(255,90,50,.7)}
-html.borne .b-slot i{display:block;width:6px;height:42px;border-radius:3px;background:#000;box-shadow:0 0 0 3px #77736c}
-html.borne .b-door #koins{display:flex;align-items:center;gap:12px;min-width:170px;justify-content:center;padding:16px 18px;border-radius:6px;background:#0b0a09;box-shadow:inset 0 0 0 3px #3d3934;
-  font-family:"Press Start 2P",monospace;font-size:1.3rem;color:#ff9a3c;text-shadow:0 0 10px rgba(255,140,40,.7)}
-html.borne .b-door #kal{font-family:"DM Mono",monospace}
-html.borne .b-doorlab{font-family:"DM Mono",monospace;font-size:.6rem;letter-spacing:.24em;color:#1f1c19}
+/* les liens du bas : petits boutons ronds, chacun avec son nom */
+html.borne .b-panel .menu{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 18px;margin:16px 0 4px}
+html.borne .b-panel .menu a,html.borne .b-panel .menu button{position:relative;display:inline-block;border:0;padding:42px 0 0;background:none;color:var(--lab);font-size:.62rem;letter-spacing:.18em;white-space:nowrap;min-width:44px;text-align:center;overflow:visible}
+html.borne .b-panel .menu a::before,html.borne .b-panel .menu button::before{content:"";position:absolute;top:0;left:50%;margin-left:-17px;width:34px;height:34px;border-radius:50%;
+  background:radial-gradient(circle at 40% 32%,color-mix(in srgb,var(--mc,#c9a84c) 40%,#fff),var(--mc,#c9a84c) 55%,color-mix(in srgb,var(--mc,#c9a84c) 55%,#000));
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.35),0 3px 0 #0b0a09,0 5px 8px rgba(0,0,0,.5)}
+html.borne .b-panel .menu a:active::before,html.borne .b-panel .menu button:active::before{transform:translateY(2px);box-shadow:inset 0 -1px 0 rgba(0,0,0,.35),0 1px 0 #0b0a09,0 0 14px var(--mc)}
+html.borne .b-panel .menu svg{display:none}
+html.borne #home .copy{color:var(--lab);opacity:.7;text-align:center;margin:10px 0 4px}
+
+/* Baku Boom, sur le panneau */
+html.borne .b-boom{position:absolute;right:16px;top:-24px;z-index:5;height:44px;padding:0 16px;border-radius:6px;border:0;cursor:pointer;
+  font-family:"Bebas Neue",Impact,sans-serif;font-size:1.5rem;letter-spacing:.08em;color:#fff4e6;background:linear-gradient(180deg,#ff5b3c,#b8231a);box-shadow:0 4px 0 #4d0f0a,0 0 16px rgba(255,80,50,.5)}
+html.borne .b-boom:active{transform:translateY(3px);box-shadow:0 1px 0 #4d0f0a,0 0 22px rgba(255,80,50,.8)}
+
+/* Bio et Burrows : en plein écran, par-dessus la borne */
+html.borne .b-full{position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;background:#0b0908;animation:bfull .6s cubic-bezier(.6,.05,.3,1)}
+@keyframes bfull{0%{clip-path:inset(30% 20% 40% 20% round 24px);opacity:.2}100%{clip-path:inset(0 0 0 0 round 0);opacity:1}}
+html.borne .b-full.out{animation:bfullout .45s cubic-bezier(.6,.05,.3,1) forwards}
+@keyframes bfullout{to{clip-path:inset(30% 20% 40% 20% round 24px);opacity:0}}
+html.borne .b-full header{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#14110e;border-bottom:1px solid #2a261c}
+html.borne .b-full header b{flex:1;font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:1.4rem;letter-spacing:.08em;color:#ffe08a}
+html.borne .b-full header button{font-family:"DM Mono",monospace;font-size:.7rem;letter-spacing:.16em;color:#ece4d2;background:#221e18;border:1px solid #3a3428;padding:8px 12px;cursor:pointer}
+html.borne .b-full iframe{flex:1 1 auto;width:100%;border:0;background:#fff}
+html.borne .wrap.b-crushed{transform:scale(.94);filter:blur(3px) brightness(.5);transition:transform .5s,filter .5s}
 
 @media (max-width:700px){
-  html.borne{--scrW:calc(100vw - 20px)}
+  html.borne{--scrW:calc(100vw - 30px)}
+  html.borne[data-mode=device]{--gw:var(--scrW);--gh:calc(var(--scrW) * .75 + 520px)}
   html.borne .wrap{border-left-width:4px;border-right-width:4px;width:100%;margin:0}
-  html.borne .b-screen{width:calc(100% - 10px)}
-  html.borne .bar{grid-template-columns:1fr;gap:6px}
-  html.borne .bar .brand{grid-column:1;grid-row:1;min-width:0}
+  html.borne .bar{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+  html.borne .bar .brand{grid-column:1 / 3;grid-row:1;min-width:0}
+  html.borne .bar .dock{min-height:76px}
   html.borne .bar .dock:first-of-type{grid-column:1;grid-row:2}
-  html.borne .bar .dock:last-of-type{grid-column:1;grid-row:3}
-  html.borne .b-screen{border-radius:14px;padding:5px}
-  html.borne .b-glass,html.borne .b-glass::after{border-radius:10px}
-  html.borne .b-panel .cabinets{grid-template-columns:repeat(2,minmax(0,1fr))}
-  html.borne .b-tilt{top:-26px;right:10px}
+  html.borne .bar .dock:last-of-type{grid-column:2;grid-row:2}
+  html.borne .b-screen{border-radius:14px;--pad:5px}
+  html.borne .b-glass{border-radius:10px}
+  html.borne .b-panel .b-subgrid{display:grid}
+html.borne .b-panel .cabinets,html.borne .b-panel .b-subgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+@media (prefers-reduced-motion:reduce){html.borne .b-glass,html.borne .wrap{transition:none}html.borne .b-morph .b-glass::before,html.borne .b-morph .b-glass>*{animation:none}}

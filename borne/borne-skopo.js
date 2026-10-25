@@ -23,5 +23,9 @@
     setInterval(function(){var d=target()-R.tMin;if(Math.abs(d)>2){if(d>0)catchUp(target());else R.tMin=target();}},30000);}
   addEventListener('message',function(e){var R=window.__room,d=e.data||{};if(!R||!d.borne)return;
     if(d.borne==='sleep')R.setSpeed(0);else if(d.borne==='wake'){catchUp(target());R.setSpeed(1);}});
+  /* écran titre : un appui (sans glisser) ouvre Skoporhogo en grand, la molette et le pincement restent à la loupe */
+  if(attract){var d0=null;addEventListener('pointerdown',function(e){d0=[e.clientX,e.clientY,Date.now()];});
+    addEventListener('pointerup',function(e){if(!d0)return;var m=Math.hypot(e.clientX-d0[0],e.clientY-d0[1]),t=Date.now()-d0[2];d0=null;
+      if(m<8&&t<450)try{parent.postMessage({borne:'open'},'*');}catch(_){}});}
   if(document.readyState==='complete')init();else addEventListener('load',init);
 })();

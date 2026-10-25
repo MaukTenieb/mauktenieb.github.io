@@ -1699,7 +1699,7 @@ saveKoins();
 /* ---- Navigation ---- */
 let cfSrc='',cfWatch=null;
 function goHome(){window.__borneHome&&window.__borneHome();letGo();clearInterval(cfWatch);if(window.KG)KG.close();G=null;show('home');}
-window.__ik={go:k=>go(k),goHome:()=>goHome(),openCalque:(a,b,c,d)=>openCalque(a,b,c,d),openGame:(k,t)=>openGame(k,t),boom:cb=>boom(cb),ac:()=>ac()};
+window.__ik={go:k=>go(k),goHome:()=>goHome(),openCalque:(a,b,c,d)=>openCalque(a,b,c,d),openGame:(k,t)=>openGame(k,t),boom:cb=>boom(cb),ac:()=>ac(),tone:(...a)=>tone(...a),burst:(...a)=>burst(...a),lang:()=>LANG};
 $('brand').onclick=goHome;$('refresh').onclick=()=>{location.reload();};
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
 /* Sibling sites: on GitHub Pages /3615/ and /katabase/ live at the domain root; when the folder is served
@@ -1745,7 +1745,7 @@ function watch(w){clearInterval(cfWatch);const t0=Date.now();cfWatch=setInterval
 $('cboom').onclick=()=>boom(goHome);
 
 /* ---- Baku Boom: blow the screen up, land back on the menu ---- */
-function boom(cb){ac();burst(120,'lowpass',.6,1.1);tone(55,.9,'sine',.25,.3);
+function boom(cb){if(window.__borneBoom)return window.__borneBoom(cb);ac();burst(120,'lowpass',.6,1.1);tone(55,.9,'sine',.25,.3);
   const cvs=document.createElement('canvas');cvs.className='boomfx';cvs.width=innerWidth;cvs.height=innerHeight;document.body.appendChild(cvs);const x=cvs.getContext('2d');
   const P=[...Array(160)].map(()=>{const a=Math.random()*TAU,s=2+Math.random()*14;return{x:cvs.width/2,y:cvs.height/2,vx:Math.cos(a)*s,vy:Math.sin(a)*s,c:['#ffe08a','#ff5a1e','#c9a84c','#fff','#e0303a'][Math.floor(Math.random()*5)],r:1+Math.random()*3};});
   document.querySelector('.wrap').classList.add('shake');let f=0;

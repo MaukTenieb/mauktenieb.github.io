@@ -19,10 +19,11 @@ i = s.rfind("</body>")
 s = s[:i] + '<script src="borne-cabinet.js"></script>\n' + s[i:]
 # crochets de la borne dans le code de la page (fermé dans une fonction) : go, goHome, openGame, et une poignée
 s = once(s, "function go(k){ac();", "function go(k){if(window.__borneGo&&window.__borneGo(k))return;ac();")
+s = once(s, "function boom(cb){", "function boom(cb){if(window.__borneBoom)return window.__borneBoom(cb);")
 s = once(s, "function openGame(k,title){", "function openGame(k,title){window.__borneGame&&window.__borneGame(k);")
 i = s.index("function goHome(){"); j = s.index("\n", i)
 s = s[:i] + "function goHome(){window.__borneHome&&window.__borneHome();" + s[i+len("function goHome(){"):j+1] \
-    + "window.__ik={go:k=>go(k),goHome:()=>goHome(),openCalque:(a,b,c,d)=>openCalque(a,b,c,d),openGame:(k,t)=>openGame(k,t),boom:cb=>boom(cb),ac:()=>ac()};\n" + s[j+1:]
+    + "window.__ik={go:k=>go(k),goHome:()=>goHome(),openCalque:(a,b,c,d)=>openCalque(a,b,c,d),openGame:(k,t)=>openGame(k,t),boom:cb=>boom(cb),ac:()=>ac(),tone:(...a)=>tone(...a),burst:(...a)=>burst(...a),lang:()=>LANG};\n" + s[j+1:]
 s = re.sub(r"<title>[^<]*</title>", "<title>Borne Insert Koin — essai</title>", s, count=1)
 # devant Korong! : l'image de l'écran titre, avec ses zones cliquables (borne-lobby.json, repères de poster.webp, 1200 x 896)
 import json
