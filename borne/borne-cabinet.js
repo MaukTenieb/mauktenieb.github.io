@@ -18,16 +18,19 @@
   var strip=document.createElement('div');strip.className='b-strip';
   var sL=document.createElement('div'),sC=document.createElement('div'),sR=document.createElement('div');
   var slot=document.createElement('button');slot.type='button';slot.className='b-slot';
-  slot.innerHTML='<i></i><b><span>INSERT KOIN</span><span>3615 KOINS</span></b>';
+  slot.innerHTML='<i></i><b><span><em>INSERT</em> <u>KOIN</u></span><span></span></b>';
   sL.appendChild(slot);if($('koins'))sL.appendChild($('koins'));if($('kal'))sL.appendChild($('kal'));
   if($('kapture'))sC.appendChild($('kapture'));
   ['snd','lang'].forEach(function(id){if($(id))sR.appendChild($(id));});
   strip.appendChild(sL);strip.appendChild(sC);strip.appendChild(sR);
   bar.parentNode.insertBefore(strip,bar.nextSibling);
-  function slotText(){var t=lang()==='fr'?['INSERT KOIN','3615 KOINS : gagnez des Koins']:['INSERT KOIN','3615 KOINS: earn Koins'];
-    slot.querySelector('b span:first-child').textContent=t[0];slot.querySelector('b span:last-child').textContent=t[1];slot.setAttribute('aria-label',t[0]+' · '+t[1]);}
-  var SL=['INSERT KOIN','INSERT KINOS',"INSERT O'SKIN"],si=0;
-  setInterval(function(){si=(si+1)%SL.length;slot.querySelector('b span:first-child').textContent=SL[si];},4200);
+  /* « INSERT » d'une couleur, le mot qui change d'une autre ; dessous, ce que fait la fente */
+  function slotText(){var t=lang()==='fr'?'Gagner des Koins · 3615':'Earn Koins · 3615';
+    slot.querySelector('b span:last-child').textContent=t;slot.setAttribute('aria-label','Insert Koin · '+t);}
+  var SL=['KOIN','KINOS',"O'SKIN"],si=0,kw=slot.querySelector('u');
+  setInterval(function(){si=(si+1)%SL.length;kw.classList.remove('flip');void kw.offsetWidth;kw.textContent=SL[si];kw.classList.add('flip');},4200);
+  /* le compteur dit ce qu'il compte */
+  if($('koins')){var kl=document.createElement('span');kl.className='b-klab';kl.textContent='KOINS';$('koins').appendChild(kl);}
 
   /* écran : Skoporhogo en attraction, la date républicaine, puis chaque programme */
   var scr=document.createElement('div');scr.className='b-screen';
