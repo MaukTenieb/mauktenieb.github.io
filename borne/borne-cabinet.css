@@ -863,3 +863,10 @@ html.b-charte #mem h1{font-size:clamp(56px,14vw,96px)!important}
 /* ---------- la manette à ressort : le ressort pilote l'angle, sans transition ; la tige s'étire un peu avec la vitesse ---------- */
 html.borne .b-stick i,html.borne .b-stick.b-grip i{transition:none!important}
 html.borne .b-stick i{transform:rotate(calc(var(--x) * 16deg)) translateY(calc(var(--y) * 3px)) scaleY(calc(1 - var(--v,0) * .04))!important}
+
+/* ---------- Online Applicants : une diode et un chiffre, gravés discrètement au pied de l'écran ---------- */
+html.borne .b-online{display:flex;align-items:center;gap:6px;margin:0 auto;font-family:'DM Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(235,225,205,.38);white-space:nowrap;pointer-events:auto;cursor:default}
+html.borne .b-online i{width:5px;height:5px;border-radius:50%;background:#5dff8a;box-shadow:0 0 6px #5dff8a;animation:bonline 2.4s ease-in-out infinite}
+html.borne .b-online b{font-weight:500;color:rgba(235,225,205,.7)}
+@keyframes bonline{50%{opacity:.35;box-shadow:0 0 2px #5dff8a}}
+@media (max-width:520px){html.borne .b-online span{display:none}}
