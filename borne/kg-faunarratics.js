@@ -775,7 +775,7 @@ function kkSeal(){
     story:kkStoryText(),
     entries:kkEntries.slice()
   });
-  if(arr.length>50)arr=arr.slice(0,50);
+  if(arr.length>99)arr=arr.slice(0,99);
   kkArchiveSave(arr);
   kkClearSave();
   if(window.KG&&KG.win)KG.win('faunarratics',{masks:kkIdx});

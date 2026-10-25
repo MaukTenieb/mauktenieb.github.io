@@ -310,3 +310,7 @@ html.borne[data-big=tate]{--gh:calc(100vh - 24px);--gw:min(calc(100vw - 80px),ca
 }
 html.borne .b-panel .b-subgrid.b-split{grid-template-columns:minmax(0,3fr) minmax(0,2fr)}
 html.borne .b-minis .cab b{font-size:clamp(.9rem,1.05vw,1.05rem)!important;letter-spacing:0!important;white-space:nowrap;max-width:none!important;overflow:visible!important}
+/* zéro Koin : le décompte dans la fente et à l'écran */
+html.borne .b-slot.b-wait u{color:#ffe08a;text-shadow:0 0 8px rgba(255,224,138,.7)}
+html.borne .b-slot.b-wait i{animation:bwait 1s steps(2) infinite}
+@keyframes bwait{50%{box-shadow:0 0 0 2px #9a958c,0 0 16px rgba(255,224,138,.9)}}

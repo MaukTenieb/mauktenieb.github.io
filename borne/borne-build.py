@@ -33,6 +33,10 @@ for mid, box in B.items():
     pat = re.compile(r'("id": "' + mid + r'"(?:(?!"id": ).)*?"box": )\[[0-9, ]+\]', re.S)
     s, n = pat.subn(lambda m: m.group(1) + json.dumps(box), s, count=1)
     assert n == 1, mid
+# Koins : 99 au plus ; à zéro, le décompte de la Koin gratuite part tout de suite (30 s), sans attendre un refus
+s = once(s, "if(k!==null)koins=+k;freeAt=", "if(k!==null)koins=Math.min(99,+k);freeAt=")
+s = once(s, "koins=Math.min(Number.MAX_SAFE_INTEGER,koins+1)", "koins=Math.min(99,koins+1)")
+s = once(s, "setInterval(()=>{if(koins<1&&freeAt&&Date.now()>=freeAt)", "setInterval(()=>{if(koins>99){koins=99;saveKoins();}if(koins<1&&!freeAt){freeAt=Date.now()+30000;saveKoins();}if(koins<1&&freeAt&&Date.now()>=freeAt)")
 wr("index.html", s)
 
 k = rd("skoporhogo.html")
@@ -53,4 +57,19 @@ def canon(t):
 for n in ("index.html", "skoporhogo-borne.html", "fotofauna.html", "fotofauna-test.html", "kg-kapture.js"):
     if os.path.exists(os.path.join(D, n)):
         wr(n, canon(rd(n)))
-print("index.html, skoporhogo-borne.html ; noms canoniques")
+# 99 au plus, partout : cassettes, morceaux d'une cassette, Kuration, récits de Faunarratik (copies de la borne, retouchées une fois)
+def cap(n, old, new):
+    t = rd(n)
+    if new in t: return
+    assert t.count(old) == 1, (n, old)
+    wr(n, t.replace(old, new))
+cap("kg-vhs-library.js", 'a.push({ channel: tape.channel, channel_url: tape.channel_url || "", count: tape.tracks.length, tracks: tape.tracks.slice(0, 5000) });\n      writeLocal(a);',
+    'a.push({ channel: tape.channel, channel_url: tape.channel_url || "", count: Math.min(99, tape.tracks.length), tracks: tape.tracks.slice(0, 99) });\n      writeLocal(a.slice(-99));')
+cap("kg-vhs-library.js", "maxTracks: 600,", "maxTracks: 9801,")
+cap("kg-vhs-library.js", "    var tracks = [], all = 0;\n    for (var i = 0; i < tapes.length; i++) {\n      var tt = (tapes[i] && tapes[i].tracks) || [];",
+    "    var tracks = [], all = 0;\n    tapes = tapes.slice(0, 99);\n    for (var i = 0; i < tapes.length; i++) {\n      if (tapes[i] && tapes[i].tracks && tapes[i].tracks.length > 99) tapes[i].tracks = tapes[i].tracks.slice(0, 99);\n      var tt = (tapes[i] && tapes[i].tracks) || [];")
+cap("ik-kuration.js", "MAX = 200,", "MAX = 99,")
+cap("ik-kuration.js", "var list = mine(), on = !has(t.id);", "var list = mine(), on = !has(t.id);\n    if (on && list.length >= MAX) return false;")
+cap("kuration.html", "k.tracks.slice(0,50)", "k.tracks.slice(0,99)")
+cap("kg-faunarratics.js", "if(arr.length>50)arr=arr.slice(0,50);", "if(arr.length>99)arr=arr.slice(0,99);")
+print("index.html, skoporhogo-borne.html ; noms canoniques ; plafond 99")

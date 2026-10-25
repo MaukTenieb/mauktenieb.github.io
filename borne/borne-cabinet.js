@@ -115,7 +115,10 @@
   if($('kal'))door.appendChild($('kal'));
   wrap.appendChild(door);
   var SL=['KOIN','KINOS',"O'SKIN"],si=0,kw=slot.querySelector('u');
-  setInterval(function(){si=(si+1)%SL.length;kw.classList.remove('flip');void kw.offsetWidth;kw.textContent=SL[si];kw.classList.add('flip');},4200);
+  setInterval(function(){if(slot.classList.contains('b-wait'))return;si=(si+1)%SL.length;kw.classList.remove('flip');void kw.offsetWidth;kw.textContent=SL[si];kw.classList.add('flip');},4200);
+  /* zéro Koin : la fente affiche le décompte de la Koin gratuite */
+  setInterval(function(){var kn=$('kn'),m=kn&&/·\s*(\d+)\s*s/.exec(kn.textContent||''),w=slot.classList.contains('b-wait');
+    if(m){slot.classList.add('b-wait');kw.textContent='+1 · '+m[1]+'s';}else if(w){slot.classList.remove('b-wait');kw.textContent=SL[si];}},500);
   slot.onclick=function(){var c=el('span','b-coin');slot.appendChild(c);
     try{IK().tone&&IK().tone(1320,.06,'square',.03);IK().tone&&IK().tone(660,.12,'triangle',.03,0,.25);}catch(e){}
     setTimeout(function(){c.remove();IK().go&&IK().go('kal');},560);};
