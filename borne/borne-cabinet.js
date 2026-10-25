@@ -29,7 +29,7 @@
   ['select','game','calque'].forEach(function(id){if($(id))glass.appendChild($(id));});
   var land=el('button','b-sticker b-land','<span>BURROWS</span>');land.type='button';land.setAttribute('aria-label','Burrows');
   var foot=el('div','b-bezelfoot');
-  var badge=el('button','b-sticker b-badge','<b>MAUK</b><b>TENIEB</b>');badge.type='button';badge.setAttribute('aria-label','Mauk Tenieb');
+  var badge=el('button','b-sticker b-badge','<b>MAUK TENIEB</b>');badge.type='button';badge.setAttribute('aria-label','Mauk Tenieb');
   var menu=home.querySelector('.menu'),loreHref=((menu&&menu.querySelector('a[href*="substack"]'))||{}).href||'https://mauktenieb.substack.com';
   var lore=el('a','b-sticker b-lore','LORE');lore.href=loreHref;lore.target='_blank';lore.rel='noopener';
   if($('koins')){$('koins').classList.add('b-credit');foot.appendChild($('koins'));}lore.classList.add('b-stuck');
@@ -63,7 +63,7 @@
       ['faunarratics','FAUNARRATIK','thumb-faunarratics.jpg','#4fc3f7']],extra:[['fi','FAUNINVADERS','borne-big-fi.jpg','#c9a84c',3],['bb','SAMPLER','borne-big-bb.jpg','#ff7043',2]]},
     fauneye:{t:'FAUNEYE',th:'borne-fauneye.jpg',nc:'#e2c27a',items:[['fauneye','LISEUSE','borne-fauneye.jpg','#e2c27a'],['vhs','VHS','thumb-vhs.jpg','#b9d84a'],['photo','FOTOFAUNA','thumb-photo.jpg','#ff5a5a']]},
     surf:{t:'SURFAUNA',th:'thumb-repo.jpg',nc:'#7fe0ff',items:[['repo','REPORHOGO','thumb-repo.jpg','#b9d84a'],['tor','FAUNATOR','thumb-repo.jpg','#9e9e9e']]}};
-  function group(g){var G=GROUPS[g],c=el('div','cab b-group');c.style.cssText='--th:url('+G.th+');--nc:'+G.nc;
+  function group(g){var G=GROUPS[g],c=el('div','cab b-group');c.dataset.grp='g-'+g;c.style.cssText='--th:url('+G.th+');--nc:'+G.nc;
     c.innerHTML='<button type="button" class="hit" aria-expanded="false"><b></b></button>';c.querySelector('b').textContent=G.t;
     c.querySelector('button').addEventListener('click',function(){unfold(g);});return c;}
   if(cabs){
@@ -128,6 +128,8 @@
     new MutationObserver(sync).observe(b,{childList:true,characterData:true,subtree:true});});
   if($('kal'))door.appendChild($('kal'));
   wrap.appendChild(door);
+  /* le copyright, petit, tout en bas du meuble */
+  var cp=document.querySelector('#home .copy');if(cp){cp.classList.add('b-copy');wrap.appendChild(cp);}
   var SL=['KOIN','KINOS',"O'SKIN"],si=0,kw=slot.querySelector('u');
   setInterval(function(){if(slot.classList.contains('b-wait'))return;si=(si+1)%SL.length;kw.classList.remove('flip');void kw.offsetWidth;kw.textContent=SL[si];kw.classList.add('flip');},4200);
   /* zéro Koin : la fente affiche le décompte de la Koin gratuite */

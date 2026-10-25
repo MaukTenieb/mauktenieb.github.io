@@ -10,10 +10,10 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 - Toit : une plante qui suit les mois du calendrier républicain ; au survol, EAU, SOLEIL, TAILLE l'entretiennent ; la caméra Kapture.
 - Fronton : l'enseigne entre deux haut-parleurs ; Motel Sound joue dès l'arrivée, son coupé, une cloche barrée ouvre le son.
 - Écran d'attente : un Mask au hasard ou l'affiche de Korong!, le temps que la borne se monte.
-- Cadre : l'autocollant Burrows au-dessus de l'écran ; dessous, la plaque Mauk Tenieb (la bio), les Koins, l'autocollant Lore, Baku Boom.
+- Cadre : l'enseigne Burrows, éclairée, au-dessus de l'écran ; l'autocollant Lore collé de travers au coin ; sous l'écran, les Koins et la dynamite Baku Boom (le mot BAKU BOOM s'allume à l'activation) ; dans un programme, la manette en miroir.
 - Écran : les Koins en haut à gauche à l'accueil, avec le décompte de la Koin gratuite à zéro ; SkopoRhogo à la minute exacte de l'heure du visiteur ; chaque programme s'ouvre dedans, et le meuble se replie autour de l'écran, qui prend la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale.
-- Panneau : la manette en miroir ; quatre touches, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (liseuse, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; BC, TL, IG.
-- Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les boutons SKIN (bois, métal, 1960), FX, FR · EN.
+- Panneau : BC, TL, IG en rangée de départ ; la manette au milieu, entre quatre touches-pavés lumineuses, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (liseuse, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; la plaque émaillée Mauk Tenieb (la bio) sur le bord avant.
+- Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les boutons SKIN (bois, métal, 1960), FX, FR · EN, sur leur plaque à droite de la porte ; tout en bas, le copyright.
 
 ## Grammaire commune
 1. Toucher = agir.
@@ -35,6 +35,7 @@ D'un programme à l'autre : un glissé depuis le bord de l'écran, ou un toucher
 - `borne-fotofauna.js`, `borne-fotofauna.css` : FotoFauna, le logo et le viseur déclenchent ; caméra avant ou arrière ; Une, Superposer, Pellicule.
 - `borne-frames.css` : retouches de Reporhogo et de FaunaTor.
 - `borne-bio.html` : la bio, lue en direct du README du profil GitHub.
+- `borne-say.txt` : les phrases du psychopompe, une par arrêt de la visite, en français et en anglais.
 - `borne-lobby.json` : zones cliquables des 18 Masks sur l'image de l'écran titre, devant Korong!.
 
 Les robots d'indexation passent leur chemin : `Disallow: /borne/` et `noindex` sur chaque page de la borne.

@@ -18,6 +18,12 @@ s = once(s, "</head>", '<style id="b-veil">html:not(.borne-ready) body{backgroun
 i = s.rfind("</body>")
 s = s[:i] + '<script src="borne-cabinet.js"></script>\n' + s[i:]
 # crochets de la borne dans le code de la page (fermé dans une fonction) : go, goHome, openGame, et une poignée
+# le psychopompe : une phrase qui décrit chaque arrêt de la visite (borne-say.txt)
+import re as _re
+_say=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'borne-say.txt'),encoding='utf-8').read().strip()
+assert len(_re.findall(r'  const SAY=\{.*?\};\n',s))==1
+s=_re.sub(r'  const SAY=\{.*?\};\n',lambda m:'  '+_say+'\n',s,count=1)
+s = once(s, "const go=(el.querySelector('[data-go]')||el).dataset.go||(el.id==='kapture'", "const go=el.dataset.grp||(el.querySelector('[data-go]')||el).dataset.go||(/bandcamp/.test(hr)?'bc':'')||(el.id==='kapture'")
 s = once(s, "function go(k){ac();", "function go(k){if(window.__borneGo&&window.__borneGo(k))return;ac();")
 s = once(s, "function boom(cb){", "function boom(cb){if(window.__borneBoom)return window.__borneBoom(cb);")
 s = once(s, "function openGame(k,title){", "function openGame(k,title){window.__borneGame&&window.__borneGame(k);")

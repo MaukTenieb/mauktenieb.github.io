@@ -725,3 +725,26 @@ html.borne .wrap{padding-bottom:var(--s5)!important}
   html.borne .b-door>.b-slot,html.borne .b-door>.b-knobs{grid-column:1;justify-self:center}
 }
 @media (max-width:700px){html.borne .b-door>.b-slot{width:min(240px,70vw)!important}}
+
+/* ---------- 25 oct., 14 h 30 : copyright petit tout en bas, Burrows plus voyant, plaque Mauk Tenieb émaillée ---------- */
+html.borne .b-copy{order:99;margin:var(--s4) 0 0!important;padding:0 var(--inset) var(--s2)!important;background:none!important;box-shadow:none!important;
+  font-family:var(--f-eng);font-size:8px!important;letter-spacing:.06em!important;line-height:1.4;text-align:center;color:rgba(235,225,205,.38)!important;opacity:1!important}
+html.borne[data-skin=metal] .b-copy{color:rgba(20,18,16,.5)!important}
+html.borne .b-copy b{font-weight:400;color:inherit}
+html.borne[data-prog] .b-copy{display:none}
+
+html.borne .b-land{height:clamp(58px,8.5vh,84px)!important;filter:brightness(1.12) saturate(1.15);box-shadow:inset 0 0 0 1px rgba(0,0,0,.6),0 0 0 2px #0a0908,0 0 22px rgba(255,170,90,.28)!important}
+html.borne .b-land::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(8,6,5,.82) 0%,rgba(8,6,5,.45) 28%,transparent 52%)}
+html.borne .b-land span{z-index:2;font-size:clamp(1.7rem,4.4vh,2.6rem)!important;letter-spacing:.2em!important;color:#fff3dc!important;
+  text-shadow:0 0 10px rgba(255,150,70,.85),0 0 26px rgba(255,90,40,.55),0 2px 0 #000!important}
+@media (max-width:520px){html.borne .b-land{height:56px!important}html.borne .b-land span{font-size:1.6rem!important}}
+
+html.borne .b-plate .b-badge,html.borne .b-badge{width:auto!important;height:40px!important;padding:0 26px!important;border-radius:4px!important;
+  background:linear-gradient(180deg,#24201c,#0f0d0b)!important;
+  box-shadow:0 0 0 1px #000,0 0 0 3px #a8885a,0 0 0 4px #4a3a24,inset 0 1px 0 rgba(255,255,255,.08),0 5px 10px rgba(0,0,0,.55)!important;filter:none!important;position:relative}
+html.borne .b-badge::before,html.borne .b-badge::after{content:"";position:absolute;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#f1dcae,#8c6c3e 60%,#3a2a16);box-shadow:0 1px 1px rgba(0,0,0,.6)}
+html.borne .b-badge::before{left:9px}html.borne .b-badge::after{right:9px}
+html.borne .b-plate .b-badge b,html.borne .b-badge b{font-family:var(--f-sign),"Bebas Neue",Impact,sans-serif!important;font-size:1.05rem!important;letter-spacing:.32em!important;margin-right:-.32em;
+  line-height:1;white-space:nowrap;color:#d9b97c!important;text-shadow:0 -1px 0 rgba(0,0,0,.9),0 1px 0 rgba(255,230,180,.18)!important}
+html.borne[data-skin="1960"] .b-copy{color:rgba(40,30,22,.55)!important}
