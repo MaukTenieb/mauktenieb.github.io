@@ -1,12 +1,37 @@
-# Borne Insert Koin — site d'essai
+# Borne Insert Koin, site d'essai
 
-https://mauktenieb.github.io/borne/ : Insert Koin rangé dans une borne d'arcade. L'Insert Koin en ligne (dépôt `insertkoin`) reste intact.
+https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L'Insert Koin en ligne (dépôt `insertkoin`) reste intact.
 
+## Fabrication
 - `tools/aspire-borne.sh` (racine du dépôt) copie les fichiers d'Insert Koin ici, puis lance `borne-build.py`. Sa page d'accueil devient `insertkoin.html`.
-- `borne-build.py` fabrique `index.html` (la borne) depuis `insertkoin.html`, et `skoporhogo-borne.html` depuis `skoporhogo.html` ; il applique aussi les noms canoniques (FotoFauna, KorhoName) aux copies affichées.
-- `borne-cabinet.css`, `borne-cabinet.js` : le meuble, l'écran 4:3, le panneau de boutons, le tilt, la porte à Koins, l'habit de chaque programme.
-- `borne-skopo.js` : Skoporhogo à l'heure du visiteur, en temps réel, la journée des Masks rejouée depuis le matin.
-- `borne-fauneye.html` : FaunEye, le lecteur universel : le stock de fac-similés, les fichiers du visiteur (PDF, EPUB, images, CBZ, texte), Internet Archive, Gutenberg, Wikisource, Google Books.
+- `borne-build.py` fabrique `index.html` (la borne) depuis `insertkoin.html` et `skoporhogo-borne.html` depuis `skoporhogo.html`. Il pose les crochets de la borne (`window.__ik`, `__borneGo`, `__borneHome`, `__borneGame`, `__borneBoom`), applique les noms canoniques (FotoFauna, KorhoName, SkopoRhogo), le plafond de 99 et les retouches de la grammaire commune aux copies affichées.
+
+## Le meuble, de haut en bas
+- Toit : une plante qui suit les mois du calendrier républicain ; au survol, EAU, SOLEIL, TAILLE l'entretiennent ; la caméra Kapture.
+- Fronton : l'enseigne entre deux haut-parleurs ; Motel Sound joue dès l'arrivée, son coupé, une cloche barrée ouvre le son.
+- Cadre : l'autocollant Burrows au-dessus de l'écran ; dessous, la plaque Mauk Tenieb (la bio), les Koins, l'autocollant Lore, Baku Boom.
+- Écran : SkopoRhogo à la minute exacte de l'heure du visiteur ; chaque programme s'ouvre dedans, et le meuble se replie autour de l'écran, qui prend la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale.
+- Panneau : la manette en miroir ; quatre touches, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (liseuse, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; BC, TL, IG.
+- Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les boutons SKIN (bois, métal, 1960), FX, FR · EN.
+
+## Grammaire commune
+1. Toucher = agir.
+2. Glisser à gauche ou à droite = suivant ou précédent.
+3. Pincer ou molette = zoomer.
+4. Faire glisser un objet = le déplacer.
+5. Appui long = en voir plus.
+6. Baku Boom = revenir, toujours sous l'écran ; Échap fait pareil, programmes en cadre compris.
+7. Flèches = glissés ; Espace et Entrée = toucher.
+
+Écran : commandes toujours au même endroit, une icône et un mot au plus, zéro phrase d'explication, cibles de 44 px au moins, état toujours visible. Plafond : 99 pour tout (Koins, cassettes, morceaux d'une cassette, Kuration, livres, récits, poses).
+
+## Fichiers
+- `borne-cabinet.css`, `borne-cabinet.js` : le meuble, les habits, le tilt, la porte, la grammaire commune.
+- `borne-skopo.js` : SkopoRhogo à l'heure du visiteur.
+- `borne-fauneye.html` : FaunEye, le lecteur universel (stock de fac-similés, fichiers du visiteur, Internet Archive, Gutenberg, Wikisource, Google Books ; zoom, loupe, vignettes, typographie).
+- `borne-fotofauna.js`, `borne-fotofauna.css` : FotoFauna, le logo et le viseur déclenchent ; caméra avant ou arrière ; Une, Superposer, Pellicule.
+- `borne-frames.css` : retouches de Reporhogo et de FaunaTor.
+- `borne-bio.html` : la bio, lue en direct du README du profil GitHub.
 - `borne-lobby.json` : zones cliquables des 18 Masks sur l'image de l'écran titre, devant Korong!.
 
 Les robots d'indexation passent leur chemin : `Disallow: /borne/` et `noindex` sur chaque page de la borne.
