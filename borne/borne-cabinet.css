@@ -590,7 +590,7 @@ html.borne .b-minis .cab{aspect-ratio:auto;min-height:62px!important}
 
 /* Baku Boom : le mot s'affiche seulement à l'activation, en grand sur l'écran */
 html.borne .b-boom span{display:none}
-html.borne .b-bbflash{position:absolute;left:50%;top:50%;z-index:60;pointer-events:none;transform:translate(-50%,-50%);font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(2.6rem,9vw,7rem);letter-spacing:.08em;color:#fff4e6;
+html.borne .b-bbflash{position:fixed;z-index:9999!important;left:50%;top:50%;z-index:60;pointer-events:none;transform:translate(-50%,-50%);font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(2.6rem,9vw,7rem);letter-spacing:.08em;color:#fff4e6;
   text-shadow:0 0 18px #ff5b3c,0 0 42px #b8231a,0 4px 0 #000;animation:bbflash 1.15s ease-out forwards;white-space:nowrap}
 @keyframes bbflash{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.25)}}
 
