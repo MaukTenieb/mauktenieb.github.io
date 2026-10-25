@@ -554,3 +554,9 @@ html.borne .b-plant img{height:100%;width:auto;display:block}
   html.borne .b-stick,html.borne .b-stick i{width:60px;height:84px}
   html.borne .b-bezel .b-lore.b-stuck{width:92px;height:42px;font-size:1rem;right:-4px}
 }
+/* BC TL IG : boutons Midjourney */
+html.borne .b-panel .menu a::before{background-color:transparent!important;background-position:center!important;background-size:contain!important;background-repeat:no-repeat!important;box-shadow:none!important;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
+html.borne .b-panel .menu a[href*="bandcamp"]::before{background-image:url(bouton-bc.webp)!important}
+html.borne .b-panel .menu a[href*="threadless"]::before{background-image:url(bouton-tl.webp)!important}
+html.borne .b-panel .menu a[href*="instagram"]::before{background-image:url(bouton-ig.webp)!important}
+html.borne .b-panel .menu a:hover::before{filter:brightness(1.15) drop-shadow(0 0 8px var(--mc,#fff))}
