@@ -414,7 +414,7 @@ body:not(.on-home) .info,body:not(.on-home) .foot{display:none}
 @media (prefers-reduced-motion:reduce){.stage .turn,.stage .turn i{animation:none}.stage .turn{display:none!important}}
 </style>
 <style id="b-veil">html:not(.borne-ready) body{background:transparent!important}html:not(.borne-ready) body>*{visibility:hidden!important}html:not(.borne-ready){background:#0b0908!important;min-height:100%}html:not(.borne-ready)::before{content:"";position:fixed;inset:7vmin;z-index:2147483647;background:var(--wait) center/contain no-repeat;box-shadow:none}html.borne-ready{transition:background-color .4s}</style>
-<script>(function(){var i=1+Math.floor(Math.random()*23),d=document.documentElement.style;d.setProperty("--wait","url(attente-"+(i<10?"0":"")+i+".webp)");d.setProperty("--waitsz","contain");setTimeout(function(){document.documentElement.classList.add("borne-ready")},5000)})()</script>
+<script>(function(){var i=1+Math.floor(Math.random()*27),d=document.documentElement.style;d.setProperty("--wait","url(attente-"+(i<10?"0":"")+i+".webp)");d.setProperty("--waitsz","contain");setTimeout(function(){document.documentElement.classList.add("borne-ready")},5000)})()</script>
 <link rel="stylesheet" href="borne-cabinet.css">
 </head>
 <body>
