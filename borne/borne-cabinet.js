@@ -342,6 +342,11 @@
     function fit(){l.classList.remove('b-run');l.style.removeProperty('--sx');var d=l.scrollWidth-l.clientWidth;if(d>4){l.style.setProperty('--sx',(-d-12)+'px');l.style.setProperty('--sd',Math.max(6,d/18)+'s');l.classList.add('b-run');}}
     new MutationObserver(fit).observe(l,{childList:true,characterData:true,subtree:true});addEventListener('resize',fit);setTimeout(fit,400);})();
 
+  /* les psychopompes : premier arrêt Burrows ou la plaque Mauk Tenieb, au hasard ; jetés, ils rebondissent sur les bords de l'écran */
+  land.dataset.grp='visit';badge.dataset.grp='bio';
+  window.__borneFirst=function(){var a=[land,badge];if(Math.random()<.5)a.reverse();return a;};
+  window.__borneScreen=function(){var r=glass.getBoundingClientRect();return r.width>40&&r.height>40?r:null;};
+
   dress('repos');
   /* la page d'origine reste voilée jusqu'ici : le visiteur voit la borne d'emblée */
   requestAnimationFrame(function(){root.classList.add('borne-ready');});
