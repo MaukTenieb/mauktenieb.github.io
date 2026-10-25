@@ -1718,7 +1718,7 @@ function go(k){if(window.__borneGo&&window.__borneGo(k))return;ac();
   if(k==='visit'){calqueSrc('/katabase/').then(function(s){openCalque(s,'BURROWS');kataLang();});return;}
   if(k==='photo'){photoLang();return openCalque('fotofauna.html','FotoFauna');}
   if(k==='repo')return openCalque('reporhogo.html','Reporhogo');
-  if(k==='skopo')return openCalque('skoporhogo.html','Skoporhogo');
+  if(k==='skopo')return openCalque('skoporhogo.html','SkopoRhogo');
   if(k==='tor'){try{localStorage.setItem('tor.lang',LANG);}catch(e){}return openCalque('tor.html','FaunaTor',null,true);}
   const t={chess:'FAUNA CHESS',erratic:'ERRATIK',faunarratics:'FAUNARRATIK',katabatik:'KATABATIK',kapture:'KAPTURE',vhs:'VHS'}[k];
   if(k==='katabatik'){const d=document.querySelector('.cab.dice b'),f=d?Math.max(0,DICE.indexOf(d.dataset.d)):Math.floor(Math.random()*6);window.__ikKata=['c4','bb','hang','mm','fi'][f>4?Math.floor(Math.random()*5):f];}

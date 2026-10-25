@@ -18,19 +18,16 @@
   var strip=document.createElement('div');strip.className='b-strip';
   var sL=document.createElement('div'),sC=document.createElement('div'),sR=document.createElement('div');
   var slot=document.createElement('button');slot.type='button';slot.className='b-slot';
-  slot.innerHTML='<i></i><b><span><em>INSERT</em> <u>KOIN</u></span><span></span></b>';
+  slot.innerHTML='<i></i><b><span><em>INSERT</em> <u>KOIN</u></span></b>';
   sL.appendChild(slot);if($('koins'))sL.appendChild($('koins'));if($('kal'))sL.appendChild($('kal'));
   if($('kapture'))sC.appendChild($('kapture'));
   ['snd','lang'].forEach(function(id){if($(id))sR.appendChild($(id));});
   strip.appendChild(sL);strip.appendChild(sC);strip.appendChild(sR);
   bar.parentNode.insertBefore(strip,bar.nextSibling);
-  /* « INSERT » d'une couleur, le mot qui change d'une autre ; dessous, ce que fait la fente */
-  function slotText(){var t=lang()==='fr'?'Gagner des Koins · 3615':'Earn Koins · 3615';
-    slot.querySelector('b span:last-child').textContent=t;slot.setAttribute('aria-label','Insert Koin · '+t);}
+  /* « INSERT » d'une couleur, le mot qui change d'une autre ; zéro phrase d'explication */
+  function slotText(){slot.setAttribute('aria-label','Insert Koin · 3615 KOINS');}
   var SL=['KOIN','KINOS',"O'SKIN"],si=0,kw=slot.querySelector('u');
   setInterval(function(){si=(si+1)%SL.length;kw.classList.remove('flip');void kw.offsetWidth;kw.textContent=SL[si];kw.classList.add('flip');},4200);
-  /* le compteur dit ce qu'il compte */
-  if($('koins')){var kl=document.createElement('span');kl.className='b-klab';kl.textContent='KOINS';$('koins').appendChild(kl);}
 
   /* écran : Skoporhogo en attraction, la date républicaine, puis chaque programme */
   var scr=document.createElement('div');scr.className='b-screen';
@@ -66,6 +63,7 @@
     /* Skoporhogo tourne à l'écran */
     ['skopo'].forEach(function(k){var c=cabOf(k);if(c)c.remove();});
     /* trois petits boutons : BC, TL, IG ; les autres liens partent */
+    var loreHref=((menu&&menu.querySelector('a[href*="substack"]'))||{}).href||'https://mauktenieb.substack.com';
     if(menu){[].slice.call(menu.children).forEach(function(x){var h=(x.getAttribute('href')||'');if(!/threadless|instagram/.test(h))x.remove();});
       [].slice.call(menu.children).forEach(function(x){var h=x.getAttribute('href')||'';x.textContent=/threadless/.test(h)?'TL':'IG';});
       var bc=document.createElement('a');bc.href='https://mauktenieb.bandcamp.com';bc.target='_blank';bc.rel='noopener';bc.textContent='BC';bc.style.setProperty('--mc','#1da0c3');menu.insertBefore(bc,menu.firstChild);}
@@ -88,30 +86,47 @@
   var land=document.createElement('button');land.type='button';land.className='b-sticker b-land';land.setAttribute('aria-label','Burrows');
   land.innerHTML='<span>BURROWS</span>';strip.parentNode.insertBefore(land,strip);
   land.onclick=function(){full('/katabase/','BURROWS');};
-  var badge=document.createElement('button');badge.type='button';badge.className='b-sticker b-badge';badge.setAttribute('aria-label','Mauk Tenieb : biography');
+  /* la marque Mauk Tenieb, plaque de fabricant, dans le haut-parleur droit : la bio */
+  var badge=document.createElement('button');badge.type='button';badge.className='b-sticker b-badge';badge.setAttribute('aria-label','Mauk Tenieb');
   badge.innerHTML='<b>MAUK</b><b>TENIEB</b>';
-  if(menu)menu.parentNode.insertBefore(badge,menu);
+  var docks=bar.querySelectorAll('.dock');(docks[1]||bar).appendChild(badge);
   badge.onclick=function(){full('borne-bio.html','MAUK TENIEB');};
-  var bb=document.createElement('button');bb.type='button';bb.className='b-boom';bb.textContent='BAKU BOOM';panel.appendChild(bb);
+  /* rangée basse : l'autocollant Lore, BC TL IG, Baku Boom à droite */
+  var row2=document.createElement('div');row2.className='b-row2';
+  var lore=document.createElement('a');lore.className='b-sticker b-lore';lore.href=loreHref||'https://mauktenieb.substack.com';lore.target='_blank';lore.rel='noopener';lore.textContent='LORE';
+  var bb=document.createElement('button');bb.type='button';bb.className='b-boom';bb.setAttribute('aria-label','Baku Boom');bb.innerHTML='<i></i><span>BAKU BOOM</span>';
+  row2.appendChild(lore);if(menu)row2.appendChild(menu);row2.appendChild(bb);panel.insertBefore(row2,store);
+  /* l'étagère : livres et cassettes restent en place d'un programme à l'autre */
+  var shelf=document.createElement('div');shelf.className='b-shelf';shelf.setAttribute('aria-label','Étagère');home.insertBefore(shelf,panel);
+  var BOOKS0=[{id:'atalantafugiensh00maie',ti:'Atalanta fugiens',c:'#6b1f1a'},{id:'b14557551_0002',ti:'Mutus liber',c:'#2f3f2a'},{id:'BIUSante_pharma_res011411',ti:'Rosarium',c:'#3a2a52'},
+    {id:'bub_gb_1JucGqXnWb4C',ti:'Musaeum hermeticum',c:'#5a3a1a'},{id:'cu31924012366088',ti:'Turba',c:'#1f2f44'}];
+  function paintShelf(){var b=[];try{b=JSON.parse(localStorage.getItem('borne.shelf')||'[]')||[];}catch(e){}
+    var seen={},books=b.concat(BOOKS0).filter(function(x){if(seen[x.id])return false;seen[x.id]=1;return true;}).slice(0,10),tapes=[];
+    try{var k=JSON.parse(localStorage.getItem('ik.kuration')||'[]')||[];if(k.length)tapes.push({ti:'KORHOGO KURATION',n:k.length});}catch(e){}
+    shelf.innerHTML='';books.forEach(function(x){var e=document.createElement('button');e.type='button';e.className='b-book';e.style.setProperty('--c',x.c||'#4a2f1c');e.textContent=x.ti;e.title=x.ti;
+      e.onclick=function(){try{localStorage.setItem('borne.fauneye.next',JSON.stringify(x));}catch(_){}IK().go&&IK().go('fauneye');};shelf.appendChild(e);});
+    tapes.forEach(function(t){var e=document.createElement('button');e.type='button';e.className='b-tape';e.innerHTML='<b></b><small></small>';e.querySelector('b').textContent=t.ti;e.querySelector('small').textContent=t.n;
+      e.onclick=function(){IK().go&&IK().go('vhs');};shelf.appendChild(e);});}
+  paintShelf();addEventListener('storage',paintShelf);setInterval(paintShelf,8000);
 
   /* l'habit suit le programme ; les appareils transforment le meuble */
   var HABIT={terminal:'minitel',kal:'minitel',vhs:'vhs',photo:'photo',kapture:'photo',fauneye:'fauneye',puck:'korong',room:'korong'};
   var DEVICE={terminal:1,kal:1,vhs:1,photo:1,kapture:1};
-  var LABEL={minitel:'3615',vhs:'FAUNEYE · VHS',photo:'FAUNEYE · FOTOFAUNA',fauneye:'FAUNEYE',korong:'KORHOGAME · KORONG!',arcade:'',repos:''};
+  var LABEL={minitel:'3615',vhs:'VHS',photo:'FOTOFAUNA',fauneye:'FAUNEYE',korong:'KORONG!',arcade:'',repos:''};
   var morphT=0;
   function relayout(){try{window.dispatchEvent(new Event('resize'));}catch(e){}
     try{var f=$('cf');if(f&&f.contentWindow)f.contentWindow.dispatchEvent(new Event('resize'));}catch(e){}}
   function dress(h,device){var mode=device?'device':'arcade',change=root.dataset.habit!==h||root.dataset.mode!==mode;
     if(change&&!matchMedia('(prefers-reduced-motion:reduce)').matches){scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');
       clearTimeout(morphT);morphT=setTimeout(function(){scr.classList.remove('b-morph');},1000);}
-    root.dataset.habit=h;root.dataset.mode=mode;hab.classList.remove('tilt');hab.textContent=LABEL[h]||'';
+    root.dataset.habit=h;root.dataset.mode=mode;hab.classList.remove('tilt');hab.textContent=LABEL[h]||'';paintShelf();
     [120,500,800,1100].forEach(function(t){setTimeout(relayout,t);});
     if(h==='repos')wake();else sleep();}
   function mark(k){if(!cabs)return;cabs.querySelectorAll('.cab').forEach(function(c){var b=c.querySelector('[data-go]');c.classList.toggle('on-air',!!b&&b.dataset.go===k);});}
 
   window.__borneGo=function(k){
     if(k==='fauneye'){IK().ac&&IK().ac();dress('fauneye');mark(k);IK().openCalque('borne-fauneye.html','FAUNEYE');return true;}
-    if(k==='skopo'){dress('arcade');mark(k);IK().openCalque('skoporhogo-borne.html','Skoporhogo');return true;}
+    if(k==='skopo'){dress('arcade');mark(k);IK().openCalque('skoporhogo-borne.html','SkopoRhogo');return true;}
     if(k==='visit'){full('/katabase/','BURROWS');return true;}
     dress(HABIT[k]||'arcade',!!DEVICE[k]);mark(k);
     /* programme refusé (Koins à zéro) : la borne reprend son habit de repos */
@@ -162,5 +177,9 @@
     date.lastChild.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+' · '+ph;slotText();}
   tick();setInterval(tick,20000);if($('lang'))$('lang').addEventListener('click',function(){setTimeout(tick,50);});
 
+  /* les retours en double des programmes (← BACK, BAKU BOOM) disparaissent : la borne fournit Baku Boom */
+  function hideDup(rootEl){if(!rootEl)return;[].forEach.call(rootEl.querySelectorAll('button,a'),function(b){var t=(b.textContent||'').trim().toUpperCase();
+    if(/^←\s*(BACK|RETOUR)$/.test(t)||t==='BAKU BOOM'||b.hasAttribute('data-back'))b.classList.add('b-dup');});}
+  [$('select'),$('game'),$('kg-root')].forEach(function(r){if(!r)return;hideDup(r);new MutationObserver(function(){hideDup(r);}).observe(r,{childList:true,subtree:true});});
   dress('repos');
 })();

@@ -80,8 +80,8 @@ html.borne[data-mode=device] .b-glass::after,html.borne[data-habit=fauneye] .b-g
 html.borne[data-habit=minitel] .b-screen{border-radius:30px}
 html.borne .b-attract{position:absolute;inset:0;z-index:1;cursor:zoom-in}
 html.borne .b-attract iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-html.borne .b-date{position:absolute;left:3%;top:3.5%;z-index:30;display:grid;gap:6px;pointer-events:none;font-family:"Press Start 2P",monospace;color:#ffe9a8;text-shadow:0 0 8px rgba(255,200,90,.6),0 2px 0 #000}
-html.borne .b-date b{font-weight:400;font-size:clamp(.62rem,1.3vw,1rem)}
+html.borne .b-date{position:absolute;right:2.5%;bottom:3%;justify-items:end;opacity:.8;z-index:30;display:grid;gap:6px;pointer-events:none;font-family:"Press Start 2P",monospace;color:#ffe9a8;text-shadow:0 0 8px rgba(255,200,90,.6),0 2px 0 #000}
+html.borne .b-date b{font-weight:400;font-size:clamp(.5rem,1vw,.8rem)}
 html.borne .b-date i{font-style:normal;font-size:clamp(.5rem,.85vw,.66rem);color:#bcd0f4}
 html.borne:not([data-habit=repos]) .b-attract{display:none}
 html.borne:not([data-habit=repos]) .b-date{visibility:hidden}
@@ -138,7 +138,7 @@ html.borne .b-panel.b-unfold .b-sub .cab{animation:bunfold .45s cubic-bezier(.3,
 html.borne .b-panel.b-unfold .b-sub .cab:nth-child(2){animation-delay:.05s}html.borne .b-panel.b-unfold .b-sub .cab:nth-child(3){animation-delay:.1s}
 html.borne .b-panel.b-unfold .b-sub .cab:nth-child(4){animation-delay:.15s}html.borne .b-panel.b-unfold .b-sub .cab:nth-child(5){animation-delay:.2s}
 @keyframes bunfold{from{opacity:0;transform:translateY(18px) scale(.9)}}
-html.borne .b-panel .b-group::after{content:"▾";position:absolute;right:10px;top:6px;z-index:2;color:var(--nc);font-size:1.1rem;text-shadow:0 0 8px var(--nc)}
+html.borne .b-panel .b-group::after{content:"";position:absolute;right:10px;top:9px;z-index:2;width:6px;height:6px;border-radius:50%;background:var(--nc);box-shadow:10px 0 0 var(--nc),0 0 8px var(--nc),10px 0 8px var(--nc)}
 
 /* autocollants : le grand paysage des Burrows sous le fronton ; la marque Mauk Tenieb sur le panneau */
 html.borne .b-sticker{border:0;cursor:pointer;padding:0;font:inherit}
@@ -196,3 +196,28 @@ html.borne .wrap.b-crushed{transform:scale(.94);filter:blur(3px) brightness(.5);
 html.borne .b-panel .cabinets,html.borne .b-panel .b-subgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (prefers-reduced-motion:reduce){html.borne .b-glass,html.borne .wrap{transition:none}html.borne .b-morph .b-glass::before,html.borne .b-morph .b-glass>*{animation:none}}
+
+/* commandes en double des programmes : masquées dans la borne */
+html.borne .b-dup{display:none!important}
+/* haut-parleur droit : la plaque Mauk Tenieb */
+html.borne .bar .dock .b-badge{margin:0;align-self:flex-end}
+/* rangée basse du panneau : Lore à gauche, BC TL IG, Baku Boom à droite */
+html.borne .b-row2{display:flex;align-items:center;gap:22px;margin-top:16px;flex-wrap:wrap}
+html.borne .b-row2 .menu{margin:0!important}
+html.borne .b-lore{display:inline-block;padding:10px 16px;border-radius:4px;text-decoration:none;font-family:"Bebas Neue",Impact,sans-serif;font-size:1.5rem;letter-spacing:.16em;color:#1d1a16;
+  background:linear-gradient(180deg,#e8d9ff,#c8b2f0);box-shadow:inset 0 0 0 2px #1d1a16,0 3px 6px rgba(0,0,0,.45);transform:rotate(1.5deg)}
+html.borne .b-lore:hover,html.borne .b-lore:focus-visible{transform:rotate(1.5deg) scale(1.05)}
+html.borne .b-boom{position:relative!important;right:auto!important;top:auto!important;margin-left:auto;display:flex;align-items:center;gap:12px;height:auto!important;padding:0!important;background:none!important;box-shadow:none!important;color:var(--lab)!important;font-size:1.1rem!important}
+html.borne .b-boom i{width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 40% 32%,#ff8a70,#d23a2a 55%,#7a160f);box-shadow:inset 0 -5px 0 rgba(0,0,0,.35),0 5px 0 #0b0a09,0 8px 14px rgba(0,0,0,.55)}
+html.borne .b-boom:active i{transform:translateY(3px);box-shadow:inset 0 -2px 0 rgba(0,0,0,.35),0 2px 0 #0b0a09,0 0 22px rgba(255,80,50,.8)}
+html.borne .b-boom span{font-family:"Bebas Neue",Impact,sans-serif;letter-spacing:.1em}
+/* l'étagère */
+html.borne .b-shelf{display:flex;align-items:flex-end;gap:4px;height:64px;margin:12px 14px 0;padding:0 10px;border-bottom:8px solid #5a3a20;box-shadow:0 6px 8px rgba(0,0,0,.5);overflow-x:auto;overflow-y:hidden}
+html.borne .b-book{flex:none;width:26px;height:54px;border:0;border-radius:2px 2px 0 0;cursor:pointer;background:var(--c);color:#f3e7c8;font:11px/1 "IM Fell English",Georgia,serif;
+  writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:4px 0;box-shadow:inset 2px 0 0 rgba(255,255,255,.12),inset -2px 0 0 rgba(0,0,0,.35)}
+html.borne .b-book:nth-child(3n){height:58px}html.borne .b-book:nth-child(4n){height:50px;width:30px}
+html.borne .b-book:hover{transform:translateY(-3px)}
+html.borne .b-tape{flex:none;display:grid;place-items:center;width:110px;height:40px;margin-left:12px;border:0;border-radius:3px;cursor:pointer;background:#141311;color:#ece4d2;box-shadow:inset 0 0 0 2px #2c2a27}
+html.borne .b-tape b{font:400 .62rem "DM Mono",monospace;letter-spacing:.12em;background:#ece4d2;color:#141311;padding:2px 6px}
+html.borne .b-tape small{font:.55rem "DM Mono",monospace;color:#8fe08a}
+@media (max-width:700px){html.borne .b-row2{gap:14px}html.borne .b-boom span{display:none}}

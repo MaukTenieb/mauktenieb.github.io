@@ -36,13 +36,13 @@ for mid, box in B.items():
 wr("index.html", s)
 
 k = rd("skoporhogo.html")
-k = once(k, "window.__room={step:stepSim,", "window.__room={SPEEDS,VIEW,applyView,step:stepSim,")
+k = once(k, "window.__room={step:stepSim,", "window.__room={SPEEDS,VIEW,applyView,zoomAt,step:stepSim,")
 k = once(k, "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">')
 i = k.rfind("</body>")
 k = k[:i] + '<script src="borne-skopo.js"></script>\n' + k[i:]
 wr("skoporhogo-borne.html", k)
 # noms canoniques (KorhoBidule, FaunMachin) : appliqués aux pages de la borne et aux copies qu'elle affiche
-CANON = {"Photofauna": "FotoFauna", "PHOTOFAUNA": "FOTOFAUNA", "Korhoname": "KorhoName"}
+CANON = {"Photofauna": "FotoFauna", "PHOTOFAUNA": "FOTOFAUNA", "Korhoname": "KorhoName", "Skoporhogo": "SkopoRhogo"}
 def canon(t):
     for a, b in CANON.items():
         t = t.replace(a, b)

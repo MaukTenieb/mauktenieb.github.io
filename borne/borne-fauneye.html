@@ -148,9 +148,13 @@ button,input,select{font:inherit}
   function iaOpen(id,base){wait.textContent=T.load;fetch('https://archive.org/metadata/'+encodeURIComponent(id)).then(function(r){return r.json();}).then(function(m){
       var md=m.metadata||{},files=m.files||[],txt=(files.filter(function(f){return /_djvu\.txt$/.test(f.name);})[0]||{}).name,
       n=+md.imagecount||files.filter(function(f){return /\.(jp2|jpg)$/i.test(f.name)&&/_(jp2|raw)?\//.test(f.name);}).length||1;
-      iaBook(id,{n:base&&base.n||n,start:base&&base.start,au:base&&base.au||[].concat(md.creator||'')[0],ti:base&&base.ti||[].concat(md.title||id)[0],ed:base&&base.ed||[].concat(md.date||md.year||'')[0],txt:txt});})
+      var ti=base&&base.ti||[].concat(md.title||id)[0];shelve({id:id,ti:ti,c:base&&base.c});
+      iaBook(id,{n:base&&base.n||n,start:base&&base.start,au:base&&base.au||[].concat(md.creator||'')[0],ti:ti,ed:base&&base.ed||[].concat(md.date||md.year||'')[0],txt:txt});})
     .catch(function(){if(base)iaBook(id,base);else wait.textContent=T.err;});}
 
+  /* l'étagère de la borne : les livres ouverts y restent, d'un programme à l'autre */
+  function shelve(b){try{var L=JSON.parse(localStorage.getItem('borne.shelf')||'[]')||[];L=L.filter(function(x){return x.id!==b.id;});
+    L.unshift({id:b.id,ti:String(b.ti||b.id).slice(0,60),c:b.c||['#6b1f1a','#2f3f2a','#3a2a52','#5a3a1a','#1f2f44','#4a2f1c'][b.id.length%6]});localStorage.setItem('borne.shelf',JSON.stringify(L.slice(0,16)));}catch(e){}}
   /* le stock */
   var STOCK=[
     {id:'atalantafugiensh00maie',n:232,start:20,au:'Michael Maier',ti:'Atalanta fugiens',ed:'Oppenheim, Johann Theodor de Bry, 1618',c:'#6b1f1a'},
@@ -208,7 +212,9 @@ button,input,select{font:inherit}
   ['dragover','dragenter'].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('over');});});
   ['dragleave','drop'].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('over');if(ev==='drop'&&e.dataTransfer)openFiles(e.dataTransfer.files);});});
 
-  iaOpen(STOCK[0].id,STOCK[0]);
+  /* un livre pris sur l'étagère de la borne s'ouvre directement */
+  var next=null;try{next=JSON.parse(localStorage.getItem('borne.fauneye.next')||'null');localStorage.removeItem('borne.fauneye.next');}catch(e){}
+  if(next&&next.id){var st=STOCK.filter(function(k){return k.id===next.id;})[0];iaOpen(next.id,st||null);}else iaOpen(STOCK[0].id,STOCK[0]);
 })();
 </script>
 </body>
