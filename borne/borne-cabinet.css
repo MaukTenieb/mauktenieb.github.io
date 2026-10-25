@@ -560,3 +560,8 @@ html.borne .b-panel .menu a[href*="bandcamp"]::before{background-image:url(bouto
 html.borne .b-panel .menu a[href*="threadless"]::before{background-image:url(bouton-tl.webp)!important}
 html.borne .b-panel .menu a[href*="instagram"]::before{background-image:url(bouton-ig.webp)!important}
 html.borne .b-panel .menu a:hover::before{filter:brightness(1.15) drop-shadow(0 0 8px var(--mc,#fff))}
+/* Baku Boom : la dynamite peinte sur la façade, sous l'écran, à la place du bouton rond */
+html.borne .b-boom i,html.borne .b-bezelfoot .b-boom i{width:48px!important;height:48px!important;border-radius:4px;background:url(baku-boom-dynamite.webp) center/contain no-repeat!important;transform:rotate(-3deg)}
+html.borne body:not(.on-home) .b-boom i{filter:drop-shadow(0 0 6px rgba(220,40,30,.55)) drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+html.borne .b-boom:hover i,html.borne .b-boom:focus-visible i{transform:rotate(-3deg) scale(1.08)}
+html.borne .b-boom:active i{transform:rotate(-3deg) translateY(2px) scale(.96)}
