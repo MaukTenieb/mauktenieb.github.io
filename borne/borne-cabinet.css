@@ -353,11 +353,11 @@ html.borne .b-full header button{min-height:44px;min-width:44px}
 html.borne .b-roof,html.borne .bar,html.borne .b-land{transition:max-height .6s cubic-bezier(.6,.05,.3,1),opacity .4s,margin .6s,padding .6s;max-height:220px}
 html.borne[data-prog] .b-roof,html.borne[data-prog] .bar,html.borne[data-prog] .b-land{max-height:0!important;opacity:0;margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;overflow:hidden;pointer-events:none;border:0}
 html.borne[data-prog] .wrap{padding-top:8px!important}
-html.borne[data-prog]{--gh:calc(100dvh - 104px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 104px) * 4 / 3)) !important}
-html.borne[data-prog][data-mode=device]{--gw:min(calc(100vw - 80px),calc((100dvh - 104px) * 4 / 3 + 380px)) !important}
-html.borne[data-prog][data-big=tate]{--gw:min(calc(100vw - 80px),calc((100dvh - 104px) * .75)) !important}
+html.borne[data-prog]{--gh:calc(100dvh - 140px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 140px) * 4 / 3)) !important}
+html.borne[data-prog][data-mode=device]{--gw:min(calc(100vw - 80px),calc((100dvh - 140px) * 4 / 3 + 380px)) !important}
+html.borne[data-prog][data-big=tate]{--gw:min(calc(100vw - 80px),calc((100dvh - 140px) * .75)) !important}
 @media (max-width:700px){
-  html.borne[data-prog],html.borne[data-prog][data-mode=device],html.borne[data-prog][data-big=tate]{--gw:calc(100vw - 36px) !important;--gh:calc(100dvh - 96px) !important}
+  html.borne[data-prog],html.borne[data-prog][data-mode=device],html.borne[data-prog][data-big=tate]{--gw:calc(100vw - 36px) !important;--gh:calc(100dvh - 132px) !important}
 }
 
 /* ---------- programmes : cibles de 44 px, textes lisibles, rien de coupé ---------- */
@@ -381,3 +381,25 @@ html.borne .vhs-transport{position:sticky;top:0;z-index:6;background:inherit}
 html.borne .vhs-tracklist{overflow-x:hidden}
 html.borne .vhs-tracklist>*{max-width:100%;box-sizing:border-box;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-height:40px}
 html.borne .vhs-key,html.borne .vhs-tv-key,html.borne .vhs-tab{min-height:44px;min-width:44px}
+
+/* ---------- d'un programme à l'autre : bords de l'écran, points sous l'écran, neige de changement de chaîne ---------- */
+html.borne .b-edge{position:absolute;top:0;bottom:0;z-index:35;width:28px;display:none;align-items:center;justify-content:center;cursor:pointer;touch-action:none}
+html.borne .b-edge-l{left:0}html.borne .b-edge-r{right:0}
+html.borne[data-prog] .b-edge{display:flex}
+html.borne .b-edge i{font-style:normal;font-size:28px;line-height:1;color:rgba(255,240,210,.0);text-shadow:0 0 8px rgba(0,0,0,.8);transition:color .2s}
+html.borne .b-edge:hover i,html.borne .b-edge:active i{color:rgba(255,240,210,.85)}
+html.borne .b-edge:hover{background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)}
+html.borne .b-edge-r:hover{background:linear-gradient(270deg,rgba(255,255,255,.08),transparent)}
+html.borne .b-dots{display:flex;justify-content:center;gap:0;margin-top:6px}
+html.borne .b-dots[hidden],html.borne:not([data-prog]) .b-dots{display:none}
+html.borne .b-dot{width:34px;height:30px;padding:0;border:0;background:none;cursor:pointer;position:relative}
+html.borne .b-dot::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:#4a4540;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+html.borne .b-dot.on::after{background:#ffe08a;box-shadow:0 0 8px rgba(255,224,138,.8)}
+html.borne .b-dot:hover::after{background:#9a8f7c}
+html.borne .b-chan{position:absolute;left:50%;top:6%;z-index:46;transform:translateX(-50%);pointer-events:none;opacity:0;font-family:"Press Start 2P",monospace;font-size:clamp(.7rem,1.6vw,1.1rem);color:#b9ff8a;text-shadow:0 0 10px rgba(150,255,120,.8),0 2px 0 #000;white-space:nowrap}
+html.borne .b-chan.on{animation:bchan 1.6s ease-out forwards}
+@keyframes bchan{0%,70%{opacity:1}100%{opacity:0}}
+html.borne .b-glass.b-snow::before{animation:bsnow .55s steps(6) forwards;opacity:1;inset:0;transform:none;
+  background:repeating-radial-gradient(circle at 37% 61%,rgba(255,255,255,.9) 0 1px,rgba(0,0,0,.9) 1px 2px,rgba(160,160,160,.8) 2px 3px),repeating-linear-gradient(0deg,rgba(255,255,255,.15) 0 2px,transparent 2px 4px)}
+@keyframes bsnow{0%{opacity:1;background-position:0 0}50%{opacity:1;background-position:13px 7px}100%{opacity:0;background-position:-9px 21px}}
+@media (prefers-reduced-motion:reduce){html.borne .b-glass.b-snow::before{animation:none;opacity:0}}
