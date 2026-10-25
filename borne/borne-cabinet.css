@@ -314,3 +314,48 @@ html.borne .b-minis .cab b{font-size:clamp(.9rem,1.05vw,1.05rem)!important;lette
 html.borne .b-slot.b-wait u{color:#ffe08a;text-shadow:0 0 8px rgba(255,224,138,.7)}
 html.borne .b-slot.b-wait i{animation:bwait 1s steps(2) infinite}
 @keyframes bwait{50%{box-shadow:0 0 0 2px #9a958c,0 0 16px rgba(255,224,138,.9)}}
+
+/* ---------- grammaire commune (audit du 25 octobre) ---------- */
+/* Baku Boom : toujours au même endroit, au bout du cadre, sous l'écran, à côté des Koins */
+html.borne .b-bezelfoot{gap:10px}
+html.borne .b-bezelfoot .b-lore{margin-left:auto}
+html.borne .b-bezelfoot .b-boom{flex-direction:row;gap:8px;padding:0}
+html.borne .b-bezelfoot .b-boom i{width:44px;height:44px}
+html.borne .b-bezelfoot .b-boom span{font-size:.55rem}
+html.borne body:not(.on-home) .b-boom i{background:radial-gradient(circle at 40% 32%,#d0563f,#8a2216 60%,#3a0c08)}
+/* les Koins : sur le cadre, sous l'écran, visibles dans chaque programme */
+html.borne .b-bezelfoot #koins.b-credit{position:static;display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:5px;background:#050505;box-shadow:inset 0 0 0 2px #2b2724;
+  font-family:"Press Start 2P",monospace;font-size:.72rem;color:#ff9a3c;text-shadow:0 0 8px rgba(255,140,40,.6);visibility:visible!important;pointer-events:none}
+html.borne .b-bezelfoot #koins.b-credit::before{content:"KOINS"}
+/* le guide (le Mask en miniature) visite le panneau, et reste hors des programmes */
+html.borne body:not(.on-home) .guide{display:none!important}
+/* cibles de 44 px au moins */
+html.borne .b-cam #kapture{width:52px;height:44px}
+html.borne .b-bell{width:44px;height:44px;line-height:44px;font-size:19px}
+html.borne .b-knob{width:44px!important;height:44px!important}
+html.borne .b-knob::after{top:6px;height:13px;transform-origin:50% 16px}
+html.borne .b-panel .menu a::before,html.borne .b-panel .menu button::before{width:44px;height:44px;margin-left:-22px}
+html.borne .b-panel .menu a,html.borne .b-panel .menu button{padding-top:50px;min-width:44px}
+html.borne .b-badge{padding:8px 14px 7px}
+html.borne .b-lore{padding:10px 16px}
+html.borne .b-care button{height:48px;width:56px}
+html.borne .b-full header button{min-height:44px;min-width:44px}
+/* téléphone : les noms des touches tiennent */
+@media (max-width:700px){
+  html.borne .b-panel .cab b{font-size:1rem!important;letter-spacing:.02em!important;white-space:normal;line-height:1}
+  html.borne .b-die b{display:inline}
+  html.borne .b-bezelfoot .b-boom span{display:none}
+  html.borne .b-bezelfoot{gap:6px}
+  html.borne .b-bezelfoot #koins.b-credit{font-size:.6rem;padding:8px 10px}
+}
+
+/* un programme ouvert : le meuble se replie autour de l'écran, qui prend la hauteur de la fenêtre ; le cadre garde les Koins et Baku Boom */
+html.borne .b-roof,html.borne .bar,html.borne .b-land{transition:max-height .6s cubic-bezier(.6,.05,.3,1),opacity .4s,margin .6s,padding .6s;max-height:220px}
+html.borne[data-prog] .b-roof,html.borne[data-prog] .bar,html.borne[data-prog] .b-land{max-height:0!important;opacity:0;margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;overflow:hidden;pointer-events:none;border:0}
+html.borne[data-prog] .wrap{padding-top:8px!important}
+html.borne[data-prog]{--gh:calc(100dvh - 104px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 104px) * 4 / 3)) !important}
+html.borne[data-prog][data-mode=device]{--gw:min(calc(100vw - 80px),calc((100dvh - 104px) * 4 / 3 + 380px)) !important}
+html.borne[data-prog][data-big=tate]{--gw:min(calc(100vw - 80px),calc((100dvh - 104px) * .75)) !important}
+@media (max-width:700px){
+  html.borne[data-prog],html.borne[data-prog][data-mode=device],html.borne[data-prog][data-big=tate]{--gw:calc(100vw - 36px) !important;--gh:calc(100dvh - 96px) !important}
+}

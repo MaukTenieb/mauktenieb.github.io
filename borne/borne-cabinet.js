@@ -25,14 +25,14 @@
   var bezel=el('div','b-bezel'),scr=el('div','b-screen'),glass=el('div','b-glass');glass.id='b-glass';scr.appendChild(glass);
   var att=el('div','b-attract'),skf=document.createElement('iframe');skf.title='SkopoRhogo';skf.setAttribute('tabindex','-1');att.appendChild(skf);glass.appendChild(att);
   var date=el('div','b-date','<b></b>');glass.appendChild(date);
-  if($('koins')){$('koins').classList.add('b-credit');glass.appendChild($('koins'));}
+  
   ['select','game','calque'].forEach(function(id){if($(id))glass.appendChild($(id));});
   var land=el('button','b-sticker b-land','<span>BURROWS</span>');land.type='button';land.setAttribute('aria-label','Burrows');
   var foot=el('div','b-bezelfoot');
   var badge=el('button','b-sticker b-badge','<b>MAUK</b><b>TENIEB</b>');badge.type='button';badge.setAttribute('aria-label','Mauk Tenieb');
   var menu=home.querySelector('.menu'),loreHref=((menu&&menu.querySelector('a[href*="substack"]'))||{}).href||'https://mauktenieb.substack.com';
   var lore=el('a','b-sticker b-lore','LORE');lore.href=loreHref;lore.target='_blank';lore.rel='noopener';
-  foot.appendChild(badge);foot.appendChild(lore);
+  foot.appendChild(badge);if($('koins')){$('koins').classList.add('b-credit');foot.appendChild($('koins'));}foot.appendChild(lore);
   bezel.appendChild(land);bezel.appendChild(scr);bezel.appendChild(foot);
   home.insertBefore(bezel,home.firstChild);
 
@@ -41,8 +41,8 @@
   var row1=el('div','b-row1'),row2=el('div','b-row2'),sub=el('div','b-sub'),store=el('div','b-store');sub.hidden=true;store.hidden=true;
   var stick=el('div','b-stick','<i></i>');stick.setAttribute('aria-hidden','true');
   var keys=el('div','b-keys');if(cabs)keys.appendChild(cabs);keys.appendChild(sub);
-  var bb=el('button','b-boom','<i></i><span>BAKU BOOM</span>');bb.type='button';bb.setAttribute('aria-label','Baku Boom');
-  row1.appendChild(stick);row1.appendChild(keys);row1.appendChild(bb);
+  var bb=el('button','b-boom','<i></i><span>BAKU BOOM</span>');bb.type='button';bb.setAttribute('aria-label','Baku Boom');foot.appendChild(bb);
+  row1.appendChild(stick);row1.appendChild(keys);
   if(menu)row2.appendChild(menu);
   panel.appendChild(row1);panel.appendChild(row2);panel.appendChild(store);
 
@@ -52,7 +52,7 @@
     c.querySelector('button').addEventListener('click',function(){IK().go&&IK().go(k);});return c;}
   /* KorhoGame : les grands jeux d'un côté ; de l'autre, Katabatik : le dé choisit parmi les mini-jeux (⚀ à ⚃ ; ⚄ et ⚅ : le hasard) */
   var KATA=['c4','bb','hang','mm','fi'],DICE='⚀⚁⚂⚃⚄⚅';
-  var MINIS=[['c4','KONNECT4','borne-mini-c4.jpg','#f48fb1'],['hang','AKASZTÓFA','borne-mini-hang.jpg','#f48fb1'],['mm','MASTERMIND','borne-mini-mm.jpg','#f48fb1'],['erratic','ERRATIK','thumb-erratic.jpg','#42a5f5']];
+  var MINIS=[['c4','KONNECT4','borne-mini-c4.jpg','#f48fb1',0],['hang','AKASZTÓFA','borne-mini-hang.jpg','#f48fb1',2],['mm','MASTERMIND','borne-mini-mm.jpg','#f48fb1',3],['erratic','ERRATIK','thumb-erratic.jpg','#42a5f5',5]];
   function kata(g){var d=document.querySelector('.cab.dice b');if(d)d.dataset.d=DICE[KATA.indexOf(g)];IK().go&&IK().go('katabatik');}
   function play(g){if(g==='erratic')IK().go&&IK().go('erratic');else kata(g);}
   function ktile(g,title,th,nc,face){var c=el('div','cab b-kata');c.style.cssText='--th:url('+th+');--nc:'+nc;
@@ -73,11 +73,11 @@
     KG.els.sort(function(a,b){return ORD.indexOf(keyOf(a))-ORD.indexOf(keyOf(b));});
     /* le côté des mini-jeux : le dé, puis chaque mini-jeu sous sa face */
     var die=el('button','b-die','<span>'+DICE[0]+'</span><b>KATABATIK</b>');die.type='button';die.setAttribute('aria-label','Katabatik');
-    KG.minis=[die].concat(MINIS.map(function(m,i){return ktile(m[0],m[1],m[2],m[3],i);}));KG.minis.forEach(function(c){store.appendChild(c);});
-    var rolling=false;die.onclick=function(){if(rolling)return;rolling=true;var n=0,N=9,f=Math.floor(Math.random()*6),sp=die.querySelector('span');
+    KG.minis=[die].concat(MINIS.map(function(m){return ktile(m[0],m[1],m[2],m[3],m[4]);}));KG.minis.forEach(function(c){store.appendChild(c);});
+    var rolling=false;die.onclick=function(){if(rolling)return;rolling=true;var n=0,N=9,pick=MINIS[Math.floor(Math.random()*MINIS.length)],f=pick[4],sp=die.querySelector('span');
       var iv=setInterval(function(){var x=++n>=N?f:Math.floor(Math.random()*6);sp.textContent=DICE[x];sp.style.setProperty('--r',(n>=N?0:(Math.random()-.5)*90)+'deg');
         try{IK().tone&&IK().tone(300+Math.random()*500,.03,'square',.02);}catch(e){}
-        if(n>=N){clearInterval(iv);var g=f<4?MINIS[f][0]:MINIS[Math.floor(Math.random()*4)][0];
+        if(n>=N){clearInterval(iv);var g=pick[0];
           [].forEach.call(subG.querySelectorAll('[data-kata]'),function(b){b.closest('.cab').classList.toggle('lit',b.dataset.kata===g);});
           setTimeout(function(){rolling=false;play(g);},650);}},70);};
     var sk=cabOf('skopo');if(sk)sk.remove();
@@ -89,7 +89,7 @@
   if(menu){[].slice.call(menu.children).forEach(function(x){if(!/threadless|instagram/.test(x.getAttribute('href')||''))x.remove();});
     [].slice.call(menu.children).forEach(function(x){x.textContent=/threadless/.test(x.getAttribute('href')||'')?'TL':'IG';});
     var bc=el('a',null,'BC');bc.href='https://mauktenieb.bandcamp.com';bc.target='_blank';bc.rel='noopener';bc.style.setProperty('--mc','#1da0c3');menu.insertBefore(bc,menu.firstChild);}
-  var subT=el('div','b-subbar','<button type="button" class="b-fold" aria-label="◀">◀</button><b></b>'),subG=el('div','b-subgrid');sub.appendChild(subT);sub.appendChild(subG);
+  var subT=el('div','b-subbar','<b></b>'),subG=el('div','b-subgrid');sub.appendChild(subT);sub.appendChild(subG);
   var openG=null;
   function unfold(g){var G=GROUPS[g];openG=g;subG.innerHTML='';subT.querySelector('b').textContent=G.t;
     if(G.minis){var big=el('div','b-side b-big'),mini=el('div','b-side b-minis');G.els.forEach(function(c){big.appendChild(c);});G.minis.forEach(function(c){mini.appendChild(c);});
@@ -97,7 +97,6 @@
     else{subG.classList.remove('b-split');G.els.forEach(function(c){subG.appendChild(c);});}
     sub.hidden=false;if(cabs)cabs.hidden=true;panel.classList.remove('b-unfold');void panel.offsetWidth;panel.classList.add('b-unfold');}
   function fold(){if(!openG)return;GROUPS[openG].els.concat(GROUPS[openG].minis||[]).forEach(function(c){store.appendChild(c);});[].forEach.call(subG.querySelectorAll('.lit'),function(c){c.classList.remove('lit');});openG=null;sub.hidden=true;if(cabs)cabs.hidden=false;}
-  subT.querySelector('.b-fold').onclick=fold;
 
   /* ---------- la porte : la fente, le son, la langue ---------- */
   var door=el('div','b-door'),slot=el('button','b-slot','<b><em>INSERT</em> <u>KOIN</u></b><i></i>');slot.type='button';slot.setAttribute('aria-label','Insert Koin · 3615 KOINS');
@@ -109,7 +108,7 @@
   sb.onclick=function(){skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
     try{IK().tone&&IK().tone(220,.05,'square',.03);IK().tone&&IK().tone(330,.05,'square',.03,0,.06);}catch(e){}
     scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');setTimeout(function(){root.dataset.skin=skin;},250);};
-  [['snd','SON'],['lang','FR · EN']].forEach(function(p){var b=$(p[0]);if(!b)return;var w=el('div','b-knobw');b.classList.add('b-knob');w.appendChild(b);w.appendChild(el('span','b-knoblab',p[1]));knobs.appendChild(w);
+  [['snd','FX'],['lang','FR · EN']].forEach(function(p){var b=$(p[0]);if(!b)return;var w=el('div','b-knobw');b.classList.add('b-knob');b.setAttribute('aria-label',p[1]);w.appendChild(b);w.appendChild(el('span','b-knoblab',p[1]));knobs.appendChild(w);
     var sync=function(){var t=(b.textContent||'').toUpperCase();b.dataset.on=(p[0]==='snd'?/ON/.test(t):/FR/.test(t))?'1':'0';};sync();
     new MutationObserver(sync).observe(b,{childList:true,characterData:true,subtree:true});});
   if($('kal'))door.appendChild($('kal'));
@@ -132,7 +131,7 @@
   function dress(h,device){var mode=device?'device':'arcade',change=root.dataset.habit!==h||root.dataset.mode!==mode;
     if(change&&!matchMedia('(prefers-reduced-motion:reduce)').matches){scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');
       clearTimeout(morphT);morphT=setTimeout(function(){scr.classList.remove('b-morph');},1000);}
-    root.dataset.habit=h;root.dataset.mode=mode;hab.classList.remove('tilt');hab.textContent=LABEL[h]||'';
+    root.dataset.habit=h;root.dataset.mode=mode;if(h==='repos')delete root.dataset.prog;else{root.dataset.prog='1';[60,700].forEach(function(t){setTimeout(function(){scrollTo({top:0,behavior:t>100?'smooth':'auto'});},t);});}hab.classList.remove('tilt');hab.textContent=LABEL[h]||'';
     [120,500,800,1100].forEach(function(t){setTimeout(relayout,t);});
     if(h==='repos')wake();else sleep();}
   function mark(k){[cabs,subG].forEach(function(r){if(r)r.querySelectorAll('.cab').forEach(function(c){var b=c.querySelector('[data-go]');c.classList.toggle('on-air',!!b&&b.dataset.go===k);});});}
@@ -140,15 +139,18 @@
   function bigOf(k){if(k==='katabatik'){var d=document.querySelector('.cab.dice b'),f=d?DICE.indexOf(d.dataset.d):-1;return f===4?'tate':f===1?'wide':'';}
     return {puck:'wide',chess:'wide',faunarratics:'wide'}[k]||'';}
   function setBig(v){if(v)root.dataset.big=v;else delete root.dataset.big;
-    if(v)setTimeout(function(){scr.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});relayout();},820);}
+    setTimeout(relayout,820);}
   window.__borneGo=function(k){setBig(bigOf(k));
     if(k==='fauneye'){IK().ac&&IK().ac();dress('fauneye');mark(k);IK().openCalque('borne-fauneye.html','FAUNEYE');return true;}
     if(k==='skopo'){dress('arcade');mark(k);IK().openCalque('skoporhogo-borne.html','SkopoRhogo');return true;}
     if(k==='visit'){full('/katabase/','BURROWS');return true;}
     dress(HABIT[k]||'arcade',!!DEVICE[k]);mark(k);
     /* programme refusé (Koins à zéro) : la borne reprend son habit de repos */
-    setTimeout(function(){if(document.body.className.indexOf('on-home')>=0){dress('repos');mark(null);setBig('');}},120);return false;};
-  window.__borneHome=function(){dress('repos');mark(null);if(root.dataset.big){setBig('');scrollTo({top:0,behavior:'smooth'});}};
+    return false;};
+  /* l'écran de la page commande l'habit : de retour à l'accueil (programme refusé, retour), la borne reprend son habit de repos */
+  new MutationObserver(function(){var home=document.body.className.indexOf('on-home')>=0;
+    if(home&&root.dataset.habit!=='repos'){dress('repos');mark(null);setBig('');}else if(!home&&root.dataset.habit==='repos')dress('arcade');}).observe(document.body,{attributes:true,attributeFilter:['class']});
+  window.__borneHome=function(){dress('repos');mark(null);setBig('');scrollTo({top:0,behavior:'smooth'});};
   window.__borneGame=function(k){if(k==='kapture')dress('photo',true);};
 
   /* ---------- Baku Boom : un coup de tilt, pour tous les boutons Baku Boom de la page ---------- */
@@ -192,7 +194,7 @@
 
   /* ---------- les retours en double des programmes disparaissent : la borne fournit Baku Boom ---------- */
   function hideDup(r){if(!r)return;[].forEach.call(r.querySelectorAll('button,a'),function(b){var t=(b.textContent||'').trim().toUpperCase();
-    if(/^←\s*(BACK|RETOUR)$/.test(t)||t==='BAKU BOOM'||b.hasAttribute('data-back'))b.classList.add('b-dup');});}
+    if(/^←\s*(BACK|RETOUR|MENU|EXIT|SORTIE|KATABATIK)$/.test(t)||t==='BAKU BOOM'||b.hasAttribute('data-back')||b.id==='m-quit'||b.id==='kapture-close')b.classList.add('b-dup');});}
   [$('select'),$('game'),$('kg-root')].forEach(function(r){if(!r)return;hideDup(r);new MutationObserver(function(){hideDup(r);}).observe(r,{childList:true,subtree:true});});
 
   /* ---------- l'entretien de la plante : l'eau, le soleil, la taille ; elle s'en souvient d'une visite à l'autre ----------

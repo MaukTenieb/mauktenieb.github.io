@@ -11,8 +11,8 @@
       +'#view{border:0!important;box-shadow:none!important;outline:0!important;flex:none!important;max-width:none!important;max-height:none!important;cursor:grab}'
       +'#card{position:fixed!important;right:10px;top:10px;z-index:20;width:min(300px,46vw);background:rgba(10,9,8,.86)!important;backdrop-filter:blur(3px);font-size:13px}'
       +'#card #hint{display:none!important}#card #cbody{grid-template-columns:72px 1fr!important}#card #pcv{width:72px!important;height:72px!important}#card #cname{font-size:20px!important}'
-      +'#zoom{position:fixed!important;left:10px;bottom:10px;z-index:20;display:flex!important;gap:6px}#zoom button,.b-open{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,224,138,.5);background:rgba(10,9,8,.7);color:#ffe08a;font:18px/1 monospace;cursor:pointer}'
-      +'.b-open{position:fixed;left:102px;bottom:10px;z-index:20}';
+      +'#zoom{position:fixed!important;left:10px;bottom:10px;z-index:20;display:flex!important;gap:6px}#zoom button,.b-open{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,224,138,.5);background:rgba(10,9,8,.7);color:#ffe08a;font:18px/1 monospace;cursor:pointer}'
+      +'.b-open{position:fixed;left:110px;bottom:10px;z-index:20}';
     document.head.appendChild(st);}
   function nowMin(){var d=new Date();return d.getHours()*60+d.getMinutes()+d.getSeconds()/60;}
   /* minutes du jeu : jour 1 à 00:00 = 0 ; le jour courant est le jour 2 */
