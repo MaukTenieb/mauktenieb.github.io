@@ -9,8 +9,9 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 ## Le meuble, de haut en bas
 - Toit : une plante qui suit les mois du calendrier républicain ; au survol, EAU, SOLEIL, TAILLE l'entretiennent ; la caméra Kapture.
 - Fronton : l'enseigne entre deux haut-parleurs ; Motel Sound joue dès l'arrivée, son coupé, une cloche barrée ouvre le son.
+- Écran d'attente : un Mask au hasard ou l'affiche de Korong!, le temps que la borne se monte.
 - Cadre : l'autocollant Burrows au-dessus de l'écran ; dessous, la plaque Mauk Tenieb (la bio), les Koins, l'autocollant Lore, Baku Boom.
-- Écran : SkopoRhogo à la minute exacte de l'heure du visiteur ; chaque programme s'ouvre dedans, et le meuble se replie autour de l'écran, qui prend la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale.
+- Écran : les Koins en haut à gauche à l'accueil, avec le décompte de la Koin gratuite à zéro ; SkopoRhogo à la minute exacte de l'heure du visiteur ; chaque programme s'ouvre dedans, et le meuble se replie autour de l'écran, qui prend la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale.
 - Panneau : la manette en miroir ; quatre touches, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (liseuse, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; BC, TL, IG.
 - Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les boutons SKIN (bois, métal, 1960), FX, FR · EN.
 
@@ -21,9 +22,9 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 4. Faire glisser un objet = le déplacer.
 5. Appui long = en voir plus.
 6. Baku Boom = revenir, toujours sous l'écran ; Échap fait pareil, programmes en cadre compris.
+7. Flèches = glissés ; Espace et Entrée = toucher.
 
 D'un programme à l'autre : un glissé depuis le bord de l'écran, ou un toucher sur ce bord, ou Page préc. / Page suiv., dans l'ordre du panneau ; la neige d'un changement de chaîne et le nom du programme marquent le passage ; des points sous l'écran montrent les programmes du groupe ; à zéro Koin, le glissé saute les jeux payants. Baku Boom ramène à l'accueil et referme le groupe.
-7. Flèches = glissés ; Espace et Entrée = toucher.
 
 Écran : commandes toujours au même endroit, une icône et un mot au plus, zéro phrase d'explication, cibles de 44 px au moins, état toujours visible. Plafond : 99 pour tout (Koins, cassettes, morceaux d'une cassette, Kuration, livres, récits, poses).
 

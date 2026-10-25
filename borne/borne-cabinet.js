@@ -295,6 +295,11 @@
   document.addEventListener('touchend',function(e){if(e.target.closest&&e.target.closest('.ch-sel-btn'))window.__chSelT=Date.now();},true);
   document.addEventListener('touchend',function(e){if(Date.now()-(window.__chSelT||0)<450&&e.target.closest&&e.target.closest('#chess-board, .ch-board, [id^=chess] .sq')&&!e.target.closest('.ch-sel-btn')){e.stopImmediatePropagation();e.preventDefault();}},true);
 
+  /* ---------- les Koins à l'écran d'accueil, comme le CREDIT des bornes ; à zéro, le décompte de la Koin gratuite ---------- */
+  var cr=el('div','b-credit-scr','<b>KOINS</b> <span></span>');glass.appendChild(cr);
+  function credit(){var t=(($('kn')||{}).textContent||'').trim(),m=/^0\s*·\s*(\d+)\s*s/.exec(t);cr.querySelector('span').textContent=m?'0 · +1 '+m[1]+'s':t;cr.classList.toggle('wait',!!m);}
+  if($('kn'))new MutationObserver(credit).observe($('kn'),{childList:true,characterData:true,subtree:true});credit();setInterval(credit,500);
+
   /* ---------- Motel Sound joue dès l'arrivée, haut-parleur coupé ; la cloche barrée le rallume ---------- */
   var bell=el('button','b-bell','🔕');bell.type='button';bell.setAttribute('aria-label','Motel Sound : son coupé');bell.setAttribute('aria-pressed','false');
   var docks=bar.querySelectorAll('.dock');(docks[0]||bar).appendChild(bell);

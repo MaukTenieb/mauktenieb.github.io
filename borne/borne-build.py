@@ -14,7 +14,7 @@ def once(s, old, new):
 
 s = rd("insertkoin.html")
 s = once(s, "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">')
-s = once(s, "</head>", '<style id="b-veil">html:not(.borne-ready) body{background:#0b0908!important}html:not(.borne-ready) body>*{visibility:hidden!important}</style>\n<script>setTimeout(function(){document.documentElement.classList.add("borne-ready")},5000)</script>\n<link rel="stylesheet" href="borne-cabinet.css">\n</head>')
+s = once(s, "</head>", '<style id="b-veil">html:not(.borne-ready) body{background:transparent!important}html:not(.borne-ready) body>*{visibility:hidden!important}html:not(.borne-ready){background:#0b0908 var(--wait) center/var(--waitsz) no-repeat!important;min-height:100%}html.borne-ready{transition:background-color .4s}</style>\n<script>(function(){var M="aube auvergne c7h5n3o6 cadaver_synod croisiere_noire dogxim grand_colonel hatra_loves honey_buzzard maiden_call malika naphta plague_of_justinian poisoned_well silent_pact truce tsui_pen unkle_maukie".split(" "),i=Math.floor(Math.random()*(M.length+1)),d=document.documentElement.style;if(i===M.length){d.setProperty("--wait","url(poster.webp)");d.setProperty("--waitsz","min(92vw,1200px) auto")}else{d.setProperty("--wait","url(mask-"+M[i]+".webp)");d.setProperty("--waitsz","auto min(78vh,900px)")}setTimeout(function(){document.documentElement.classList.add("borne-ready")},5000)})()</script>\n<link rel="stylesheet" href="borne-cabinet.css">\n</head>')
 i = s.rfind("</body>")
 s = s[:i] + '<script src="borne-cabinet.js"></script>\n' + s[i:]
 # crochets de la borne dans le code de la page (fermé dans une fonction) : go, goHome, openGame, et une poignée

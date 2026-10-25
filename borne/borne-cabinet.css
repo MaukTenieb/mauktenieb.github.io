@@ -423,3 +423,10 @@ html.borne .b-knobs{gap:14px}
   html.borne[data-prog]{--gh:calc(100dvh - 120px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 120px) * 4 / 3)) !important}
   html.borne[data-prog] .b-bezelfoot{position:absolute;right:-64px;top:0;flex-direction:column;align-items:flex-end}
 }
+/* les Koins sur l'écran d'accueil ; à zéro, le décompte clignote */
+html.borne .b-credit-scr{position:absolute;left:2.5%;top:3%;z-index:30;pointer-events:none;font-family:"Press Start 2P",monospace;font-size:clamp(.6rem,1.3vw,.95rem);color:#ff9a3c;text-shadow:0 0 8px rgba(255,140,40,.6),0 2px 0 #000;white-space:nowrap}
+html.borne .b-credit-scr b{font-weight:400;color:#ffe9a8}
+html.borne .b-credit-scr.wait span{color:#ffe08a;animation:bwaitc 1s steps(2) infinite}
+@keyframes bwaitc{50%{opacity:.35}}
+html.borne[data-prog] .b-credit-scr{display:none}
+html.borne .b-bezelfoot #koins.b-credit.b-zero{color:#ffe08a}
