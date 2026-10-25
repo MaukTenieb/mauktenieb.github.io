@@ -1943,8 +1943,8 @@ const _build=buildLobby;buildLobby=function(){_build();const r=loadRun();const b
   if(!h||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
   const G='ΞЖ#KOЯ%▒';let busy=false;
   function morph(from,to,done){let i=0;const n=Math.max(from.length,to.length);const iv=setInterval(()=>{i++;let o='';for(let j=0;j<n;j++){o+=j<i-2?(to[j]||''):j<i?G[(Math.random()*G.length)|0]:(from[j]||'');}h.textContent=o;if(i>n+2){clearInterval(iv);h.textContent=to;done&&done();}},55);}
-  function go2(){if(busy||$('home').hidden||document.hidden){return later();}busy=true;const nx=pick(cur);morph(cur,nx,()=>{cur=nx;if(br)br.textContent=cur;if(rf)rf.textContent=cur;busy=false;later();});}
-  function later(){setTimeout(go2,7000+Math.random()*11000);}later();})();
+  function go2(){if(busy||$('home').hidden||document.hidden){return later();}busy=true;const nx=pick(cur);morph(cur,nx,()=>{cur=nx;if(br){const B=br;B.classList.add('b-dim');setTimeout(()=>{const k=B.querySelector('.b-habit');B.firstChild&&B.firstChild.nodeType===3?B.firstChild.nodeValue=cur:B.insertBefore(document.createTextNode(cur),B.firstChild);if(k&&!B.contains(k))B.appendChild(k);B.classList.remove('b-dim');},900);}if(rf)rf.textContent=cur;busy=false;later();});}
+  function later(){setTimeout(go2,26000+Math.random()*34000);}later();})();
 /* full screen: the score follows inside the table */
 /* ---- the motel lives: the hour outside, the television, a storm at the window, the cigarette, the scarab, Plague's cloud, a beetle, and the picture wearing out the longer one stays ---- */
 (function life(){const hero=document.querySelector('.hero'),im=hero&&hero.querySelector('img');if(!im)return;

@@ -30,6 +30,9 @@ s = once(s, "function bounds(){const b=home.getBoundingClientRect(),gw=parseFloa
 s = once(s, "fl={vx:vx*k,vy:vy*k,t:performance.now()", "const s0=sp*k,an=sp<1?Math.random()*6.283:Math.atan2(vy,vx),S0=Math.max(window.__borneScreen?1500:0,s0);fl={vx:Math.cos(an)*S0,vy:Math.sin(an)*S0,t:performance.now()")
 s = once(s, "const f=Math.pow(.42,dt);fl.vx*=f;fl.vy*=f;", "const f=Math.pow(window.__borneScreen?.6:.42,dt);fl.vx*=f;fl.vy*=f;if(window.__borneScreen&&fl.hits<3){const v=Math.hypot(fl.vx,fl.vy)||1;if(v<700){fl.vx*=700/v;fl.vy*=700/v;}}")
 s = once(s, 'allow="autoplay; fullscreen; clipboard-write"', 'allow="autoplay; fullscreen; clipboard-write; microphone; camera"')
+# l'enseigne change de nom en douceur : le néon baisse, le nom change dans la pénombre, le néon revient ; plus rarement
+s = once(s, "morph(cur,nx,()=>{cur=nx;if(br)br.textContent=cur;", "morph(cur,nx,()=>{cur=nx;if(br){const B=br;B.classList.add('b-dim');setTimeout(()=>{const k=B.querySelector('.b-habit');B.firstChild&&B.firstChild.nodeType===3?B.firstChild.nodeValue=cur:B.insertBefore(document.createTextNode(cur),B.firstChild);if(k&&!B.contains(k))B.appendChild(k);B.classList.remove('b-dim');},900);}")
+s = once(s, "function later(){setTimeout(go2,7000+Math.random()*11000);}", "function later(){setTimeout(go2,26000+Math.random()*34000);}")
 s = once(s, "function go(k){ac();", "function go(k){if(window.__borneGo&&window.__borneGo(k))return;ac();")
 s = once(s, "function boom(cb){", "function boom(cb){if(window.__borneBoom)return window.__borneBoom(cb);")
 s = once(s, "function openGame(k,title){", "function openGame(k,title){window.__borneGame&&window.__borneGame(k);")
