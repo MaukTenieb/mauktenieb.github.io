@@ -42,7 +42,10 @@
       var a=P[k[0]],b=P[k[1]],d=Math.hypot(a[0]-b[0],a[1]-b[1]),r=v.getBoundingClientRect(),mx=((a[0]+b[0])/2-r.left)/r.width*2-1,my=-(((a[1]+b[1])/2-r.top)/r.height*2-1);
       if(Math.abs(d/d0-1)>.04){R.zoomAt(d/d0,mx,my);d0=d;}});
     ['pointerup','pointercancel'].forEach(function(t){v.addEventListener(t,function(e){delete P[e.pointerId];if(Object.keys(P).length<2)d0=0;});});}
+  /* endormie, la chambre cesse de se dessiner : une image toutes les 2 s au lieu de 60 par seconde ; les programmes gardent toute la machine */
+  var RAF=window.requestAnimationFrame.bind(window),asleep=false;
+  window.requestAnimationFrame=function(cb){return asleep?setTimeout(function(){RAF(cb);},2000):RAF(cb);};
   addEventListener('message',function(e){var R=window.__room,d=e.data||{};if(!R||!d.borne)return;
-    if(d.borne==='sleep')R.setSpeed(0);else if(d.borne==='wake'){catchUp(target());window.__walk=60;R.setSpeed(1);}});
+    if(d.borne==='sleep'){asleep=true;R.setSpeed(0);}else if(d.borne==='wake'){asleep=false;catchUp(target());window.__walk=60;R.setSpeed(1);}});
   if(document.readyState==='complete')init();else addEventListener('load',init);
 })();
