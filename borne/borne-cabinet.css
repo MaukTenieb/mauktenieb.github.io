@@ -607,3 +607,121 @@ html.borne .b-panel .cab .hit b::after{display:none!important}
 html.borne .b-panel .cab .hit b{border-bottom:0!important;padding-bottom:0!important}
 html.borne .b-panel .cab::before{background:radial-gradient(ellipse at 50% 42%,color-mix(in srgb,var(--nc) 78%,#fff) 0%,var(--nc) 42%,color-mix(in srgb,var(--nc) 62%,#000) 100%)!important;opacity:.92}
 html.borne .b-panel .cab::after{opacity:.12}
+
+/* ---------- cohérence (25 oct., relecture design) : deux lignes d'alignement, trois voix de lettrage, porte dans l'axe ---------- */
+/* Proposition de direction artistique, borne Insert Koin. A ajouter apres borne-cabinet.css.
+   Trois voix de lettrage : enseigne (Bebas), gravure (DM Mono, 11 px), afficheur (Press Start 2P).
+   Une echelle d'espacement : 4 / 8 / 12 / 16 / 24 / 32 px. Deux aplombs : --edge (bord des pieces du meuble, 8 px de la moulure) et --inset (bord de l'ecran, des touches, des Koins, 20 px). */
+
+/* ---------- 1. jetons ---------- */
+html.borne{
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--edge:8px;--inset:20px;
+  --f-sign:"Bebas Neue",Impact,"Arial Narrow",sans-serif;
+  --f-eng:"DM Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --f-led:"Press Start 2P",ui-monospace,monospace;
+  --eng-size:11px;--eng-track:.18em;
+  /* gravure sur le panneau, sur le cadre, sur la plaque des molettes */
+  --eng-panel:#efe6d2;--eng-panel-sh:0 1px 0 rgba(0,0,0,.85);
+  --eng-bezel:#d9d2c2;
+  --eng-plate:#1d1b18;--eng-plate-sh:0 1px 0 rgba(255,255,255,.45);
+  --lip:linear-gradient(180deg,#141210,#0c0b0a);--lip-ink:#b9b0a0}
+html.borne[data-skin=metal]{--eng-panel:#15181b;--eng-panel-sh:0 1px 0 rgba(255,255,255,.55);--lip:linear-gradient(180deg,#2b2e32,#1c1e21);--lip-ink:#c9ced4}
+html.borne[data-skin="1960"]{--eng-panel:#fff6d8;--eng-panel-sh:0 1px 0 rgba(0,0,0,.55);--eng-bezel:#3a2a20;--lip:linear-gradient(180deg,#15403d,#0f302e);--lip-ink:#f3e7c4}
+@media (max-width:700px){html.borne{--edge:6px;--inset:14px}}
+
+/* ---------- 2. le toit : la plante et la camera a l'echelle du meuble, posees sur le toit, a une gouttiere du bord ---------- */
+html.borne .b-roof{height:clamp(96px,13vh,120px)!important;padding:0 var(--s5)!important;margin-bottom:-4px!important}
+html.borne .b-pot{height:100%}
+html.borne .b-plant{height:100%;margin-bottom:-2px}
+html.borne .b-cam #kapture{width:68px!important;height:68px!important;margin-bottom:-4px}
+@media (max-width:700px){html.borne .b-roof{height:84px!important;padding:0 var(--s4)!important}html.borne .b-cam #kapture{width:56px!important;height:56px!important}}
+
+/* ---------- 3. le fronton : enseigne et haut-parleurs sur une meme ligne de base ; les commandes du juke-box sur une barrette, au pied de la grille ---------- */
+html.borne .bar{padding:var(--s3) var(--edge) var(--s2)!important;gap:var(--s3)!important}
+html.borne .bar .brand,html.borne .bar .dock{border-radius:6px!important}
+html.borne .bar .brand{font-family:var(--f-sign);letter-spacing:.06em}
+html.borne .bar .dock{min-height:clamp(88px,11.5vh,112px)!important}
+html.borne .bar .dock:first-of-type{display:grid!important;grid-template-columns:minmax(0,1fr) 44px;grid-template-rows:1fr auto auto;align-content:stretch;gap:0 var(--s2);padding:var(--s2)!important}
+html.borne .bar .dock:first-of-type::before{display:none}
+html.borne .bar .dock:first-of-type #radio-toggle{grid-row:3;grid-column:1;align-self:end;min-height:44px;box-sizing:border-box;padding:0 var(--s3)!important;border-radius:4px!important;
+  background:rgba(8,7,6,.82)!important;border:0!important;box-shadow:inset 0 0 0 1px rgba(255,224,138,.28),0 2px 6px rgba(0,0,0,.5)!important}
+html.borne .bar .dock:first-of-type #radio-toggle .motel-l{font-family:var(--f-eng)!important;font-size:var(--eng-size)!important;letter-spacing:.12em!important;max-width:100%!important}
+html.borne .bar .dock:first-of-type #export-pl{grid-row:2;grid-column:1 / -1;justify-self:start;margin-bottom:var(--s1);padding:2px 6px;border-radius:3px;background:rgba(8,7,6,.82);font-size:10px!important}
+html.borne .bar .dock:first-of-type .b-bell{grid-row:3;grid-column:2;align-self:end;border-radius:4px;background:rgba(8,7,6,.82)}
+@media (max-width:700px){
+  html.borne .bar{padding:var(--s2) var(--edge) var(--s1)!important;gap:var(--s2)!important}
+  html.borne .bar .dock{min-height:0!important}
+  html.borne .bar .dock:first-of-type{grid-template-rows:auto;grid-template-columns:minmax(0,1fr) auto 44px;align-items:center;padding:var(--s1) var(--s2)!important}
+  html.borne .bar .dock:first-of-type #radio-toggle{grid-row:1;grid-column:1}
+  html.borne .bar .dock:first-of-type #export-pl{grid-row:1;grid-column:2;margin:0}
+  html.borne .bar .dock:first-of-type .b-bell{grid-row:1;grid-column:3}
+}
+
+/* ---------- 4. le cadre : une vitre noire (ou laquee en 1960) ; l'illustration Burrows imprimee sous la vitre, aux bords de l'ecran ---------- */
+/* marge + rembourrage = 20 px : la largeur du meuble (ecran + 100 px) ne change pas */
+html.borne .b-bezel{margin:var(--s1) var(--edge) 0!important;padding:calc(var(--inset) - var(--edge))!important;gap:var(--s3)!important;border-radius:8px!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.07),0 0 0 3px rgba(0,0,0,.45)!important}
+html.borne:not([data-skin="1960"]) .b-bezel{background-image:linear-gradient(115deg,rgba(255,255,255,.05),transparent 28%,transparent 72%,rgba(255,255,255,.03))}
+html.borne .b-land{height:clamp(40px,5.5vh,52px)!important;border-radius:3px!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.1)!important}
+html.borne .b-land span{left:var(--s4)!important;font-family:var(--f-sign);font-size:clamp(1.15rem,2.6vh,1.6rem)!important;letter-spacing:.16em}
+html.borne[data-skin="1960"] .b-land{box-shadow:0 0 0 2px #3a2a20!important}
+/* l'ecran d'accueil : les Koins restent au pied du cadre, une seule fois */
+/* le pied du cadre : Koins a gauche, Baku Boom a droite, meme hauteur (44 px), aux aplombs de l'ecran */
+html.borne .b-bezelfoot{min-height:44px;padding:0!important;gap:var(--s3)!important;align-items:center}
+html.borne .b-bezelfoot #koins.b-credit{height:44px;box-sizing:border-box;padding:0 var(--s4)!important;border-radius:4px!important;font-family:var(--f-led);font-size:.72rem!important;
+  box-shadow:inset 0 0 0 2px #2b2724,inset 0 0 14px rgba(255,120,30,.12)!important}
+html.borne .b-bezelfoot .b-boom{min-height:44px}
+html.borne .b-bezelfoot .b-boom i{width:44px!important;height:44px!important}
+@media (max-width:700px){html.borne .b-bezel{gap:var(--s2)!important}html.borne .b-bezelfoot #koins.b-credit{font-size:.6rem!important;padding:0 var(--s3)!important}}
+
+/* ---------- 5. l'autocollant Lore : petit, colle de biais sur le coin haut droit du cadre, a cheval sur le bord ; absent quand le meuble se replie ---------- */
+html.borne .b-bezel .b-lore.b-stuck{top:-10px!important;right:-8px!important;width:96px!important;height:44px!important;font-family:var(--f-sign);font-size:1.05rem!important;letter-spacing:.14em;
+  transform:rotate(5deg)!important;filter:drop-shadow(0 1px 1px rgba(0,0,0,.55)) drop-shadow(1px 3px 3px rgba(0,0,0,.3))!important}
+html.borne .b-bezel .b-lore.b-stuck:hover,html.borne .b-bezel .b-lore.b-stuck:focus-visible{transform:rotate(5deg) translateY(-1px)!important;filter:drop-shadow(0 2px 2px rgba(0,0,0,.55)) drop-shadow(2px 6px 6px rgba(0,0,0,.35))!important}
+html.borne[data-prog] .b-bezel .b-lore.b-stuck{display:none!important}
+html.borne[data-prog] .b-bezel{padding-top:var(--s2)!important;padding-bottom:var(--s2)!important}
+@media (max-width:700px){html.borne .b-bezel .b-lore.b-stuck{right:-4px!important;top:-8px!important;width:88px!important;height:44px!important;font-size:.95rem!important}}
+
+/* ---------- 6. le panneau : rangee de depart, puis la manette au milieu entre deux paires de touches en arc, puis la plaque du fabricant sur le bord avant ---------- */
+html.borne .b-panel{margin-top:var(--s3)!important;padding:var(--s4) var(--inset) var(--s3)!important}
+html.borne .b-row2{margin:0 0 var(--s4)!important}
+html.borne .b-row2 .menu{gap:var(--s6)!important}
+html.borne .b-panel .menu a,html.borne .b-panel .menu button{padding-top:52px!important;font-family:var(--f-eng)!important;font-size:var(--eng-size)!important;letter-spacing:var(--eng-track)!important;
+  color:var(--eng-panel)!important;text-shadow:var(--eng-panel-sh);font-weight:500}
+html.borne .b-panel .cabinets{gap:var(--s4)!important;align-items:center}
+html.borne .b-panel .cabinets>.b-stick{margin:0 var(--s2)!important}
+html.borne .b-plate{margin-top:var(--s5)!important}
+html.borne .b-plate .b-badge{width:116px!important;height:46px!important;padding:0 28px!important}
+html.borne .b-plate .b-badge b{font-family:var(--f-sign);font-size:.9rem!important;letter-spacing:.14em!important}
+html.borne .b-plate .b-badge:hover,html.borne .b-plate .b-badge:focus-visible{transform:translateY(-1px)!important}
+@media (max-width:700px){
+  html.borne .b-panel{padding:var(--s3) var(--inset)!important}
+  html.borne .b-row2 .menu{gap:var(--s5)!important}
+  html.borne .b-panel .cabinets{gap:var(--s3) var(--s2)!important}
+  html.borne .b-plate{margin-top:var(--s4)!important}
+}
+
+/* ---------- 7. le copyright : imprime sur la levre avant du panneau ---------- */
+html.borne #home .copy{margin:0!important;padding:var(--s2) var(--inset)!important;background:var(--lip)!important;opacity:1!important;color:var(--lip-ink)!important;
+  font-family:var(--f-eng);font-size:10px!important;letter-spacing:.08em!important;line-height:1.5;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 3px 6px rgba(0,0,0,.35)}
+html.borne #home .copy b{font-weight:500;color:inherit}
+
+/* ---------- 8. la porte : la porte a monnayeur sur l'axe du meuble, les trois molettes sur une plaque de la meme tole, a sa droite ---------- */
+html.borne .wrap{container:cab / inline-size}
+html.borne .b-door{display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;column-gap:var(--s4);row-gap:var(--s4);
+  width:100%!important;max-width:100%!important;margin:var(--s5) 0 0!important;padding:0 var(--inset)!important;box-sizing:border-box;background:none!important;box-shadow:none!important}
+html.borne .b-door>.b-slot{grid-column:2;width:clamp(200px,34cqw,260px)!important}
+html.borne .b-door>.b-knobs{grid-column:3;justify-self:start}
+html.borne .b-knobs{gap:var(--s3)!important;padding:var(--s3) var(--s3) var(--s2);border-radius:4px;
+  background:radial-gradient(circle at 7px 7px,#4e4b46 0 2px,transparent 2.6px),radial-gradient(circle at calc(100% - 7px) 7px,#4e4b46 0 2px,transparent 2.6px),
+    radial-gradient(circle at 7px calc(100% - 7px),#4e4b46 0 2px,transparent 2.6px),radial-gradient(circle at calc(100% - 7px) calc(100% - 7px),#4e4b46 0 2px,transparent 2.6px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,transparent 1px 3px),linear-gradient(180deg,#c3c0ba,#99968f 55%,#7f7c76);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.55),0 4px 10px rgba(0,0,0,.45)}
+html.borne .b-knobw{gap:var(--s1)!important}
+html.borne .b-knoblab{font-family:var(--f-eng)!important;font-size:var(--eng-size)!important;letter-spacing:.14em!important;color:var(--eng-plate)!important;text-shadow:var(--eng-plate-sh);font-weight:500}
+html.borne .wrap{padding-bottom:var(--s5)!important}
+@container cab (max-width:700px){
+  html.borne .b-door{grid-template-columns:minmax(0,1fr)}
+  html.borne .b-door>.b-slot,html.borne .b-door>.b-knobs{grid-column:1;justify-self:center}
+}
+@media (max-width:700px){html.borne .b-door>.b-slot{width:min(240px,70vw)!important}}
