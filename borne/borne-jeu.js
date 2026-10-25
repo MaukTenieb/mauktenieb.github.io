@@ -39,6 +39,16 @@
     addEventListener('resize',soon);setInterval(soon,1500);}
   hook();
 
+  /* ---------- MaskerMind : Koins et signes échiquéens mêlés, tirés au hasard à chaque partie ---------- */
+  var KOIN={},sig='';
+  function roll(){KOIN={};var names=[].map.call(document.querySelectorAll('#mm-panel button.mm-peg[title]'),function(b){return b.title;});
+    names.forEach(function(n){if(Math.random()<.5)KOIN[n]=1;});if(names.length&&!Object.keys(KOIN).length)KOIN[names[Math.floor(Math.random()*names.length)]]=1;}
+  function paintMM(){var P=document.getElementById('mm-panel');if(!P||!P.getClientRects().length||getComputedStyle(P).display==='none')return;
+    var t=(P.textContent.match(/(\d+)\s*\/\s*\d+/)||[])[1]||'',lv=(document.querySelector('#mm-panel .mm-lv.on')||{}).textContent||'',g=lv+'|'+(t==='1'?'new':'');
+    if(!Object.keys(KOIN).length||(g!==sig&&t==='1'))roll();sig=g;
+    P.querySelectorAll('.mm-peg[title]').forEach(function(e){e.classList.toggle('b-koin',!!KOIN[e.title]);});}
+  setInterval(paintMM,400);
+
   /* ---------- 2. la manette ---------- */
   var KC={ArrowLeft:37,ArrowUp:38,ArrowRight:39,ArrowDown:40,' ':32};
   function target(){var f=document.activeElement&&document.activeElement.tagName==='IFRAME'?document.activeElement:null;
