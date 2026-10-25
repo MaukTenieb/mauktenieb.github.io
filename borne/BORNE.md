@@ -35,7 +35,7 @@ D'un programme à l'autre : un glissé depuis le bord de l'écran, ou un toucher
 - `borne-fotofauna.js`, `borne-fotofauna.css` : FotoFauna, le logo et le viseur déclenchent ; caméra avant ou arrière ; Une, Superposer, Pellicule.
 - `borne-frames.css` : retouches de Reporhogo et de FaunaTor.
 - `borne-bio.html` : la bio, lue en direct du README du profil GitHub.
-- `borne-say.txt` : les phrases du psychopompe, une par arrêt de la visite, en français et en anglais.
+- `borne-say.txt` : une phrase des psychopompes pour les arrêts propres à la borne (touches, BC, liseuse, FaunInvaders, Sampler) ; leurs répliques d'Insert Koin restent celles de l'artiste.
 - `borne-lobby.json` : zones cliquables des 18 Masks sur l'image de l'écran titre, devant Korong!.
 
 Les robots d'indexation passent leur chemin : `Disallow: /borne/` et `noindex` sur chaque page de la borne.
