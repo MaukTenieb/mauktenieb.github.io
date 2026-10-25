@@ -1,7 +1,7 @@
 /* Borne Insert Koin — le jeu à l'écran.
    1. Chaque jeu remplit l'écran : son contenu est agrandi et centré, à la mesure de l'écran.
-   2. La manette sert : à l'accueil, elle passe d'une touche à l'autre et l'enfonce ; dans un jeu, elle envoie les flèches,
-      et un appui sur la boule envoie Espace (tir, validation). La manette se déplace par son socle. */
+   2. La manette sert : à l'accueil, elle passe d'une touche à l'autre et l'enfonce ; dans un programme, gauche et droite zappent
+      dans le groupe, sauf dans FaunInvaders et le VHS, qui reçoivent les flèches ; un appui sur la boule envoie Espace. La manette se déplace par son socle. */
 (function(){
   var root=document.documentElement;
   /* ---------- 1. le jeu à la taille de l'écran ---------- */
@@ -60,7 +60,9 @@
       var tx=Math.max(-1,Math.min(1,dx/40)),ty=Math.max(-1,Math.min(1,dy/40));stick.style.setProperty('--x',tx);stick.style.setProperty('--y',ty);
       if(ax>10||ay>10)st.moved=true;
       var set=[];if(dx<-14)set.push('ArrowLeft');if(dx>14)set.push('ArrowRight');if(dy<-14)set.push('ArrowUp');if(dy>14)set.push('ArrowDown');
-      if(inGame())hold(set);
+      var cur=window.__borneCur&&window.__borneCur(),arrows=/^(fi|vhs)$/.test(cur||'');
+      if(inGame()&&arrows)hold(set);
+      else if(inGame()){var n2=performance.now();if((set.indexOf('ArrowLeft')>=0||set.indexOf('ArrowRight')>=0)&&n2-lastStep>700&&window.__borneZap){lastStep=n2;window.__borneZap(set.indexOf('ArrowLeft')>=0?-1:1);}}
       else{var n=performance.now();if(set.length&&n-lastStep>320){lastStep=n;mark(set.indexOf('ArrowLeft')>=0||set.indexOf('ArrowUp')>=0?-1:1);}}},true);
     function end(e){if(!st||e.pointerId!==st.id)return;var m=st.moved;st=null;stick.classList.remove('b-grip');stick.style.setProperty('--x',0);stick.style.setProperty('--y',0);hold([]);
       if(!m)press();}
