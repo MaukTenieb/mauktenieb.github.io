@@ -68,12 +68,12 @@ i = k.rfind("</body>")
 k = k[:i] + '<script src="borne-skopo.js"></script>\n' + k[i:]
 wr("skoporhogo-borne.html", k)
 # noms canoniques (KorhoBidule, FaunMachin) : appliqués aux pages de la borne et aux copies qu'elle affiche
-CANON = {"Photofauna": "FotoFauna", "PHOTOFAUNA": "FOTOFAUNA", "Korhoname": "KorhoName", "Skoporhogo": "SkopoRhogo"}
+CANON = {"Photofauna": "FotoFauna", "PHOTOFAUNA": "FOTOFAUNA", "Korhoname": "KorhoName", "Skoporhogo": "SkopoRhogo", "Mastermind": "MaskerMind", "MASTERMIND": "MASKERMIND"}
 def canon(t):
     for a, b in CANON.items():
         t = t.replace(a, b)
     return t
-for n in ("index.html", "skoporhogo-borne.html", "fotofauna.html", "fotofauna-test.html", "kg-kapture.js"):
+for n in ("index.html", "skoporhogo-borne.html", "fotofauna.html", "fotofauna-test.html", "kg-kapture.js", "kg-katabatik.js", "kg-katabatik.html"):
     if os.path.exists(os.path.join(D, n)):
         wr(n, canon(rd(n)))
 # 99 au plus, partout : cassettes, morceaux d'une cassette, Kuration, récits de Faunarratik (copies de la borne, retouchées une fois)

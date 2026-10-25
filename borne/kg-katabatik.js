@@ -9,7 +9,7 @@
  * training artificial intelligence. Contact: mauktenieb@gmail.com
  */
 
-/* KG module "katabatik" -- KATABATIK: hub + Connect-4 / Sampler / Hungarian Hangman / Mastermind (panels #c4-panel, #bb-panel, #hang-panel, #mm-panel) + BakuBoom helpers. Connect-4 and the BakuBoom helpers are copied verbatim from kofa.js (Korhogo); the Sampler, the Hangman and Mastermind are Insert Koin additions. The dormant Pairs panel was purged (memory lives in Erratik). */
+/* KG module "katabatik" -- KATABATIK: hub + Connect-4 / Sampler / Hungarian Hangman / MaskerMind (panels #c4-panel, #bb-panel, #hang-panel, #mm-panel) + BakuBoom helpers. Connect-4 and the BakuBoom helpers are copied verbatim from kofa.js (Korhogo); the Sampler, the Hangman and MaskerMind are Insert Koin additions. The dormant Pairs panel was purged (memory lives in Erratik). */
 
 // ============================================================
 // KATABATIK hub -- four games under one roof; Connect 4 stays the entry point.
@@ -1219,7 +1219,7 @@ function hangFigKick(){
 window.hangFigKick=hangFigKick;
 
 // ============================================================
-// MASTERMIND -- 3 niveaux ; chaque pion est un Mask : sa couleur et son signe du Substack (MOVEMENT 3 et 4).
+// MASKERMIND -- 3 niveaux ; chaque pion est un Mask : sa couleur et son signe du Substack (MOVEMENT 3 et 4).
 // Le premier essai est tiré au hasard et noté d'office ; le joueur reprend au deuxième.
 // ============================================================
 var MM_COLORS=['#d32f2f','#4fc3f7','#66bb6a','#ffd54f','#ab47bc','#ff7043','#78909c','#f48fb1'];

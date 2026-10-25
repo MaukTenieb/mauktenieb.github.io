@@ -53,7 +53,7 @@
     c.querySelector('button').addEventListener('click',function(){IK().go&&IK().go(k);});return c;}
   /* KorhoGame : les grands jeux d'un côté ; de l'autre, Katabatik : le dé choisit parmi les mini-jeux (⚀ à ⚃ ; ⚄ et ⚅ : le hasard) */
   var KATA=['c4','bb','hang','mm','fi'],DICE='⚀⚁⚂⚃⚄⚅';
-  var MINIS=[['c4','KONNECT4','borne-mini-c4.jpg','#f48fb1',0],['hang','AKASZTÓFA','borne-mini-hang.jpg','#f48fb1',2],['mm','MASTERMIND','borne-mini-mm.jpg','#f48fb1',3],['erratic','ERRATIK','thumb-erratic.jpg','#42a5f5',5]];
+  var MINIS=[['c4','KONNECT4','borne-mini-c4.jpg','#f48fb1',0],['hang','AKASZTÓFA','borne-mini-hang.jpg','#f48fb1',2],['mm','MASKERMIND','borne-mini-mm.jpg','#f48fb1',3],['erratic','ERRATIK','thumb-erratic.jpg','#42a5f5',5]];
   function kata(g){var d=document.querySelector('.cab.dice b');if(d)d.dataset.d=DICE[KATA.indexOf(g)];IK().go&&IK().go('katabatik');}
   function play(g){if(g==='erratic')IK().go&&IK().go('erratic');else kata(g);}
   function ktile(g,title,th,nc,face){var c=el('div','cab b-kata');c.style.cssText='--th:url('+th+');--nc:'+nc;
@@ -176,7 +176,7 @@
      L'ordre suit le panneau. À zéro Koin, un jeu payant se saute : le glissé va au programme suivant. */
   var ORDER=['chess','fi','puck','faunarratics','bb','c4','hang','mm','erratic','fauneye','vhs','photo','terminal','repo','tor'];
   var GRP=[['chess','fi','puck','faunarratics','bb','c4','hang','mm','erratic'],['fauneye','vhs','photo'],['terminal'],['repo','tor']];
-  var NAME={chess:'FAUNA CHESS',fi:'FAUNINVADERS',puck:'KORONG!',faunarratics:'FAUNARRATIK',bb:'SAMPLER',c4:'KONNECT4',hang:'AKASZTÓFA',mm:'MASTERMIND',erratic:'ERRATIK',
+  var NAME={chess:'FAUNA CHESS',fi:'FAUNINVADERS',puck:'KORONG!',faunarratics:'FAUNARRATIK',bb:'SAMPLER',c4:'KONNECT4',hang:'AKASZTÓFA',mm:'MASKERMIND',erratic:'ERRATIK',
     fauneye:'BAKUBOOK',vhs:'VHS',photo:'FOTOFAUNA',terminal:'3615',repo:'REPORHOGO',tor:'FAUNATOR'};
   var CUR=null,SWAP=false;
   function launch(g){if(KATA.indexOf(g)>=0)kata(g);else IK().go&&IK().go(g);}
@@ -310,7 +310,7 @@
   new MutationObserver(function(){[].forEach.call(glass.querySelectorAll('iframe'),hookFrame);}).observe(glass,{childList:true,subtree:true});
   [].forEach.call(glass.querySelectorAll('iframe'),hookFrame);
 
-  /* ---------- le clavier vaut les gestes dans les mini-jeux : flèches et Entrée pour Konnect4, chiffres, ⌫ et Entrée pour Mastermind, Espace pour le Sampler ---------- */
+  /* ---------- le clavier vaut les gestes dans les mini-jeux : flèches et Entrée pour Konnect4, chiffres, ⌫ et Entrée pour MaskerMind, Espace pour le Sampler ---------- */
   var shown=function(id){var x=$(id);return x&&x.style.display&&x.style.display!=='none';};
   addEventListener('keydown',function(e){if(/INPUT|TEXTAREA/.test((e.target&&e.target.tagName)||''))return;var K=window.__c4k;
     if(shown('c4-panel')&&K){var h=K.s.hover>=0?K.s.hover:3;
