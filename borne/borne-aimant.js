@@ -40,6 +40,7 @@
     try{b.el.setPointerCapture(e.pointerId);}catch(_){}
     if(navigator.vibrate)try{navigator.vibrate(12);}catch(_){}}
   function down(e){if(e.button>0||drag)return;var b=of(e.target);if(!b)return;
+    if(b.id==='manette'){var rr=b.el.getBoundingClientRect();if(e.clientY<rr.top+rr.height*.74)return;}
     drag={b:b,id:e.pointerId,x:e.clientX,y:e.clientY,dx:b.dx,dy:b.dy,on:false,touch:e.pointerType!=='mouse',t:0};
     if(drag.touch)drag.t=setTimeout(function(){if(drag&&!drag.on&&!drag.moved)grab(b,e);},LONG);}
   function move(e){if(!drag||e.pointerId!==drag.id)return;var mx=e.clientX-drag.x,my=e.clientY-drag.y;

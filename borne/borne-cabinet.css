@@ -352,7 +352,7 @@ html.borne .b-full header button{min-height:44px;min-width:44px}
 html.borne .b-roof,html.borne .bar,html.borne .b-land{transition:max-height .6s cubic-bezier(.6,.05,.3,1),opacity .4s,margin .6s,padding .6s;max-height:220px}
 html.borne[data-prog] .b-roof,html.borne[data-prog] .bar,html.borne[data-prog] .b-land{max-height:0!important;opacity:0;margin-top:0!important;margin-bottom:0!important;padding-top:0!important;padding-bottom:0!important;overflow:hidden;pointer-events:none;border:0}
 html.borne[data-prog] .wrap{padding-top:8px!important}
-html.borne[data-prog]{--gh:calc(100dvh - 140px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 140px) * 4 / 3)) !important}
+html.borne[data-prog]{--gh:calc(100dvh - 140px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 140px) * 16 / 9)) !important}
 html.borne[data-prog][data-mode=device]{--gw:min(calc(100vw - 80px),calc((100dvh - 140px) * 4 / 3 + 380px)) !important}
 html.borne[data-prog][data-big=tate]{--gw:min(calc(100vw - 80px),calc((100dvh - 140px) * .75)) !important}
 @media (max-width:700px){
@@ -420,7 +420,7 @@ html.borne .b-knobs{gap:14px}
 }
 @media (max-height:520px) and (orientation:landscape){
   html.borne{--scrW:min(calc(100vw - 80px),520px)}
-  html.borne[data-prog]{--gh:calc(100dvh - 120px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 120px) * 4 / 3)) !important}
+  html.borne[data-prog]{--gh:calc(100dvh - 120px) !important;--gw:min(calc(100vw - 80px),calc((100dvh - 120px) * 16 / 9)) !important}
   html.borne[data-prog] .b-bezelfoot{position:absolute;right:-64px;top:0;flex-direction:column;align-items:flex-end}
 }
 /* les Koins sur l'écran d'accueil ; à zéro, le décompte clignote */
@@ -452,7 +452,7 @@ html.borne[data-skin=bois]:not([data-mode=device]):not([data-habit=fauneye]) .wr
   html.borne[data-skin=bois][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--gw:calc(100vw - 64px) !important}
   html.borne[data-skin=bois]:not([data-mode=device]):not([data-habit=fauneye]) .wrap,html.borne[data-skin=bois]:not([data-mode=device]):not([data-habit=fauneye]) .b-roof{width:100%}
 }
-html.borne[data-skin=bois][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--bv:clamp(20px,3.6vh,36px);--gh:calc(100dvh - 140px - 2 * var(--bv)) !important;--gw:min(calc(100vw - 120px),calc((100dvh - 140px - 2 * var(--bv)) * 4 / 3)) !important}
+html.borne[data-skin=bois][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--bv:clamp(20px,3.6vh,36px);--gh:calc(100dvh - 140px - 2 * var(--bv)) !important;--gw:min(calc(100vw - 120px),calc((100dvh - 140px - 2 * var(--bv)) * 16 / 9)) !important}
 html.borne[data-skin=bois][data-prog][data-big=tate]:not([data-mode=device]){--gw:min(calc(100vw - 120px),calc((100dvh - 140px - 2 * var(--bv)) * .75)) !important}
 @media (max-width:700px){html.borne[data-skin=bois][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--gh:calc(100dvh - 132px - 2 * var(--bv)) !important;--gw:calc(100vw - 64px) !important}}
 html.borne[data-skin=bois] .b-slot b{gap:.6em}
@@ -472,7 +472,7 @@ html.borne[data-skin=metal] .b-slot i{display:none}
 html.borne[data-skin=metal] .b-coin{top:20%;left:50%}
 html.borne[data-skin=metal] .b-knoblab{color:#1f2124}
 html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .wrap,html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .b-roof{width:calc(var(--gw) + 100px)}
-html.borne[data-skin=metal][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--bv:clamp(20px,3.6vh,36px);--gh:calc(100dvh - 140px - 2 * var(--bv)) !important;--gw:min(calc(100vw - 120px),calc((100dvh - 140px - 2 * var(--bv)) * 4 / 3)) !important}
+html.borne[data-skin=metal][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--bv:clamp(20px,3.6vh,36px);--gh:calc(100dvh - 140px - 2 * var(--bv)) !important;--gw:min(calc(100vw - 120px),calc((100dvh - 140px - 2 * var(--bv)) * 16 / 9)) !important}
 html.borne[data-skin=metal][data-prog][data-big=tate]:not([data-mode=device]){--gw:min(calc(100vw - 120px),calc((100dvh - 140px - 2 * var(--bv)) * .75)) !important}
 @media (max-width:700px){
   html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]){--scrW:calc(100vw - 64px)}
@@ -496,7 +496,7 @@ html.borne[data-skin="1960"] .b-slot i{display:none}
 html.borne[data-skin="1960"] .b-coin{top:22%;left:50%}
 html.borne[data-skin="1960"] .b-knoblab{color:#3a2a20}
 html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .wrap,html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .b-roof{width:calc(var(--gw) + 110px)}
-html.borne[data-skin="1960"][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--bv:clamp(22px,4vh,40px);--gh:calc(100dvh - 140px - 2 * var(--bv)) !important;--gw:min(calc(100vw - 130px),calc((100dvh - 140px - 2 * var(--bv)) * 4 / 3)) !important}
+html.borne[data-skin="1960"][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--bv:clamp(22px,4vh,40px);--gh:calc(100dvh - 140px - 2 * var(--bv)) !important;--gw:min(calc(100vw - 130px),calc((100dvh - 140px - 2 * var(--bv)) * 16 / 9)) !important}
 html.borne[data-skin="1960"][data-prog][data-big=tate]:not([data-mode=device]){--gw:min(calc(100vw - 130px),calc((100dvh - 140px - 2 * var(--bv)) * .75)) !important}
 @media (max-width:700px){
   html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]){--scrW:calc(100vw - 72px)}
@@ -815,3 +815,11 @@ html.borne .b-mag.b-held.b-docked{filter:drop-shadow(0 4px 6px rgba(0,0,0,.5)) d
 @keyframes bsuck{0%{scale:1}35%{scale:.93}100%{scale:1.06}}
 html.borne .b-mag:not(.b-held){scale:1;transition:scale .25s cubic-bezier(.2,1.5,.4,1)}
 html.borne.b-holding,html.borne.b-holding *{cursor:grabbing!important}
+
+/* ---------- la manette sert : la boule se saisit, le socle déplace ; la touche choisie à la manette s'allume ---------- */
+html.borne .b-panel .cabinets>.b-stick{cursor:grab;touch-action:none}
+html.borne .b-stick.b-grip{cursor:grabbing}
+html.borne .b-stick.b-grip i{transition:transform .05s linear!important}
+html.borne .b-panel .cab.b-sel{outline:2px solid #ffd27a;outline-offset:4px;filter:brightness(1.15)}
+html.borne #kg-root .b-fit{will-change:transform}
+html.borne #kg-root .b-fitting,html.borne #kg-root .b-fitting *{transition:none!important;animation-play-state:paused!important}
