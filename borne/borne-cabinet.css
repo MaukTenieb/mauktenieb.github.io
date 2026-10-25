@@ -789,3 +789,21 @@ html.borne .bar .dock:first-of-type #export-pl:hover{filter:brightness(1.08)}
   html.borne .bar .dock:first-of-type #radio-toggle{grid-column:2!important;grid-row:1!important}
   html.borne .bar .dock:first-of-type .b-bell{grid-column:3!important;grid-row:1!important}
 }
+
+/* ---------- éclats et reflets ---------- */
+html.borne .b-gl{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:5;text-decoration:none}
+html.borne .b-gl::before{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;transform:skewX(-20deg) translateX(0);opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55) 45%,rgba(255,255,255,.9) 50%,rgba(255,255,255,.55) 55%,transparent);mix-blend-mode:screen}
+html.borne .b-gl::after{content:"";position:absolute;right:14%;top:12%;width:12px;height:12px;opacity:0;transform:scale(.2) rotate(0);
+  background:radial-gradient(circle,#fff 0 1.5px,transparent 2px),linear-gradient(90deg,transparent 45%,rgba(255,255,255,.95) 50%,transparent 55%),linear-gradient(0deg,transparent 45%,rgba(255,255,255,.95) 50%,transparent 55%);filter:drop-shadow(0 0 3px #fff)}
+html.borne .b-gl.on::before{animation:bglsweep .9s cubic-bezier(.4,0,.2,1)}
+html.borne .b-gl.on::after{animation:bglstar .9s ease-out .35s}
+@keyframes bglsweep{0%{opacity:0;left:-60%}15%{opacity:1}100%{opacity:0;left:130%}}
+@keyframes bglstar{0%{opacity:0;transform:scale(.2) rotate(0)}40%{opacity:1;transform:scale(1) rotate(45deg)}100%{opacity:0;transform:scale(.3) rotate(90deg)}}
+html.borne .b-row2 .menu a,html.borne .b-knob,html.borne .b-slot,html.borne #koins,html.borne .b-boom{position:relative}
+html.borne .b-row2 .menu a .b-gl,html.borne .b-knob .b-gl{border-radius:50%}
+html.borne .b-sheen{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;text-decoration:none;mix-blend-mode:soft-light;
+  background:linear-gradient(115deg,transparent calc(var(--rx,.5)*100% - 38%),rgba(255,255,255,.75) calc(var(--rx,.5)*100% - 6%),rgba(255,255,255,.95) calc(var(--rx,.5)*100%),rgba(255,255,255,.6) calc(var(--rx,.5)*100% + 6%),transparent calc(var(--rx,.5)*100% + 34%))}
+html.borne .b-lore .b-sheen{mix-blend-mode:overlay;background:linear-gradient(115deg,transparent calc(var(--rx,.5)*100% - 40%),rgba(255,170,230,.45) calc(var(--rx,.5)*100% - 14%),rgba(255,255,255,.9) calc(var(--rx,.5)*100%),rgba(150,230,255,.45) calc(var(--rx,.5)*100% + 14%),transparent calc(var(--rx,.5)*100% + 40%))}
+html.borne .b-badge .b-sheen{mix-blend-mode:screen;opacity:.35}
+@media (prefers-reduced-motion:reduce){html.borne .b-gl,html.borne .b-sheen{display:none}}

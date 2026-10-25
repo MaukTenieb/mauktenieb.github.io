@@ -346,3 +346,24 @@
   /* la page d'origine reste voilée jusqu'ici : le visiteur voit la borne d'emblée */
   requestAnimationFrame(function(){root.classList.add('borne-ready');});
 })();
+
+/* ---------- éclats et reflets (25 oct.) : les boutons scintillent de temps en temps ; les autocollants et les plaques prennent un reflet qui suit la souris, le doigt ou le défilement ---------- */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var root=document.documentElement;
+  function add(e,c){if(!e||e.querySelector(':scope>.'+c))return;var s=document.createElement('s');s.className=c;s.setAttribute('aria-hidden','true');e.appendChild(s);}
+  function setup(){
+    document.querySelectorAll('.b-panel .cab,.b-row2 .menu a,.b-boom,.b-slot,.b-knob,#koins').forEach(function(e){add(e,'b-gl');});
+    document.querySelectorAll('.b-land,.b-lore,.b-badge').forEach(function(e){add(e,'b-sheen');});
+  }
+  setTimeout(setup,600);setTimeout(setup,2500);
+  function glint(){var L=[].slice.call(document.querySelectorAll('.b-gl')).filter(function(s){var r=s.parentNode.getBoundingClientRect();return r.width&&r.bottom>0&&r.top<innerHeight;});
+    if(L.length&&!document.hidden){var n=1+(Math.random()<.35?1:0);for(var i=0;i<n;i++){var s=L[Math.floor(Math.random()*L.length)];s.classList.remove('on');void s.offsetWidth;s.classList.add('on');}}
+    setTimeout(glint,1400+Math.random()*2600);}
+  setTimeout(glint,2000);
+  var raf=0,px=.5,py=.5;
+  function paint(){raf=0;root.style.setProperty('--rx',px.toFixed(3));root.style.setProperty('--ry',py.toFixed(3));}
+  function at(x,y){px=x/innerWidth;py=y/innerHeight;if(!raf)raf=requestAnimationFrame(paint);}
+  addEventListener('pointermove',function(e){at(e.clientX,e.clientY);},{passive:true});
+  addEventListener('scroll',function(){if(matchMedia('(pointer:coarse)').matches){px=.5+.5*Math.sin(scrollY/240);py=.5;if(!raf)raf=requestAnimationFrame(paint);}},{passive:true});
+})();
