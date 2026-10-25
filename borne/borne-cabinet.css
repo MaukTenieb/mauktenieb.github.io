@@ -859,3 +859,7 @@ html.borne #mm-panel .mm-peg.b-koin:not(.mm-empty){background-image:url(koin.web
   background-blend-mode:luminosity!important;border-radius:50%!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.35),inset 0 2px 3px rgba(255,255,255,.35),0 2px 3px rgba(0,0,0,.6)!important;color:#1a1208!important}
 html.borne #mm-panel .mm-peg.b-koin:not(.mm-empty) svg,html.borne #mm-panel .mm-peg.b-koin:not(.mm-empty) *{filter:drop-shadow(0 1px 0 rgba(255,255,255,.35))}
 html.b-charte #mem h1{font-size:clamp(56px,14vw,96px)!important}
+
+/* ---------- la manette à ressort : le ressort pilote l'angle, sans transition ; la tige s'étire un peu avec la vitesse ---------- */
+html.borne .b-stick i,html.borne .b-stick.b-grip i{transition:none!important}
+html.borne .b-stick i{transform:rotate(calc(var(--x) * 16deg)) translateY(calc(var(--y) * 3px)) scaleY(calc(1 - var(--v,0) * .04))!important}

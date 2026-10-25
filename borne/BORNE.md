@@ -31,6 +31,7 @@ D'un programme à l'autre : un glissé depuis le bord de l'écran, ou un toucher
 ## Fichiers
 - `borne-cabinet.css`, `borne-cabinet.js` : le meuble, les habits, le tilt, la porte, la grammaire commune, les éclats et reflets, la Koin qui tourne (payée, elle vole du compteur à la fente ou dans l'écran).
 - `borne-aimant.js` : les blocs aimantés ; souris, appuyer puis glisser ; doigt, appui long ; ramené près de sa place, le bloc s'y recolle ; positions gardées par skin.
+- La manette a un ressort : poussée, elle dépasse, cogne sa butée, tremble et revient ; le panneau encaisse le choc ; elle suit la boule saisie, les flèches et les glissés sur l'écran.
 - `borne-jeu.js` : chaque jeu agrandi et centré à la mesure de l'écran ; la manette choisit et enfonce les touches à l'accueil, envoie flèches et Espace dans les jeux ; son socle la déplace.
 - `borne-skopo.js` : SkopoRhogo à l'heure du visiteur.
 - `borne-fauneye.html` : BakuBook, le lecteur universel (stock de fac-similés, fichiers du visiteur, Internet Archive, Gutenberg, Wikisource, Google Books ; zoom, loupe, vignettes, typographie).

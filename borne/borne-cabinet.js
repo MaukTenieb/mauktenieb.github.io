@@ -236,7 +236,20 @@
 
   /* ---------- la manette, en miroir : elle penche avec les flèches et les glissés dans l'écran ---------- */
   var mini=el('div','b-stick b-stick-mini','<i></i>');mini.setAttribute('aria-hidden','true');foot.insertBefore(mini,bb);
-  var tilt=function(x,y){[stick,mini].forEach(function(s){s.style.setProperty('--x',x);s.style.setProperty('--y',y);});},held={};
+  /* la manette a un ressort : elle part, dépasse, cogne la butée, tremble et revient ; le panneau encaisse le choc */
+  var SP={x:0,y:0,vx:0,vy:0,tx:0,ty:0,run:false,t:0,hit:0};
+  function spring(t){var dt=Math.min(.032,(t-(SP.t||t))/1000)||.016;SP.t=t;
+    var k=SP.tx||SP.ty?520:380,c=SP.tx||SP.ty?18:11;
+    SP.vx+=(-(SP.x-SP.tx)*k-SP.vx*c)*dt;SP.vy+=(-(SP.y-SP.ty)*k-SP.vy*c)*dt;SP.x+=SP.vx*dt;SP.y+=SP.vy*dt;
+    var L=1.18;if(Math.abs(SP.x)>L){SP.x=L*Math.sign(SP.x);var v=Math.abs(SP.vx);SP.vx=-SP.vx*.42;if(v>3.2&&t-SP.hit>90){SP.hit=t;knock(Math.min(1,v/9));}}
+    if(Math.abs(SP.y)>L){SP.y=L*Math.sign(SP.y);SP.vy=-SP.vy*.42;}
+    var j=Math.min(.06,Math.hypot(SP.vx,SP.vy)/260);/* la vibration de la tige à grande vitesse */
+    [stick,mini].forEach(function(s){s.style.setProperty('--x',(SP.x+(Math.random()-.5)*j).toFixed(3));s.style.setProperty('--y',SP.y.toFixed(3));s.style.setProperty('--v',Math.min(1,Math.abs(SP.vx)/6).toFixed(2));});
+    if(Math.abs(SP.x-SP.tx)+Math.abs(SP.y-SP.ty)+Math.abs(SP.vx)+Math.abs(SP.vy)>.004)requestAnimationFrame(spring);else{SP.run=false;SP.t=0;}}
+  function knock(f){try{IK().tone&&IK().tone(140+90*f,.05,'square',.02*f+.008);IK().burst&&IK().burst(1800,'bandpass',.03*f+.01,.05);}catch(e){}
+    var P=document.querySelector('.b-panel');if(P&&P.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)P.animate([{translate:'0 0'},{translate:(SP.x>0?2:-2)*f+'px '+f+'px'},{translate:(SP.x>0?-1:1)*f+'px 0'},{translate:'0 0'}],{duration:170,easing:'ease-out'});}
+  var tilt=function(x,y){SP.tx=Math.tanh(x*1.1);SP.ty=Math.tanh(y*1.1);if(!SP.run){SP.run=true;requestAnimationFrame(spring);}},held={};
+  window.__borneTilt=tilt;
   var KX={ArrowLeft:-1,ArrowRight:1,a:-1,q:-1,d:1},KY={ArrowUp:-1,ArrowDown:1,w:-1,z:-1,s:1};
   var clamp=function(v){return Math.max(-1,Math.min(1,v));};
   function fromKeys(){var x=0,y=0;Object.keys(held).forEach(function(k){x+=KX[k]||0;y+=KY[k]||0;});tilt(clamp(x),clamp(y));}
