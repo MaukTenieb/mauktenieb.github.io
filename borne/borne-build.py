@@ -1,7 +1,7 @@
 """Borne Insert Koin : fabrique les pages de la borne depuis les copies d'Insert Koin (aspire-borne.sh).
 insertkoin.html -> index.html (meuble, écran, panneau, porte à Koins) ;
 skoporhogo.html -> skoporhogo-borne.html (horloge du visiteur, temps réel).
-Les copies restent telles qu'aspirées ; seuls les fichiers borne-* et ces deux pages viennent d'ici."""
+Les copies restent telles qu'aspirées, aux noms canoniques près (CANON) ; les fichiers borne-* et ces deux pages viennent d'ici."""
 import os, re
 D = os.path.dirname(os.path.abspath(__file__))
 
@@ -41,4 +41,13 @@ k = once(k, "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">')
 i = k.rfind("</body>")
 k = k[:i] + '<script src="borne-skopo.js"></script>\n' + k[i:]
 wr("skoporhogo-borne.html", k)
-print("index.html, skoporhogo-borne.html")
+# noms canoniques (KorhoBidule, FaunMachin) : appliqués aux pages de la borne et aux copies qu'elle affiche
+CANON = {"Photofauna": "FotoFauna", "PHOTOFAUNA": "FOTOFAUNA", "Korhoname": "KorhoName"}
+def canon(t):
+    for a, b in CANON.items():
+        t = t.replace(a, b)
+    return t
+for n in ("index.html", "skoporhogo-borne.html", "fotofauna.html", "fotofauna-test.html", "kg-kapture.js"):
+    if os.path.exists(os.path.join(D, n)):
+        wr(n, canon(rd(n)))
+print("index.html, skoporhogo-borne.html ; noms canoniques")

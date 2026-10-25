@@ -1,7 +1,7 @@
 /* Borne Insert Koin (site d'essai) : range la page d'Insert Koin dans une borne d'arcade.
    Rien n'est réécrit : les éléments de la page changent de place, leurs fonctions restent les leurs
    (juke-box et Jack the Box, Koins, Kapture, psychopompes, dé de Katabatik, Bio, FR/EN).
-   Baku Boom donne un coup de tilt ; les appareils (VHS, Photofauna, Kapture, 3615) transforment le meuble ;
+   Baku Boom donne un coup de tilt ; les appareils (VHS, FotoFauna, Kapture, 3615) transforment le meuble ;
    Bio et Burrows s'ouvrent en plein écran, prêts à imprimer. */
 (function(){
   var $=function(id){return document.getElementById(id);};
