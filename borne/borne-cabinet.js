@@ -237,6 +237,16 @@
     var key=(r?r.month*40+r.day:0)+'/'+Math.round(health()*10)+'/'+cs().cut;if(key!==lastM){lastM=key;plant.innerHTML=bornePlant(r);plant.title=r?MO[r.month-1]:'';}}
   tick();setInterval(tick,15000);
 
+  /* ---------- Échap vaut Baku Boom, partout, même dans les programmes en cadre ; un programme qui s'en sert d'abord (fermer un tiroir, quitter une partie d'échecs) garde la main ---------- */
+  function escHome(e){if(e.key!=='Escape'||e.defaultPrevented)return;if(document.querySelector('.b-full')||document.pointerLockElement)return;
+    var open=function(id){var x=$(id);return x&&x.classList.contains('open');};if(open('chess')||open('mem'))return;
+    if(document.body.className.indexOf('on-home')>=0){fold();return;}e.preventDefault();bb.click();}
+  addEventListener('keydown',escHome);
+  function hookFrame(f){if(f.__esc)return;f.__esc=1;var on=function(){try{f.contentWindow.addEventListener('keydown',function(e){if(e.key==='Escape')setTimeout(function(){escHome(e);},0);});}catch(x){}};
+    f.addEventListener('load',on);on();}
+  new MutationObserver(function(){[].forEach.call(glass.querySelectorAll('iframe'),hookFrame);}).observe(glass,{childList:true,subtree:true});
+  [].forEach.call(glass.querySelectorAll('iframe'),hookFrame);
+
   /* ---------- Motel Sound joue dès l'arrivée, haut-parleur coupé ; la cloche barrée le rallume ---------- */
   var bell=el('button','b-bell','🔕');bell.type='button';bell.setAttribute('aria-label','Motel Sound : son coupé');bell.setAttribute('aria-pressed','false');
   var docks=bar.querySelectorAll('.dock');(docks[0]||bar).appendChild(bell);

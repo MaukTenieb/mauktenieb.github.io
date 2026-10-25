@@ -180,7 +180,7 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
   $('sl').oninput=function(){if(cur&&cur.n)$('num').textContent=this.value+' / '+cur.n;};$('sl').onchange=function(){go(this.value-1);};
   addEventListener('keydown',function(e){if(/INPUT|SELECT/.test(e.target.tagName)&&e.target.id!=='sl')return;
     if(e.key==='ArrowLeft'||e.key==='PageUp')step(-1);else if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')step(1);
-    else if(e.key==='+'||e.key==='=')grow(1);else if(e.key==='-')grow(-1);else if(e.key==='Escape'){drawer(null);setLoupe(false);}});
+    else if(e.key==='+'||e.key==='=')grow(1);else if(e.key==='-')grow(-1);else if(e.key==='Escape'){var busy=$('d-pages').classList.contains('on')||$('d-type').classList.contains('on')||loupe;drawer(null);setLoupe(false);if(busy)e.preventDefault();}});
   function grow(d){if(cur&&cur.page){var r=stage.getBoundingClientRect();zoomAt(d>0?1.4:1/1.4,r.left+r.width/2,r.top+r.height/2);}else if(cur&&(cur.art||cur.rend))setType({s:TS.s+d});}
 
   /* les gestes : un doigt tourne la page (glisser) ou déplace la page agrandie ; deux doigts zooment ; un appui long montre la loupe */
