@@ -102,12 +102,23 @@
   var door=el('div','b-door'),slot=el('button','b-slot','<b><em>INSERT</em> <u>KOIN</u></b><i></i>');slot.type='button';slot.setAttribute('aria-label','Insert Koin · 3615 KOINS');
   var knobs=el('div','b-knobs');door.appendChild(slot);door.appendChild(knobs);
   /* le bouton SKIN : le meuble en bois, en métal, ou en jeu électromécanique des années 1960 */
-  var SKINS=['bois','metal','1960'],skin='bois';try{skin=localStorage.getItem('borne.skin')||'bois';}catch(e){}if(SKINS.indexOf(skin)<0)skin='bois';root.dataset.skin=skin;
+  var SKINS=['bois','metal','1960'],skin=null;try{skin=localStorage.getItem('borne.skin');}catch(e){}
+  /* première visite : un skin au hasard ; ensuite, celui que le visiteur a choisi */
+  if(SKINS.indexOf(skin)<0)skin=SKINS[Math.floor(Math.random()*SKINS.length)];root.dataset.skin=skin;
+  /* variantes du skin 1960, tirées à chaque visite et à chaque retour sur ce skin : enseigne, cadre, panneau, porte */
+  var V1960={fronton:['skin-1960-fronton-a.webp','skin-1960-fronton-b.webp'],
+    cadre:[['skin-1960-cadre-a.webp','223 172 221 171'],['skin-1960-cadre-b.webp','213 202 137 177'],['skin-1960-cadre-c.webp','227 175 226 182']],
+    panneau:['skin-1960-panneau-a.webp','skin-1960-panneau-b.webp'],
+    porte:[['skin-1960-porte-a.webp','1024/572','31%','59%','38%','12%'],['skin-1960-porte-b.webp','1024/434','20%','76%','34%','14%']]};
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+  function variants(){var s=root.style,c=pick(V1960.cadre),p=pick(V1960.porte);s.setProperty('--v-fronton','url('+pick(V1960.fronton)+')');s.setProperty('--v-cadre','url('+c[0]+')');s.setProperty('--v-cs',c[1]);
+    s.setProperty('--v-panneau','url('+pick(V1960.panneau)+')');s.setProperty('--v-porte','url('+p[0]+')');s.setProperty('--v-pr',p[1]);s.setProperty('--v-sx',p[2]);s.setProperty('--v-sy',p[3]);s.setProperty('--v-sw',p[4]);s.setProperty('--v-sh',p[5]);}
+  variants();
   var sw=el('div','b-knobw'),sb=el('button','b-knob b-skin');sb.type='button';sb.setAttribute('aria-label','Skin');sb.dataset.pos=SKINS.indexOf(skin);
   sw.appendChild(sb);sw.appendChild(el('span','b-knoblab','SKIN'));knobs.appendChild(sw);
   sb.onclick=function(){skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
     try{IK().tone&&IK().tone(220,.05,'square',.03);IK().tone&&IK().tone(330,.05,'square',.03,0,.06);}catch(e){}
-    scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');setTimeout(function(){root.dataset.skin=skin;},250);};
+    scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');setTimeout(function(){if(skin==='1960')variants();root.dataset.skin=skin;},250);};
   [['snd','FX'],['lang','FR · EN']].forEach(function(p){var b=$(p[0]);if(!b)return;var w=el('div','b-knobw');b.classList.add('b-knob');b.setAttribute('aria-label',p[1]);w.appendChild(b);w.appendChild(el('span','b-knoblab',p[1]));knobs.appendChild(w);
     var sync=function(){var t=(b.textContent||'').toUpperCase();b.dataset.on=(p[0]==='snd'?/ON/.test(t):/FR/.test(t))?'1':'0';};sync();
     new MutationObserver(sync).observe(b,{childList:true,characterData:true,subtree:true});});

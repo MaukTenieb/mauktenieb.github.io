@@ -480,3 +480,28 @@ html.borne[data-skin=metal][data-prog][data-big=tate]:not([data-mode=device]){--
   html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .wrap,html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .b-roof{width:100%}
   html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .bar .brand{min-height:70px;padding:14px 8px}
 }
+
+/* ---------- skin 1960 : matières Midjourney (25 oct.), variantes tirées au hasard (variables posées par borne-cabinet.js) ---------- */
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .wrap{background-color:#e8dcc2;background-image:url(skin-1960-flanc.webp)!important;background-size:496px 298px!important}
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .bar .brand{background:#8a1c12 var(--v-fronton) center/100% 100% no-repeat;color:#5a0f08;text-shadow:0 1px 0 rgba(255,250,230,.8),0 0 14px rgba(255,240,200,.9);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .bar .dock{background:#c9b48a url(skin-1960-grille.webp) center/100% 100% no-repeat;box-shadow:0 6px 14px rgba(0,0,0,.35)}
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .bar .dock #radio-toggle{background:rgba(40,20,10,.82);border-radius:4px}
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezel{background:#e8dcc2;box-shadow:0 0 0 4px rgba(0,0,0,.18)}
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezel .b-screen{border-style:solid;border-width:clamp(22px,4vh,40px) clamp(15px,2.4vw,26px);border-image-source:var(--v-cadre);border-image-slice:var(--v-cs);border-image-repeat:stretch;border-radius:0}
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .b-panel{background:#2a6f6a var(--v-panneau) center/cover no-repeat}
+html.borne[data-skin="1960"] .b-door{background:none;box-shadow:none;width:auto;max-width:calc(100% - 24px);gap:22px}
+html.borne[data-skin="1960"] .b-slot{width:clamp(220px,36vw,300px);aspect-ratio:var(--v-pr);padding:0;border-radius:4px;background:var(--v-porte) center/100% 100% no-repeat;box-shadow:0 6px 14px rgba(0,0,0,.35)}
+html.borne[data-skin="1960"] .b-slot b{position:absolute;left:var(--v-sx);top:var(--v-sy);width:var(--v-sw);height:var(--v-sh);display:flex;gap:.6em;align-items:center;justify-content:center;background:#1a0c08;border-radius:3px;box-shadow:inset 0 0 0 2px #c9ccd0;font-size:clamp(6px,.9vw,8px)}
+html.borne[data-skin="1960"] .b-slot i{display:none}
+html.borne[data-skin="1960"] .b-coin{top:22%;left:50%}
+html.borne[data-skin="1960"] .b-knoblab{color:#3a2a20}
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .wrap,html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .b-roof{width:calc(var(--gw) + 110px)}
+html.borne[data-skin="1960"][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--bv:clamp(22px,4vh,40px);--gh:calc(100dvh - 140px - 2 * var(--bv)) !important;--gw:min(calc(100vw - 130px),calc((100dvh - 140px - 2 * var(--bv)) * 4 / 3)) !important}
+html.borne[data-skin="1960"][data-prog][data-big=tate]:not([data-mode=device]){--gw:min(calc(100vw - 130px),calc((100dvh - 140px - 2 * var(--bv)) * .75)) !important}
+@media (max-width:700px){
+  html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]){--scrW:calc(100vw - 72px)}
+  html.borne[data-skin="1960"][data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--gh:calc(100dvh - 132px - 2 * var(--bv)) !important;--gw:calc(100vw - 72px) !important}
+  html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .wrap,html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .b-roof{width:100%}
+  html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .bar .brand{min-height:70px;padding:14px 8px}
+}
+html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezelfoot .b-boom span{color:#3a2a20;opacity:.85}
