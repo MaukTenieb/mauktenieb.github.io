@@ -37,6 +37,14 @@ for mid, box in B.items():
 s = once(s, "if(k!==null)koins=+k;freeAt=", "if(k!==null)koins=Math.min(99,+k);freeAt=")
 s = once(s, "koins=Math.min(Number.MAX_SAFE_INTEGER,koins+1)", "koins=Math.min(99,koins+1)")
 s = once(s, "setInterval(()=>{if(koins<1&&freeAt&&Date.now()>=freeAt)", "setInterval(()=>{if(koins>99){koins=99;saveKoins();}if(koins<1&&!freeAt){freeAt=Date.now()+30000;saveKoins();}if(koins<1&&freeAt&&Date.now()>=freeAt)")
+# Korong! : un toucher sur un Mask lance le duel (son nom s'affiche dès l'appui) ; la table reste dans la borne, sans plein écran automatique
+s = once(s, "b.onpointerdown=e=>{b._touch=e.pointerType==='touch';};", "b.onpointerdown=e=>{b._touch=e.pointerType==='touch';say();};")
+s = once(s, "b.onclick=()=>{if(b._touch&&!b.classList.contains('armed')){lb.querySelectorAll('.spot.armed').forEach(x=>x.classList.remove('armed'));b.classList.add('armed');say();return;}pickGuest(i);};", "b.onclick=()=>{pickGuest(i);};")
+s = once(s, "$('cv').addEventListener('pointerdown',e=>{if(e.pointerType!=='touch'||document.fullscreenElement)return;", "$('cv').addEventListener('pointerdown',e=>{if(e.pointerType!=='touch'||document.fullscreenElement||document.documentElement.classList.contains('borne'))return;")
+# Kapture : deux boutons (SKREEN, KAM), Échap ferme le choix
+s = once(s, '<button class="btn hot" type="button">KAM</button><button class="btn" type="button" aria-label="${tr(\'no\')}">✕</button></div>`;', '<button class="btn hot" type="button">KAM</button></div>`;')
+s = once(s, "a.onclick=()=>{m.remove();skreen();};b.onclick=()=>{m.remove();openGame('kapture','KAPTURE');};c.onclick=()=>m.remove();a.focus();}",
+  "a.onclick=()=>{m.remove();skreen();};b.onclick=()=>{m.remove();openGame('kapture','KAPTURE');};const esc=e=>{if(e.key==='Escape'&&document.body.contains(m)){e.stopImmediatePropagation();e.preventDefault();m.remove();removeEventListener('keydown',esc,true);}};addEventListener('keydown',esc,true);m.addEventListener('click',e=>{if(e.target===m)m.remove();});a.focus();}")
 wr("index.html", s)
 
 k = rd("skoporhogo.html")
@@ -72,6 +80,23 @@ cap("ik-kuration.js", "MAX = 200,", "MAX = 99,")
 cap("ik-kuration.js", "var list = mine(), on = !has(t.id);", "var list = mine(), on = !has(t.id);\n    if (on && list.length >= MAX) return false;")
 cap("kuration.html", "k.tracks.slice(0,50)", "k.tracks.slice(0,99)")
 cap("kg-faunarratics.js", "if(arr.length>50)arr=arr.slice(0,50);", "if(arr.length>99)arr=arr.slice(0,99);")
+# grammaire commune (audit du 25 octobre) : un toucher agit ; Échap revient ; le clavier vaut les gestes
+cap("kg-katabatik.js", "var W=Math.min(window.innerWidth-32,440);", "var _hr=document.getElementById('kg-root'),W=Math.max(196,Math.min(((_hr&&_hr.clientWidth)||window.innerWidth)-32,((_hr&&_hr.clientHeight)||window.innerHeight)-150,560));")
+cap("kg-katabatik.js", "      ctx.fillText(ln(state.levelNames[_li]),W/2,CW*0.78);",
+    "      [CW,CW*3.5,CW*6].forEach(function(x,j){ctx.fillStyle=j===_li?'rgba(255,224,138,.95)':'rgba(201,168,76,.4)';ctx.fillText(ln(state.levelNames[j]),x,CW*0.82);});")
+cap("kg-katabatik.js", "  function drop(col){\n    if(state.over||state.turn!==1) return;",
+    "  window.__c4k={s:state,d:function(c){drop(c);},r:function(){draw();},n:COLS};\n  function drop(col){\n    if(state.over||state.turn!==1) return;")
+cap("kg-katabatik.js", "go:['space / tap','espace / touche']", "go:['','']")
+# pages en cadre : feuille commune de la borne (borne-frames.css)
+for n in ("reporhogo.html", "tor.html"):
+    t = rd(n)
+    if "borne-frames.css" not in t:
+        wr(n, t.replace("</head>", '<link rel="stylesheet" href="borne-frames.css">\n</head>', 1))
+cap("reporhogo.html", ' placeholder="Comma-separated URLs appear here."', '')
+# SkopoRhogo : Échap désélectionne d'abord le Mask, sans quitter le programme
+k2 = rd("skoporhogo-borne.html")
+k2 = k2.replace("if(e.key==='Escape'&&selected>=0) select(selected);", "if(e.key==='Escape'&&selected>=0){ e.preventDefault(); select(selected); }")
+wr("skoporhogo-borne.html", k2)
 # FotoFauna : le logo déclenche, caméra avant ou arrière, pile et pellicule (borne-fotofauna.js, borne-fotofauna.css)
 cap("fotofauna.html", 'getUserMedia({video:{facingMode:"user",width:{ideal:1280}},audio:false})', 'getUserMedia({video:{facingMode:(window.__ffFacing||"user"),width:{ideal:1280}},audio:false})')
 cap("fotofauna.html", "let img=vframe(src,!!CAM,VSIDE);", "let img=vframe(src,!!CAM&&window.__ffMirror!==false,VSIDE);")

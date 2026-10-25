@@ -359,3 +359,25 @@ html.borne[data-prog][data-big=tate]{--gw:min(calc(100vw - 80px),calc((100dvh - 
 @media (max-width:700px){
   html.borne[data-prog],html.borne[data-prog][data-mode=device],html.borne[data-prog][data-big=tate]{--gw:calc(100vw - 36px) !important;--gh:calc(100dvh - 96px) !important}
 }
+
+/* ---------- programmes : cibles de 44 px, textes lisibles, rien de coupé ---------- */
+html.borne #bb-panel{overflow-y:auto!important}
+html.borne .bb-step{min-height:34px}
+html.borne #bb-panel button,html.borne #mm-panel button,html.borne #c4-panel button,html.borne #hang-panel button{min-height:44px}
+html.borne #mm-board .mm-legend,html.borne #mm-board em{display:none!important}
+html.borne #mm-panel>#mm-levels{order:0}html.borne #mm-panel>#mm-status{order:1}html.borne #mm-panel>#mm-palette{order:2}html.borne #mm-panel>#mm-actions{order:3}html.borne #mm-panel>#mm-board{order:4}html.borne #mm-panel>.kb-foot{order:5}
+html.borne #mm-palette .mm-peg{width:44px;height:44px}
+html.borne .hang-key{min-height:44px;min-width:28px}
+html.borne .ch-sel-btn{min-height:44px}
+html.borne #ch-kerema-btn{min-height:44px;font-size:12px}
+html.borne #chess-status,html.borne #cp-w,html.borne #cp-b{font-size:12px!important}
+html.borne .kk-card-l,html.borne .bl,html.borne #kk-counter{font-size:11px!important}
+html.borne .kk-redeal,html.borne .kk-hand,html.borne #kk-add-btn,html.borne .kk-fork-btn{min-height:44px}
+html.borne #run{min-height:44px;font-size:12px!important;padding:0 18px}
+html.borne #pick{font-size:12px!important}
+html.borne .over.kapc .btn{min-height:48px;min-width:104px;font-size:15px}
+/* VHS : le pupitre reste en haut de sa colonne ; les morceaux tiennent dans la colonne */
+html.borne .vhs-transport{position:sticky;top:0;z-index:6;background:inherit}
+html.borne .vhs-tracklist{overflow-x:hidden}
+html.borne .vhs-tracklist>*{max-width:100%;box-sizing:border-box;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-height:40px}
+html.borne .vhs-key,html.borne .vhs-tv-key,html.borne .vhs-tab{min-height:44px;min-width:44px}

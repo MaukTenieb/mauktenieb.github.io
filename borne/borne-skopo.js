@@ -31,8 +31,9 @@
       var zm=document.getElementById('zoom');if(zm)document.body.appendChild(zm);
       var cd=document.getElementById('card');if(cd)document.body.appendChild(cd);
       var op=document.createElement('button');op.className='b-open';op.type='button';op.textContent='⤢';op.setAttribute('aria-label','SkopoRhogo');
-      op.onclick=function(){try{parent.postMessage({borne:'open'},'*');}catch(_){}};document.body.appendChild(op);
-      pinch(R);}
+      op.onclick=function(){try{parent.postMessage({borne:'open'},'*');}catch(_){}};document.body.appendChild(op);}
+    pinch(R);
+    if(!attract){var st2=document.createElement('style');st2.textContent='header button,aside button,#zoom button{min-height:44px;min-width:44px}';document.head.appendChild(st2);}
     cover();addEventListener('resize',function(){setTimeout(cover,0);});setTimeout(cover,300);setTimeout(cover,1500);}
   /* pincement à deux doigts : la loupe suit les doigts */
   function pinch(R){var v=document.getElementById('view'),P={},d0=0;if(!v||!R.zoomAt)return;

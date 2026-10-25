@@ -133,7 +133,9 @@
       clearTimeout(morphT);morphT=setTimeout(function(){scr.classList.remove('b-morph');},1000);}
     root.dataset.habit=h;root.dataset.mode=mode;if(h==='repos')delete root.dataset.prog;else{root.dataset.prog='1';[60,700].forEach(function(t){setTimeout(function(){scrollTo({top:0,behavior:t>100?'smooth':'auto'});},t);});}hab.classList.remove('tilt');hab.textContent=LABEL[h]||'';
     [120,500,800,1100].forEach(function(t){setTimeout(relayout,t);});
-    if(h==='repos')wake();else sleep();}
+    if(h==='repos'){wake();camsOff();}else sleep();}
+  /* la caméra s'éteint dès que FotoFauna quitte l'écran */
+  function camsOff(){[].forEach.call(document.querySelectorAll('iframe'),function(f){try{var w=f.contentWindow;if(w&&typeof w.stopCam==='function')w.stopCam();}catch(e){}});}
   function mark(k){[cabs,subG].forEach(function(r){if(r)r.querySelectorAll('.cab').forEach(function(c){var b=c.querySelector('[data-go]');c.classList.toggle('on-air',!!b&&b.dataset.go===k);});});}
   /* les grands jeux agrandissent l'écran à la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale, comme les bornes de 1978 */
   function bigOf(k){if(k==='katabatik'){var d=document.querySelector('.cab.dice b'),f=d?DICE.indexOf(d.dataset.d):-1;return f===4?'tate':f===1?'wide':'';}
@@ -244,10 +246,25 @@
     var open=function(id){var x=$(id);return x&&x.classList.contains('open');};if(open('chess')||open('mem'))return;
     if(document.body.className.indexOf('on-home')>=0){fold();return;}e.preventDefault();bb.click();}
   addEventListener('keydown',escHome);
-  function hookFrame(f){if(f.__esc)return;f.__esc=1;var on=function(){try{f.contentWindow.addEventListener('keydown',function(e){if(e.key==='Escape')setTimeout(function(){escHome(e);},0);});}catch(x){}};
+  function hookFrame(f){if(f.__esc)return;f.__esc=1;var on=function(){try{var w=f.contentWindow,d=w.document;w.addEventListener('keydown',function(e){if(e.key==='Escape')setTimeout(function(){escHome(e);},0);});
+      [].forEach.call(d.querySelectorAll('iframe'),hookFrame);new MutationObserver(function(){[].forEach.call(d.querySelectorAll('iframe'),hookFrame);}).observe(d.documentElement,{childList:true,subtree:true});
+      if(/3615/.test(w.location.pathname)&&!d.getElementById('b-3615')){var st=d.createElement('style');st.id='b-3615';st.textContent='#lg{display:none!important}';(d.head||d.documentElement).appendChild(st);}}catch(x){}};
     f.addEventListener('load',on);on();}
   new MutationObserver(function(){[].forEach.call(glass.querySelectorAll('iframe'),hookFrame);}).observe(glass,{childList:true,subtree:true});
   [].forEach.call(glass.querySelectorAll('iframe'),hookFrame);
+
+  /* ---------- le clavier vaut les gestes dans les mini-jeux : flèches et Entrée pour Konnect4, chiffres, ⌫ et Entrée pour Mastermind, Espace pour le Sampler ---------- */
+  var shown=function(id){var x=$(id);return x&&x.style.display&&x.style.display!=='none';};
+  addEventListener('keydown',function(e){if(/INPUT|TEXTAREA/.test((e.target&&e.target.tagName)||''))return;var K=window.__c4k;
+    if(shown('c4-panel')&&K){var h=K.s.hover>=0?K.s.hover:3;
+      if(e.key==='ArrowLeft'||e.key==='ArrowRight'){K.s.hover=Math.max(0,Math.min(K.n-1,h+(e.key==='ArrowLeft'?-1:1)));K.r();e.preventDefault();}
+      else if(e.key==='Enter'||e.key===' '||e.key==='ArrowDown'){K.d(h);e.preventDefault();}return;}
+    if(shown('mm-panel')){if(/^[1-9]$/.test(e.key)&&window.mmPick){var pal=document.querySelectorAll('#mm-palette .mm-peg'),n=+e.key-1;if(n<pal.length){pal[n].click();e.preventDefault();}}
+      else if(e.key==='Backspace'&&window.mmPop){mmPop();e.preventDefault();}else if(e.key==='Enter'&&window.mmSubmit){mmSubmit();e.preventDefault();}return;}
+    if(shown('bb-panel')&&e.key===' '&&window.bbTogglePlay){bbTogglePlay();e.preventDefault();}},true);
+  /* Fauna Chess : le toucher qui choisit le niveau ne joue pas en même temps un coup sur la case dessous */
+  document.addEventListener('touchend',function(e){if(e.target.closest&&e.target.closest('.ch-sel-btn'))window.__chSelT=Date.now();},true);
+  document.addEventListener('touchend',function(e){if(Date.now()-(window.__chSelT||0)<450&&e.target.closest&&e.target.closest('#chess-board, .ch-board, [id^=chess] .sq')&&!e.target.closest('.ch-sel-btn')){e.stopImmediatePropagation();e.preventDefault();}},true);
 
   /* ---------- Motel Sound joue dès l'arrivée, haut-parleur coupé ; la cloche barrée le rallume ---------- */
   var bell=el('button','b-bell','🔕');bell.type='button';bell.setAttribute('aria-label','Motel Sound : son coupé');bell.setAttribute('aria-pressed','false');

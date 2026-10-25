@@ -14,7 +14,7 @@ html,body{margin:0;height:100%}
 body{display:flex;flex-direction:column;background:var(--paper);background-image:radial-gradient(rgba(120,90,40,.06) 1px,transparent 1.4px);background-size:5px 5px;color:var(--ink);font-family:'IM Fell English',Georgia,serif}
 button,input,select{font:inherit}
 .tabs{flex:none;display:flex;gap:4px;padding:6px 8px 0;background:linear-gradient(180deg,#1c120a,#2b1c10);overflow-x:auto}
-.tabs button{flex:none;border:0;border-radius:6px 6px 0 0;padding:8px 12px;cursor:pointer;background:#4a2f1c;color:#e9d9b4;font-family:'IM Fell English SC',serif;font-size:15px}
+.tabs button{flex:none;min-height:44px;border:0;border-radius:6px 6px 0 0;padding:8px 12px;cursor:pointer;background:#4a2f1c;color:#e9d9b4;font-family:'IM Fell English SC',serif;font-size:15px}
 .tabs button[aria-selected=true]{background:var(--paper);color:var(--ink)}
 .tabs .eye{margin-right:auto;padding:8px 10px 8px 4px;color:var(--brass1);font:20px 'IM Fell English SC',serif;letter-spacing:.06em;display:flex;align-items:center;gap:8px}
 .tabs .eye svg{width:26px;height:18px}
@@ -54,9 +54,9 @@ button,input,select{font:inherit}
 .type .g{display:flex;gap:6px;align-items:center}
 .type button{height:44px;min-width:44px;padding:0 12px;border:1px solid #6b4a20;border-radius:22px;background:#3a2416;color:#f0d58c;font-size:18px;cursor:pointer}
 .type button[aria-pressed=true]{background:var(--brass2);color:#2b1c08;border-color:var(--brass1)}
-.type .th{width:36px;min-width:36px;height:36px;padding:0;border-radius:50%}
+.type .th{width:44px;min-width:44px;height:44px;padding:0;border-radius:50%}
 .type output{min-width:38px;text-align:center;color:#f0d58c;font:15px Georgia,serif}
-#sl{flex:1 1 160px;max-width:420px;accent-color:var(--brass2)}
+#sl{flex:1 1 160px;max-width:420px;height:44px;accent-color:var(--brass2)}
 body[data-th=sepia]{--paper:#f1e3c2;--ink:#3b2a14}
 body[data-th=nuit]{--paper:#17120c;--ink:#e6dcc6;--dim:#a8977a;background-image:none}
 body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b878}body[data-th=nuit] .hit,body[data-th=nuit] .row input,body[data-th=nuit] .row select{background:#241b12;color:var(--ink)}
@@ -71,7 +71,7 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
 .bar{flex:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;padding:8px;background:linear-gradient(180deg,#4a2f1c,#2a1a0e);border-top:3px solid var(--brass2)}
 .bar output{min-width:100px;text-align:center;color:#f0d58c;font:15px 'IM Fell English',serif}
 .wait{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:italic;color:#7a5a2a;pointer-events:none;text-align:center;padding:20px}
-.drop{border:2px dashed #b9a77f;border-radius:6px;padding:16px;text-align:center;color:var(--dim)}
+.drop{display:block;border:2px dashed #b9a77f;border-radius:6px;padding:10px 16px;text-align:center;color:var(--dim);font-size:34px;line-height:1;cursor:pointer}
 .drop.over{background:#f6f0e2;border-color:var(--brass2)}
 @media (max-width:640px){.view{flex-direction:column;padding:8px}.side{flex:none;flex-direction:row;flex-wrap:wrap;gap:4px 10px;align-items:baseline}.side .src{margin:0;width:100%}.tabs .eye span{display:none}}
 </style>
@@ -121,12 +121,12 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
    Rien n'est stocké sur le site : chaque page vient de sa source au fil de la lecture ; les fichiers restent dans le navigateur. */
 (function(){
   var L=(function(){try{return localStorage.getItem('ik.lang')==='fr'?'fr':'en';}catch(e){return 'en';}})();
-  var T={fr:{stock:'En stock',file:'Fichiers',drop:'Glissez un PDF, un EPUB, des images, un CBZ ou un texte — ou touchez ici.',p:'page',w:'Page en chemin…',
-      src:'Source : ',full:'ouvrir à la source',zoom:'Loupe',txt:'Texte',fac:'Fac-similé',none:'Aucun résultat.',err:'Source injoignable depuis ce navigateur.',
-      ia:'Livres numérisés : titre, auteur, sujet.',gb:'Livres en lecture libre chez Google.',load:'Chargement…',ext:'La source refuse la lecture dans une autre page : '},
-    en:{stock:'In stock',file:'Files',drop:'Drop a PDF, an EPUB, images, a CBZ or a text — or tap here.',p:'page',w:'Page on its way…',
-      src:'Source: ',full:'open at the source',zoom:'Loupe',txt:'Text',fac:'Facsimile',none:'Nothing found.',err:'Source out of reach from this browser.',
-      ia:'Scanned books: title, author, subject.',gb:'Free-to-read books at Google.',load:'Loading…',ext:'The source refuses reading inside another page: '}}[L];
+  var T={fr:{stock:'En stock',file:'Fichiers',drop:'⇪',p:'page',w:'Page en chemin…',
+      src:'Source : ',full:'ouvrir à la source',zoom:'Loupe',txt:'Texte',fac:'Fac-similé',none:'∅',err:'∅',
+      ia:'',gb:'',load:'Chargement…',ext:'∅ '},
+    en:{stock:'In stock',file:'Files',drop:'⇪',p:'page',w:'Page on its way…',
+      src:'Source: ',full:'open at the source',zoom:'Loupe',txt:'Text',fac:'Facsimile',none:'∅',err:'∅',
+      ia:'',gb:'',load:'Loading…',ext:'∅ '}}[L];
   document.documentElement.lang=L;
   var $=function(i){return document.getElementById(i);},stage=$('stage'),wait=$('wait'),cur=null,saved={};
   try{saved=JSON.parse(localStorage.getItem('borne.fauneye')||'{}')||{};}catch(e){}
@@ -145,7 +145,7 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
   function side(au,ti,ed,src,href){$('au').textContent=au||'';$('ti').textContent=ti||'';$('ed').textContent=ed||'';
     $('src').innerHTML=src?(T.src+(href?'<a href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(src)+'</a>':esc(src))):'';}
   function clear(){[].slice.call(stage.children).forEach(function(c){if(c!==wait&&c!==lens)c.remove();});wait.textContent='';$('mode').hidden=true;cur=null;tools();}
-  function num(){$('num').textContent=cur&&cur.n?(cur.i+1)+' / '+cur.n:'';var sl=$('sl');sl.hidden=!(cur&&cur.n>1);if(cur&&cur.n){sl.max=cur.n;sl.value=cur.i+1;}markThumb();}
+  function num(){$('num').textContent=cur&&cur.n?(cur.i+1)+' / '+cur.n:cur&&cur.art?Math.round(100*cur.art.scrollTop/Math.max(1,cur.art.scrollHeight-cur.art.clientHeight))+' %':'';var sl=$('sl');sl.hidden=!(cur&&cur.n>1);if(cur&&cur.n){sl.max=cur.n;sl.value=cur.i+1;}markThumb();}
   function node(){var c=stage.firstElementChild;while(c&&(c===wait||c===lens))c=c.nextElementSibling;return c&&(c.tagName==='IMG'||c.tagName==='CANVAS')?c:null;}
 
   /* le zoom des pages : pincement à deux doigts, molette (pincement du pavé tactile), double appui ; glisser déplace la page agrandie */
@@ -168,7 +168,7 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
   function openArticle(html,o){clear();var a=document.createElement('article');a.innerHTML=html;stage.insertBefore(a,wait);
     cur={key:o.key,n:0,i:0,art:a,au:o.au,ti:o.ti};side(o.au,o.ti,o.ed,o.srcName,o.href);num();tools();
     try{var y=saved[o.key];if(y)setTimeout(function(){a.scrollTop=y;},60);}catch(e){}
-    a.addEventListener('scroll',function(){saved[o.key]=a.scrollTop;try{localStorage.setItem('borne.fauneye',JSON.stringify(saved));}catch(e){}});
+    a.addEventListener('scroll',function(){num();saved[o.key]=a.scrollTop;try{localStorage.setItem('borne.fauneye',JSON.stringify(saved));}catch(e){}});
     if(o.back){$('mode').hidden=false;$('mode').textContent=T.fac;$('mode').onclick=function(){openPages(o.back);};}}
   function openText(p,o){wait.textContent=T.load;Promise.resolve(p).then(function(t){openArticle('<pre style="white-space:pre-wrap">'+esc(t)+'</pre>',{key:o.key+'#t',au:o.au,ti:o.ti,ed:o.ed,srcName:o.srcName,href:o.href,back:o});})
     .catch(function(){wait.textContent=T.err;});}
@@ -179,7 +179,7 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
   $('prev').onclick=function(){step(-1);};$('next').onclick=function(){step(1);};
   $('sl').oninput=function(){if(cur&&cur.n)$('num').textContent=this.value+' / '+cur.n;};$('sl').onchange=function(){go(this.value-1);};
   addEventListener('keydown',function(e){if(/INPUT|SELECT/.test(e.target.tagName)&&e.target.id!=='sl')return;
-    if(e.key==='ArrowLeft'||e.key==='PageUp')step(-1);else if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')step(1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')step(-1);else if(e.key==='ArrowRight'||e.key==='PageDown')step(1);
     else if(e.key==='+'||e.key==='=')grow(1);else if(e.key==='-')grow(-1);else if(e.key==='Escape'){var busy=$('d-pages').classList.contains('on')||$('d-type').classList.contains('on')||loupe;drawer(null);setLoupe(false);if(busy)e.preventDefault();}});
   function grow(d){if(cur&&cur.page){var r=stage.getBoundingClientRect();zoomAt(d>0?1.4:1/1.4,r.left+r.width/2,r.top+r.height/2);}else if(cur&&(cur.art||cur.rend))setType({s:TS.s+d});}
 
@@ -189,7 +189,7 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
   stage.addEventListener('pointerdown',function(e){var art=cur&&cur.art;if(!(cur&&cur.page)&&!art)return;P[e.pointerId]=[e.clientX,e.clientY];var n=Object.keys(P).length;
     if(n===2){var q=dist();d0=q[0];m0=[q[1],q[2]];clearTimeout(lpT);lensOff();}
     else if(n===1&&!art){g0=[e.clientX,e.clientY,Z.x,Z.y];try{stage.setPointerCapture(e.pointerId);}catch(_){}
-      if(e.pointerType!=='mouse'){lpT=setTimeout(function(){lensHold=true;lensAt(e.clientX,e.clientY,true);},420);}}});
+      lpT=setTimeout(function(){lensHold=true;lensAt(e.clientX,e.clientY,e.pointerType!=='mouse');},420);}});
   stage.addEventListener('pointermove',function(e){if(!P[e.pointerId]){if(loupe&&e.pointerType==='mouse')lensAt(e.clientX,e.clientY,false);return;}
     P[e.pointerId]=[e.clientX,e.clientY];var n=Object.keys(P).length;
     if(n===2&&d0){var q=dist();if(cur.art){setType({s:TS.s*q[0]/d0});d0=q[0];return;}
@@ -210,9 +210,10 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
   stage.addEventListener('wheel',function(e){if(!cur)return;
     if(cur.art){if(e.ctrlKey){e.preventDefault();setType({s:TS.s*Math.exp(-e.deltaY*.01)});}return;}
     if(!cur.page)return;e.preventDefault();
-    if(e.ctrlKey){zoomAt(Math.exp(-e.deltaY*.006),e.clientX,e.clientY);return;}
-    if(Z.s>1){Z.x-=e.deltaX;Z.y-=e.deltaY;apply();return;}
-    wAcc+=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;var t=Date.now();if(Math.abs(wAcc)>60&&t-wT>350){step(wAcc>0?1:-1);wAcc=0;wT=t;}},{passive:false});
+    var hz=Math.abs(e.deltaX)>Math.abs(e.deltaY)||e.shiftKey;
+    if(!hz){zoomAt(Math.exp(-e.deltaY*(e.ctrlKey?.01:.0025)),e.clientX,e.clientY);return;}
+    if(Z.s>1){Z.x-=e.deltaX||e.deltaY;apply();return;}
+    wAcc+=e.deltaX||e.deltaY;var t=Date.now();if(Math.abs(wAcc)>60&&t-wT>350){step(wAcc>0?1:-1);wAcc=0;wT=t;}},{passive:false});
   addEventListener('resize',function(){apply();});
 
   /* la loupe : bouton ◎ (elle suit la souris), ou appui long au doigt (elle se place au-dessus du doigt) */
@@ -320,7 +321,7 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
   var JSZIP='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
       PDFW='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',EPUBJS='https://cdnjs.cloudflare.com/ajax/libs/epub.js/0.3.93/epub.min.js';
   function imgPages(urls,name){openPages({key:'f:'+name,n:urls.length,ti:name,srcName:T.file,page:function(i){var im=new Image();im.alt=name+', '+T.p+' '+(i+1);im.src=urls[i];return im;},thumb:function(i){var im=new Image();im.alt='';im.src=urls[i];return im;}});}
-  function openFiles(fs){fs=[].slice.call(fs);if(!fs.length)return;var f=fs[0],n=f.name.toLowerCase();wait.textContent=T.load;
+  function openFiles(fs){fs=[].slice.call(fs);if(!fs.length)return;$('p-file').classList.remove('on');var f=fs[0],n=f.name.toLowerCase();wait.textContent=T.load;
     if(fs.every(function(x){return /^image\//.test(x.type);})){fs.sort(function(a,b){return a.name.localeCompare(b.name,undefined,{numeric:true});});return imgPages(fs.map(function(x){return URL.createObjectURL(x);}),fs.length>1?fs[0].name+' …':f.name);}
     if(/\.pdf$/.test(n))return scr(PDFJS).then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc=PDFW;return f.arrayBuffer();}).then(function(b){return pdfjsLib.getDocument({data:b}).promise;}).then(function(doc){
       openPages({key:'f:'+f.name,n:doc.numPages,ti:f.name,srcName:T.file,page:function(i,z){return doc.getPage(i+1).then(function(p){var vp=p.getViewport({scale:1}),k=Math.min(3,(z?2400:1400)/vp.width),v=p.getViewport({scale:k});

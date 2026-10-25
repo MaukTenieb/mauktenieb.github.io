@@ -1085,8 +1085,8 @@ function buildLobby(){roomLoad();const lb=$('lobby');lb.querySelectorAll('.spot'
     Object.assign(b.style,{left:x0/12+'%',top:y0/8.96+'%',width:(x1-x0)/12+'%',height:(y1-y0)/8.96+'%'});
     const tg=document.createElement('span');tg.className='tag';tg.textContent=r.name;b.appendChild(tg);
     const say=()=>{$('tally').textContent='N° '+String(r.n).padStart(2,'0')+' · '+r.name.toUpperCase()+(beaten.includes(r.id)?' ✓':'');$('tally').style.color=r.glow;};b.onmouseenter=say;b.onfocus=say;b.onmouseleave=()=>{$('tally').style.color='';$('tally').textContent=beaten.length?`${tr('beaten')} ${beaten.length} / ${R.length}`:'';};
-    b.onpointerdown=e=>{b._touch=e.pointerType==='touch';};
-    b.onclick=()=>{if(b._touch&&!b.classList.contains('armed')){lb.querySelectorAll('.spot.armed').forEach(x=>x.classList.remove('armed'));b.classList.add('armed');say();return;}pickGuest(i);};lb.appendChild(b);}
+    b.onpointerdown=e=>{b._touch=e.pointerType==='touch';say();};
+    b.onclick=()=>{pickGuest(i);};lb.appendChild(b);}
   $('tally').textContent=beaten.length?`${tr('beaten')} ${beaten.length} / ${R.length}`:'';}
 
 /* ---------- the motel room (static) ---------- */
@@ -1757,9 +1757,9 @@ function boom(cb){if(window.__borneBoom)return window.__borneBoom(cb);ac();burst
 $('kapture').onclick=()=>kapChoose();
 /* KAPTURE: SKREEN takes the screen as it is, KAM opens the camera; either picture goes straight into FotoFauna */
 function kapChoose(){if(document.querySelector('.over.kapc'))return;const m=document.createElement('div');m.className='over kapc';m.style.position='fixed';m.style.zIndex='60';
-  m.innerHTML=`<p style="font-size:12px;letter-spacing:.2em;color:#ece4d2">KAPTURE</p><div class="row"><button class="btn hot" type="button">SKREEN</button><button class="btn hot" type="button">KAM</button><button class="btn" type="button" aria-label="${tr('no')}">✕</button></div>`;
+  m.innerHTML=`<p style="font-size:12px;letter-spacing:.2em;color:#ece4d2">KAPTURE</p><div class="row"><button class="btn hot" type="button">SKREEN</button><button class="btn hot" type="button">KAM</button></div>`;
   document.body.appendChild(m);const[a,b,c]=m.querySelectorAll('button');
-  a.onclick=()=>{m.remove();skreen();};b.onclick=()=>{m.remove();openGame('kapture','KAPTURE');};c.onclick=()=>m.remove();a.focus();}
+  a.onclick=()=>{m.remove();skreen();};b.onclick=()=>{m.remove();openGame('kapture','KAPTURE');};const esc=e=>{if(e.key==='Escape'&&document.body.contains(m)){e.stopImmediatePropagation();e.preventDefault();m.remove();removeEventListener('keydown',esc,true);}};addEventListener('keydown',esc,true);m.addEventListener('click',e=>{if(e.target===m)m.remove();});a.focus();}
 /* the picture travels to FotoFauna as a file, and FotoFauna opens on it */
 window.ikToFotoFauna=function(blob,how){photoLang();openCalque('fotofauna.html','FotoFauna',w=>{const go=()=>{if(typeof w.__ikImport==='function')w.__ikImport(blob,how);else setTimeout(go,150);};go();},true);};
 /* SKREEN: on a computer, the browser shares this very tab (one consent, the exact picture of the page);
@@ -1820,7 +1820,7 @@ document.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',(
 /* ---- touch screens: the table goes full screen, in landscape, when the match starts ---- */
 const touchDev=matchMedia('(pointer:coarse)').matches;
 function exitFs(){try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}}
-$('cv').addEventListener('pointerdown',e=>{if(e.pointerType!=='touch'||document.fullscreenElement)return;const st=$('stage');try{const p=st.requestFullscreen?st.requestFullscreen({navigationUI:'hide'}):null;if(p&&p.then)p.then(()=>{try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{});}catch(e){}}).catch(()=>{});}catch(e){}},true);
+$('cv').addEventListener('pointerdown',e=>{if(e.pointerType!=='touch'||document.fullscreenElement||document.documentElement.classList.contains('borne'))return;const st=$('stage');try{const p=st.requestFullscreen?st.requestFullscreen({navigationUI:'hide'}):null;if(p&&p.then)p.then(()=>{try{screen.orientation&&screen.orientation.lock&&screen.orientation.lock('landscape').catch(()=>{});}catch(e){}}).catch(()=>{});}catch(e){}},true);
 /* ---- the lobby: each Fauna lights up in their colour; on arrival they light up one after another ---- */
 function lobbyHint(){const sp=[...document.querySelectorAll('#lobby .spot')];sp.forEach((b,i)=>setTimeout(()=>{b.classList.add('hint');setTimeout(()=>b.classList.remove('hint'),520);},120+i*70));}
 

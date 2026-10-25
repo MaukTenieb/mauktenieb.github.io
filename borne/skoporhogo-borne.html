@@ -1149,7 +1149,7 @@ addEventListener('keydown',e=>{
   if(e.target.tagName==='INPUT') return;
   if(e.code==='Space'){ e.preventDefault(); setSpeed(speedI===0?1:0); }
   const n=parseInt(e.key,10); if(n>=1&&n<=4) setSpeed(n);
-  if(e.key==='Escape'&&selected>=0) select(selected);
+  if(e.key==='Escape'&&selected>=0){ e.preventDefault(); select(selected); }
   if(e.key==='+'||e.key==='=') zoomAt(1.4,0,0); if(e.key==='-') zoomAt(1/1.4,0,0);
 });
 

@@ -585,7 +585,7 @@ function c4Init(){
   var canvas=document.getElementById('c4-canvas');
   if(!canvas) return;
   var COLS=7,ROWS=6;
-  var W=Math.min(window.innerWidth-32,440);
+  var _hr=document.getElementById('kg-root'),W=Math.max(196,Math.min(((_hr&&_hr.clientWidth)||window.innerWidth)-32,((_hr&&_hr.clientHeight)||window.innerHeight)-150,560));
   var CW=Math.floor(W/COLS);
   var H=CW*(ROWS+1);
   canvas.width=W; canvas.height=H;
@@ -711,7 +711,7 @@ function c4Init(){
       ctx.font=Math.round(CW*0.26)+'px "DM Mono",monospace';
       ctx.fillStyle='rgba(201,168,76,.55)';
       var _li=state.hover>=0?(state.hover<2?0:(state.hover<5?1:2)):state.levelIndex;
-      ctx.fillText(ln(state.levelNames[_li]),W/2,CW*0.78);
+      [CW,CW*3.5,CW*6].forEach(function(x,j){ctx.fillStyle=j===_li?'rgba(255,224,138,.95)':'rgba(201,168,76,.4)';ctx.fillText(ln(state.levelNames[j]),x,CW*0.82);});
       ctx.textAlign='left';
     }
 
@@ -739,6 +739,7 @@ function c4Init(){
     ctx.textAlign='left';
   }
 
+  window.__c4k={s:state,d:function(c){drop(c);},r:function(){draw();},n:COLS};
   function drop(col){
     if(state.over||state.turn!==1) return;
     // Level strip: the top area picks the difficulty until the game starts.
@@ -1401,7 +1402,7 @@ document.addEventListener('keydown',function(e){var p=document.getElementById('h
      dans le code : ?fi=classic dans l'adresse, ou localStorage ik.fi = classic, les rétablit. */
   var KAR=(function(){try{if(/[?&]fi=classic\b/.test(location.search))return false;return localStorage.getItem('ik.fi')!=='classic';}catch(e){return true;}})();
   function fr(){try{return localStorage.getItem('ik.lang')==='fr';}catch(e){return false;}}
-  function T(k){var t={wave:['WAVE','VAGUE'],best:['BEST','RECORD'],over:['GAME OVER','FIN DE PARTIE'],go:['space / tap','espace / touche']}[k];return t[fr()?1:0];}
+  function T(k){var t={wave:['WAVE','VAGUE'],best:['BEST','RECORD'],over:['GAME OVER','FIN DE PARTIE'],go:['','']}[k];return t[fr()?1:0];}
   function fxOn(){return !window.__ikFx||window.__ikFx.on();}
   function au(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(AC&&AC.state==='suspended'&&fxOn())try{AC.resume();}catch(e){}}
   function tone(f1,f2,d,type,v){if(!AC||!fxOn())return;var t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type=type||'square';o.connect(g);g.connect(AC.destination);
