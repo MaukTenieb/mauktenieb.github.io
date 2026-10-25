@@ -103,7 +103,7 @@
   var door=el('div','b-door'),slot=el('button','b-slot','<b><em>INSERT</em> <u>KOIN</u></b><i></i>');slot.type='button';slot.setAttribute('aria-label','Insert Koin · 3615 KOINS');
   var knobs=el('div','b-knobs');door.appendChild(slot);door.appendChild(knobs);
   /* le bouton SKIN : le meuble en bois, en métal, ou en jeu électromécanique des années 1960 */
-  var SKINS=['bois','metal','1960'],skin=null;try{skin=localStorage.getItem('borne.skin');}catch(e){}
+  var SKINS=['bois','metal','1960'],skin=null;/* un skin tiré au hasard à chaque arrivée ; le bouton SKIN change ensuite */
   /* première visite : un skin au hasard ; ensuite, celui que le visiteur a choisi */
   if(SKINS.indexOf(skin)<0)skin=SKINS[Math.floor(Math.random()*SKINS.length)];root.dataset.skin=skin;
   /* variantes du skin 1960, tirées à chaque visite et à chaque retour sur ce skin : enseigne, cadre, panneau, porte */
@@ -364,6 +364,16 @@
   land.dataset.grp='visit';badge.dataset.grp='bio';
   window.__borneFirst=function(){var a=[land,badge];if(Math.random()<.5)a.reverse();return a;};
   window.__borneScreen=function(){return {left:0,top:0,right:innerWidth,bottom:innerHeight,width:innerWidth,height:innerHeight};};
+
+  /* l'autocollant Lore, collé au hasard : au coin du cadre, ou sur la caisse à pièces, de travers */
+  (function(){if(Math.random()<.5)return;var slot=document.querySelector('.b-slot');if(!slot)return;
+    lore.addEventListener('click',function(e){e.stopPropagation();});
+    function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var S=slot.getBoundingClientRect(),avoid=[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).map(function(x){return x.getBoundingClientRect();});
+      var C=[[3,4],[58,4],[3,64],[58,64],[30,4],[30,68]].sort(function(){return Math.random()-.5;}),w=84,h=38;
+      for(var k=0;k<C.length;k++){var L=S.left+S.width*C[k][0]/100,T=S.top+S.height*C[k][1]/100,ok=avoid.every(function(a){return L+w<a.left||L>a.right||T+h<a.top||T>a.bottom;});
+        if(ok){lore.classList.remove('b-stuck');lore.classList.add('b-onbox');lore.style.setProperty('--lx',C[k][0]+'%');lore.style.setProperty('--ly',C[k][1]+'%');
+          lore.style.setProperty('--lr',((Math.random()*2-1)*12).toFixed(1)+'deg');slot.appendChild(lore);return;}}}
+    setTimeout(place,500);})();
 
   dress('repos');
   /* la page d'origine reste voilée jusqu'ici : le visiteur voit la borne d'emblée */

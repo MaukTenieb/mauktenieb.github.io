@@ -931,3 +931,8 @@ html.borne.b-immersion .b-imm-x{display:grid;place-items:center;position:absolut
   background:rgba(0,0,0,.45);color:rgba(255,255,255,.7);font-size:16px;cursor:pointer;opacity:.35;transition:opacity .2s}
 html.borne.b-immersion .b-imm-x:hover{opacity:1}
 html.borne.b-immersion .b-edge,html.borne.b-immersion .b-attract{opacity:.25}
+
+/* ---------- Lore collé sur la caisse à pièces (une arrivée sur deux) ---------- */
+html.borne .b-slot .b-lore.b-onbox{position:absolute;left:var(--lx,20%);top:var(--ly,10%);z-index:6;width:84px!important;height:38px!important;font-size:.9rem!important;transform:rotate(var(--lr,-6deg));
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.55)) drop-shadow(1px 3px 4px rgba(0,0,0,.35))}
+html.borne .b-slot .b-lore.b-onbox:hover{transform:rotate(var(--lr,-6deg)) scale(1.06)}
