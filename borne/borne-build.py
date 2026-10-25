@@ -29,6 +29,7 @@ s = once(s, "    TQ=stops;\n", "    if(!(resume&&resume.length)&&window.__borneF
 s = once(s, "function bounds(){const b=home.getBoundingClientRect(),gw=parseFloat(g.style.getPropertyValue('--gw'))||60;return{", "function bounds(){const b=home.getBoundingClientRect(),gw=parseFloat(g.style.getPropertyValue('--gw'))||60;const S=window.__borneScreen&&window.__borneScreen();if(S)return{x0:S.left-b.left,x1:Math.max(S.left-b.left,S.right-b.left-gw),y0:S.top-b.top,y1:Math.max(S.top-b.top,S.bottom-b.top-H)};return{")
 s = once(s, "fl={vx:vx*k,vy:vy*k,t:performance.now()", "const s0=sp*k,an=sp<1?Math.random()*6.283:Math.atan2(vy,vx),S0=Math.max(window.__borneScreen?1500:0,s0);fl={vx:Math.cos(an)*S0,vy:Math.sin(an)*S0,t:performance.now()")
 s = once(s, "const f=Math.pow(.42,dt);fl.vx*=f;fl.vy*=f;", "const f=Math.pow(window.__borneScreen?.6:.42,dt);fl.vx*=f;fl.vy*=f;if(window.__borneScreen&&fl.hits<3){const v=Math.hypot(fl.vx,fl.vy)||1;if(v<700){fl.vx*=700/v;fl.vy*=700/v;}}")
+s = once(s, 'allow="autoplay; fullscreen; clipboard-write"', 'allow="autoplay; fullscreen; clipboard-write; microphone; camera"')
 s = once(s, "function go(k){ac();", "function go(k){if(window.__borneGo&&window.__borneGo(k))return;ac();")
 s = once(s, "function boom(cb){", "function boom(cb){if(window.__borneBoom)return window.__borneBoom(cb);")
 s = once(s, "function openGame(k,title){", "function openGame(k,title){window.__borneGame&&window.__borneGame(k);")

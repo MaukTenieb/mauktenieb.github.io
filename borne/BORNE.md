@@ -35,6 +35,7 @@ D'un programme à l'autre : un glissé depuis le bord de l'écran, ou un toucher
 - `borne-presence.js` : Online Applicants, une diode et un chiffre au pied de l'écran ; chaque visiteur s'annonce toutes les 20 s sous un numéro tiré au hasard, sur un canal MQTT public (trois relais) ; zéro nom, zéro cookie.
 - `borne-son.js` : les sons de la mécanique, synthétisés à la volée avec du hasard à chaque coup (touches, micro-contacts, ressort et butée de la manette, crans des molettes, Koin qui sonne et tombe, TILT de Baku Boom, blocs aimantés) ; la machine ronronne et s'échauffe quand on joue ; FX coupe tout.
 - Immersion (bouton au pied de l'écran) : l'écran seul en plein écran ; un glissé parti d'un bord change de programme ; ✕ ou Échap pour sortir. Le Minitel s'affiche plus lumineux ; la Kam de Kapture indique BAK ou FRONT.
+- `borne-diktat.html` : DiktatFaune (KorhoGame) ; 3, 5 ou 10 s au micro, choisi dans la liste quand il y en a plusieurs, demandé une fois par session ; hauteur et vitesse indépendantes, endroit ou envers ; SAVE en .wav au nom du calendrier républicain.
 - `borne-jeu.js` : chaque jeu agrandi et centré à la mesure de l'écran ; la manette choisit et enfonce les touches à l'accueil, envoie flèches et Espace dans les jeux ; son socle la déplace.
 - `borne-skopo.js` : SkopoRhogo à l'heure du visiteur.
 - `borne-fauneye.html` : BakuBook, le lecteur universel (stock de fac-similés, fichiers du visiteur, Internet Archive, Gutenberg, Wikisource, Google Books ; zoom, loupe, vignettes, typographie).
