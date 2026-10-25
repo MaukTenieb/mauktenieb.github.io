@@ -37,6 +37,9 @@ wr("index.html", s)
 
 k = rd("skoporhogo.html")
 k = once(k, "window.__room={step:stepSim,", "window.__room={SPEEDS,VIEW,applyView,zoomAt,step:stepSim,")
+# la marche des Masks à vitesse naturelle, l'horloge à la minute exacte (window.__walk, posé par borne-skopo.js)
+k = once(k, "a.mv.t+=a.speed*dt/a.mv.len; a.ph+=a.speed*dt*5.5;", "a.mv.t+=a.speed*dt*(window.__walk||1)/a.mv.len; a.ph+=a.speed*dt*(window.__walk||1)*5.5;")
+k = once(k, "stepL=a.speed*.8*dt;", "stepL=a.speed*.8*dt*(window.__walk||1);")
 k = once(k, "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">')
 i = k.rfind("</body>")
 k = k[:i] + '<script src="borne-skopo.js"></script>\n' + k[i:]

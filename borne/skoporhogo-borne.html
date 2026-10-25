@@ -866,7 +866,7 @@ function stepAgent(a,dt){
   switch(a.state){
     case 'idle': choose(a); break;
     case 'walk': {
-      if(a.mv){ a.mv.t+=a.speed*dt/a.mv.len; a.ph+=a.speed*dt*5.5;
+      if(a.mv){ a.mv.t+=a.speed*dt*(window.__walk||1)/a.mv.len; a.ph+=a.speed*dt*(window.__walk||1)*5.5;
         if(a.mv.t>=1){ const fi=I(a.mv.fx,a.mv.fz); if(occ[fi]===a.id) occ[fi]=-1; a.cx=a.mv.tx; a.cz=a.mv.tz; a.mv=null; if(!a.path.length) arrive(a); }
         break; }
       if(!a.path.length){ arrive(a); break; }
@@ -891,7 +891,7 @@ function stepAgent(a,dt){
         if(nb.length){ const [fx,fz]=nb[0]; occ[I(fx,fz)]=a.id; a.cx=fx; a.cz=fz; a.tr={pts:[{x:fx+.5,z:fz+.5}],i:0}; a.state='exit'; } }
       break; }
     case 'enter': case 'exit': {
-      const tr=a.tr, tp=tr.pts[tr.i], dx=tp.x-a.px, dz=tp.z-a.pz, dist=Math.hypot(dx,dz), stepL=a.speed*.8*dt;
+      const tr=a.tr, tp=tr.pts[tr.i], dx=tp.x-a.px, dz=tp.z-a.pz, dist=Math.hypot(dx,dz), stepL=a.speed*.8*dt*(window.__walk||1);
       if(dist>1e-4) a.tyaw=Math.atan2(dx,dz);
       if(dist<=stepL){ a.px=tp.x; a.pz=tp.z; tr.i++; a.ph+=dist*5.5;
         if(tr.i>=tr.pts.length){

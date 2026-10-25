@@ -1,6 +1,6 @@
-/* SkopoRhogo dans la borne : la chambre suit l'heure du visiteur (jour, nuit), et les Masks y vivent à vive allure.
+/* SkopoRhogo dans la borne : la chambre suit l'heure du visiteur, à la minute exacte.
    À l'ouverture, la journée a déjà eu lieu : la simulation rejoue les heures écoulées depuis le matin (la veille au soir, la nuit).
-   Ensuite, les Masks vont au pas normal du programme ; l'horloge reste calée sur l'heure réelle, à une demi-heure près.
+   Ensuite, l'emploi du temps suit l'horloge réelle ; la marche et les gestes vont à vitesse naturelle.
    ?attract=1 : l'écran de la borne au repos. Glisser déplace, molette et pincement zooment, les boutons − et ＋ aussi ;
    un appui sur un Mask ouvre sa fiche dans un coin ; ⤢ ouvre SkopoRhogo en grand. */
 (function(){
@@ -18,14 +18,15 @@
   /* minutes du jeu : jour 1 à 00:00 = 0 ; le jour courant est le jour 2 */
   function target(){return 1440+nowMin();}
   function catchUp(to){var R=window.__room;if(!R)return;var g=to-R.tMin;if(g<=0)return;g=Math.min(g,26*60);
-    while(g>0){var s=Math.min(g,.2);R.step(s);g-=s;}}
+    /* rattrapage : la marche reprend le pas du jeu le temps de rejouer les heures */
+    var w=window.__walk;window.__walk=1;while(g>0){var s=Math.min(g,.2);R.step(s);g-=s;}window.__walk=w;}
   function cover(){if(!attract)return;var v=document.getElementById('view');if(!v)return;var k=Math.max(innerWidth/800,innerHeight/500);
     v.style.setProperty('width',Math.ceil(800*k)+'px','important');v.style.setProperty('height',Math.ceil(500*k)+'px','important');}
   function init(){var R=window.__room;if(!R||!R.SPEEDS)return setTimeout(init,80);
     var m=nowMin();R.tMin=m>=390?1440+390:18*60;catchUp(target());
-    /* vif : le pas normal du programme ; l'horloge revient vers l'heure réelle dès qu'elle s'en écarte d'une demi-heure */
-    R.setSpeed(1);
-    setInterval(function(){var d=R.tMin-target();if(d>30)R.tMin=target()-15;else if(d<-30)catchUp(target());},5000);
+    /* l'horloge à la minute exacte ; la marche et les gestes à vitesse naturelle (×60 sur le temps du jeu) */
+    R.SPEEDS[1]=1/60;window.__walk=60;R.setSpeed(1);
+    setInterval(function(){var d=R.tMin-target();if(d>.5)R.tMin=target();else if(d<-.5)catchUp(target());},5000);
     if(attract){if(R.VIEW&&R.applyView){R.VIEW.z=1.25;R.applyView();}
       var zm=document.getElementById('zoom');if(zm)document.body.appendChild(zm);
       var cd=document.getElementById('card');if(cd)document.body.appendChild(cd);
@@ -41,6 +42,6 @@
       if(Math.abs(d/d0-1)>.04){R.zoomAt(d/d0,mx,my);d0=d;}});
     ['pointerup','pointercancel'].forEach(function(t){v.addEventListener(t,function(e){delete P[e.pointerId];if(Object.keys(P).length<2)d0=0;});});}
   addEventListener('message',function(e){var R=window.__room,d=e.data||{};if(!R||!d.borne)return;
-    if(d.borne==='sleep')R.setSpeed(0);else if(d.borne==='wake'){catchUp(target());R.setSpeed(1);}});
+    if(d.borne==='sleep')R.setSpeed(0);else if(d.borne==='wake'){catchUp(target());window.__walk=60;R.setSpeed(1);}});
   if(document.readyState==='complete')init();else addEventListener('load',init);
 })();
