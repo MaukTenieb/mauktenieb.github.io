@@ -32,8 +32,8 @@
   var badge=el('button','b-sticker b-badge','<b>MAUK</b><b>TENIEB</b>');badge.type='button';badge.setAttribute('aria-label','Mauk Tenieb');
   var menu=home.querySelector('.menu'),loreHref=((menu&&menu.querySelector('a[href*="substack"]'))||{}).href||'https://mauktenieb.substack.com';
   var lore=el('a','b-sticker b-lore','LORE');lore.href=loreHref;lore.target='_blank';lore.rel='noopener';
-  foot.appendChild(badge);if($('koins')){$('koins').classList.add('b-credit');foot.appendChild($('koins'));}foot.appendChild(lore);
-  bezel.appendChild(land);bezel.appendChild(scr);bezel.appendChild(foot);
+  if($('koins')){$('koins').classList.add('b-credit');foot.appendChild($('koins'));}lore.classList.add('b-stuck');
+  bezel.appendChild(land);bezel.appendChild(scr);bezel.appendChild(foot);bezel.appendChild(lore);
   home.insertBefore(bezel,home.firstChild);
 
   /* ---------- le panneau ---------- */
@@ -42,9 +42,10 @@
   var stick=el('div','b-stick','<i></i>');stick.setAttribute('aria-hidden','true');
   var keys=el('div','b-keys');if(cabs)keys.appendChild(cabs);keys.appendChild(sub);
   var bb=el('button','b-boom','<i></i><span>BAKU BOOM</span>');bb.type='button';bb.setAttribute('aria-label','Baku Boom');foot.appendChild(bb);
-  row1.appendChild(stick);row1.appendChild(keys);
+  row1.appendChild(keys);
   if(menu)row2.appendChild(menu);
-  panel.appendChild(row1);panel.appendChild(row2);panel.appendChild(store);
+  /* console : les boutons BC TL IG en rangée de départ, au-dessus ; la manette au milieu, deux touches de chaque côté ; la plaque du fabricant sur le bord avant */
+  panel.appendChild(row2);panel.appendChild(row1);var plate=el('div','b-plate');plate.appendChild(badge);panel.appendChild(plate);panel.appendChild(store);
 
   function cabOf(k){var b=document.querySelector('.cabinets [data-go="'+k+'"],.b-store [data-go="'+k+'"]');return b?b.closest('.cab'):null;}
   function tile(k,title,th,nc){var c=cabOf(k);if(c)return c;c=el('div','cab');c.style.cssText='--th:url('+th+');--nc:'+nc;
@@ -72,10 +73,10 @@
     var ORD=['chess','fi','puck','faunarratics','bb'],keyOf=function(c){var b=c.querySelector('[data-go],[data-kata]');return b.dataset.go||b.dataset.kata;};
     KG.els.sort(function(a,b){return ORD.indexOf(keyOf(a))-ORD.indexOf(keyOf(b));});
     /* le côté des mini-jeux : le dé, puis chaque mini-jeu sous sa face */
-    var die=el('button','b-die','<span>'+DICE[0]+'</span><b>KATABATIK</b>');die.type='button';die.setAttribute('aria-label','Katabatik');
+    var DIMG=['de-a.webp','de-b.webp','de-c.webp'],die=el('button','b-die','<img class="b-dimg" alt="" src="'+DIMG[0]+'"><span>'+DICE[0]+'</span><b>KATABATIK</b>');die.type='button';die.setAttribute('aria-label','Katabatik');
     KG.minis=[die].concat(MINIS.map(function(m){return ktile(m[0],m[1],m[2],m[3],m[4]);}));KG.minis.forEach(function(c){store.appendChild(c);});
     var rolling=false;die.onclick=function(){if(rolling)return;rolling=true;var n=0,N=9,pick=MINIS[Math.floor(Math.random()*MINIS.length)],f=pick[4],sp=die.querySelector('span');
-      var iv=setInterval(function(){var x=++n>=N?f:Math.floor(Math.random()*6);sp.textContent=DICE[x];sp.style.setProperty('--r',(n>=N?0:(Math.random()-.5)*90)+'deg');
+      var iv=setInterval(function(){var x=++n>=N?f:Math.floor(Math.random()*6);var di=die.querySelector('.b-dimg');di.src=DIMG[n%3];di.style.transform='rotate('+(n>=N?0:Math.round((Math.random()-.5)*120))+'deg)';sp.textContent=DICE[x];sp.style.setProperty('--r',(n>=N?0:(Math.random()-.5)*90)+'deg');
         try{IK().tone&&IK().tone(300+Math.random()*500,.03,'square',.02);}catch(e){}
         if(n>=N){clearInterval(iv);var g=pick[0];
           [].forEach.call(subG.querySelectorAll('[data-kata]'),function(b){b.closest('.cab').classList.toggle('lit',b.dataset.kata===g);});
@@ -83,7 +84,7 @@
     var sk=cabOf('skopo');if(sk)sk.remove();
     var mt=tile('terminal','3615','thumb-3615.jpg','#66bb6a');
     [].slice.call(cabs.children).forEach(function(c){if(c.classList.contains('cab'))store.appendChild(c);});
-    [group('korhogame'),group('fauneye'),mt,group('surf')].forEach(function(c){cabs.appendChild(c);});
+    [group('korhogame'),group('fauneye'),stick,mt,group('surf')].forEach(function(c){cabs.appendChild(c);});
   }
   /* trois petits boutons : BC, TL, IG */
   if(menu){[].slice.call(menu.children).forEach(function(x){if(!/threadless|instagram/.test(x.getAttribute('href')||''))x.remove();});
@@ -114,6 +115,9 @@
   function variants(){var s=root.style,c=pick(V1960.cadre),p=pick(V1960.porte);s.setProperty('--v-fronton','url('+pick(V1960.fronton)+')');s.setProperty('--v-cadre','url('+c[0]+')');s.setProperty('--v-cs',c[1]);
     s.setProperty('--v-panneau','url('+pick(V1960.panneau)+')');s.setProperty('--v-porte','url('+p[0]+')');s.setProperty('--v-pr',p[1]);s.setProperty('--v-sx',p[2]);s.setProperty('--v-sy',p[3]);s.setProperty('--v-sw',p[4]);s.setProperty('--v-sh',p[5]);}
   variants();
+  /* pièces tirées au hasard à chaque visite : l'autocollant Lore, la caméra, la manette */
+  (function(){var s=root.style;s.setProperty('--i-lore','url('+pick(['sticker-lore-a.webp','sticker-lore-b.webp'])+')');
+    s.setProperty('--i-cam','url('+pick(['camera-a.webp','camera-b.webp'])+')');s.setProperty('--i-stick','url('+pick(['manette-a.webp','manette-b.webp'])+')');})();
   var sw=el('div','b-knobw'),sb=el('button','b-knob b-skin');sb.type='button';sb.setAttribute('aria-label','Skin');sb.dataset.pos=SKINS.indexOf(skin);
   sw.appendChild(sb);sw.appendChild(el('span','b-knoblab','SKIN'));knobs.appendChild(sw);
   sb.onclick=function(){skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
@@ -256,6 +260,8 @@
   var P={1:[6,0,3,'#c9772b','#6b2a5a',0],2:[4,0,0,'#a5522a',0,0],3:[2,0,0,'#7a5a3a',0,'frost'],4:[0,0,0,0,0,'snow'],5:[0,0,0,0,0,'rain'],6:[0,3,0,'#9bbf5a',0,0],
     7:[3,0,0,'#9fd36a',0,0],8:[6,3,0,'#6fb04a','#f7a8c8',0],9:[8,5,0,'#4f9a3a','#fff1a8',0],10:[8,2,0,'#3f8030','#ffd54f',0],11:[8,0,2,'#3f7a2e','#9ccc65',0],
     12:[7,0,5,'#4a7a30','#e0442e',0],13:[6,0,3,'#7a8a30','#e0442e',0]};
+  var PIMG={7:'germinal',8:'floreal',9:'floreal',10:'messidor',11:'messidor',12:'fructidor',1:'fructidor',13:'fructidor',2:'brumaire',3:'brumaire',4:'nivose',5:'nivose',6:'nivose'};
+  function plantImg(r){var m=r?r.month:2,n=health()<.5?'assoiffee':PIMG[m]||'brumaire';return '<img alt="" src="plante-'+n+'.webp">';}
   function bornePlant(r){var m=r?r.month:2,d=r?r.day:1,p=P[m]||P[2],f=Math.min(1,(d||1)/30),s='',hl=health(),ex=cs().cut,droop=(1-hl)*35;
     var grow=m===7?.45+.55*f:m===6?.4:1,H=48*grow*(.8+.2*hl),L=(m===7?Math.max(1,Math.round(p[0]*f)):p[0])+(p[0]?ex:0);
     var pts=[];for(var i=0;i<9;i++){var t=(i+1)/10;pts.push([60+Math.sin(t*3)*5,62-t*H]);}
@@ -278,7 +284,7 @@
   var lastM=-1;
   function tick(){var d=new Date(),r=window.ikRep?window.ikRep(d):null,h=d.getHours(),m=d.getMinutes();
     date.firstChild.textContent=(r?(r.month===13?'jour '+r.day+' des sans-culottides an '+r.year:r.day+' '+MO[r.month-1]+' '+r.year)+' · ':'')+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
-    var key=(r?r.month*40+r.day:0)+'/'+Math.round(health()*10)+'/'+cs().cut;if(key!==lastM){lastM=key;plant.innerHTML=bornePlant(r);plant.title=r?MO[r.month-1]:'';}}
+    var key=(r?r.month*40+r.day:0)+'/'+Math.round(health()*10)+'/'+cs().cut;if(key!==lastM){lastM=key;plant.innerHTML=plantImg(r);plant.title=r?MO[r.month-1]:'';}}
   tick();setInterval(tick,15000);
 
   /* ---------- Échap vaut Baku Boom, partout, même dans les programmes en cadre ; un programme qui s'en sert d'abord (fermer un tiroir, quitter une partie d'échecs) garde la main ---------- */

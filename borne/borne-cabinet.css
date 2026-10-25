@@ -505,3 +505,52 @@ html.borne[data-skin="1960"][data-prog][data-big=tate]:not([data-mode=device]){-
   html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .bar .brand{min-height:70px;padding:14px 8px}
 }
 html.borne[data-skin="1960"]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezelfoot .b-boom span{color:#3a2a20;opacity:.85}
+
+/* ---------- pièces Midjourney (25 oct.) : autocollant Lore, plaque Mauk Tenieb, caméra, manette, molettes, Baku Boom, Koin, dé ---------- */
+html.borne .b-lore{display:inline-flex;align-items:center;justify-content:center;width:112px;height:50px;padding:0 10px 2px 4px;box-sizing:border-box;border-radius:0;background:var(--i-lore) center/100% 100% no-repeat!important;box-shadow:none!important;color:#1d1a16;filter:drop-shadow(0 3px 3px rgba(0,0,0,.4))}
+html.borne .b-badge{display:inline-grid;place-content:center;width:124px;height:52px;padding:0 30px;box-sizing:border-box;border-radius:0;background:url(plaque-mauk.webp) center/100% 100% no-repeat!important;box-shadow:none!important;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
+html.borne .b-badge b{font-size:.95rem!important;line-height:.9;text-shadow:none!important}
+html.borne .b-cam #kapture{width:58px!important;height:58px!important;background:var(--i-cam) center bottom/contain no-repeat!important;box-shadow:none!important;filter:drop-shadow(0 4px 4px rgba(0,0,0,.5))}
+html.borne .b-cam #kapture::before{display:none}
+html.borne .b-cam #kapture::after{right:auto;left:50%;top:auto;bottom:6px;opacity:0}
+html.borne .b-cam #kapture:hover,html.borne[data-habit=photo] .b-cam #kapture{filter:drop-shadow(0 0 8px rgba(255,74,58,.7)) drop-shadow(0 4px 4px rgba(0,0,0,.5))}
+html.borne .b-stick{width:76px;height:100px}
+html.borne .b-stick::before{display:none}
+html.borne .b-stick i{left:0;bottom:0;width:76px;height:100px;margin:0;border-radius:0;background:var(--i-stick) center bottom/contain no-repeat;transform-origin:50% 88%;transform:rotate(calc(var(--x) * 14deg)) translateY(calc(var(--y) * 3px))}
+html.borne .b-stick i::after{display:none}
+html.borne .b-knob{background:url(molette.webp) center/contain no-repeat!important;box-shadow:none!important;transform:rotate(-80deg);transition:transform .25s;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
+html.borne .b-knob::after{display:none}
+html.borne .b-knob[data-on="1"]{transform:rotate(0deg)}
+html.borne .b-skin[data-pos="0"]{transform:rotate(-80deg)}html.borne .b-skin[data-pos="1"]{transform:rotate(-40deg)}html.borne .b-skin[data-pos="2"]{transform:rotate(0deg)}
+html.borne .b-boom i,html.borne .b-bezelfoot .b-boom i{background:url(baku-boom.webp) center/contain no-repeat!important;box-shadow:none!important;filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+html.borne body:not(.on-home) .b-boom i{filter:brightness(1.25) drop-shadow(0 0 6px rgba(255,80,50,.5))}
+html.borne .b-boom:active i{transform:translateY(2px) scale(.96)}
+html.borne .b-coin{background:url(koin.webp) center/contain no-repeat!important;box-shadow:none!important}
+html.borne .b-die{gap:10px}
+html.borne .b-die .b-dimg{width:56px;height:56px;object-fit:contain;transition:transform .07s;filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+html.borne .b-die span{font-size:1.4rem}
+
+/* ---------- console (25 oct., 13 h 50) : manette au milieu pour droitiers et gauchers, deux touches de chaque côté en arc ;
+   BC TL IG en rangée de départ au-dessus ; plaque du fabricant sur le bord avant ; Lore collé de travers au coin du cadre ---------- */
+html.borne .b-row1{display:block}
+html.borne .b-panel .cabinets{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto minmax(0,1fr) minmax(0,1fr)!important;align-items:center;gap:14px}
+html.borne .b-panel .cabinets>.cab:nth-child(1),html.borne .b-panel .cabinets>.cab:nth-child(5){transform:translateY(14px)}
+html.borne .b-panel .cabinets>.b-stick{display:block!important;justify-self:center;margin:0 6px}
+html.borne .b-row2{justify-content:center;margin:0 0 16px!important}
+html.borne .b-row2 .menu{gap:26px}
+html.borne .b-plate{display:flex;justify-content:center;margin-top:22px}
+html.borne .b-plate .b-badge{transform:none}
+html.borne .b-bezel{position:relative}
+html.borne .b-bezel .b-lore.b-stuck{position:absolute;right:4px;top:calc(clamp(40px,6vh,58px) - 18px);z-index:6;transform:rotate(7deg)}
+html.borne .b-bezel .b-lore.b-stuck:hover,html.borne .b-bezel .b-lore.b-stuck:focus-visible{transform:rotate(7deg) scale(1.06)}
+html.borne .b-bezelfoot{justify-content:space-between}
+html.borne .b-plant{width:auto!important;display:flex;align-items:flex-end}
+html.borne .b-plant img{height:100%;width:auto;display:block}
+@media (max-width:700px){
+  html.borne .b-panel .cabinets{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important;gap:10px}
+  html.borne .b-panel .cabinets>.cab:nth-child(1){grid-area:1/1;transform:none}html.borne .b-panel .cabinets>.cab:nth-child(2){grid-area:1/3}
+  html.borne .b-panel .cabinets>.b-stick{grid-area:1/2/3/3;margin:0}
+  html.borne .b-panel .cabinets>.cab:nth-child(4){grid-area:2/1}html.borne .b-panel .cabinets>.cab:nth-child(5){grid-area:2/3;transform:none}
+  html.borne .b-stick,html.borne .b-stick i{width:60px;height:84px}
+  html.borne .b-bezel .b-lore.b-stuck{width:92px;height:42px;font-size:1rem;right:-4px}
+}
