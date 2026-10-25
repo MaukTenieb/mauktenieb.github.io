@@ -320,7 +320,7 @@
 
   /* ---------- les Koins à l'écran d'accueil, comme le CREDIT des bornes ; à zéro, le décompte de la Koin gratuite ---------- */
   var cr=el('div','b-credit-scr','<b>KOINS</b> <span></span>');glass.appendChild(cr);
-  function credit(){var t=(($('kn')||{}).textContent||'').trim(),m=/^0\s*·\s*(\d+)\s*s/.exec(t);cr.querySelector('span').textContent=m?'0 · +1 '+m[1]+'s':t;cr.classList.toggle('wait',!!m);}
+  function credit(){var t=(($('kn')||{}).textContent||'').trim(),m=/^0\s*·\s*(\d+)\s*s/.exec(t);cr.querySelector('span').textContent=m?'0 · +1 '+m[1]+'s':t;cr.classList.toggle('wait',!!m);if($('koins'))$('koins').classList.toggle('wait',!!m);}
   if($('kn'))new MutationObserver(credit).observe($('kn'),{childList:true,characterData:true,subtree:true});credit();setInterval(credit,500);
 
   /* ---------- Motel Sound joue dès l'arrivée, haut-parleur coupé ; la cloche barrée le rallume ---------- */
@@ -328,7 +328,8 @@
   var docks=bar.querySelectorAll('.dock');(docks[0]||bar).appendChild(bell);
   var muted=true,jp=function(){try{return window.__juke&&window.__juke();}catch(e){return null;}};
   function applyMute(){var p=jp();if(!p||!p.mute)return false;try{if(muted)p.mute();else{p.unMute();p.setVolume&&p.setVolume(80);}}catch(e){}return true;}
-  function paintBell(){bell.textContent=muted?'🔕':'🔔';bell.classList.toggle('on',!muted);bell.setAttribute('aria-pressed',String(!muted));
+  var BELL='<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M10 2.6a5.2 5.2 0 0 0-5.2 5.2v3.6L3.2 14.6h13.6l-1.6-3.2V7.8A5.2 5.2 0 0 0 10 2.6z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 16.4a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.3"/><path class="x" d="M3 3l14 14" stroke="currentColor" stroke-width="1.5"/></svg>';
+  function paintBell(){bell.innerHTML=BELL;bell.classList.toggle('on',!muted);bell.setAttribute('aria-pressed',String(!muted));
     bell.setAttribute('aria-label','Motel Sound : '+(muted?'son coupé':'son ouvert'));}
   var guard=setInterval(function(){var p=jp();if(p&&p.mute){applyMute();if(muted&&p.getPlayerState&&p.getPlayerState()!==1&&p.playVideo){try{p.playVideo();}catch(e){}}}},150);
   setTimeout(function(){clearInterval(guard);guard=setInterval(applyMute,1000);},15000);
@@ -336,6 +337,10 @@
   bell.onclick=function(e){e.stopPropagation();muted=!muted;paintBell();var n=$('radio-note'),t=$('radio-toggle');
     if(!muted&&t&&!(n&&n.classList.contains('on')))t.click();applyMute();};
   paintBell();
+  /* le titre du juke-box défile quand il dépasse la bande d'affichage */
+  (function(){var l=document.querySelector('#radio-toggle .motel-l');if(!l)return;
+    function fit(){l.classList.remove('b-run');l.style.removeProperty('--sx');var d=l.scrollWidth-l.clientWidth;if(d>4){l.style.setProperty('--sx',(-d-12)+'px');l.style.setProperty('--sd',Math.max(6,d/18)+'s');l.classList.add('b-run');}}
+    new MutationObserver(fit).observe(l,{childList:true,characterData:true,subtree:true});addEventListener('resize',fit);setTimeout(fit,400);})();
 
   dress('repos');
   /* la page d'origine reste voilée jusqu'ici : le visiteur voit la borne d'emblée */
