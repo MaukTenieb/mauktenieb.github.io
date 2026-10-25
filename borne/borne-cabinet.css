@@ -878,3 +878,42 @@ html.borne .b-panel .cab.b-up{animation:bkeyup .42s cubic-bezier(.2,1.8,.4,1)}
 @keyframes bkeyup{0%{scale:.955}45%{scale:1.02}70%{scale:.995}100%{scale:1}}
 html.borne .b-row2 .menu a.b-down{scale:.9!important;filter:brightness(1.25)}
 html.borne .b-row2 .menu a.b-up{animation:bkeyup .38s cubic-bezier(.2,1.8,.4,1)}
+
+/* ---------- l'enseigne, en lettres d'arcade (Bungee, OFL) : remplissage clair, contour sombre, relief en escalier, néon autour ; centrée ; ampoules qui courent sur le cadre ---------- */
+@font-face{font-family:'Bungee';src:url(font-bungee.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Bungee Inline';src:url(font-bungee-inline.woff2) format('woff2');font-display:swap}
+html.borne{--sg-fill:#fff1c2;--sg-line:#5a1206;--sg-x1:#c9420f;--sg-x2:#7a1d06;--sg-glow:rgba(255,150,40,.75);--sg-bulb:#ffd36e}
+html.borne[data-skin=metal]{--sg-fill:#eaf8ff;--sg-line:#0b2236;--sg-x1:#2a7fb8;--sg-x2:#103a5c;--sg-glow:rgba(120,210,255,.75);--sg-bulb:#bfeaff}
+html.borne[data-skin="1960"]{--sg-fill:#fff6dc;--sg-line:#6a0d06;--sg-x1:#d6261a;--sg-x2:#7c0f08;--sg-glow:rgba(255,90,60,.7);--sg-bulb:#ffe7a8}
+html.borne .bar .brand{position:relative;display:grid!important;place-items:center;text-align:center!important;padding:6px 14px!important;overflow:hidden;
+  font-family:'Bungee',var(--f-sign),Impact,sans-serif!important;font-weight:400!important;font-size:clamp(1.15rem,min(4.4vh,2.7vw),2.7rem)!important;letter-spacing:.03em!important;line-height:1!important;
+  color:var(--sg-fill)!important;-webkit-text-stroke:2px var(--sg-line);paint-order:stroke fill;
+  text-shadow:1px 1px 0 var(--sg-x1),2px 2px 0 var(--sg-x1),3px 3px 0 var(--sg-x2),4px 4px 0 var(--sg-x2),5px 5px 6px rgba(0,0,0,.55),0 0 18px var(--sg-glow),0 0 42px var(--sg-glow)!important;
+  animation:bsign 7s steps(1) infinite}
+@keyframes bsign{0%,100%{opacity:1}91%{opacity:1}91.6%{opacity:.55}92.2%{opacity:1}93%{opacity:.7}93.4%{opacity:1}}
+html.borne .bar .brand::after{content:"";position:absolute;inset:5px;border-radius:5px;pointer-events:none;
+  background:radial-gradient(circle,var(--sg-bulb) 0 2.2px,transparent 3px) 0 0/14px 14px;opacity:.95;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% 11px no-repeat,linear-gradient(#000 0 0) bottom/100% 11px no-repeat,linear-gradient(#000 0 0) left/11px 100% no-repeat,linear-gradient(#000 0 0) right/11px 100% no-repeat;
+  mask:linear-gradient(#000 0 0) top/100% 11px no-repeat,linear-gradient(#000 0 0) bottom/100% 11px no-repeat,linear-gradient(#000 0 0) left/11px 100% no-repeat,linear-gradient(#000 0 0) right/11px 100% no-repeat;
+  filter:drop-shadow(0 0 3px var(--sg-bulb));animation:bbulbs 1.1s steps(2) infinite}
+@keyframes bbulbs{50%{background-position:7px 7px}}
+html.borne .bar .brand .b-habit{position:absolute;left:0;right:0;bottom:6px;-webkit-text-stroke:0;text-shadow:none}
+@media (prefers-reduced-motion:reduce){html.borne .bar .brand,html.borne .bar .brand::after{animation:none}}
+
+/* ---------- le bloc son : les haut-parleurs d'abord ; une seule bande fine au pied du haut-parleur gauche : titre, JACK THE BOX gravé, cloche ---------- */
+html.borne .bar .dock:first-of-type #radio-note{display:none!important}
+html.borne .bar .dock:first-of-type{display:grid!important;grid-template-columns:minmax(0,1fr) auto 30px!important;grid-template-rows:1fr 30px!important;column-gap:0!important;align-items:end}
+html.borne .bar .dock:first-of-type #radio-toggle{grid-row:2!important;grid-column:1!important;height:30px!important;min-height:30px!important;padding:0 8px!important;border-radius:3px 0 0 3px!important}
+html.borne .bar .dock:first-of-type #radio-toggle .motel-l{font-size:9px!important;letter-spacing:.14em!important}
+html.borne .bar .dock:first-of-type #export-pl{grid-row:2!important;grid-column:2!important;align-self:stretch;display:flex!important;align-items:center;margin:0!important;height:30px;box-sizing:border-box;padding:0 7px!important;
+  background:var(--lcd-bg)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),inset 1px 0 0 var(--lcd-edge),inset 0 0 0 1px var(--lcd-edge)!important;border-radius:0!important;
+  color:rgba(255,179,71,.5)!important;text-shadow:none!important;font-size:7.5px!important;letter-spacing:.16em!important}
+html.borne .bar .dock:first-of-type #export-pl:hover{color:var(--lcd-ink)!important}
+html.borne .bar .dock:first-of-type .b-bell{grid-row:2!important;grid-column:3!important;width:30px!important;height:30px!important;min-height:30px!important}
+html.borne .bar .dock:first-of-type .b-bell svg{width:14px;height:14px}
+@media (max-width:700px){
+  html.borne .bar .dock:first-of-type{grid-template-columns:minmax(0,1fr) auto 30px!important;grid-template-rows:1fr 30px!important;min-height:78px!important;padding:6px!important}
+  html.borne .bar .dock:first-of-type #radio-toggle,html.borne .bar .dock:first-of-type #export-pl,html.borne .bar .dock:first-of-type .b-bell{grid-row:2!important;margin:0!important}
+  html.borne .bar .dock:first-of-type{background-size:cover!important}
+  html.borne .bar .dock:first-of-type #radio-toggle{grid-column:1!important}html.borne .bar .dock:first-of-type #export-pl{grid-column:2!important}html.borne .bar .dock:first-of-type .b-bell{grid-column:3!important}
+}
