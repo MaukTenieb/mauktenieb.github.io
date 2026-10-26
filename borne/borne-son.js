@@ -6,7 +6,7 @@
 (function(){
   var C=null,M=null,hum=null,heat=0,R=Math.random;
   function on(){try{return !window.__ikFx||window.__ikFx.on();}catch(e){return true;}}
-  function ctx(){if(!on())return null;if(!C){try{C=new (window.AudioContext||window.webkitAudioContext)();M=C.createGain();M.gain.value=.9;M.connect(C.destination);}catch(e){return null;}}
+  function ctx(){if(!on())return null;if(!C){try{C=new (window.AudioContext||window.webkitAudioContext)();M=C.createGain();M.gain.value=.9*(window.__borneVol==null?1:window.__borneVol);M.connect(C.destination);}catch(e){return null;}}
     if(C.state==='suspended')C.resume();return C;}
   function j(v,p){return v*(1+(R()*2-1)*(p||.08));}
   function env(g,t,a,d,peak){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+a+d);}
@@ -40,6 +40,7 @@
       var g=c.createGain();env(g,t,.06,.12,.08);s.connect(fl);fl.connect(g);g.connect(M);s.start(t);s.stop(t+.25);},
     clack:function(){var c=ctx();if(!c)return;var t=c.currentTime;noise(c,t,'bandpass',j(1700,.25),3,.0008,.03,.16);osc(c,t,'sine',j(180),j(110),.001,.06,.1);}
   };
+  S.vol=function(v){if(M)M.gain.value=.9*v;};
   window.__borneSon=S;
   /* la machine s'échauffe : un ronronnement très bas, qui monte un peu quand on joue et retombe ensuite */
   function startHum(){var c=ctx();if(!c||hum)return;var o=c.createOscillator(),o2=c.createOscillator(),g=c.createGain(),fl=c.createBiquadFilter();o.type='sine';o.frequency.value=50;o2.type='sine';o2.frequency.value=100.3;

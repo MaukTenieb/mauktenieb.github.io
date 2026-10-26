@@ -33,6 +33,10 @@ s = once(s, 'allow="autoplay; fullscreen; clipboard-write"', 'allow="autoplay; f
 # l'enseigne change de nom en douceur : le néon baisse, le nom change dans la pénombre, le néon revient ; plus rarement
 s = once(s, "morph(cur,nx,()=>{cur=nx;if(br)br.textContent=cur;", "morph(cur,nx,()=>{cur=nx;if(br){const B=br;B.classList.add('b-dim');setTimeout(()=>{const k=B.querySelector('.b-habit');B.firstChild&&B.firstChild.nodeType===3?B.firstChild.nodeValue=cur:B.insertBefore(document.createTextNode(cur),B.firstChild);if(k&&!B.contains(k))B.appendChild(k);B.classList.remove('b-dim');},900);}")
 s = once(s, "function later(){setTimeout(go2,7000+Math.random()*11000);}", "function later(){setTimeout(go2,26000+Math.random()*34000);}")
+# le titre du morceau tout de suite, à la place de « Wait a sec... » et « MOTEL SOUND »
+s = once(s, "function jukeSetLabel(txt){", "function jukeSetLabel(txt){if((txt==='Wait a sec...'||txt==='MOTEL SOUND')&&window.__jukeNow)txt=window.__jukeNow;")
+s = once(s, "    var order=jukeShuffleIds();\n", "    var order=jukeShuffleIds();try{var t0=(JUKE_TRACKS.find(function(x){return x.id===order[0];})||{}).t;if(t0)window.__jukeNow=jukeCleanTitle(t0);}catch(e){}\n")
+s = once(s, "mls.forEach(function(n){n.textContent=radioOn?txt:'MOTEL SOUND';});", "mls.forEach(function(n){n.textContent=txt;});")
 s = once(s, "function go(k){ac();", "function go(k){if(window.__borneGo&&window.__borneGo(k))return;ac();")
 s = once(s, "function boom(cb){", "function boom(cb){if(window.__borneBoom)return window.__borneBoom(cb);")
 s = once(s, "function openGame(k,title){", "function openGame(k,title){window.__borneGame&&window.__borneGame(k);")

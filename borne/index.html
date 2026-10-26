@@ -983,7 +983,7 @@ function jukeStartPlay(){
     return;
   }
   try{
-    var order=jukeShuffleIds();
+    var order=jukeShuffleIds();try{var t0=(JUKE_TRACKS.find(function(x){return x.id===order[0];})||{}).t;if(t0)window.__jukeNow=jukeCleanTitle(t0);}catch(e){}
     jukePlayer.loadPlaylist({playlist:order, index:0});
     jukePlayer.setLoop(true);
     jukePlayer.setShuffle(true);
@@ -996,7 +996,7 @@ function jukeStartPlay(){
 function jukeNext(){
   if(jukePlayer&&jukePlayer.nextVideo){try{jukePlayer.nextVideo();}catch(e){}}
 }
-function jukeSetLabel(txt){
+function jukeSetLabel(txt){if((txt==='Wait a sec...'||txt==='MOTEL SOUND')&&window.__jukeNow)txt=window.__jukeNow;
   // Title text on the home toggle
   var label=document.querySelector('#radio-toggle span');
   if(label)label.textContent=txt;
@@ -1005,7 +1005,7 @@ function jukeSetLabel(txt){
   notes.forEach(function(n){n.textContent=radioOn?txt:'';});
   // Also update the MOTEL SOUND label spans inside game headers
   var mls=document.querySelectorAll('.motel-l');
-  mls.forEach(function(n){n.textContent=radioOn?txt:'MOTEL SOUND';});
+  mls.forEach(function(n){n.textContent=txt;});
 }
 function jukeStart(){
   jukeSetLabel('Wait a sec...');

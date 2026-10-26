@@ -124,7 +124,14 @@
   sb.onclick=function(){skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
     try{IK().tone&&IK().tone(220,.05,'square',.03);IK().tone&&IK().tone(330,.05,'square',.03,0,.06);}catch(e){}
     scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');setTimeout(function(){if(skin==='1960')variants();root.dataset.skin=skin;},250);};
-  [['snd','FX'],['lang','FR · EN']].forEach(function(p){var b=$(p[0]);if(!b)return;var w=el('div','b-knobw');b.classList.add('b-knob');b.setAttribute('aria-label',p[1]);w.appendChild(b);w.appendChild(el('span','b-knoblab',p[1]));knobs.appendChild(w);
+  /* VOL : la molette du volume de la machine (sons des jeux et de la mécanique) ; trois crans, 0, moyen, fort */
+  (function(){var b=$('snd');if(!b)return;var lv=2;try{var v=localStorage.getItem('borne.vol');if(v!=null)lv=+v;}catch(e){}
+    function isOn(){return /ON/i.test(b.textContent||'');}
+    function apply(){if((lv>0)!==isOn())HTMLElement.prototype.click.call(b);window.__borneVol=[0,.45,1][lv];try{window.__borneSon&&window.__borneSon.vol&&window.__borneSon.vol(window.__borneVol);}catch(e){}
+      b.dataset.pos=lv;try{localStorage.setItem('borne.vol',lv);}catch(e){}}
+    b.addEventListener('click',function(e){if(e.isTrusted||e.detail){e.preventDefault();e.stopImmediatePropagation();lv=(lv+1)%3;apply();}},true);
+    setTimeout(apply,300);})();
+  [['snd','VOL'],['lang','FR · EN']].forEach(function(p){var b=$(p[0]);if(!b)return;var w=el('div','b-knobw');b.classList.add('b-knob');b.setAttribute('aria-label',p[1]);w.appendChild(b);w.appendChild(el('span','b-knoblab',p[1]));knobs.appendChild(w);
     var sync=function(){var t=(b.textContent||'').toUpperCase();b.dataset.on=(p[0]==='snd'?/ON/.test(t):/FR/.test(t))?'1':'0';};sync();
     new MutationObserver(sync).observe(b,{childList:true,characterData:true,subtree:true});});
   if($('kal'))door.appendChild($('kal'));
@@ -357,10 +364,17 @@
     if(!muted&&t&&!(n&&n.classList.contains('on')))t.click();applyMute();};
   paintBell();
   /* le titre du juke-box défile quand il dépasse la bande d'affichage */
-  (function(){var l=document.querySelector('#radio-toggle .motel-l');if(!l)return;
-    /* téléprompteur : le titre entre par la droite, file vers la gauche, revient ; vitesse de lecture constante */
-    function fit(){l.classList.remove('b-run');void l.offsetWidth;var w=l.clientWidth,t=l.scrollWidth;l.style.setProperty('--w',w+'px');l.style.setProperty('--sx',(-t)+'px');l.style.setProperty('--sd',((w+t)/38).toFixed(1)+'s');l.classList.add('b-run');}
-    new MutationObserver(fit).observe(l,{childList:true,characterData:true,subtree:true});addEventListener('resize',fit);setTimeout(fit,400);})();
+  /* bandeau de téléscripteur : le titre en entier, qui file sans fin de droite à gauche, comme les annonces des chaînes d'information */
+  (function(){var l=document.querySelector('#radio-toggle .motel-l');if(!l)return;var cur='';
+    function pick(){if(!window.__jukeNow&&typeof JUKE_TRACKS!=='undefined'&&JUKE_TRACKS.length){try{var t=JUKE_TRACKS[Math.floor(Math.random()*JUKE_TRACKS.length)].t;window.__jukeNow=(typeof jukeCleanTitle==='function'?jukeCleanTitle(t):t);}catch(e){}}}
+    function build(){var raw=(l.dataset.raw!=null&&l.querySelector('.b-tk'))?null:l.textContent.trim();if(raw===null)return;
+      if(!raw||/^(wait a sec\.*|motel sound)$/i.test(raw)){pick();raw=window.__jukeNow||raw;}
+      if(raw===cur&&l.querySelector('.b-tk'))return;cur=raw;l.dataset.raw=raw;
+      var u=raw.toUpperCase()+'\u2003\u25C6\u2003';l.innerHTML='<span class="b-tk"><span>'+u.replace(/</g,'&lt;')+'</span><span aria-hidden="true">'+u.replace(/</g,'&lt;')+'</span></span>';
+      var w=l.querySelector('.b-tk span').offsetWidth;l.style.setProperty('--tkd',Math.max(6,w/42).toFixed(1)+'s');}
+    new MutationObserver(function(){if(!l.querySelector('.b-tk')||l.childNodes.length!==1)build();else{var t=l.textContent;}}).observe(l,{childList:true,characterData:true,subtree:true});
+    var setT=Object.getOwnPropertyDescriptor(Node.prototype,'textContent');
+    setTimeout(build,50);addEventListener('resize',function(){cur='';build();});})();
 
   /* les psychopompes : premier arrêt Burrows ou la plaque Mauk Tenieb, au hasard ; jetés, ils rebondissent sur les bords de l'écran */
   land.dataset.grp='visit';badge.dataset.grp='bio';
