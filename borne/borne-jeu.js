@@ -82,7 +82,8 @@
 
   /* ---------- la Kam de Kapture : FRONT ou BAK ---------- */
   var face='BAK';
-  setInterval(function(){var f=document.getElementById('kapture-flip');if(!f)return;if(!f._b){f._b=1;f.addEventListener('click',function(){face=face==='BAK'?'FRONT':'BAK';f.textContent=face;},true);}if(f.textContent!==face)f.textContent=face;},700);
+  setInterval(function(){if(window.kaptureFlip&&!window.kaptureFlip._b){var o=window.kaptureFlip;window.kaptureFlip=function(){face=face==='BAK'?'FRONT':'BAK';return o.apply(this,arguments);};window.kaptureFlip._b=1;}
+    var f=document.getElementById('kapture-flip');if(f&&f.textContent!==face)f.textContent=face;},400);
 
   /* ---------- 2. la manette ---------- */
   var KC={ArrowLeft:37,ArrowUp:38,ArrowRight:39,ArrowDown:40,' ':32};
