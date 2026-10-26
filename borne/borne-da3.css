@@ -89,7 +89,15 @@ html.borne .b-land span{z-index:2}
 @media (prefers-reduced-motion:reduce){html.borne .b-lglow i{animation:none}}
 
 /* ---------- 26 oct., 18 h : aimant à droite, centré sur la hauteur de la porte ; haut-parleur entier au-dessus de la bande du titre ---------- */
-html.borne .b-dekonect{top:50%!important;bottom:auto!important;transform:translateY(-50%)}
-html.borne .b-dekonect:active{transform:translateY(-50%) scale(.92)}
+html.borne .b-dkhost{position:relative}
+html.borne .b-dekonect{top:auto!important;bottom:var(--dkb,90px)!important;right:calc(var(--inset,20px) + 8px)!important;transform:none;z-index:30}
+html.borne .b-dekonect:active{transform:scale(.92)}
+html.borne .b-dekonect.b-dklow{color:rgba(255,236,210,.28)!important}
 html.borne .bar .dock:first-of-type{background-size:auto calc(100% - 46px)!important;background-position:center 6px!important}
 @media (max-width:700px){html.borne .bar .dock:first-of-type{min-height:118px!important}}
+/* les lettres des touches suivent la taille de la touche : elles ne débordent plus quand l'écran est bas */
+html.borne #home .b-panel .cabinets>.cab{container-type:inline-size}
+html.borne #home .b-panel .cabinets>.cab b{font-size:min(clamp(1rem,1.7vw,1.45rem),16cqi)!important;white-space:nowrap}
+/* la manette garde la proportion des touches, même quand le meuble rapetisse */
+@media (min-width:701px){html.borne #home .b-panel .cabinets{container-type:inline-size}
+html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{width:clamp(48px,12.8cqi,140px)!important}}

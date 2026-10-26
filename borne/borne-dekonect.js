@@ -34,6 +34,14 @@
   function mount(){var d=document.querySelector('.b-door');if(!d){setTimeout(mount,500);return;}
     var b=document.createElement('button');b.type='button';b.className='b-dekonect';b.setAttribute('aria-label','Dekonect');b.title='Dekonect';
     b.innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 4h6v13a3 3 0 0 0 6 0V4h6v13a9 9 0 0 1-18 0z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M7 9h6M19 9h6" stroke="currentColor" stroke-width="2.2"/><path d="M3 26l3-2M29 26l-3-2M16 30v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
-    b.onclick=function(e){e.stopPropagation();press();};d.appendChild(b);}
+    b.onclick=function(e){e.stopPropagation();press();};
+    /* l'aimant reste en bas à droite du meuble, quoi qu'il arrive aux blocs */
+    var w=d.parentElement;w.classList.add('b-dkhost');w.appendChild(b);
+    function seat(){if(order)return;var wr=w.getBoundingClientRect(),dr=d.getBoundingClientRect(),gap=wr.bottom-dr.bottom;
+      w.style.setProperty('--dkb',Math.max(6,Math.round(gap+10))+'px');b.classList.remove('b-dklow');
+      /* trop près des molettes : il descend sur le socle, toujours en bas à droite */
+      var k=d.querySelector('.b-knobs'),a=b.getBoundingClientRect(),q=k&&k.getBoundingClientRect();
+      if(q&&q.width&&a.left<q.right+10&&a.right>q.left&&a.top<q.bottom&&a.bottom>q.top){w.style.setProperty('--dkb',Math.max(4,Math.round((gap-a.height)/2))+'px');b.classList.add('b-dklow');}}
+    seat();addEventListener('resize',seat);setTimeout(seat,1500);}
   mount();
 })();
