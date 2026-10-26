@@ -371,7 +371,10 @@
       if(!raw||/^(wait a sec\.*|motel sound)$/i.test(raw)){pick();raw=window.__jukeNow||raw;}
       if(raw===cur&&l.querySelector('.b-tk'))return;cur=raw;l.dataset.raw=raw;
       var u=raw.toUpperCase()+'\u2003\u25C6\u2003';l.innerHTML='<span class="b-tk"><span>'+u.replace(/</g,'&lt;')+'</span><span aria-hidden="true">'+u.replace(/</g,'&lt;')+'</span></span>';
-      var w=l.querySelector('.b-tk span').offsetWidth;l.style.setProperty('--tkd',Math.max(6,w/42).toFixed(1)+'s');}
+      var w=l.querySelector('.b-tk span').offsetWidth,d=Math.max(6,w/42);l.style.setProperty('--tkd',d.toFixed(2)+'s');
+      /* le bandeau ne repart jamais de zéro : il reprend là où il en était */
+      if(!window.__tk0||window.__tkRaw!==raw){window.__tk0=performance.now();window.__tkRaw=raw;}
+      l.querySelector('.b-tk').style.animationDelay=(-(((performance.now()-window.__tk0)/1000)%d)).toFixed(3)+'s';}
     new MutationObserver(function(){if(!l.querySelector('.b-tk')||l.childNodes.length!==1)build();else{var t=l.textContent;}}).observe(l,{childList:true,characterData:true,subtree:true});
     var setT=Object.getOwnPropertyDescriptor(Node.prototype,'textContent');
     setTimeout(build,50);addEventListener('resize',function(){cur='';build();});})();

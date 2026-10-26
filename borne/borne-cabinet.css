@@ -1086,3 +1086,8 @@ html.borne .b-kbig{position:fixed;z-index:99991;pointer-events:none;perspective:
 html.borne .b-kbig i{position:absolute;inset:0;background:center/contain no-repeat;filter:drop-shadow(0 18px 24px rgba(0,0,0,.6)) drop-shadow(0 0 30px rgba(255,190,80,.35));transform-style:preserve-3d;backface-visibility:visible}
 html.borne .b-kbig s{position:absolute;inset:6%;border-radius:50%;pointer-events:none;mix-blend-mode:screen;text-decoration:none;
   background:linear-gradient(105deg,transparent 40%,rgba(255,255,230,.75) 50%,transparent 60%) -120% 0/250% 100% no-repeat}
+
+/* ---------- Lore : rien d'autre que l'autocollant (zéro rectangle, zéro reflet carré) ; il tourne ---------- */
+html.borne .b-lore .b-sheen{display:none!important}
+html.borne .b-lore{background-color:transparent!important;box-shadow:none!important;border:0!important;border-radius:0!important;outline:none!important;-webkit-tap-highlight-color:transparent;touch-action:none}
+html.borne .b-slot .b-lore.b-onbox,html.borne .b-slot .b-lore.b-onbox:hover{transform:rotate(var(--lr,-6deg))!important}
