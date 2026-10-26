@@ -31,7 +31,7 @@
   var foot=el('div','b-bezelfoot');
   var badge=el('button','b-sticker b-badge','<b>MAUK TENIEB</b>');badge.type='button';badge.setAttribute('aria-label','Mauk Tenieb');
   var menu=home.querySelector('.menu'),loreHref=((menu&&menu.querySelector('a[href*="substack"]'))||{}).href||'https://mauktenieb.substack.com';
-  var lore=el('a','b-sticker b-lore','LORE');lore.href=loreHref;lore.target='_blank';lore.rel='noopener';
+  var lore=el('a','b-sticker b-lore','<span class="b-sr">LORE</span>');lore.href=loreHref;lore.target='_blank';lore.rel='noopener';
   if($('koins')){$('koins').classList.add('b-credit');foot.appendChild($('koins'));}lore.classList.add('b-stuck');
   var butee=el('div','b-butee');butee.setAttribute('aria-hidden','true');
   bezel.appendChild(land);bezel.appendChild(butee);bezel.appendChild(scr);bezel.appendChild(foot);bezel.appendChild(lore);

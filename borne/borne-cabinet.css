@@ -1035,3 +1035,9 @@ html.borne .b-panel::after{content:"";position:absolute;left:-3.2%;right:-3.2%;b
 html.borne .b-panel .cabinets,html.borne .b-panel .b-sub,html.borne .b-plate{perspective:700px;perspective-origin:50% -40%}
 @media (max-width:700px){html.borne .b-panel .cabinets>.cab:nth-child(1),html.borne .b-panel .cabinets>.cab:last-child{transform:rotateX(20deg)!important}
   html.borne .b-panel .cabinets>.cab:nth-child(1).b-down,html.borne .b-panel .cabinets>.cab:last-child.b-down{transform:rotateX(20deg) translateY(6px)!important}}
+
+/* ---------- l'autocollant Lore de Midjourney : le mot est dans l'image ---------- */
+html.borne .b-lore .b-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+html.borne .b-slot .b-lore.b-onbox,html.borne .b-lore{background:var(--i-lore) center/contain no-repeat!important;aspect-ratio:600/262;height:auto!important;padding:0!important}
+html.borne .b-slot .b-lore.b-onbox{width:104px!important}
+@media (max-width:700px){html.borne .b-slot .b-lore.b-onbox{width:92px!important}}
