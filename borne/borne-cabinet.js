@@ -129,7 +129,7 @@
     function isOn(){return /ON/i.test(b.textContent||'');}
     function apply(){if((lv>0)!==isOn())HTMLElement.prototype.click.call(b);window.__borneVol=[0,.45,1][lv];try{window.__borneSon&&window.__borneSon.vol&&window.__borneSon.vol(window.__borneVol);}catch(e){}
       b.dataset.pos=lv;try{localStorage.setItem('borne.vol',lv);}catch(e){}}
-    b.addEventListener('click',function(e){if(e.isTrusted||e.detail){e.preventDefault();e.stopImmediatePropagation();lv=lv?0:2;apply();}},true);
+    b.addEventListener('click',function(e){if(e.isTrusted||e.detail){e.preventDefault();e.stopImmediatePropagation();lv=lv?0:2;apply();try{window.__borneMusic&&window.__borneMusic(lv>0);}catch(_){}}},true);
     setTimeout(apply,300);})();
   [['snd','🎶'],['lang','FR · EN']].forEach(function(p){var b=$(p[0]);if(!b)return;var w=el('div','b-knobw');b.classList.add('b-knob');b.setAttribute('aria-label',p[1]);w.appendChild(b);w.appendChild(el('span','b-knoblab',p[1]));knobs.appendChild(w);
     var sync=function(){var t=(b.textContent||'').toUpperCase();b.dataset.on=(p[0]==='snd'?/ON/.test(t):/FR/.test(t))?'1':'0';};sync();
@@ -367,6 +367,8 @@
   bell.onclick=function(e){e.stopPropagation();muted=!muted;paintBell();var n=$('radio-note'),t=$('radio-toggle');
     if(!muted&&t&&!(n&&n.classList.contains('on')))t.click();applyMute(true);};
   paintBell();
+  /* la molette 🎶 coupe ou rouvre tout, Motel Sound compris */
+  window.__borneMusic=function(on){if(muted===!on)return;muted=!on;paintBell();var n=$('radio-note'),t=$('radio-toggle');if(on&&t&&!(n&&n.classList.contains('on')))t.click();applyMute(on);};
   /* le titre du juke-box défile quand il dépasse la bande d'affichage */
   /* bandeau de téléscripteur : le titre en entier, qui file sans fin de droite à gauche, comme les annonces des chaînes d'information */
   (function(){var l=document.querySelector('#radio-toggle .motel-l');if(!l)return;var cur='';

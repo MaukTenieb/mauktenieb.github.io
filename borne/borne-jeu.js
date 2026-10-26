@@ -78,10 +78,10 @@
   /* ---------- le Minitel : lettres plus lumineuses par défaut ---------- */
   setInterval(function(){document.querySelectorAll('iframe').forEach(function(f){try{var d=f.contentDocument;if(!d||!d.querySelector('.crt canvas')||d.getElementById('b-lum'))return;
     var st=d.createElement('style');st.id='b-lum';st.textContent='.crt canvas,.crt.color canvas{filter:brightness(1.55) contrast(1.06) drop-shadow(0 0 2.5px rgba(226,240,230,.6))!important}html.ike-on .crt canvas,html.ike-on .crt.color canvas{filter:var(--ike-filter,contrast(1)) brightness(1.55)!important}';
-    d.head.appendChild(st);}catch(e){}});},1000);
+    d.head.appendChild(st);var sc=d.getElementById('scr');if(sc)sc.addEventListener('click',function(){try{c.focus({preventScroll:true});}catch(_){}});}catch(e){}});},1000);
   /* la ligne de saisie du Minitel : une fine ligne de phosphore vert, intégrée au boîtier */
   setInterval(function(){document.querySelectorAll('iframe').forEach(function(f){try{var d=f.contentDocument;var c=d&&d.getElementById('cmd');if(!c||d.getElementById('b-cmd'))return;var st=d.createElement('style');st.id='b-cmd';
-    st.textContent='#cmd{background:#050605!important;color:#7dff9a!important;caret-color:#7dff9a;font-family:"VT323","DM Mono",monospace!important;font-size:15px!important;letter-spacing:.14em!important;padding:5px 12px!important;height:30px!important;box-sizing:border-box;border-radius:3px!important;text-shadow:0 0 6px rgba(125,255,154,.55);box-shadow:inset 0 1px 3px rgba(0,0,0,.9),0 0 0 1px rgba(0,0,0,.35),0 1px 0 rgba(255,255,255,.45)!important}#cmd:focus{box-shadow:inset 0 1px 3px rgba(0,0,0,.9),0 0 0 1px rgba(125,255,154,.35),0 1px 0 rgba(255,255,255,.45)!important}';d.head.appendChild(st);}catch(e){}});},1000);
+    st.textContent='/* la saisie s\u2019affiche déjà sur l\u2019écran, au prompt : la barre noire disparaît, le clavier physique tape toujours */#form{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important;margin:0!important;padding:0!important}#scr{cursor:text}';d.head.appendChild(st);}catch(e){}});},1000);
 
   /* ---------- la Kam de Kapture : FRONT ou BAK ---------- */
   var face='BAK';
