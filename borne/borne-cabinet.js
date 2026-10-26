@@ -346,7 +346,7 @@
   var docks=bar.querySelectorAll('.dock');(docks[0]||bar).appendChild(bell);
   var muted=true,jp=function(){try{return window.__juke&&window.__juke();}catch(e){return null;}};
   function applyMute(){var p=jp();if(!p||!p.mute)return false;try{if(muted)p.mute();else{p.unMute();p.setVolume&&p.setVolume(80);}}catch(e){}return true;}
-  var BELL='<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M10 2.6a5.2 5.2 0 0 0-5.2 5.2v3.6L3.2 14.6h13.6l-1.6-3.2V7.8A5.2 5.2 0 0 0 10 2.6z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M8 16.4a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.3"/><path class="x" d="M3 3l14 14" stroke="currentColor" stroke-width="1.5"/></svg>';
+  var BELL='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5h4l5-4.5v14l-5-4.5H3z" fill="currentColor"/><path class="w1" d="M15.5 9a4.2 4.2 0 0 1 0 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="w2" d="M18.2 6.5a7.6 7.6 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="x" d="M15.5 9.5l5 5M20.5 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
   function paintBell(){bell.innerHTML=BELL;bell.classList.toggle('on',!muted);bell.setAttribute('aria-pressed',String(!muted));
     bell.setAttribute('aria-label','Motel Sound : '+(muted?'son coupé':'son ouvert'));}
   var guard=setInterval(function(){var p=jp();if(p&&p.mute){applyMute();if(muted&&p.getPlayerState&&p.getPlayerState()!==1&&p.playVideo){try{p.playVideo();}catch(e){}}}},150);
@@ -357,7 +357,8 @@
   paintBell();
   /* le titre du juke-box défile quand il dépasse la bande d'affichage */
   (function(){var l=document.querySelector('#radio-toggle .motel-l');if(!l)return;
-    function fit(){l.classList.remove('b-run');l.style.removeProperty('--sx');var d=l.scrollWidth-l.clientWidth;if(d>4){l.style.setProperty('--sx',(-d-12)+'px');l.style.setProperty('--sd',Math.max(6,d/18)+'s');l.classList.add('b-run');}}
+    /* téléprompteur : le titre entre par la droite, file vers la gauche, revient ; vitesse de lecture constante */
+    function fit(){l.classList.remove('b-run');void l.offsetWidth;var w=l.clientWidth,t=l.scrollWidth;l.style.setProperty('--w',w+'px');l.style.setProperty('--sx',(-t)+'px');l.style.setProperty('--sd',((w+t)/38).toFixed(1)+'s');l.classList.add('b-run');}
     new MutationObserver(fit).observe(l,{childList:true,characterData:true,subtree:true});addEventListener('resize',fit);setTimeout(fit,400);})();
 
   /* les psychopompes : premier arrêt Burrows ou la plaque Mauk Tenieb, au hasard ; jetés, ils rebondissent sur les bords de l'écran */
@@ -374,6 +375,9 @@
         if(ok){lore.classList.remove('b-stuck');lore.classList.add('b-onbox');lore.style.setProperty('--lx',C[k][0]+'%');lore.style.setProperty('--ly',C[k][1]+'%');
           lore.style.setProperty('--lr',((Math.random()*2-1)*12).toFixed(1)+'deg');slot.appendChild(lore);return;}}}
     setTimeout(place,500);})();
+
+  /* JACK THE BOX devient PL (la playlist) */
+  (function(){var j=$('export-pl');if(!j)return;var put=function(){if(j.textContent!=='PL')j.textContent='PL';};j.setAttribute('aria-label','Playlist');put();new MutationObserver(put).observe(j,{childList:true,characterData:true,subtree:true});})();
 
   dress('repos');
   /* la page d'origine reste voilée jusqu'ici : le visiteur voit la borne d'emblée */
