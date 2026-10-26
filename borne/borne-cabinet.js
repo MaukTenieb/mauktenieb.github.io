@@ -447,9 +447,33 @@
   var last=null;
   function watch(){var kn=$('kn');if(!kn)return;var v=parseInt((kn.textContent||'').trim(),10);if(isNaN(v)){return;}
     if(last!==null&&v!==last){var k=$('koins'),slot=document.querySelector('.b-slot'),scr=document.querySelector('.b-glass');
-      if(v<last){/* payée : du compteur à la fente */var s=slot&&slot.querySelector('i')||slot;if(s&&s.getBoundingClientRect().bottom>0&&s.getBoundingClientRect().top<innerHeight)fly(k,s,null,true);else if(scr)fly(k,scr,null,true);else spin(k);}
-      else spin(k);}
+      closeup(v<last?'pay':'win',k,slot,scr);}
     last=v;}
+  /* gros plan : la Koin surgit en grand au milieu de la fenêtre, tourne, prend la lumière, puis rétrécit et file :
+     gagnée, vers le compteur ; payée, vers la fente (ou l'écran). Chaque fois un numéro tiré au hasard. */
+  var busyC=false;
+  function closeup(kind,k,slot,scr){if(RM||!document.body.animate||busyC||document.hidden){spin(k);return;}busyC=true;
+    var W=innerWidth,H=innerHeight,S=Math.round(Math.min(W,H)*.42),img=Math.random()<.5?'koin-hd-a.webp':'koin-hd-b.webp';
+    var veil=document.createElement('div');veil.className='b-kveil';document.body.appendChild(veil);
+    var c=document.createElement('div');c.className='b-kbig';c.innerHTML='<i style="background-image:url('+img+')"></i><s></s>';c.style.width=c.style.height=S+'px';c.style.left=(W/2-S/2)+'px';c.style.top=(H/2-S/2)+'px';document.body.appendChild(c);
+    var face=c.querySelector('i'),R=Math.random,trick=Math.floor(R()*4);
+    try{window.__borneSon&&window.__borneSon.coin();}catch(e){}
+    veil.animate([{opacity:0},{opacity:1,offset:.15},{opacity:1,offset:.7},{opacity:0}],{duration:2300,easing:'ease-in-out'}).onfinish=function(){veil.remove();};
+    /* 1. l'arrivée et le numéro */
+    var intro=[
+      [{transform:'scale(.1) rotateY(0deg)'},{transform:'scale(1.08) rotateY(540deg)',offset:.6},{transform:'scale(1) rotateY(720deg)'}],
+      [{transform:'translateY(-60vh) scale(.6) rotateX(70deg)'},{transform:'translateY(0) scale(1) rotateX(0)',offset:.55},{transform:'translateY(-8%) scale(1)',offset:.72},{transform:'translateY(0) scale(1)',offset:.86},{transform:'translateY(-2%) scale(1)',offset:.93},{transform:'translateY(0) scale(1)'}],
+      [{transform:'scale(.2) rotate(-200deg)'},{transform:'scale(1.05) rotate(10deg)',offset:.7},{transform:'scale(1) rotate(0)'}],
+      [{transform:'scale(1) rotateX(80deg) rotateZ(0)'},{transform:'scale(1) rotateX(55deg) rotateZ(360deg)',offset:.35},{transform:'scale(1) rotateX(30deg) rotateZ(700deg)',offset:.7},{transform:'scale(1) rotateX(0) rotateZ(720deg)'}]][trick];
+    var a1=face.animate(intro,{duration:1150,easing:'cubic-bezier(.2,.8,.3,1)',fill:'forwards'});
+    c.querySelector('s').animate([{backgroundPosition:'-120% 0'},{backgroundPosition:'220% 0'}],{duration:900,delay:650,easing:'ease-in-out',fill:'forwards'});
+    a1.onfinish=function(){
+      /* 2. elle rétrécit et file vers sa destination */
+      var to=kind==='win'?(k&&k.querySelector('.b-kicon')||k):((slot&&slot.getBoundingClientRect().bottom>0&&slot.getBoundingClientRect().top<H)?slot:scr);
+      var t=to?to.getBoundingClientRect():{left:W/2,top:H,width:0,height:0},dx=t.left+t.width/2-W/2,dy=t.top+t.height/2-H/2,sc=Math.max(.04,Math.min(1,(kind==='win'?18:30)/S));
+      var a2=c.animate([{transform:'translate(0,0) scale(1)'},{transform:'translate('+dx*.35+'px,'+(dy*.35-H*.12)+'px) scale(.55)',offset:.45},{transform:'translate('+dx+'px,'+dy+'px) scale('+sc+')'}],{duration:620,easing:'cubic-bezier(.5,0,.6,1)',fill:'forwards'});
+      face.animate([{transform:'rotateY(0)'},{transform:'rotateY(1080deg)'}],{duration:620,easing:'linear',fill:'forwards'});
+      a2.onfinish=function(){c.remove();busyC=false;spin(k);try{window.__borneSon&&window.__borneSon[kind==='win'?'clack':'drop']();}catch(e){}};};}
   function spin(k){var i=k&&k.querySelector('.b-kicon');if(!i)return;i.classList.remove('b-kgo');void i.offsetWidth;i.classList.add('b-kgo');}
   function boot(){if(!setup()){setTimeout(boot,500);return;}var kn=$('kn');new MutationObserver(watch).observe(kn,{childList:true,characterData:true,subtree:true});watch();}
   setTimeout(boot,600);

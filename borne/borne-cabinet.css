@@ -1079,3 +1079,10 @@ html.borne #snd.b-knob[data-pos="2"]{transform:rotate(60deg)}
 html.borne .b-row2 .menu,html.borne .b-row2{perspective:700px;perspective-origin:50% -40%}
 html.borne .b-row2 .menu a{transform:rotateX(34deg);transform-origin:50% 70%}
 html.borne .b-row2 .menu a.b-down{transform:rotateX(34deg) translateY(3px)!important;scale:1!important}
+
+/* ---------- gros plan sur la Koin ---------- */
+html.borne .b-kveil{position:fixed;inset:0;z-index:99990;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(255,180,60,.16),rgba(0,0,0,.55) 70%)}
+html.borne .b-kbig{position:fixed;z-index:99991;pointer-events:none;perspective:900px}
+html.borne .b-kbig i{position:absolute;inset:0;background:center/contain no-repeat;filter:drop-shadow(0 18px 24px rgba(0,0,0,.6)) drop-shadow(0 0 30px rgba(255,190,80,.35));transform-style:preserve-3d;backface-visibility:visible}
+html.borne .b-kbig s{position:absolute;inset:6%;border-radius:50%;pointer-events:none;mix-blend-mode:screen;text-decoration:none;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,230,.75) 50%,transparent 60%) -120% 0/250% 100% no-repeat}
