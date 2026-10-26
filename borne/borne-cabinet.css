@@ -1110,3 +1110,5 @@ html.borne .b-panel .cabinets>.b-stick::before{content:""!important;display:bloc
 html.borne .b-panel .cabinets>.b-stick i{z-index:1;clip-path:inset(0 0 calc(100% - var(--stk-cut,60%)) 0);filter:none!important}
 html.borne .b-panel .cabinets>.b-stick::after{content:"";position:absolute;z-index:0;left:50%;bottom:calc(100% - var(--stk-cut,60%) - 6%);width:46%;height:12%;border-radius:50%;pointer-events:none;
   background:radial-gradient(ellipse,rgba(0,0,0,.55),transparent 70%);transform:translateX(calc(-50% + var(--x,0) * 26px)) scaleX(calc(1 + var(--v,0) * .3));filter:blur(2px)}
+/* ---------- les touches de la borne sans le numéro d'ordre des anciennes tuiles d'Insert Koin ---------- */
+html.borne .b-panel .cab .num,html.borne .b-store .cab .num{display:none!important}
