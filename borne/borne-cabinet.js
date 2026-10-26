@@ -33,7 +33,8 @@
   var menu=home.querySelector('.menu'),loreHref=((menu&&menu.querySelector('a[href*="substack"]'))||{}).href||'https://mauktenieb.substack.com';
   var lore=el('a','b-sticker b-lore','LORE');lore.href=loreHref;lore.target='_blank';lore.rel='noopener';
   if($('koins')){$('koins').classList.add('b-credit');foot.appendChild($('koins'));}lore.classList.add('b-stuck');
-  bezel.appendChild(land);bezel.appendChild(scr);bezel.appendChild(foot);bezel.appendChild(lore);
+  var butee=el('div','b-butee');butee.setAttribute('aria-hidden','true');
+  bezel.appendChild(land);bezel.appendChild(butee);bezel.appendChild(scr);bezel.appendChild(foot);bezel.appendChild(lore);
   home.insertBefore(bezel,home.firstChild);
 
   /* ---------- le panneau ---------- */
@@ -103,7 +104,7 @@
   var door=el('div','b-door'),slot=el('button','b-slot','<b><em>INSERT</em> <u>KOIN</u></b><i></i>');slot.type='button';slot.setAttribute('aria-label','Insert Koin · 3615 KOINS');
   var knobs=el('div','b-knobs');door.appendChild(slot);door.appendChild(knobs);
   /* le bouton SKIN : le meuble en bois, en métal, ou en jeu électromécanique des années 1960 */
-  var SKINS=['bois','metal'],skin=null;/* un skin tiré au hasard à chaque arrivée ; le bouton SKIN change ensuite */
+  var SKINS=['bois','metal','bakelite'],skin=null;/* un skin tiré au hasard à chaque arrivée ; le bouton SKIN change ensuite */
   /* première visite : un skin au hasard ; ensuite, celui que le visiteur a choisi */
   if(SKINS.indexOf(skin)<0)skin=SKINS[Math.floor(Math.random()*SKINS.length)];root.dataset.skin=skin;
   /* variantes du skin 1960, tirées à chaque visite et à chaque retour sur ce skin : enseigne, cadre, panneau, porte */
