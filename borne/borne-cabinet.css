@@ -463,7 +463,7 @@ html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .w
 html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .bar .brand{background:#1f3d5c url(skin-metal-fronton.webp) center/100% 100% no-repeat;color:#0a1622;text-shadow:0 1px 0 rgba(255,255,255,.6),0 0 16px rgba(200,230,255,.7);box-shadow:0 6px 18px rgba(0,0,0,.5)}
 html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .bar .dock{background:#3a3d41 url(skin-metal-grille.webp) center/100% 100% no-repeat;box-shadow:0 6px 14px rgba(0,0,0,.45)}
 html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .bar .dock #radio-toggle{background:rgba(8,10,12,.8);border-radius:4px}
-html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezel .b-screen{border-style:solid;border-width:clamp(20px,3.6vh,36px) clamp(13px,2.1vw,22px);border-image:url(skin-metal-cadre.webp) 198 159 214 158 stretch;border-radius:0}
+html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezel .b-screen{border-style:solid;border-width:clamp(20px,3.6vh,36px) clamp(13px,2.1vw,22px);border-image:url(skin-metal-cadre.webp) 171 126 186 124 stretch;border-radius:0}
 html.borne[data-skin=metal]:not([data-mode=device]):not([data-habit=fauneye]) .b-panel{background:#3a3d41 url(skin-metal-panneau.webp) center/cover no-repeat}
 html.borne[data-skin=metal] .b-door{background:none;box-shadow:none;width:auto;max-width:calc(100% - 24px);gap:22px}
 html.borne[data-skin=metal] .b-slot{width:clamp(220px,36vw,300px);aspect-ratio:1024/559;padding:0;border-radius:4px;background:url(skin-metal-porte.webp) center/100% 100% no-repeat;box-shadow:0 6px 14px rgba(0,0,0,.5)}
@@ -883,7 +883,7 @@ html.borne .b-row2 .menu a.b-up{animation:bkeyup .38s cubic-bezier(.2,1.8,.4,1)}
 @font-face{font-family:'Bungee';src:url(font-bungee.woff2) format('woff2');font-display:swap}
 @font-face{font-family:'Bungee Inline';src:url(font-bungee-inline.woff2) format('woff2');font-display:swap}
 html.borne{--sg-fill:#fff1c2;--sg-line:#5a1206;--sg-x1:#c9420f;--sg-x2:#7a1d06;--sg-glow:rgba(255,150,40,.75);--sg-bulb:#ffd36e}
-html.borne[data-skin=metal]{--sg-fill:#eaf8ff;--sg-line:#0b2236;--sg-x1:#2a7fb8;--sg-x2:#103a5c;--sg-glow:rgba(120,210,255,.75);--sg-bulb:#bfeaff}
+html.borne[data-skin=metal]{--sg-fill:#ffecc4;--sg-line:#3a1a06;--sg-x1:#c25a12;--sg-x2:#6a2a06;--sg-glow:rgba(255,140,40,.75);--sg-bulb:#ffcf7a}
 html.borne[data-skin="1960"]{--sg-fill:#fff6dc;--sg-line:#6a0d06;--sg-x1:#d6261a;--sg-x2:#7c0f08;--sg-glow:rgba(255,90,60,.7);--sg-bulb:#ffe7a8}
 html.borne .bar .brand{position:relative;display:grid!important;place-items:center;text-align:center!important;padding:6px 14px!important;overflow:hidden;
   font-family:'Bungee',var(--f-sign),Impact,sans-serif!important;font-weight:400!important;font-size:clamp(1.15rem,min(4.4vh,2.7vw),2.7rem)!important;letter-spacing:.03em!important;line-height:1!important;
@@ -986,3 +986,4 @@ html.borne[data-skin=metal] .b-butee{background-image:url(butee-metal.webp)}
 /* ---------- la manette à l'échelle des touches : un peu plus haute qu'elles ---------- */
 html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{width:clamp(70px,6.6vw,140px)!important;height:auto!important;aspect-ratio:76/100!important}
 @media (max-width:700px){html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{width:clamp(66px,22vw,100px)!important}}
+html.borne[data-skin=metal] .b-knobs{filter:brightness(.55) sepia(.4)}
