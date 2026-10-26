@@ -118,7 +118,7 @@
   variants();
   /* pièces tirées au hasard à chaque visite : l'autocollant Lore, la caméra, la manette */
   (function(){var s=root.style;s.setProperty('--i-lore','url('+pick(['sticker-lore-a.webp','sticker-lore-b.webp'])+')');
-    s.setProperty('--i-cam','url('+pick(['camera-a.webp','camera-b.webp'])+')');var mt=pick(['manette-a.webp','manette-b.webp']);s.setProperty('--i-stick','url('+mt+')');s.setProperty('--stk-cut',mt==='manette-a.webp'?'50%':'76%');})();
+    s.setProperty('--i-cam','url('+pick(['camera-a.webp','camera-b.webp'])+')');var mt=pick(['manette-a.webp','manette-b.webp']);s.setProperty('--i-stick','url('+mt+')');s.setProperty('--stk-cut',mt==='manette-a.webp'?'50%':'76%');s.setProperty('--ball-cut',mt==='manette-a.webp'?'39.5%':'37.5%');})();
   var sw=el('div','b-knobw'),sb=el('button','b-knob b-skin');sb.type='button';sb.setAttribute('aria-label','Skin');sb.dataset.pos=SKINS.indexOf(skin);
   sw.appendChild(sb);sw.appendChild(el('span','b-knoblab','🧤'));knobs.appendChild(sw);
   sb.onclick=function(){skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}

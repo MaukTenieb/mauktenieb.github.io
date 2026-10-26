@@ -9,7 +9,7 @@
     ['burrows','.b-land'],['lore','.b-lore'],['koins','.b-bezelfoot #koins'],['boom','.b-bezelfoot .b-boom'],
     ['boutons','.b-row2 .menu'],['manette','.b-panel .cabinets > .b-stick'],['plaque','.b-plate .b-badge'],['fente','.b-slot'],['molettes','.b-knobs']
   ];
-  var MAG=14,HOME=26,LONG=220;
+  var MAG=14,HOME=40,LONG=260;
   var blocks=[],drag=null,suppress=0;
   function skin(){return root.dataset.skin||'bois';}
   function key(){return 'borne.aimant.'+skin();}
@@ -41,7 +41,7 @@
     if(navigator.vibrate)try{navigator.vibrate(12);}catch(_){}}
   function down(e){if(e.button>0||drag)return;var b=of(e.target);if(!b)return;
     if(b.id==='manette'){var rr=b.el.getBoundingClientRect();if(e.clientY<rr.top+rr.height*.74)return;}
-    drag={b:b,id:e.pointerId,x:e.clientX,y:e.clientY,dx:b.dx,dy:b.dy,on:false,touch:e.pointerType!=='mouse',t:0};
+    drag={b:b,id:e.pointerId,x:e.clientX,y:e.clientY,dx:b.dx,dy:b.dy,on:false,touch:true,t:0};
     if(drag.touch)drag.t=setTimeout(function(){if(drag&&!drag.on&&!drag.moved)grab(b,e);},LONG);}
   function move(e){if(!drag||e.pointerId!==drag.id)return;var mx=e.clientX-drag.x,my=e.clientY-drag.y;
     if(!drag.on){if(Math.hypot(mx,my)>8){if(drag.touch){drag.moved=true;clearTimeout(drag.t);drag=null;return;}grab(drag.b,e);}else return;}
@@ -71,7 +71,7 @@
     document.addEventListener('pointermove',function(e){if(!P[e.pointerId])return;P[e.pointerId]={x:e.clientX,y:e.clientY};if(a0!=null){var a=ang();if(a!=null){set(r0+a-a0);e.preventDefault();}}},{capture:true,passive:false});
     function up(e){if(P[e.pointerId]){delete P[e.pointerId];if(Object.keys(P).length<2){if(a0!=null){suppress=Date.now();try{window.__borneSon&&window.__borneSon.tick();}catch(_){}}a0=null;}}}
     document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);
-    document.addEventListener('wheel',function(e){var l=el();if(!l||!l.contains(e.target))return;e.preventDefault();set(rot()+(e.deltaY>0?6:-6));},{passive:false});
+    document.addEventListener('wheel',function(e){var l=el();if(!l||!l.contains(e.target)||!(e.shiftKey||e.altKey))return;e.preventDefault();set(rot()+(e.deltaY>0?6:-6));},{passive:false});
     setTimeout(function(){try{var v=localStorage.getItem('borne.lore.rot');if(v!=null&&el())el().style.setProperty('--lr',v+'deg');}catch(_){}},1500);})();
 
   /* un autre skin, d'autres places */
