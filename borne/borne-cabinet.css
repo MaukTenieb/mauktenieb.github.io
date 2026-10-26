@@ -982,3 +982,7 @@ html.borne:is([data-skin=bois],[data-skin=metal]):not([data-prog]) .b-butee{disp
 html.borne[data-skin=bois] .b-butee{background-image:url(butee-bois.webp)}
 html.borne[data-skin=metal] .b-butee{background-image:url(butee-metal.webp)}
 
+
+/* ---------- la manette à l'échelle des touches : un peu plus haute qu'elles ---------- */
+html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{width:clamp(70px,6.6vw,140px)!important;height:auto!important;aspect-ratio:76/100!important}
+@media (max-width:700px){html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{width:clamp(66px,22vw,100px)!important}}
