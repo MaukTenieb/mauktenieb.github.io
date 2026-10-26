@@ -1097,3 +1097,16 @@ html.borne .b-sheen{display:none!important}
 html.borne .b-panel .cab::after{background:none!important;opacity:0!important}
 html.borne .b-alive.b-flick{animation:bflick var(--alive,2.4s) steps(1,end)}
 @keyframes bflick{0%,100%{filter:brightness(1)}8%{filter:brightness(1.3) drop-shadow(0 0 8px color-mix(in srgb,var(--glow) 70%,transparent))}14%{filter:brightness(1)}22%,70%{filter:brightness(1.24) saturate(1.1) drop-shadow(0 0 7px color-mix(in srgb,var(--glow) 65%,transparent)) drop-shadow(0 0 18px color-mix(in srgb,var(--glow) 30%,transparent))}}
+
+/* ---------- SON : deux crans, coupé ou ouvert ---------- */
+html.borne #snd.b-knob[data-pos="0"]{transform:rotate(-60deg)}
+html.borne #snd.b-knob[data-pos="2"]{transform:rotate(40deg)}
+/* ---------- l'aimant à droite de la machine, même hauteur ---------- */
+html.borne .b-dekonect{left:auto!important;right:var(--inset,20px)!important}
+/* ---------- la manette : socle fixe, seule la tige et la boule penchent ; l'ombre de la boule glisse sur le panneau, à l'opposé de la lumière ---------- */
+html.borne .b-panel .cabinets>.b-stick{position:relative}
+html.borne .b-panel .cabinets>.b-stick::before{content:""!important;display:block!important;position:absolute;inset:0;z-index:0;left:0!important;right:0!important;bottom:0!important;height:auto!important;border-radius:0!important;box-shadow:none!important;
+  background:var(--i-stick) center bottom/contain no-repeat!important;clip-path:inset(var(--stk-cut,60%) 0 0 0)}
+html.borne .b-panel .cabinets>.b-stick i{z-index:1;clip-path:inset(0 0 calc(100% - var(--stk-cut,60%)) 0);filter:none!important}
+html.borne .b-panel .cabinets>.b-stick::after{content:"";position:absolute;z-index:0;left:50%;bottom:calc(100% - var(--stk-cut,60%) - 6%);width:46%;height:12%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(0,0,0,.55),transparent 70%);transform:translateX(calc(-50% + var(--x,0) * 26px)) scaleX(calc(1 + var(--v,0) * .3));filter:blur(2px)}

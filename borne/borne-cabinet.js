@@ -118,20 +118,20 @@
   variants();
   /* pièces tirées au hasard à chaque visite : l'autocollant Lore, la caméra, la manette */
   (function(){var s=root.style;s.setProperty('--i-lore','url('+pick(['sticker-lore-a.webp','sticker-lore-b.webp'])+')');
-    s.setProperty('--i-cam','url('+pick(['camera-a.webp','camera-b.webp'])+')');s.setProperty('--i-stick','url('+pick(['manette-a.webp','manette-b.webp'])+')');})();
+    s.setProperty('--i-cam','url('+pick(['camera-a.webp','camera-b.webp'])+')');var mt=pick(['manette-a.webp','manette-b.webp']);s.setProperty('--i-stick','url('+mt+')');s.setProperty('--stk-cut',mt==='manette-a.webp'?'50%':'76%');})();
   var sw=el('div','b-knobw'),sb=el('button','b-knob b-skin');sb.type='button';sb.setAttribute('aria-label','Skin');sb.dataset.pos=SKINS.indexOf(skin);
   sw.appendChild(sb);sw.appendChild(el('span','b-knoblab','SKIN'));knobs.appendChild(sw);
   sb.onclick=function(){skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
     try{IK().tone&&IK().tone(220,.05,'square',.03);IK().tone&&IK().tone(330,.05,'square',.03,0,.06);}catch(e){}
     scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');setTimeout(function(){if(skin==='1960')variants();root.dataset.skin=skin;},250);};
   /* VOL : la molette du volume de la machine (sons des jeux et de la mécanique) ; trois crans, 0, moyen, fort */
-  (function(){var b=$('snd');if(!b)return;var lv=2;try{var v=localStorage.getItem('borne.vol');if(v!=null)lv=+v;}catch(e){}
+  (function(){var b=$('snd');if(!b)return;var lv=2;try{var v=localStorage.getItem('borne.vol');if(v!=null)lv=+v?2:0;}catch(e){}
     function isOn(){return /ON/i.test(b.textContent||'');}
     function apply(){if((lv>0)!==isOn())HTMLElement.prototype.click.call(b);window.__borneVol=[0,.45,1][lv];try{window.__borneSon&&window.__borneSon.vol&&window.__borneSon.vol(window.__borneVol);}catch(e){}
       b.dataset.pos=lv;try{localStorage.setItem('borne.vol',lv);}catch(e){}}
-    b.addEventListener('click',function(e){if(e.isTrusted||e.detail){e.preventDefault();e.stopImmediatePropagation();lv=(lv+1)%3;apply();}},true);
+    b.addEventListener('click',function(e){if(e.isTrusted||e.detail){e.preventDefault();e.stopImmediatePropagation();lv=lv?0:2;apply();}},true);
     setTimeout(apply,300);})();
-  [['snd','VOL'],['lang','FR · EN']].forEach(function(p){var b=$(p[0]);if(!b)return;var w=el('div','b-knobw');b.classList.add('b-knob');b.setAttribute('aria-label',p[1]);w.appendChild(b);w.appendChild(el('span','b-knoblab',p[1]));knobs.appendChild(w);
+  [['snd','SON'],['lang','FR · EN']].forEach(function(p){var b=$(p[0]);if(!b)return;var w=el('div','b-knobw');b.classList.add('b-knob');b.setAttribute('aria-label',p[1]);w.appendChild(b);w.appendChild(el('span','b-knoblab',p[1]));knobs.appendChild(w);
     var sync=function(){var t=(b.textContent||'').toUpperCase();b.dataset.on=(p[0]==='snd'?/ON/.test(t):/FR/.test(t))?'1':'0';};sync();
     new MutationObserver(sync).observe(b,{childList:true,characterData:true,subtree:true});});
   if($('kal'))door.appendChild($('kal'));
