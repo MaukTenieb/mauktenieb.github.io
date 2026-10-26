@@ -989,13 +989,13 @@ html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{
 html.borne[data-skin=metal] .b-knobs{filter:brightness(.55) sepia(.4)}
 
 /* ---------- perspective unique du panneau : on le regarde de face, un peu d'en haut, comme les boutons BC TL IG et la manette ---------- */
-html.borne .b-panel .cabinets>.cab,html.borne .b-panel .b-sub .cab{transform-origin:50% 100%;transform:perspective(520px) rotateX(16deg)!important;
+html.borne .b-panel .cabinets>.cab,html.borne .b-panel .b-sub .cab{transform-origin:50% 100%;transform:rotateX(20deg)!important;
   box-shadow:0 0 0 2px #050505,inset 0 1px 0 rgba(255,255,255,.16),0 9px 0 #0a0908,0 10px 0 #000,0 16px 20px rgba(0,0,0,.55)!important}
-html.borne .b-panel .cabinets>.cab:nth-child(1),html.borne .b-panel .cabinets>.cab:last-child{transform:perspective(520px) rotateX(16deg) translateY(14px)!important}
-html.borne .b-panel .cab.b-down{scale:1!important;transform:perspective(520px) rotateX(16deg) translateY(6px)!important;box-shadow:0 0 0 2px #050505,inset 0 1px 0 rgba(255,255,255,.1),0 3px 0 #0a0908,0 4px 0 #000,0 7px 10px rgba(0,0,0,.5)!important}
-html.borne .b-panel .cabinets>.cab:nth-child(1).b-down,html.borne .b-panel .cabinets>.cab:last-child.b-down{transform:perspective(520px) rotateX(16deg) translateY(20px)!important}
+html.borne .b-panel .cabinets>.cab:nth-child(1),html.borne .b-panel .cabinets>.cab:last-child{transform:rotateX(20deg) translateY(14px)!important}
+html.borne .b-panel .cab.b-down{scale:1!important;transform:rotateX(20deg) translateY(6px)!important;box-shadow:0 0 0 2px #050505,inset 0 1px 0 rgba(255,255,255,.1),0 3px 0 #0a0908,0 4px 0 #000,0 7px 10px rgba(0,0,0,.5)!important}
+html.borne .b-panel .cabinets>.cab:nth-child(1).b-down,html.borne .b-panel .cabinets>.cab:last-child.b-down{transform:rotateX(20deg) translateY(20px)!important}
 html.borne .b-panel .cab.b-up{animation:none!important}
-html.borne .b-plate .b-badge{transform:perspective(520px) rotateX(16deg)!important;box-shadow:0 0 0 1px #000,0 0 0 3px #a8885a,0 0 0 4px #4a3a24,inset 0 1px 0 rgba(255,255,255,.08),0 4px 0 #2a1e10,0 8px 12px rgba(0,0,0,.55)!important}
+html.borne .b-plate .b-badge{transform:rotateX(20deg)!important;box-shadow:0 0 0 1px #000,0 0 0 3px #a8885a,0 0 0 4px #4a3a24,inset 0 1px 0 rgba(255,255,255,.08),0 4px 0 #2a1e10,0 8px 12px rgba(0,0,0,.55)!important}
 
 /* ---------- bloc son refait : une fenêtre d'affichage sous verre fumé (fluorescent ambre, trame de points), deux touches physiques à côté ---------- */
 html.borne .bar .dock:first-of-type{grid-template-columns:minmax(0,1fr) 34px 34px!important;column-gap:5px!important}
@@ -1022,3 +1022,16 @@ html.borne .bar .dock:first-of-type .b-bell.on::before{background:#ffb02a;box-sh
 @keyframes bled{50%{opacity:.55}}
 html.borne .bar .dock:first-of-type .b-bell svg .x{color:#ff5a46}
 @media (max-width:700px){html.borne .bar .dock:first-of-type{grid-template-columns:minmax(0,1fr) 34px 34px!important}}
+
+/* ---------- la console en vraie perspective : une tablette inclinée qui avance vers le joueur, plus large devant ; rebord avant épais ---------- */
+html.borne[data-skin=bois]{--pan:url(skin-bois-panneau.webp);--pan-c:#1a1816;--pan-lip:#0e0c0a}
+html.borne[data-skin=metal]{--pan:url(skin-metal-panneau.webp);--pan-c:#1c1a18;--pan-lip:#0c0b0a}
+html.borne .b-panel{background:transparent!important;isolation:isolate;border-top:0!important;box-shadow:none!important;padding-bottom:calc(var(--s3,12px) + 16px)!important}
+html.borne .b-panel::before{content:"";position:absolute;left:0;right:0;top:0;bottom:14px;z-index:-1;transform-origin:50% 0;transform:perspective(700px) rotateX(22deg);
+  background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 22%,transparent 80%,rgba(255,235,200,.06)),var(--pan,none) center/100% 100% no-repeat,var(--pan-c,#1a1816);
+  border-radius:4px 4px 2px 2px;box-shadow:inset 0 3px 6px rgba(0,0,0,.6)}
+html.borne .b-panel::after{content:"";position:absolute;left:-3.2%;right:-3.2%;bottom:0;height:16px;z-index:-1;border-radius:0 0 10px 10px;
+  background:linear-gradient(180deg,#2a2622 0%,var(--pan-lip,#0e0c0a) 45%,#000 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 8px 14px rgba(0,0,0,.6)}
+html.borne .b-panel .cabinets,html.borne .b-panel .b-sub,html.borne .b-plate{perspective:700px;perspective-origin:50% -40%}
+@media (max-width:700px){html.borne .b-panel .cabinets>.cab:nth-child(1),html.borne .b-panel .cabinets>.cab:last-child{transform:rotateX(20deg)!important}
+  html.borne .b-panel .cabinets>.cab:nth-child(1).b-down,html.borne .b-panel .cabinets>.cab:last-child.b-down{transform:rotateX(20deg) translateY(6px)!important}}
