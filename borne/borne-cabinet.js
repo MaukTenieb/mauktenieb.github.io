@@ -422,8 +422,8 @@
   /* les éléments s'allument d'eux-mêmes, doucement, comme sous tension : un ou deux à la fois, une lente montée puis une retombée */
   function glint(){var L=[].slice.call(document.querySelectorAll('.b-gl')).map(function(s){return s.parentNode;}).filter(function(e){var r=e.getBoundingClientRect();return r.width&&r.bottom>0&&r.top<innerHeight&&!e.classList.contains('b-alive');});
     if(L.length&&!document.hidden){var n=1+(Math.random()<.4?1:0);for(var i=0;i<n;i++){var e=L.splice(Math.floor(Math.random()*L.length),1)[0];if(!e)break;
-      var d=(2.6+Math.random()*2.4).toFixed(2);e.style.setProperty('--alive',d+'s');e.classList.add('b-alive');(function(e,d){setTimeout(function(){e.classList.remove('b-alive');},d*1000+60);})(e,+d);}}
-    setTimeout(glint,1800+Math.random()*3200);}
+      var d=(1.6+Math.random()*1.8).toFixed(2);if(Math.random()<.22)e.classList.add('b-flick');e.style.setProperty('--alive',d+'s');e.classList.add('b-alive');(function(e,d){setTimeout(function(){e.classList.remove('b-alive','b-flick');},d*1000+60);})(e,+d);}}
+    setTimeout(glint,700+Math.random()*1900);}
   setTimeout(glint,2000);
   var raf=0,px=.5,py=.5;
   function paint(){raf=0;root.style.setProperty('--rx',px.toFixed(3));root.style.setProperty('--ry',py.toFixed(3));}

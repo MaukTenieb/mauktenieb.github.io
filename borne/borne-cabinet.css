@@ -1091,3 +1091,9 @@ html.borne .b-kbig s{position:absolute;inset:6%;border-radius:50%;pointer-events
 html.borne .b-lore .b-sheen{display:none!important}
 html.borne .b-lore{background-color:transparent!important;box-shadow:none!important;border:0!important;border-radius:0!important;outline:none!important;-webkit-tap-highlight-color:transparent;touch-action:none}
 html.borne .b-slot .b-lore.b-onbox,html.borne .b-slot .b-lore.b-onbox:hover{transform:rotate(var(--lr,-6deg))!important}
+
+/* ---------- touches nettes : zéro reflet qui ondule ; elles s'allument plus souvent, parfois avec un petit clignement ---------- */
+html.borne .b-sheen{display:none!important}
+html.borne .b-panel .cab::after{background:none!important;opacity:0!important}
+html.borne .b-alive.b-flick{animation:bflick var(--alive,2.4s) steps(1,end)}
+@keyframes bflick{0%,100%{filter:brightness(1)}8%{filter:brightness(1.3) drop-shadow(0 0 8px color-mix(in srgb,var(--glow) 70%,transparent))}14%{filter:brightness(1)}22%,70%{filter:brightness(1.24) saturate(1.1) drop-shadow(0 0 7px color-mix(in srgb,var(--glow) 65%,transparent)) drop-shadow(0 0 18px color-mix(in srgb,var(--glow) 30%,transparent))}}
