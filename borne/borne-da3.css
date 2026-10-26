@@ -101,3 +101,17 @@ html.borne #home .b-panel .cabinets>.cab b{font-size:min(clamp(1rem,1.7vw,1.45re
 /* la manette garde la proportion des touches, même quand le meuble rapetisse */
 @media (min-width:701px){html.borne #home .b-panel .cabinets{container-type:inline-size}
 html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{width:clamp(48px,12.8cqi,140px)!important}}
+/* haut-parleurs sur ordinateur : l'image seule, sans caisson noir autour */
+@media (min-width:701px){
+html.borne .bar .dock:first-of-type,html.borne .bar .dock:last-of-type{background-color:transparent!important;box-shadow:none!important;filter:drop-shadow(0 5px 8px rgba(0,0,0,.6))}
+html.borne .bar .dock:last-of-type{background-position:center!important}
+html.borne .bar .dock:first-of-type.b-narrow{grid-template-columns:minmax(0,1fr) 32px 32px minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr) 26px!important;row-gap:3px!important;padding:4px!important;background-image:none!important;position:relative}
+html.borne .bar .dock:first-of-type.b-narrow::after{content:"";position:absolute;inset:4px 4px 33px;background:center top/contain no-repeat;z-index:0;pointer-events:none}
+html.borne[data-skin=bois] .bar .dock:first-of-type.b-narrow::after{background-image:url(skin-bois-grille.webp)}
+html.borne[data-skin=metal] .bar .dock:first-of-type.b-narrow::after{background-image:url(skin-metal-grille.webp)}
+html.borne .bar .dock:first-of-type.b-narrow>*{position:relative;z-index:1}
+html.borne .bar .dock:first-of-type.b-narrow #radio-toggle{grid-row:1!important;grid-column:1 / -1!important;align-self:end;height:18px!important;min-height:18px!important;padding:0 6px!important}
+html.borne .bar .dock:first-of-type.b-narrow #radio-toggle .motel-l{font-size:9px!important}
+html.borne .bar .dock:first-of-type.b-narrow .b-bell,html.borne .bar .dock:first-of-type.b-narrow #export-pl{grid-row:2!important;height:26px!important;min-height:26px!important;width:32px!important}
+html.borne .bar .dock:first-of-type.b-narrow .b-bell{grid-column:2!important}
+html.borne .bar .dock:first-of-type.b-narrow #export-pl{grid-column:3!important}}

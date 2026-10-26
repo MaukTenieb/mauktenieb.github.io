@@ -506,3 +506,7 @@
     setTimeout(wake,1500+Math.random()*3500);}
   if(!RM)setTimeout(wake,1200);
 })();
+/* le bloc son étroit (écran d'ordinateur bas) : le titre passe sur sa propre ligne, au-dessus des touches */
+(function(){function go(){var d=document.querySelector('.bar .dock:first-of-type');if(!d||!window.ResizeObserver){setTimeout(go,600);return;}
+  new ResizeObserver(function(){d.classList.toggle('b-narrow',innerWidth>700&&d.offsetWidth<240);}).observe(d);}
+  go();})();
