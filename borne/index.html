@@ -988,7 +988,6 @@ function jukeStartPlay(){
     var order=jukeShuffleIds();try{var t0=(JUKE_TRACKS.find(function(x){return x.id===order[0];})||{}).t;if(t0)window.__jukeNow=jukeCleanTitle(t0);}catch(e){}
     jukePlayer.loadPlaylist({playlist:order, index:0});
     jukePlayer.setLoop(true);
-    jukePlayer.setShuffle(true);
     jukePlayer.unMute();
     jukePlayer.setVolume(window.__jukeVol||100);
     jukePlayer.playVideo();

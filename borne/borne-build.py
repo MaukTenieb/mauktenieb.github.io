@@ -64,6 +64,8 @@ s = once(s, "$('cv').addEventListener('pointerdown',e=>{if(e.pointerType!=='touc
 s = once(s, '<button class="btn hot" type="button">KAM</button><button class="btn" type="button" aria-label="${tr(\'no\')}">✕</button></div>`;', '<button class="btn hot" type="button">KAM</button></div>`;')
 s = once(s, "a.onclick=()=>{m.remove();skreen();};b.onclick=()=>{m.remove();openGame('kapture','KAPTURE');};c.onclick=()=>m.remove();a.focus();}",
   "a.onclick=()=>{m.remove();skreen();};b.onclick=()=>{m.remove();openGame('kapture','KAPTURE');};const esc=e=>{if(e.key==='Escape'&&document.body.contains(m)){e.stopImmediatePropagation();e.preventDefault();m.remove();removeEventListener('keydown',esc,true);}};addEventListener('keydown',esc,true);m.addEventListener('click',e=>{if(e.target===m)m.remove();});a.focus();}")
+# Motel Sound : la liste est déjà mélangée ; un second mélange du lecteur décalait le titre affiché du morceau joué
+s = once(s, "    jukePlayer.setShuffle(true);\n", "")
 wr("index.html", s)
 
 k = rd("skoporhogo.html")

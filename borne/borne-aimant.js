@@ -24,7 +24,11 @@
     var saved=load(),seen={};
     blocks=list.filter(function(x){return x[1]&&!seen[x[0]]&&(seen[x[0]]=1);}).map(function(x){
       var b={id:x[0],el:x[1],dx:0,dy:0};x[1].classList.add('b-mag');var s=saved[x[0]];if(s)put(b,s[0],s[1],false);return b;});
+    var lost=false;blocks.forEach(function(b){if((b.dx||b.dy)&&!inside(b)){put(b,0,0,false);lost=true;}});if(lost)save();
   }
+  /* un bloc doit rester sur le meuble, aux deux tiers au moins : sinon il revient à sa place */
+  function inside(b){var w=document.querySelector('.wrap');if(!w||!b.el.offsetParent)return true;var W=w.getBoundingClientRect(),r=b.el.getBoundingClientRect();if(!r.width)return true;
+    var ix=Math.max(0,Math.min(r.right,W.right)-Math.max(r.left,W.left)),iy=Math.max(0,Math.min(r.bottom,W.bottom)-Math.max(r.top,W.top));return ix*iy>=r.width*r.height*.66;}
   function of(t){for(var i=0;i<blocks.length;i++)if(blocks[i].el===t||blocks[i].el.contains(t))return blocks[i];return null;}
   /* l'aimant : bords contre bords, bords alignés, axes alignés ; et la place d'origine */
   function snap(b,x,y){
@@ -48,7 +52,7 @@
     e.preventDefault();var s=snap(drag.b,drag.dx+mx,drag.dy+my);put(drag.b,s[0],s[1],false);drag.b.el.classList.toggle('b-docked',s[2]);}
   function up(e){if(!drag||e.pointerId!==drag.id)return;clearTimeout(drag.t);var d=drag;drag=null;
     if(!d.on)return;suppress=Date.now();d.b.el.classList.remove('b-held','b-docked');root.classList.remove('b-holding');
-    var s=snap(d.b,d.b.dx,d.b.dy);put(d.b,s[0],s[1],true);save();try{window.__borneSon&&setTimeout(window.__borneSon.clack,120);}catch(_){}}
+    var s=snap(d.b,d.b.dx,d.b.dy);put(d.b,s[0],s[1],false);if(!inside(d.b))s=[0,0];put(d.b,s[0],s[1],true);save();try{window.__borneSon&&setTimeout(window.__borneSon.clack,120);}catch(_){}}
   document.addEventListener('pointerdown',down,true);
   document.addEventListener('pointermove',move,{capture:true,passive:false});
   document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);

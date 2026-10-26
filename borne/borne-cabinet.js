@@ -353,7 +353,11 @@
   var bell=el('button','b-bell','🔕');bell.type='button';bell.setAttribute('aria-label','Motel Sound : son coupé');bell.setAttribute('aria-pressed','false');
   var docks=bar.querySelectorAll('.dock');(docks[0]||bar).appendChild(bell);
   var muted=true,jp=function(){try{return window.__juke&&window.__juke();}catch(e){return null;}};
-  function applyMute(){var p=jp();if(!p||!p.mute)return false;try{if(muted)p.mute();else{p.unMute();p.setVolume&&p.setVolume(80);}}catch(e){}return true;}
+  function applyMute(force){var p=jp();if(!p||!p.mute)return false;
+    /* n'agit que si l'état du lecteur diffère : plus de volume forcé chaque seconde, la baisse pendant VHS ou la voix reste en place */
+    try{var m=p.isMuted?p.isMuted():null;if(muted){if(m!==true)p.mute();}
+      else{if(m!==false||force){p.unMute();p.setVolume&&p.setVolume(window.__jukeVol||100);}
+        if(force&&p.getPlayerState&&p.getPlayerState()!==1&&p.playVideo)p.playVideo();}}catch(e){}return true;}
   var BELL='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5h4l5-4.5v14l-5-4.5H3z" fill="currentColor"/><path class="w1" d="M15.5 9a4.2 4.2 0 0 1 0 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="w2" d="M18.2 6.5a7.6 7.6 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="x" d="M15.5 9.5l5 5M20.5 9.5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
   function paintBell(){bell.innerHTML=BELL;bell.classList.toggle('on',!muted);bell.setAttribute('aria-pressed',String(!muted));
     bell.setAttribute('aria-label','Motel Sound : '+(muted?'son coupé':'son ouvert'));}
@@ -361,7 +365,7 @@
   setTimeout(function(){clearInterval(guard);guard=setInterval(applyMute,1000);},15000);
   setTimeout(function(){var n=$('radio-note'),t=$('radio-toggle');if(t&&!(n&&n.classList.contains('on')))t.click();},600);
   bell.onclick=function(e){e.stopPropagation();muted=!muted;paintBell();var n=$('radio-note'),t=$('radio-toggle');
-    if(!muted&&t&&!(n&&n.classList.contains('on')))t.click();applyMute();};
+    if(!muted&&t&&!(n&&n.classList.contains('on')))t.click();applyMute(true);};
   paintBell();
   /* le titre du juke-box défile quand il dépasse la bande d'affichage */
   /* bandeau de téléscripteur : le titre en entier, qui file sans fin de droite à gauche, comme les annonces des chaînes d'information */

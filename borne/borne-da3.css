@@ -115,3 +115,27 @@ html.borne .bar .dock:first-of-type.b-narrow #radio-toggle .motel-l{font-size:9p
 html.borne .bar .dock:first-of-type.b-narrow .b-bell,html.borne .bar .dock:first-of-type.b-narrow #export-pl{grid-row:2!important;height:26px!important;min-height:26px!important;width:32px!important}
 html.borne .bar .dock:first-of-type.b-narrow .b-bell{grid-column:2!important}
 html.borne .bar .dock:first-of-type.b-narrow #export-pl{grid-column:3!important}}
+/* passage d'un programme à l'autre : le faisceau du tube repeint l'image de haut en bas, à la couleur du programme qui arrive */
+html.borne{--tc:255,196,120}
+html.borne[data-habit=minitel]{--tc:150,240,170}
+html.borne[data-habit=vhs]{--tc:255,170,120}
+html.borne[data-habit=photo]{--tc:255,214,150}
+html.borne[data-habit=fauneye]{--tc:240,232,210}
+html.borne[data-habit=korong]{--tc:255,186,110}
+html.borne .b-morph .b-glass::before{inset:auto 0 auto 0!important;top:-18%;height:18%;transform:none!important;opacity:0;mix-blend-mode:screen;
+  background:linear-gradient(180deg,transparent 0,rgba(var(--tc),.08) 50%,rgba(var(--tc),.42) 86%,rgba(255,250,238,.95) 97%,transparent 100%)!important;
+  animation:bbeam .9s cubic-bezier(.45,0,.3,1) both!important}
+@keyframes bbeam{0%{top:-18%;opacity:0}6%{opacity:1}90%{opacity:1}100%{top:82%;opacity:0}}
+html.borne .b-morph .b-glass>*{animation:bpaint .9s cubic-bezier(.45,0,.3,1) both!important}
+@keyframes bpaint{0%{clip-path:inset(0 0 100% 0);filter:brightness(1.8) saturate(.5)}70%{filter:brightness(1.15) saturate(.9)}100%{clip-path:inset(0 0 0 0);filter:none}}
+/* zapping dans un groupe : une vraie neige de tube, grise, qui crépite et s'efface */
+html.borne .b-glass.b-snow::before{inset:0!important;transform:none!important;mix-blend-mode:normal;
+  background:linear-gradient(180deg,transparent 0 40%,rgba(0,0,0,.55) 46%,rgba(0,0,0,.55) 52%,transparent 58%) 0 0/100% 200%,
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.7 0 0 0 -.42 1.7 0 0 0 -.42 1.7 0 0 0 -.42 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/180px 180px!important;
+  animation:bsnow2 .5s steps(1,end) forwards!important}
+@keyframes bsnow2{0%{opacity:.95;background-position:0 0,0 0}12%{background-position:0 20%,-63px 41px}25%{background-position:0 40%,37px -88px}37%{background-position:0 60%,-121px 17px}50%{opacity:.9;background-position:0 80%,74px 133px}62%{background-position:0 100%,-29px -54px}75%{opacity:.6;background-position:0 120%,111px 69px}100%{opacity:0;background-position:0 160%,-47px -101px}}
+@media (prefers-reduced-motion:reduce){html.borne .b-morph .b-glass::before,html.borne .b-morph .b-glass>*{animation:none!important}}
+/* plus aucun reflet balayé sur les touches */
+html.borne .cab .gleam,html.borne .menu .gleam{display:none!important}
+html.borne .cab.sweep{filter:none!important}
+html.borne .b-lore.b-onbox{z-index:20!important}

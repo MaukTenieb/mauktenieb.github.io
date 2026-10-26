@@ -128,7 +128,7 @@
         filter: "drop-shadow(0 0 2.5px rgba(170,255,190,.42)) contrast(1.05)",
         scan: "rgba(0,0,0,.30) 0 2px, transparent 2px 4px", grain: 0.035,
       },
-      glass: { hi: 0.14, hiAt: "30% 14%", hiShape: "80% 60%", sheen: 0.045, vig: 0.78, vigFrom: "50%", inset: 70, insetA: 0.85 },
+      glass: { hi: 0, hiAt: "30% 14%", hiShape: "80% 60%", sheen: 0, vig: 0.78, vigFrom: "50%", inset: 70, insetA: 0.85 },
     },
     // Photo viewfinder (Photofauna, Kapture): the picture as it is, sharp, with discreet framing marks.
     photo: {
