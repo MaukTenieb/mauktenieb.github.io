@@ -67,3 +67,23 @@ html.borne .b-bezelfoot{position:relative}
 html.borne .b-bezelfoot::before{content:"";position:absolute;inset:4px 6px;pointer-events:none;border-radius:3px;
   box-shadow:inset 0 0 0 1px rgba(214,170,110,.16),inset 0 0 0 3px rgba(0,0,0,.6),inset 0 0 0 4px rgba(214,170,110,.07);
   background:radial-gradient(circle at 8px 50%,rgba(214,170,110,.22) 0 1.6px,transparent 2.2px),radial-gradient(circle at calc(100% - 8px) 50%,rgba(214,170,110,.22) 0 1.6px,transparent 2.2px)}
+
+/* ---------- 26 oct., 17 h 55 : haut-parleur entier ; touche son puis PL à sa droite ; libellés 🎶 et 🧤 ---------- */
+html.borne .bar .dock:first-of-type,html.borne .bar .dock:last-of-type{background-size:contain!important;background-position:center top!important;background-repeat:no-repeat!important;background-color:#0b0a09!important}
+html.borne .bar .dock:first-of-type .b-bell{grid-column:2!important}
+html.borne .bar .dock:first-of-type #export-pl{grid-column:3!important}
+@media (max-width:700px){html.borne .bar .dock:first-of-type .b-bell{grid-column:2!important}html.borne .bar .dock:first-of-type #export-pl{grid-column:3!important}}
+html.borne .b-knoblab{font-size:15px!important;letter-spacing:0!important;line-height:1}
+html.borne .b-knobw:last-child .b-knoblab{font-size:9px!important;letter-spacing:.12em!important}
+html.borne .bar .dock:first-of-type{background-size:auto calc(100% - 46px)!important;background-position:center 6px!important}
+@media (max-width:700px){html.borne .bar .dock:first-of-type{min-height:118px!important}}
+
+/* ---------- Burrows : lueurs intérieures ---------- */
+html.borne .b-lglow{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;border-radius:inherit}
+html.borne .b-lglow i{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:0;background:radial-gradient(circle,rgba(var(--c),.55) 0,rgba(var(--c),.22) 38%,transparent 70%)}
+html.borne .b-lglow i.on{animation:bburlit var(--d,4s) ease-in-out}
+@keyframes bburlit{0%,100%{opacity:0}45%{opacity:1}}
+html.borne .b-lglow i.b-tv{opacity:.5;animation:bburtv 5.3s steps(1,end) infinite}
+@keyframes bburtv{0%{opacity:.5}14%{opacity:.62}15%{opacity:.42}38%{opacity:.56}60%{opacity:.46}61%{opacity:.7}63%{opacity:.5}88%{opacity:.58}}
+html.borne .b-land span{z-index:2}
+@media (prefers-reduced-motion:reduce){html.borne .b-lglow i{animation:none}}
