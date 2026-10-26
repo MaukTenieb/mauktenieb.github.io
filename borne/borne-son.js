@@ -55,5 +55,5 @@
     else S.tick();},true);
   function up(e){document.querySelectorAll('.b-down').forEach(function(k){k.classList.remove('b-down');void k.offsetWidth;k.classList.add('b-up');setTimeout(function(){k.classList.remove('b-up');},420);S.release();});}
   document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);
-  document.addEventListener('click',function(e){if(closest(e,'.b-knob'))S.detent(2+Math.floor(R()*3));if(closest(e,'.b-boom'))S.tilt();if(closest(e,'.b-slot')){S.coin();setTimeout(S.drop,260);}},true);
+  document.addEventListener('click',function(e){var kb=closest(e,'.b-knob');if(kb){S.detent(2+Math.floor(R()*3));kb.classList.remove('b-cran');void kb.offsetWidth;kb.classList.add('b-cran');}if(closest(e,'.b-boom'))S.tilt();if(closest(e,'.b-slot')){S.coin();setTimeout(S.drop,260);}},true);
 })();

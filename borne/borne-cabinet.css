@@ -1041,3 +1041,11 @@ html.borne .b-lore .b-sr{position:absolute;width:1px;height:1px;overflow:hidden;
 html.borne .b-slot .b-lore.b-onbox,html.borne .b-lore{background:var(--i-lore) center/contain no-repeat!important;aspect-ratio:600/262;height:auto!important;padding:0!important}
 html.borne .b-slot .b-lore.b-onbox{width:104px!important}
 @media (max-width:700px){html.borne .b-slot .b-lore.b-onbox{width:92px!important}}
+
+/* ---------- molettes à crans : elles tournent par à-coups, dépassent un peu et se calent ---------- */
+html.borne .b-knob{transition:transform .32s steps(4,jump-end)!important}
+html.borne .b-skin[data-pos="0"]{transform:rotate(-80deg)}
+html.borne .b-skin[data-pos="1"]{transform:rotate(-10deg)}
+html.borne .b-skin[data-pos="2"]{transform:rotate(60deg)}
+html.borne .b-knob.b-cran{animation:bcran .34s cubic-bezier(.3,1.8,.5,1)}
+@keyframes bcran{0%{scale:1}30%{scale:.94}100%{scale:1}}
