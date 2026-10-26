@@ -7,7 +7,7 @@ html.borne body{background:radial-gradient(ellipse 62% 34% at 50% 0,rgba(255,138
 
 /* ---------- 2. la moulure en T : un jonc arrondi (sombre aux bords, reflet au milieu), la même dans chaque programme ---------- */
 html.borne:is([data-skin=bois],[data-skin=metal]){
-  --tm0:#240402;--tm1:#5d110d;--tm2:#962219;--tm3:#cf5a4b}
+  --tm0:#020202;--tm1:#0d0d0e;--tm2:#26272a;--tm3:#6a6d72}
 html.borne[data-skin=metal]{--tm0:#111214;--tm1:#474c52;--tm2:#9aa1a8;--tm3:#eef2f5}
 html.borne:is([data-skin=bois],[data-skin=metal]) .wrap{border-style:solid;border-color:var(--tm1)!important;
   border-image-source:linear-gradient(90deg,var(--tm0) 0,var(--tm1) 1.5px,var(--tm2) 3px,var(--tm3) 4px,var(--tm2) 5px,var(--tm1) 6.5px,var(--tm0) 8px,transparent 8px,
@@ -70,3 +70,20 @@ html.borne .b-dot{flex:0 1 34px;min-width:0}
   html.borne .b-imm{margin-right:0}
   html.borne[data-prog] .b-bezelfoot .b-boom{margin-left:var(--s1,4px)}
 }
+
+/* ---------- 26 oct., 14 h 50 : choix de Mauk Tenieb ---------- */
+/* 1. la dynamite, atténuée : moins de blanc, plus de matière */
+html.borne .b-boom{filter:brightness(.78) saturate(.85) contrast(.95)!important}
+html.borne .b-boom:hover,html.borne .b-boom:focus-visible{filter:brightness(.95) saturate(1)!important}
+/* 3. dans les appareils, un peu d'air de chaque côté du meuble */
+@media (min-width:701px){html.borne[data-prog][data-mode=device] .wrap{width:calc(100vw - 40px)!important;max-width:calc(100vw - 40px)!important;margin-left:auto!important;margin-right:auto!important}}
+/* 4. l'étiquette INSERT KOIN, taillée à la mesure de son texte et logée sous la fente, sur chaque porte */
+html.borne .b-slot b{left:50%!important;right:auto!important;width:auto!important;top:auto!important;bottom:9%!important;height:auto!important;transform:translateX(-50%);
+  padding:4px 9px 3px!important;border-radius:2px!important;white-space:nowrap;font-size:clamp(6px,.62vw,8px)!important;line-height:1.2;letter-spacing:.08em;
+  background:#070605!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 0 0 1px #000,0 1px 0 rgba(255,255,255,.12)!important}
+/* 5. l'aimant Dekonect, à l'échelle de la porte : un tiers de la hauteur de la caisse à pièces */
+html.borne .b-dekonect{width:clamp(52px,4.6vw,74px)!important;height:clamp(52px,4.6vw,74px)!important;padding:6px!important;bottom:6px!important}
+@media (max-width:700px){html.borne .b-dekonect{width:52px!important;height:52px!important}}
+/* l'étiquette sous la fente, place exacte par porte */
+html.borne.borne[data-skin=bois] .b-slot b{left:51%!important;top:61%!important;bottom:auto!important;width:auto!important;height:auto!important;transform:translateX(-50%)!important}
+html.borne.borne[data-skin=metal] .b-slot b{left:50%!important;top:55%!important;bottom:auto!important;width:auto!important;height:auto!important;transform:translateX(-50%)!important}

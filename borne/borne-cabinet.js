@@ -385,9 +385,14 @@
   (function(){var slot=document.querySelector('.b-slot');if(!slot)return;
     lore.addEventListener('click',function(e){e.stopPropagation();});
     function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var S=slot.getBoundingClientRect(),avoid=[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).map(function(x){return x.getBoundingClientRect();});
-      var C=[[3,4],[58,4],[3,64],[58,64],[30,4],[30,68]].sort(function(){return Math.random()-.5;}),w=108,h=50;
-      for(var k=0;k<C.length;k++){var L=S.left+S.width*C[k][0]/100,T=S.top+S.height*C[k][1]/100,ok=avoid.every(function(a){return L+w<a.left||L>a.right||T+h<a.top||T>a.bottom;});
-        if(ok){lore.classList.remove('b-stuck');lore.classList.add('b-onbox');lore.style.setProperty('--lx',C[k][0]+'%');lore.style.setProperty('--ly',C[k][1]+'%');
+      /* la fente et la serrure de chaque porte (en % de la porte) */
+      var OPEN={bois:[[30,14,72,60],[60,62,86,92]],metal:[[40,14,60,52],[66,58,86,86]]}[document.documentElement.dataset.skin]||[];
+      OPEN.forEach(function(o){avoid.push({left:S.left+S.width*o[0]/100,top:S.top+S.height*o[1]/100,right:S.left+S.width*o[2]/100,bottom:S.top+S.height*o[3]/100});});
+      var C=[[-12,-14],[68,-14],[-14,70],[-16,30],[72,30],[3,4],[58,4],[3,64]].sort(function(){return Math.random()-.5;}),w=108,h=50;
+      var best=null,bo=1e9;C.forEach(function(c){var L=S.left+S.width*c[0]/100,T=S.top+S.height*c[1]/100,o=0;avoid.forEach(function(a){o+=Math.max(0,Math.min(L+w,a.right)-Math.max(L,a.left))*Math.max(0,Math.min(T+h,a.bottom)-Math.max(T,a.top));});if(o<bo){bo=o;best=c;}});
+      C=[best];
+      for(var k=0;k<C.length;k++){
+        if(true){lore.classList.remove('b-stuck');lore.classList.add('b-onbox');lore.style.setProperty('--lx',C[k][0]+'%');lore.style.setProperty('--ly',C[k][1]+'%');
           lore.style.setProperty('--lr',((Math.random()*2-1)*12).toFixed(1)+'deg');slot.appendChild(lore);return;}}}
     setTimeout(place,500);
     /* un autre skin, une autre caisse : l'autocollant se recolle hors de la fente et de son étiquette */
