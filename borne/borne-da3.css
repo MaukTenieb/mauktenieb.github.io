@@ -1,0 +1,63 @@
+/* Borne Insert Koin : troisième passe de direction artistique (26 oct.). Chargé après borne-da2.css.
+   L'enseigne devient une vraie enseigne de borne 1978-1988 : un plexi sérigraphié, éclairé par derrière par un tube fluorescent.
+   Zéro ampoule dessinée ; la lumière vient du tube de la photo, traverse l'encre, fait briller la tranche du plexi et tremble comme un vrai tube. */
+
+/* ---------- 1. l'enseigne : fenêtre du plexi et position du tube, par skin ---------- */
+html.borne{--mq-l:4.2%;--mq-r:4.2%;--mq-t:21.5%;--mq-b:20%;--mq-ty:50%;--mq-tw:36%;--mq-edge:255,214,150}
+html.borne[data-skin=metal]{--mq-l:4%;--mq-r:3.8%;--mq-t:18.5%;--mq-b:18.5%;--mq-ty:47%;--mq-tw:31%;--mq-edge:255,170,90}
+
+html.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand{isolation:isolate;animation:none!important;
+  /* l'encre claire laisse passer la lumière : un halo serré, chaud, sans néon autour des lettres */
+  text-shadow:1px 1px 0 var(--sg-x1),2px 2px 0 var(--sg-x1),3px 3px 0 var(--sg-x2),4px 4px 0 var(--sg-x2),5px 5px 5px rgba(0,0,0,.5),
+    0 0 6px color-mix(in srgb,var(--sg-glow) 70%,transparent),0 0 22px color-mix(in srgb,var(--sg-glow) 55%,transparent)!important;
+  box-shadow:0 0 0 1px rgba(0,0,0,.85),0 6px 16px rgba(0,0,0,.6),0 0 34px -6px color-mix(in srgb,var(--sg-glow) 45%,transparent)!important}
+
+/* ::before : la lumière du tube posée sur le plexi et sur l'encre (multiplication) ; elle tombe vers les extrémités, elle tremble */
+html.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand::before{content:"";position:absolute;z-index:2;pointer-events:none;
+  left:var(--mq-l);right:var(--mq-r);top:var(--mq-t);bottom:var(--mq-b);border-radius:1px;mix-blend-mode:multiply;
+  background:radial-gradient(ellipse 58% 120% at 50% var(--mq-ty),#fff 0,#fff 34%,#e9dccb 62%,#9c8a78 100%);
+  animation:bmqhum 23s steps(1,end) infinite}
+/* ::after : la tranche du plexi qui s'allume dans les cornières, la poussière sur la face, un reflet fixe de la salle (addition) */
+html.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand::after{content:"";position:absolute;z-index:3;pointer-events:none;inset:auto;
+  left:var(--mq-l);right:var(--mq-r);top:var(--mq-t);bottom:var(--mq-b);border-radius:1px;mix-blend-mode:screen;opacity:1;filter:none;-webkit-mask:none;mask:none;
+  background:
+    radial-gradient(ellipse 40% 2px at 50% 0,rgba(var(--mq-edge),.95),rgba(var(--mq-edge),.35) 60%,transparent) top/100% 3px no-repeat,
+    radial-gradient(ellipse 40% 2px at 50% 100%,rgba(var(--mq-edge),.8),rgba(var(--mq-edge),.28) 60%,transparent) bottom/100% 3px no-repeat,
+    linear-gradient(90deg,rgba(var(--mq-edge),.32),transparent 2px) left/3px 100% no-repeat,
+    linear-gradient(270deg,rgba(var(--mq-edge),.32),transparent 2px) right/3px 100% no-repeat,
+    linear-gradient(180deg,rgba(255,250,240,.07) 0,rgba(255,250,240,.025) 38%,transparent 39%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .75 0 0 0 16 -12.4'/%3E%3C/filter%3E%3Crect width='160' height='60' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E") 0 0/160px 60px;
+  animation:bmqedge 23s steps(1,end) infinite}
+/* l'allumage du tube : le starter claque deux fois, puis la lumière monte ; à l'arrivée et à chaque rallumage après un changement de nom */
+html.borne-ready.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand:not(.b-dim)::before{animation:bmqstrike 1.5s steps(1,end),bmqhum 23s steps(1,end) 1.5s infinite}
+html.borne-ready.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand:not(.b-dim)::after{animation:bmqstrike2 1.5s steps(1,end),bmqedge 23s steps(1,end) 1.5s infinite}
+@keyframes bmqstrike{0%{filter:brightness(.16)}7%{filter:brightness(1.05)}11%{filter:brightness(.2)}21%{filter:brightness(1)}25%{filter:brightness(.26)}36%{filter:brightness(.5)}52%{filter:brightness(.68)}70%{filter:brightness(.84)}86%{filter:brightness(.95)}100%{filter:brightness(1)}}
+@keyframes bmqstrike2{0%,11%,25%{opacity:0}7%,21%{opacity:.85}36%{opacity:.3}52%{opacity:.55}70%{opacity:.8}100%{opacity:1}}
+/* le tube vieillit : une fois en 23 s, il baisse et se reprend, irrégulier */
+@keyframes bmqhum{0%,100%{filter:brightness(1)}61%{filter:brightness(1)}61.4%{filter:brightness(.5)}61.8%{filter:brightness(1)}62.6%{filter:brightness(.72)}63%{filter:brightness(1)}88%{filter:brightness(1)}88.3%{filter:brightness(.85)}88.9%{filter:brightness(1)}}
+@keyframes bmqedge{0%,100%{opacity:1}61.4%{opacity:.3}61.8%{opacity:1}62.6%{opacity:.6}63%{opacity:1}88.3%{opacity:.75}88.9%{opacity:1}}
+
+/* changement de nom : le tube s'éteint, l'encre retombe dans le noir du plexi, puis le tube se rallume (bmqstrike) */
+html.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand.b-dim{filter:none!important;color:var(--sg-fill)!important}
+html.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand.b-dim::before{animation:none;filter:brightness(.16);transition:filter .7s ease-in}
+html.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand.b-dim::after{animation:none;opacity:.12;transition:opacity .7s}
+
+@media (prefers-reduced-motion:reduce){html.borne .bar .brand::before,html.borne .bar .brand::after{animation:none!important}}
+
+/* téléphone : les lettres à la mesure du plexi, INTERSEKTION compris */
+@media (max-width:700px){html.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand{font-size:clamp(1.15rem,8vw,2.4rem)!important}}
+@media (min-width:701px){html.borne:is([data-skin=bois],[data-skin=metal]) .bar .brand{font-size:clamp(1.15rem,min(4.4vh,3.4vw),2.7rem)!important}}
+
+/* ---------- 2. bois : la photo de l'enseigne recadrée sur son cadre ; la salle floue au-dessus du cadre (taches bleues et jaunes) disparaît ---------- */
+html.borne[data-skin=bois]:not([data-mode=device]):not([data-habit=fauneye]) .bar .brand{background-size:100% 107%!important;background-position:50% 100%!important}
+html.borne[data-skin=bois]{--mq-t:16.2%;--mq-b:21.4%;--mq-l:2.7%;--mq-r:2.7%}
+
+/* ---------- 3. la salle reste la même dans les programmes : zéro bande bleu nuit au-dessus du meuble ---------- */
+html.borne{background-color:#0b0908}
+
+/* ---------- 4. les bulles du guide : une plaque de verre fumé, la lettre en phosphore de la couleur du sujet ; zéro cadre d'un pixel ---------- */
+html.borne .gtip{border:0!important;border-radius:3px;padding:9px 13px 10px;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 42%),linear-gradient(180deg,#15120f,#090807)!important;
+  box-shadow:0 0 0 1px #000,inset 0 1px 0 rgba(255,255,255,.1),inset 0 0 0 1px rgba(255,255,255,.035),inset 3px 0 0 color-mix(in srgb,var(--gc,#c9a84c) 70%,transparent),
+    0 10px 24px rgba(0,0,0,.65),0 0 26px color-mix(in srgb,var(--gc,#c9a84c) 16%,transparent)!important;color:#e6dcc6}
+html.borne .gtip b{text-shadow:0 0 8px color-mix(in srgb,var(--gc,#c9a84c) 55%,transparent)}
