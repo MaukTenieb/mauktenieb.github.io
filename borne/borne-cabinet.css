@@ -987,3 +987,38 @@ html.borne[data-skin=metal] .b-butee{background-image:url(butee-metal.webp)}
 html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{width:clamp(70px,6.6vw,140px)!important;height:auto!important;aspect-ratio:76/100!important}
 @media (max-width:700px){html.borne .b-panel .cabinets>.b-stick,html.borne .b-panel .cabinets>.b-stick i{width:clamp(66px,22vw,100px)!important}}
 html.borne[data-skin=metal] .b-knobs{filter:brightness(.55) sepia(.4)}
+
+/* ---------- perspective unique du panneau : on le regarde de face, un peu d'en haut, comme les boutons BC TL IG et la manette ---------- */
+html.borne .b-panel .cabinets>.cab,html.borne .b-panel .b-sub .cab{transform-origin:50% 100%;transform:perspective(520px) rotateX(16deg)!important;
+  box-shadow:0 0 0 2px #050505,inset 0 1px 0 rgba(255,255,255,.16),0 9px 0 #0a0908,0 10px 0 #000,0 16px 20px rgba(0,0,0,.55)!important}
+html.borne .b-panel .cabinets>.cab:nth-child(1),html.borne .b-panel .cabinets>.cab:last-child{transform:perspective(520px) rotateX(16deg) translateY(14px)!important}
+html.borne .b-panel .cab.b-down{scale:1!important;transform:perspective(520px) rotateX(16deg) translateY(6px)!important;box-shadow:0 0 0 2px #050505,inset 0 1px 0 rgba(255,255,255,.1),0 3px 0 #0a0908,0 4px 0 #000,0 7px 10px rgba(0,0,0,.5)!important}
+html.borne .b-panel .cabinets>.cab:nth-child(1).b-down,html.borne .b-panel .cabinets>.cab:last-child.b-down{transform:perspective(520px) rotateX(16deg) translateY(20px)!important}
+html.borne .b-panel .cab.b-up{animation:none!important}
+html.borne .b-plate .b-badge{transform:perspective(520px) rotateX(16deg)!important;box-shadow:0 0 0 1px #000,0 0 0 3px #a8885a,0 0 0 4px #4a3a24,inset 0 1px 0 rgba(255,255,255,.08),0 4px 0 #2a1e10,0 8px 12px rgba(0,0,0,.55)!important}
+
+/* ---------- bloc son refait : une fenêtre d'affichage sous verre fumé (fluorescent ambre, trame de points), deux touches physiques à côté ---------- */
+html.borne .bar .dock:first-of-type{grid-template-columns:minmax(0,1fr) 34px 34px!important;column-gap:5px!important}
+html.borne .bar .dock:first-of-type #radio-toggle{position:relative;border-radius:3px!important;padding:0 10px!important;
+  background:radial-gradient(ellipse at 50% 120%,rgba(255,150,40,.10),transparent 70%),#070605!important;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,.95),inset 0 0 0 1px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.14),0 -1px 0 rgba(0,0,0,.5)!important}
+html.borne .bar .dock:first-of-type #radio-toggle::after{content:"";position:absolute;inset:0;border-radius:3px;pointer-events:none;
+  background:linear-gradient(170deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,.03) 38%,transparent 40%),radial-gradient(circle,rgba(0,0,0,.55) .6px,transparent 1.1px) 0 0/3px 3px}
+html.borne .bar .dock:first-of-type #radio-toggle .motel-l{font-family:'DM Mono',monospace!important;font-weight:500;font-size:10px!important;letter-spacing:.16em!important;color:#ffb54a!important;
+  text-shadow:0 0 2px #ff9a2a,0 0 8px rgba(255,140,30,.7)!important}
+html.borne .bar .dock:first-of-type #export-pl,html.borne .bar .dock:first-of-type .b-bell{position:relative;width:34px!important;height:30px!important;min-height:30px!important;padding:0!important;margin:0!important;
+  display:grid!important;place-items:center;border-radius:4px!important;cursor:pointer;
+  background:linear-gradient(180deg,#3a3633 0%,#22201e 55%,#171513 100%)!important;color:#d9cfbf!important;opacity:1!important;filter:none!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -2px 0 rgba(0,0,0,.5),0 0 0 1px #000,0 3px 0 #0b0a09,0 4px 6px rgba(0,0,0,.6)!important;
+  font-family:'DM Mono',monospace!important;font-weight:600;font-size:10px!important;letter-spacing:.06em!important;text-shadow:0 -1px 0 rgba(0,0,0,.8)!important;transition:transform .06s,box-shadow .06s}
+html.borne .bar .dock:first-of-type #export-pl:active,html.borne .bar .dock:first-of-type .b-bell:active{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px #000,0 1px 0 #0b0a09,0 2px 3px rgba(0,0,0,.6)!important}
+html.borne .bar .dock:first-of-type #export-pl:hover,html.borne .bar .dock:first-of-type .b-bell:hover{color:#fff4e0!important}
+html.borne .bar .dock:first-of-type .b-bell svg{width:16px!important;height:16px!important;color:#d9cfbf}
+html.borne .bar .dock:first-of-type .b-bell.on svg{color:#ffd9a0}
+/* le voyant : rouge au silence, ambre quand le son passe */
+html.borne .bar .dock:first-of-type .b-bell::before{content:"";position:absolute;top:3px;right:3px;width:5px;height:5px;border-radius:50%;
+  background:#ff2a1a;box-shadow:0 0 4px #ff2a1a,0 0 8px rgba(255,42,26,.7)}
+html.borne .bar .dock:first-of-type .b-bell.on::before{background:#ffb02a;box-shadow:0 0 4px #ffb02a,0 0 9px rgba(255,176,42,.8);animation:bled 1.6s ease-in-out infinite}
+@keyframes bled{50%{opacity:.55}}
+html.borne .bar .dock:first-of-type .b-bell svg .x{color:#ff5a46}
+@media (max-width:700px){html.borne .bar .dock:first-of-type{grid-template-columns:minmax(0,1fr) 34px 34px!important}}
