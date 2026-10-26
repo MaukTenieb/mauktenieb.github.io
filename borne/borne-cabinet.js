@@ -385,11 +385,13 @@
   (function(){var slot=document.querySelector('.b-slot');if(!slot)return;
     lore.addEventListener('click',function(e){e.stopPropagation();});
     function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var S=slot.getBoundingClientRect(),avoid=[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).map(function(x){return x.getBoundingClientRect();});
-      var C=[[3,4],[58,4],[3,64],[58,64],[30,4],[30,68]].sort(function(){return Math.random()-.5;}),w=84,h=38;
+      var C=[[3,4],[58,4],[3,64],[58,64],[30,4],[30,68]].sort(function(){return Math.random()-.5;}),w=108,h=50;
       for(var k=0;k<C.length;k++){var L=S.left+S.width*C[k][0]/100,T=S.top+S.height*C[k][1]/100,ok=avoid.every(function(a){return L+w<a.left||L>a.right||T+h<a.top||T>a.bottom;});
         if(ok){lore.classList.remove('b-stuck');lore.classList.add('b-onbox');lore.style.setProperty('--lx',C[k][0]+'%');lore.style.setProperty('--ly',C[k][1]+'%');
           lore.style.setProperty('--lr',((Math.random()*2-1)*12).toFixed(1)+'deg');slot.appendChild(lore);return;}}}
-    setTimeout(place,500);})();
+    setTimeout(place,500);
+    /* un autre skin, une autre caisse : l'autocollant se recolle hors de la fente et de son étiquette */
+    new MutationObserver(function(){if(lore.classList.contains('b-onbox'))setTimeout(place,450);}).observe(document.documentElement,{attributes:true,attributeFilter:['data-skin']});})();
 
   /* JACK THE BOX devient PL (la playlist) */
   (function(){var j=$('export-pl');if(!j)return;var put=function(){if(j.textContent!=='PL')j.textContent='PL';};j.setAttribute('aria-label','Playlist');put();new MutationObserver(put).observe(j,{childList:true,characterData:true,subtree:true});})();
