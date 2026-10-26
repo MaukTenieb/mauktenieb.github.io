@@ -1049,3 +1049,15 @@ html.borne .b-skin[data-pos="1"]{transform:rotate(-10deg)}
 html.borne .b-skin[data-pos="2"]{transform:rotate(60deg)}
 html.borne .b-knob.b-cran{animation:bcran .34s cubic-bezier(.3,1.8,.5,1)}
 @keyframes bcran{0%{scale:1}30%{scale:.94}100%{scale:1}}
+
+/* ---------- vie lumineuse : plus de reflet qui passe ; l'élément s'allume légèrement de l'intérieur, puis s'éteint ---------- */
+html.borne .b-gl{display:none!important}
+html.borne .b-panel .cab{--glow:var(--nc,#ffb347)}
+html.borne .b-row2 .menu a{--glow:var(--mc,#ffb347)}
+html.borne .b-row2 .menu a[href*=threadless]{--glow:#ff6a3c}html.borne .b-row2 .menu a[href*=instagram]{--glow:#ff8ac0}html.borne .b-row2 .menu a[href*=bandcamp]{--glow:#3fd7e8}
+html.borne .b-slot{--glow:#ff8a2a}html.borne #koins{--glow:#ffb02a}html.borne .b-boom{--glow:#ff3b2a}html.borne .b-knob{--glow:#ffd38a}
+html.borne .b-alive{animation:balive var(--alive,3.4s) ease-in-out}
+@keyframes balive{0%,100%{filter:brightness(1)}45%{filter:brightness(1.22) saturate(1.12) drop-shadow(0 0 6px color-mix(in srgb,var(--glow) 70%,transparent)) drop-shadow(0 0 18px color-mix(in srgb,var(--glow) 35%,transparent))}}
+html.borne .b-panel .cab.b-alive::before{animation:balivecap var(--alive,3.4s) ease-in-out}
+@keyframes balivecap{0%,100%{opacity:.82}45%{opacity:1}}
+@media (prefers-reduced-motion:reduce){html.borne .b-alive,html.borne .b-alive::before{animation:none}}
