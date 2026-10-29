@@ -30,7 +30,7 @@ Une borne affiche l'œuvre de son jeu. Celle-ci affiche Korhogo.
 
 - Flancs (side art) : une grande image par flanc, peinte sur le placage ou la tôle, avec l'usure du meuble.
 - Vitre de l'écran (bezel art) : un cadre imprimé au dos du verre, autour de l'image.
-- Panneau de commande (control panel overlay) : une image imprimée sous les touches et la manette.
+- Panneau de commande : la matière du skin, nue, sous les touches et la manette.
 - Carte d'instructions : « 1 KOIN — 1 PLAY », les commandes, en sérigraphie.
 - Étiquettes de prix et de crédit près de la fente.
 - Ces images reprennent les cinq couleurs de la palette et les Masks de la Korhogo Fauna, aka the Masks.
@@ -70,7 +70,7 @@ Ces quatre familles forment tout le lettrage. Le texte à l'écran mesure 12 px 
 | État | Écran | Lumières | Son |
 |---|---|---|---|
 | Repos | démo en boucle | chenillard des boutons, enseigne pleine | ventilateur, jingle de démo bas |
-| Crédit | INSERT KOIN devient PRESS START | START clignote | Koin qui roule et tombe |
+| Crédit | INSERT KOIN devient PRESS START | les touches clignotent | Koin qui roule et tombe |
 | Jeu | le programme | boutons fixes, voyant du programme allumé | sons du jeu, Motel Sound baissé |
 | Fin | scores, saisie des initiales | boutons en attente | jingle de fin |
 
@@ -84,7 +84,7 @@ L'enseigne, les boutons, l'écran et le son suivent tous le même état de la ma
 
 ## Commandes
 
-- Une manette et deux boutons : A valide, B revient.
+- La manette choisit, une touche valide, Baku Boom et Échap reviennent.
 - Les quatre touches choisissent le groupe de programmes. La manette choisit dans le groupe.
 - Au clavier : flèches pour la manette, Entrée pour A, Échap pour B, PageUp et PageDown pour changer de programme.
 - Sur téléphone, le bas de l'écran devient la manette et les deux boutons.

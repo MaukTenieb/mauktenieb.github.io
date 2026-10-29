@@ -74,15 +74,6 @@
     setInterval(function(){var h=root.dataset.habit||'repos',c=INK[h]||INK.arcade,dim=!!document.querySelector('.bar .brand.b-dim');
       s.style.setProperty('--sp',c);m.classList.toggle('b-off',dim);s.classList.toggle('b-hi',!!root.dataset.prog);},500);}
   mount();})();
-/* START et BACK : les deux boutons d'action de la borne, de part et d'autre de BC, TL et IG.
-   START (A) valide : à l'accueil, il ouvre la touche choisie à la manette ; dans un programme, il appuie sur le bouton du jeu. BACK (B) revient, comme Échap. */
-(function(){function mount(){var nav=document.querySelector('.b-row2 .menu');if(!nav||!window.__borneA){setTimeout(mount,600);return;}if(nav.querySelector('.b-ab'))return;
-  function mk(cls,lab,col,fn){var a=document.createElement('a');a.className='b-ab '+cls;a.setAttribute('role','button');a.tabIndex=0;a.textContent=lab;a.style.setProperty('--mc',col);
-    a.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();fn();});a.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fn();}});return a;}
-  var A=mk('b-a','START','#f3e8d2',function(){var r=document.documentElement;if(!r.dataset.prog&&!document.querySelector('.b-panel .cab.b-sel')&&window.__borneMark)window.__borneMark(1);else window.__borneA();});
-  var B=mk('b-b','BACK','#c9302a',function(){var e=new KeyboardEvent('keydown',{key:'Escape',code:'Escape',keyCode:27,bubbles:true,cancelable:true});window.dispatchEvent(e);});
-  nav.insertBefore(A,nav.firstChild);nav.appendChild(B);}
-  mount();})();
 /* l'œuvre peinte de la caisse : deux décors en miroir, aux coins bas, sous la fente et les molettes */
 (function(){function mount(){var d=document.querySelector('.b-door');if(!d){setTimeout(mount,600);return;}if(d.querySelector('.b-cart'))return;
   ['l','r'].forEach(function(s){var e=document.createElement('i');e.className='b-cart b-cart-'+s;e.setAttribute('aria-hidden','true');d.insertBefore(e,d.firstChild);});}
