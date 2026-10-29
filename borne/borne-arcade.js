@@ -87,3 +87,7 @@
 (function(){function mount(){var d=document.querySelector('.b-door');if(!d){setTimeout(mount,600);return;}if(d.querySelector('.b-cart'))return;
   ['l','r'].forEach(function(s){var e=document.createElement('i');e.className='b-cart b-cart-'+s;e.setAttribute('aria-hidden','true');d.insertBefore(e,d.firstChild);});}
   mount();})();
+/* les deux fentes à Koin éclairées de la porte */
+(function(){function mount(){var s=document.querySelector('.b-slot');if(!s){setTimeout(mount,600);return;}if(s.querySelector('.b-lamp'))return;
+  ['b-l1','b-l2'].forEach(function(c){var e=document.createElement('i');e.className='b-lamp '+c;e.setAttribute('aria-hidden','true');e.textContent='1 KOIN';s.appendChild(e);});}
+  mount();})();

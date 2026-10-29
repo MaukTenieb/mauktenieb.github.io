@@ -398,7 +398,7 @@
       var OPEN={bois:[[30,14,72,60],[60,62,86,92]],metal:[[40,14,60,52],[66,58,86,86]]}[document.documentElement.dataset.skin]||[];
       OPEN.forEach(function(o){avoid.push({left:S.left+S.width*o[0]/100,top:S.top+S.height*o[1]/100,right:S.left+S.width*o[2]/100,bottom:S.top+S.height*o[3]/100});});
       /* ni sur la plaque des molettes, ni sur l'aimant, ni hors du meuble */
-      ['.b-knobs','.b-dekonect'].forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetWidth){var r=e.getBoundingClientRect();for(var z=0;z<3;z++)avoid.push({left:r.left-6,top:r.top-6,right:r.right+6,bottom:r.bottom+6});}});
+      ['.b-knobs','.b-dekonect','.b-lamp.b-l1','.b-lamp.b-l2'].forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetWidth){var r=e.getBoundingClientRect();for(var z=0;z<3;z++)avoid.push({left:r.left-6,top:r.top-6,right:r.right+6,bottom:r.bottom+6});}});
       var WR=(document.querySelector('.wrap')||document.body).getBoundingClientRect();
       [[-1e4,-1e4,WR.left+8,1e4],[WR.right-8,-1e4,1e4,1e4]].forEach(function(r){for(var z=0;z<3;z++)avoid.push({left:r[0],top:r[1],right:r[2],bottom:r[3]});});
       var C=[[-12,-14],[68,-14],[-14,70],[-16,30],[72,30],[3,4],[58,4],[3,64]];for(var gx=-20;gx<=76;gx+=8)for(var gy=-20;gy<=78;gy+=9)C.push([gx,gy]);C.sort(function(){return Math.random()-.5;});var w=lore.offsetWidth||108,h=lore.offsetHeight||50;
