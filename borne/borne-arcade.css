@@ -137,7 +137,7 @@ html.borne .b-dekonect:hover .bfield,html.borne .b-dekonect:focus-visible .bfiel
 html.borne .b-dekonect svg{overflow:visible}
 /* AUDIT 29 oct. — l'écran garde toute sa taille : la vitre imprimée l'entoure et le meuble s'élargit d'autant, au lieu de rapetisser l'image */
 @media (min-width:701px){
-  html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]){--scrW:max(600px,min(calc((100vw - 120px) / 1.278),calc((100vh - 290px) * 4 / 3)))}
+  html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]){--scrW:min(calc((100vw - 120px) / 1.278),max(600px,calc((100vh - 290px) * 4 / 3)))}
   html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-glass{width:var(--gw)!important;height:var(--gh)!important}
   html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .wrap,
   html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-roof{width:calc(var(--gw) * 1.278 + 56px)!important;max-width:calc(100vw - 16px)!important}}
