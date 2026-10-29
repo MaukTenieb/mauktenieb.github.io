@@ -155,3 +155,10 @@ html.borne .b-bezelfoot .b-stick-mini i::after{content:""!important;display:bloc
   top:calc(var(--ball-cut,36%) - 6%);height:calc(var(--stk-cut,60%) - var(--ball-cut,36%) + 7%);border-radius:3px;z-index:1;margin:0!important;
   background:linear-gradient(90deg,#4a4844 0%,#d8d4cc 30%,#ffffff 42%,#9a968e 60%,#3a3834 100%)!important;box-shadow:none!important;transform:none!important}
 html.borne .b-bezelfoot .b-stick-mini i{transition:none!important}
+/* ordinateur : le meuble garde une taille lisible sur les écrans bas (portables), au lieu de rapetisser avec la hauteur de la fenêtre */
+@media (min-width:1100px){html.borne{--scrW:max(600px,min(calc(100vw - 80px),calc((100vh - 290px) * 4 / 3)))}}
+/* porte : fente et molettes côte à côte dès que le meuble a la place (600 px), au lieu de s'empiler */
+@container cab (min-width:600px) and (max-width:700px){
+  html.borne .b-door{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important}
+  html.borne .b-door>.b-slot{grid-column:2!important}
+  html.borne .b-door>.b-knobs{grid-column:3!important;justify-self:start!important}}

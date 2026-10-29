@@ -393,17 +393,22 @@
   /* l'autocollant Lore, collé au hasard : au coin du cadre, ou sur la caisse à pièces, de travers */
   (function(){var slot=document.querySelector('.b-slot');if(!slot)return;
     lore.addEventListener('click',function(e){e.stopPropagation();});
-    function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var S=slot.getBoundingClientRect(),avoid=[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).map(function(x){return x.getBoundingClientRect();});
+    function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var S=slot.getBoundingClientRect(),avoid=[];[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).forEach(function(x){var r=x.getBoundingClientRect();for(var z=0;z<6;z++)avoid.push({left:r.left-8,top:r.top-8,right:r.right+8,bottom:r.bottom+8});});
       /* la fente et la serrure de chaque porte (en % de la porte) */
       var OPEN={bois:[[30,14,72,60],[60,62,86,92]],metal:[[40,14,60,52],[66,58,86,86]]}[document.documentElement.dataset.skin]||[];
       OPEN.forEach(function(o){avoid.push({left:S.left+S.width*o[0]/100,top:S.top+S.height*o[1]/100,right:S.left+S.width*o[2]/100,bottom:S.top+S.height*o[3]/100});});
-      var C=[[-12,-14],[68,-14],[-14,70],[-16,30],[72,30],[3,4],[58,4],[3,64]].sort(function(){return Math.random()-.5;}),w=108,h=50;
+      /* ni sur la plaque des molettes, ni sur l'aimant, ni hors du meuble */
+      ['.b-knobs','.b-dekonect'].forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetWidth){var r=e.getBoundingClientRect();for(var z=0;z<3;z++)avoid.push({left:r.left-6,top:r.top-6,right:r.right+6,bottom:r.bottom+6});}});
+      var WR=(document.querySelector('.wrap')||document.body).getBoundingClientRect();
+      [[-1e4,-1e4,WR.left+8,1e4],[WR.right-8,-1e4,1e4,1e4]].forEach(function(r){for(var z=0;z<3;z++)avoid.push({left:r[0],top:r[1],right:r[2],bottom:r[3]});});
+      var C=[[-12,-14],[68,-14],[-14,70],[-16,30],[72,30],[3,4],[58,4],[3,64]];for(var gx=-20;gx<=76;gx+=8)for(var gy=-20;gy<=78;gy+=9)C.push([gx,gy]);C.sort(function(){return Math.random()-.5;});var w=lore.offsetWidth||108,h=lore.offsetHeight||50;
       var best=null,bo=1e9;C.forEach(function(c){var L=S.left+S.width*c[0]/100,T=S.top+S.height*c[1]/100,o=0;avoid.forEach(function(a){o+=Math.max(0,Math.min(L+w,a.right)-Math.max(L,a.left))*Math.max(0,Math.min(T+h,a.bottom)-Math.max(T,a.top));});if(o<bo){bo=o;best=c;}});
       C=[best];
       for(var k=0;k<C.length;k++){
         if(true){lore.classList.remove('b-stuck');lore.classList.add('b-onbox');lore.style.setProperty('--lx',C[k][0]+'%');lore.style.setProperty('--ly',C[k][1]+'%');
           lore.style.setProperty('--lr',((Math.random()*2-1)*12).toFixed(1)+'deg');slot.appendChild(lore);return;}}}
     setTimeout(place,500);
+    var RW=innerWidth;addEventListener('resize',function(){if(Math.abs(innerWidth-RW)>40){RW=innerWidth;clearTimeout(lore._rt);lore._rt=setTimeout(place,500);}});
     /* un autre skin, une autre caisse : l'autocollant se recolle hors de la fente et de son étiquette */
     new MutationObserver(function(){if(lore.classList.contains('b-onbox'))setTimeout(place,450);}).observe(document.documentElement,{attributes:true,attributeFilter:['data-skin']});})();
 
@@ -516,3 +521,13 @@
 (function(){function go(){var d=document.querySelector('.bar .dock:first-of-type');if(!d||!window.ResizeObserver){setTimeout(go,600);return;}
   new ResizeObserver(function(){d.classList.toggle('b-narrow',innerWidth>700&&d.offsetWidth<240);}).observe(d);}
   go();})();
+/* grand écran d'ordinateur : les programmes dessinés pour un petit écran grandissent avec lui (zoom), au lieu de flotter tout petits au milieu */
+(function(){var Z={erratic:1,faunarratics:1,repo:1,tor:1},last='';
+  function k(w){return Math.max(1,Math.min(1.5,w/940));}
+  function apply(){var root=document.documentElement,cur=(window.__borneCur&&window.__borneCur())||'',cf=document.querySelector('#calque .cframe');
+    var on=!!root.dataset.prog&&Z[cur]&&cf&&innerWidth>900,z=on?k(cf.clientWidth):1,key=cur+':'+z.toFixed(2);
+    var kg=document.getElementById('kg-root'),fr=document.getElementById('cf');
+    if(kg)kg.style.zoom=(on&&kg.offsetWidth&&z>1)?z.toFixed(3):'';
+    try{if(fr&&fr.contentDocument&&fr.contentDocument.documentElement){var d=fr.contentDocument.documentElement;d.style.zoom=(on&&fr.offsetWidth&&z>1)?z.toFixed(3):'';}}catch(e){}
+    if(key!==last){last=key;try{dispatchEvent(new Event('resize'));}catch(e){}}}
+  setInterval(apply,700);addEventListener('resize',function(){setTimeout(apply,50);});})();
