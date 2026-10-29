@@ -106,3 +106,10 @@ html.borne[data-skin=metal] .b-lamp.b-l1{left:16%;top:22%}html.borne[data-skin=m
 html.borne .b-slot i.b-lamp{width:15%!important;height:auto!important;border-radius:2px!important;background:radial-gradient(ellipse at 50% 45%,#ff7a5a,#c9302a 55%,#5a0f0a)!important;
   box-shadow:inset 0 0 0 2px #2a0d08,inset 0 2px 3px rgba(255,255,255,.35),0 0 12px rgba(255,70,40,.6),0 0 0 3px rgba(0,0,0,.6)!important;line-height:1.25;text-align:center;padding:2px}
 @media (max-width:700px){html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-glass{width:var(--gw)!important;height:var(--gh)!important}}
+/* le panneau de commande imprimé (control panel overlay) : la feuille de rayures sur l'étoilé, collée au centre de la tablette, la matière du skin aux deux bouts */
+html.borne:not([data-mode=device]):not([data-habit=fauneye]) .b-panel::before{background:linear-gradient(180deg,rgba(0,0,0,.5),transparent 20%,transparent 78%,rgba(255,235,200,.07)),
+  linear-gradient(90deg,rgba(0,0,0,.55),transparent 1.2%,transparent 98.8%,rgba(0,0,0,.55)) 50% 50%/84% 92% no-repeat,
+  url(art-cpo.webp) 50% 50%/84% 92% no-repeat,var(--pan,none) center/100% 100% no-repeat,var(--pan-c,#1a1816)!important}
+@media (max-width:700px){html.borne:not([data-mode=device]):not([data-habit=fauneye]) .b-panel::before{background:linear-gradient(180deg,rgba(0,0,0,.5),transparent 20%,transparent 78%,rgba(255,235,200,.07)),
+  url(art-cpo.webp) 50% 50%/auto 100% no-repeat,var(--pan,none) center/100% 100% no-repeat,var(--pan-c,#1a1816)!important}}
+html.borne:not([data-mode=device]):not([data-habit=fauneye]) .b-panel .b-row2 .menu a{color:#f3e8d2!important;text-shadow:0 1px 0 #000,0 0 4px #000,0 0 8px rgba(0,0,0,.9)!important}
