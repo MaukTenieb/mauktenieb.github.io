@@ -96,3 +96,19 @@ setInterval(function(){if(window.__borneTour&&document.documentElement.classList
     '<path d="M11 13v8a9 9 0 0 0 4 7" fill="none" stroke="rgba(255,220,210,.5)" stroke-width="1.4" stroke-linecap="round"/>'+
     '<g class="bfield" fill="none" stroke="#ffb02a" stroke-width="1" stroke-linecap="round"><path d="M12 1.5q8-5 16 0"/><path d="M10 .2q10-6.5 20 0" opacity=".6"/></g></svg>';}
   go();})();
+/* AUDIT 30 oct. — dans un programme, le fronton et le toit se replient pour laisser l'écran grand ; leurs commandes passent au pied de l'écran :
+   le son (et sa diode), PL, Kapture et Burrows. Chaque touche du pied actionne la vraie commande du meuble. */
+(function(){function go(){var foot=document.querySelector('.b-bezelfoot'),bell=document.querySelector('.b-bell'),pl=document.getElementById('export-pl'),kap=document.getElementById('kapture'),land=document.querySelector('.b-land');
+  if(!foot||!bell){setTimeout(go,700);return;}if(foot.querySelector('.b-pfx'))return;
+  var box=document.createElement('div');box.className='b-pfx';
+  function mk(cls,html,label,fn){var b=document.createElement('button');b.type='button';b.className='b-px '+cls;b.innerHTML=html;b.setAttribute('aria-label',label);b.addEventListener('click',function(e){e.stopPropagation();fn();});box.appendChild(b);return b;}
+  var sb=mk('b-px-son','','Motel Sound',function(){bell.click();sync();});
+  if(pl)mk('b-px-pl','PL','Playlist',function(){pl.click();});
+  if(kap)mk('b-px-kap','<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 7l1.6-2.4h4.8L16 7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>','Kapture',function(){kap.click();});
+  if(land)mk('b-px-bur','BURROWS','Burrows',function(){land.click();});
+  function sync(){sb.innerHTML=bell.innerHTML;sb.classList.toggle('on',bell.classList.contains('on'));}
+  new MutationObserver(sync).observe(bell,{attributes:true,childList:true,subtree:true});sync();
+  var imm=foot.querySelector('.b-imm');foot.insertBefore(box,imm||null);}
+  go();})();
+/* Lore luit de temps en temps, au hasard */
+(function(){function t(){var l=document.querySelector('.b-lore');if(l&&!document.hidden){l.classList.remove('b-shine');void l.offsetWidth;l.classList.add('b-shine');}setTimeout(t,9000+Math.random()*16000);}setTimeout(t,5000);})();

@@ -156,3 +156,27 @@ html.borne .b-slot b,html.borne .b-slot b *{font-size:9px!important}
 html.borne .b-slot i.b-lamp{font-size:8px!important}
 html.borne .b-knobw:last-child .b-knoblab{font-size:11px!important}
 html.borne .wrap>:last-child,html.borne .wrap>:last-child *{font-size:11px!important;color:#b9ae98!important}
+/* la caisse peinte et la tranche des flancs restent aussi dans les appareils (Minitel, VHS, FotoFauna, BakuBook) */
+html.borne[data-mode=device] .b-cart,html.borne[data-habit=fauneye] .b-cart,html.borne[data-mode=device] .b-edgeart,html.borne[data-habit=fauneye] .b-edgeart{display:block!important}
+/* le pied de l'écran dans un programme : le son, PL, Kapture et Burrows rejoignent les Koins, Immersion et Baku Boom */
+html.borne .b-pfx{display:none;gap:6px;align-items:center}
+html.borne[data-prog] .b-pfx{display:flex}
+html.borne .b-px{position:relative;height:30px;min-width:34px;padding:0 8px;border:0;border-radius:3px;cursor:pointer;display:grid;place-items:center;
+  background:linear-gradient(180deg,#2e2a26,#171512);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px #000,0 2px 0 #0b0a09,0 3px 4px rgba(0,0,0,.6);
+  color:#d9cfbf;font:400 11px/1 'DM Mono',ui-monospace,monospace;letter-spacing:.12em}
+html.borne .b-px:hover,html.borne .b-px:focus-visible{color:#fff4e0}
+html.borne .b-px:active{transform:translateY(2px)}
+html.borne .b-px svg{width:16px;height:16px}
+html.borne .b-px-son.on svg{color:#ffd9a0}
+html.borne .b-px-son::before{content:"";position:absolute;top:3px;right:3px;width:5px;height:5px;border-radius:50%;background:#5a1410}
+html.borne .b-px-son.on::before{background:#ffb02a;box-shadow:0 0 4px #ffb02a}
+html.borne .b-px-bur{font-family:'Bebas Neue',Impact,sans-serif;font-size:14px;letter-spacing:.18em;color:#ffe3a0;text-shadow:0 0 8px rgba(255,167,38,.5)}
+@media (max-width:700px){html.borne[data-prog] .b-bezelfoot{flex-wrap:wrap;row-gap:6px}html.borne[data-prog] .b-pfx{order:5;width:100%;justify-content:center}}
+@media (max-width:700px){
+  html.borne[data-prog],html.borne[data-prog][data-mode=device],html.borne[data-prog][data-big=tate]{--gh:calc(100dvh - 190px) !important}
+  html.borne:is([data-skin=bois],[data-skin=metal])[data-prog]:not([data-mode=device]):not([data-habit=fauneye]){--gh:calc(100dvh - 190px - 2 * var(--bv)) !important}
+  html.borne[data-prog] .b-px{height:32px;min-width:38px}}
+/* Lore luit parfois : le vernis de l'autocollant accroche la lumière quelques secondes, sans reflet qui balaie */
+html.borne .b-lore.b-shine{animation:bloreglow 2.4s ease-in-out}
+@keyframes bloreglow{0%,100%{filter:none}40%{filter:brightness(1.28) saturate(1.15) drop-shadow(0 0 7px rgba(255,120,90,.55))}}
+@media (prefers-reduced-motion:reduce){html.borne .b-lore.b-shine{animation:none}}
