@@ -135,3 +135,24 @@ html.borne .b-dekonect.b-dklow{color:#c9302a!important}
 html.borne .b-dekonect .bfield{opacity:0;transition:opacity .2s}
 html.borne .b-dekonect:hover .bfield,html.borne .b-dekonect:focus-visible .bfield{opacity:1}
 html.borne .b-dekonect svg{overflow:visible}
+/* AUDIT 29 oct. — l'écran garde toute sa taille : la vitre imprimée l'entoure et le meuble s'élargit d'autant, au lieu de rapetisser l'image */
+@media (min-width:701px){
+  html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]){--scrW:max(600px,min(calc((100vw - 120px) / 1.278),calc((100vh - 290px) * 4 / 3)))}
+  html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-glass{width:var(--gw)!important;height:var(--gh)!important}
+  html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .wrap,
+  html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-roof{width:calc(var(--gw) * 1.278 + 56px)!important;max-width:calc(100vw - 16px)!important}}
+/* fronton : le panneau des haut-parleurs symétrique, une grille à chaque bout, le titre entre les deux */
+@media (min-width:701px){
+  html.borne:not([data-mode=device]) .wrap .bar{grid-template-columns:minmax(0,1fr) var(--spkw2,96px)!important}
+  html.borne[data-skin=bois]:not([data-mode=device]) .wrap .bar{--spkw2:calc(clamp(58px,6.2vw,80px) * 1.95 + 12px)}
+  html.borne[data-skin=metal]:not([data-mode=device]) .wrap .bar{--spkw2:calc(clamp(58px,6.2vw,80px) + 8px)}
+  html.borne:not([data-mode=device]) .wrap .bar .dock:last-of-type{background-position:center!important}}
+/* lisibilité : rien sous 11 px sur le meuble */
+html.borne .b-online{font-size:11px!important}html.borne .b-online b{font-size:11px!important}
+html.borne .b-imm span{font-size:11px!important}
+html.borne .bar .dock:first-of-type #radio-toggle .motel-l{font-size:11px!important}
+html.borne .bar .dock:first-of-type #export-pl{font-size:10px!important}
+html.borne .b-slot b,html.borne .b-slot b *{font-size:9px!important}
+html.borne .b-slot i.b-lamp{font-size:8px!important}
+html.borne .b-knobw:last-child .b-knoblab{font-size:11px!important}
+html.borne .wrap>:last-child,html.borne .wrap>:last-child *{font-size:11px!important;color:#b9ae98!important}
