@@ -2101,7 +2101,7 @@ const _build=buildLobby;buildLobby=function(){_build();const r=loadRun();const b
     const right=gx+gw+10+320<W;tip.style.left=(right?gx+gw+6:Math.max(4,gx-Math.min(320,W*.7)-6))+'px';tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');}
   let TQ=[],TI=0;
   async function tour(resume){if(touring)return;touring=true;idleT=Infinity;ac();const W=ms=>new Promise(r=>setTimeout(r,ms));
-    const cabs=[...home.querySelectorAll('.cabinets .cab')],chips=[...home.querySelectorAll('.menu a,.menu button')];
+    const cabs=[...home.querySelectorAll('.cabinets .cab')],chips=[...home.querySelectorAll('.menu a:not(.b-ab),.menu button')];
     /* every visit goes through the tiles and menus in a random order */
     let stops;if(resume&&resume.length)stops=resume;else{stops=cabs.concat(chips,[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture')].filter(Boolean));for(let i=stops.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[stops[i],stops[j]]=[stops[j],stops[i]];}}
     if(!(resume&&resume.length)&&window.__borneFirst){const F=window.__borneFirst();stops=stops.filter(x=>F.indexOf(x)<0);stops.splice(1+Math.floor(Math.random()*stops.length),0,F[1]);stops.unshift(F[0]);}

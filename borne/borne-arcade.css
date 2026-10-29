@@ -44,3 +44,11 @@ html.borne .b-panel .menu a.b-a::before{background-image:url(bouton-start.webp)!
 html.borne .b-panel .menu a.b-b::before{background-image:url(bouton-back.webp)!important}
 @media (max-width:700px){html.borne .b-row2 .menu{flex-wrap:nowrap!important;gap:clamp(8px,3.6vw,20px)!important}
   html.borne .b-row2 .menu a.b-a{margin-right:clamp(4px,2vw,14px)}html.borne .b-row2 .menu a.b-b{margin-left:clamp(4px,2vw,14px)}}
+/* la table des scores de la démo */
+html.borne .b-thof .b-tc-mid b{font-size:clamp(18px,3vw,40px)}
+html.borne .b-thof table{border-collapse:collapse;font-size:clamp(12px,1.5vw,20px);letter-spacing:.06em}
+html.borne .b-thof td{padding:.42em .9em;text-align:left}
+html.borne .b-thof tr:nth-child(1) td{color:#ffa726}html.borne .b-thof tr:nth-child(2) td{color:#ffe3a0}html.borne .b-thof tr:nth-child(3) td{color:#4fc3f7}
+html.borne .b-thof tr:nth-child(n+4) td{color:#c4b9a4}
+html.borne .b-thof td:nth-child(2){text-align:right}
+html.borne .b-tc-hi{color:#ffe3a0}
