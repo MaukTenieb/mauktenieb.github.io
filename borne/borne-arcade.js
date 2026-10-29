@@ -83,3 +83,7 @@
   var B=mk('b-b','BACK','#c9302a',function(){var e=new KeyboardEvent('keydown',{key:'Escape',code:'Escape',keyCode:27,bubbles:true,cancelable:true});window.dispatchEvent(e);});
   nav.insertBefore(A,nav.firstChild);nav.appendChild(B);}
   mount();})();
+/* l'œuvre peinte de la caisse : deux décors en miroir, aux coins bas, sous la fente et les molettes */
+(function(){function mount(){var d=document.querySelector('.b-door');if(!d){setTimeout(mount,600);return;}if(d.querySelector('.b-cart'))return;
+  ['l','r'].forEach(function(s){var e=document.createElement('i');e.className='b-cart b-cart-'+s;e.setAttribute('aria-hidden','true');d.insertBefore(e,d.firstChild);});}
+  mount();})();

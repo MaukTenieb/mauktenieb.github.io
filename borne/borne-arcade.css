@@ -52,3 +52,19 @@ html.borne .b-thof tr:nth-child(1) td{color:#ffa726}html.borne .b-thof tr:nth-ch
 html.borne .b-thof tr:nth-child(n+4) td{color:#c4b9a4}
 html.borne .b-thof td:nth-child(2){text-align:right}
 html.borne .b-tc-hi{color:#ffe3a0}
+/* la vitre imprimée autour de l'écran (bezel art) : à l'accueil, comme en salle ; dans un programme, l'écran reprend toute la place */
+html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-bezel .b-screen{border-style:solid!important;border-image:url(art-bezel.webp) 114 111 114 111 stretch!important;
+  border-width:calc(var(--gw) * .143) calc(var(--gw) * .139)!important;border-radius:0!important}
+html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-glass{width:calc(var(--gw) * .722)!important;height:calc(var(--gh) * .722)!important;border-radius:10px}
+@media (max-width:700px){html.borne:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-bezel .b-screen{border-image:none!important;border-width:0!important}html.borne:not([data-prog]) .b-glass{width:var(--gw)!important;height:var(--gh)!important}}
+/* la caisse peinte : décor imprimé sur le placage, aux deux coins bas, en miroir ; la fente, les molettes et Lore restent au-dessus */
+html.borne .b-cart{position:absolute;bottom:0;z-index:0;width:min(34%,300px);aspect-ratio:557/570;pointer-events:none;background:no-repeat center bottom/contain;opacity:.94}
+html.borne .b-cart-r{right:0}
+html.borne .b-cart-l{left:0;transform:scaleX(-1)}
+html.borne[data-skin=bois] .b-cart{background-image:url(art-caisse-bois.webp)}
+html.borne[data-skin=metal] .b-cart{background-image:url(art-caisse-metal.webp);aspect-ratio:355/365;mix-blend-mode:screen;opacity:.9}
+html.borne .b-door>*:not(.b-cart){position:relative;z-index:1}
+html.borne[data-mode=device] .b-cart,html.borne[data-habit=fauneye] .b-cart{display:none}
+html.borne .b-cart{top:0;height:auto;width:auto;max-width:34%;aspect-ratio:557/570}
+html.borne[data-skin=metal] .b-cart{aspect-ratio:355/365}
+
