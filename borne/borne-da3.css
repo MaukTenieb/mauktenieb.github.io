@@ -168,3 +168,9 @@ html.borne .b-edge{display:none!important}
 html.borne .b-glass::after{background:repeating-linear-gradient(0deg,rgba(0,0,0,.07) 0 1px,transparent 1px 3px)!important;box-shadow:inset 0 0 28px rgba(0,0,0,.4)!important}
 html.borne[data-prog] .b-glass::after{background:repeating-linear-gradient(0deg,rgba(0,0,0,.04) 0 1px,transparent 1px 3px)!important;box-shadow:inset 0 0 14px rgba(0,0,0,.35)!important}
 html.borne[data-mode=device] .b-glass::after,html.borne[data-habit=fauneye] .b-glass::after{background:none!important;box-shadow:none!important}
+html.borne .b-bezelfoot #koins.b-credit{pointer-events:auto}html.borne .b-bezelfoot #koins.b-credit *{pointer-events:none}
+/* la date de l'écran d'accueil sur un bandeau de verre fumé : lisible quel que soit le décor dessous */
+html.borne .b-date{padding:5px 9px;border-radius:3px;background:rgba(6,5,4,.62);box-shadow:0 0 0 1px rgba(255,233,168,.08);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+/* 🧤 et 🎶 gravés dans la plaque des molettes, comme FR · EN, au lieu de deux pastilles bleues */
+html.borne .b-knoblab{filter:grayscale(1) contrast(1.4) brightness(.42);text-shadow:0 1px 0 rgba(255,255,255,.45)}
+html.borne[data-skin=metal] .b-knoblab{filter:grayscale(1) brightness(2.1) contrast(.75);text-shadow:0 1px 0 rgba(0,0,0,.8)}
