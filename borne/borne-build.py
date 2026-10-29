@@ -16,7 +16,7 @@ s = rd("insertkoin.html")
 s = once(s, "<head>", '<head>\n<meta name="robots" content="noindex,nofollow">')
 s = once(s, "</head>", '<style id="b-veil">html:not(.borne-ready) body{background:transparent!important}html:not(.borne-ready) body>*{visibility:hidden!important}html:not(.borne-ready){background:#0b0908!important;min-height:100%}html:not(.borne-ready)::before{content:"";position:fixed;inset:7vmin;z-index:2147483647;background:var(--wait) center/contain no-repeat;box-shadow:none}html.borne-ready{transition:background-color .4s}</style>\n<script>(function(){var i=1+Math.floor(Math.random()*27),d=document.documentElement.style;d.setProperty("--wait","url(attente-"+(i<10?"0":"")+i+".webp)");d.setProperty("--waitsz","contain");setTimeout(function(){document.documentElement.classList.add("borne-ready")},5000)})()</script>\n<link rel="stylesheet" href="borne-cabinet.css">\n<link rel="stylesheet" href="borne-charte.css">\n<link rel="stylesheet" href="borne-da2.css">\n<link rel="stylesheet" href="borne-da3.css">\n<link rel="stylesheet" href="borne-arcade.css">\n</head>')
 i = s.rfind("</body>")
-s = s[:i] + '<script src="borne-cabinet.js"></script>\n<script src="borne-aimant.js"></script>\n<script src="borne-jeu.js"></script>\n<script src="borne-presence.js"></script>\n<script src="borne-son.js"></script>\n<script src="borne-dekonect.js"></script>\n<script src="borne-arcade.js"></script>\n' + s[i:]
+s = s[:i] + '<script src="borne-cabinet.js"></script>\n<script src="borne-aimant.js"></script>\n<script src="borne-jeu.js"></script>\n<script src="borne-presence.js"></script>\n<script src="borne-son.js"></script>\n<script src="borne-dekonect.js"></script>\n<script src="borne-arcade.js"></script>\n<script src="borne-plante.js"></script>\n' + s[i:]
 # crochets de la borne dans le code de la page (fermé dans une fonction) : go, goHome, openGame, et une poignée
 # les psychopompes : les répliques de l'artiste restent telles quelles ; borne-say.txt ajoute une phrase aux seuls arrêts propres à la borne
 import re as _re
@@ -68,6 +68,9 @@ s = once(s, "a.onclick=()=>{m.remove();skreen();};b.onclick=()=>{m.remove();open
 s = once(s, "    jukePlayer.setShuffle(true);\n", "")
 # START et BACK de la borne restent hors de la visite des psychopompes
 s = once(s, "chips=[...home.querySelectorAll('.menu a,.menu button')]", "chips=[...home.querySelectorAll('.menu a:not(.b-ab),.menu button')]")
+# la démo de la borne attend la fin de la visite des psychopompes
+s = once(s, "if(touring)return;touring=true;", "if(touring)return;touring=true;window.__borneTour=1;")
+s = once(s, "function stop(){if(!touring)return;touring=false;", "function stop(){if(!touring)return;touring=false;window.__borneTour=0;")
 wr("index.html", s)
 
 k = rd("skoporhogo.html")

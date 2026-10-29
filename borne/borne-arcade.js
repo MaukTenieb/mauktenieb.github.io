@@ -42,11 +42,11 @@
     if(cur&&cur!==last){last=cur;if(!demo)show(card(cur,false),RM?700:1500);}},200);
   /* la démo au repos */
   var demo=false,idleT=0,stepT=0,ORDER=['koin','motel','prog','motel','hof:korong','motel','prog','motel','koin','motel','hof:fauninvaders','motel','prog','motel'],si=0,LIST=['chess','puck','faunarratics','erratic','terminal','vhs','photo','repo','tor','skopo','fauneye','fi','mm','c4','hang','bb','diktat'];
-  function home(){return !root.dataset.prog&&root.dataset.habit==='repos'&&!root.classList.contains('b-immersion')&&!document.hidden;}
+  function home(){return !root.dataset.prog&&root.dataset.habit==='repos'&&!root.classList.contains('b-immersion')&&!document.hidden&&!window.__borneTour;}
   function step(){if(!demo)return;if(!home()){stop();return;}var s=ORDER[si++%ORDER.length];
     if(s==='motel'){hide();stepT=setTimeout(step,7000);return;}
     var c=s==='koin'?koinCard():s.indexOf('hof:')===0?hofCard(s.slice(4)):card(LIST[Math.floor(Math.random()*LIST.length)],true);if(!c){step();return;}show(c,s.indexOf('hof:')===0?6000:4200);stepT=setTimeout(step,s.indexOf('hof:')===0?6200:4400);}
-  function start(){if(demo||!home())return;demo=true;si=0;root.classList.add('b-demo');step();}
+  function start(){if(demo)return;if(!home()){if(window.__borneTour){clearTimeout(idleT);idleT=setTimeout(start,25000);}return;}demo=true;si=0;root.classList.add('b-demo');step();}
   function stop(){if(!demo)return;demo=false;clearTimeout(stepT);root.classList.remove('b-demo');hide();}
   function poke(){if(demo)stop();clearTimeout(idleT);idleT=setTimeout(start,25000);}
   ['pointerdown','keydown','wheel','touchstart'].forEach(function(ev){addEventListener(ev,poke,{capture:true,passive:true});});
@@ -95,3 +95,13 @@
 (function(){function mount(){var w=document.querySelector('.wrap');if(!w){setTimeout(mount,600);return;}if(w.querySelector('.b-edgeart'))return;
   ['l','r'].forEach(function(s){var e=document.createElement('i');e.className='b-edgeart b-edgeart-'+s;e.setAttribute('aria-hidden','true');w.appendChild(e);});}
   mount();})();
+/* la visite des psychopompes a la priorité : la démo s'efface dès qu'elle commence */
+setInterval(function(){if(window.__borneTour&&document.documentElement.classList.contains('b-demo')&&window.__borneDemo)window.__borneDemo(false);},400);
+/* l'aimant de Dekonect dessiné en fer à cheval rouge, pôles d'acier, reflet ; ses lignes de champ s'allument au survol */
+(function(){function go(){var b=document.querySelector('.b-dekonect');if(!b){setTimeout(go,600);return;}if(b._art)return;b._art=1;
+  b.innerHTML='<svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="bmg" x1="0" x2="1"><stop offset="0" stop-color="#7a1210"/><stop offset=".35" stop-color="#e0443a"/><stop offset=".6" stop-color="#c9302a"/><stop offset="1" stop-color="#6a0e0c"/></linearGradient><linearGradient id="bms" x1="0" x2="1"><stop offset="0" stop-color="#6a6e74"/><stop offset=".45" stop-color="#f2f4f6"/><stop offset="1" stop-color="#7a7e84"/></linearGradient></defs>'+
+    '<path d="M8 6h9v15a3 3 0 0 0 6 0V6h9v15a12 12 0 0 1-24 0z" fill="url(#bmg)" stroke="#3a0806" stroke-width="1"/>'+
+    '<rect x="8" y="3" width="9" height="6" rx="1" fill="url(#bms)" stroke="#2a2c2e" stroke-width=".8"/><rect x="23" y="3" width="9" height="6" rx="1" fill="url(#bms)" stroke="#2a2c2e" stroke-width=".8"/>'+
+    '<path d="M11 13v8a9 9 0 0 0 4 7" fill="none" stroke="rgba(255,220,210,.5)" stroke-width="1.4" stroke-linecap="round"/>'+
+    '<g class="bfield" fill="none" stroke="#ffb02a" stroke-width="1" stroke-linecap="round"><path d="M12 1.5q8-5 16 0"/><path d="M10 .2q10-6.5 20 0" opacity=".6"/></g></svg>';}
+  go();})();
