@@ -1,9 +1,10 @@
 /* Borne Insert Koin — les sons de la mécanique.
-   Sons enregistrés, domaine public (CC0) : la liste, les sources et les retouches sont dans snd/SOURCES.md.
+   Sons enregistrés, domaine public (CC0 ou marque du domaine public) : la liste, les sources et les retouches sont dans snd/SOURCES.md.
    Le premier geste ouvre le son ; les fichiers de snd/ se chargent alors, en Ogg Opus, ou en MP3 quand le navigateur refuse l'Opus.
    Chaque coup tire une prise au hasard parmi plusieurs, avec un écart de hauteur (± 4 %) et de volume.
-   Touches qui s'enfoncent et remontent, micro-contacts, ressort de la manette, butée, crans des molettes, Koin qui roule et tombe,
-   TILT de Baku Boom, aspiration et claquement des blocs aimantés ; la machine s'allume, ronronne et s'échauffe un peu quand on joue.
+   Interrupteurs qui basculent et claquent, butée de la manette (coups de bobine d'un flipper), ressort, crans des molettes,
+   pièce qui roule dans un téléphone public et tombe dans le godet de métal, TILT au ronfleur secteur, claquement des loquets de métal ;
+   la machine s'allume comme un flipper électromécanique, ronronne (ventilateur et transformateur à 50 Hz) et s'échauffe un peu quand on joue.
    Tant qu'un fichier manque, la synthèse Web Audio d'origine joue à sa place. Le bouton FX de la porte coupe tout. */
 (function(){
   var C=null,M=null,hum=null,heat=0,R=Math.random;
@@ -21,7 +22,7 @@
   function warm(x){heat=Math.min(1,heat+x);}
 
   /* les prises enregistrées : nom -> nombre de variantes dans snd/ */
-  var SND={press:8,release:8,tick:4,detent:9,knock:4,twang:5,coin:3,drop:4,buzz:2,thump:2,suck:2,clack:5,power:1,hum:1},
+  var SND={press:5,release:6,tick:4,detent:9,knock:4,twang:5,coin:3,drop:4,buzz:4,thump:2,suck:2,clack:5,power:1,hum:1},
       HUM_LOOP=12,HUM_AT=.1,B={},last={},loading=false,t0=0,
       ST=window.__borneSonCharge={ok:0,ko:0,fmt:''},
       BASE=(function(){try{return new URL('snd/',document.currentScript&&document.currentScript.src||location.href).href;}catch(e){return 'snd/';}})();
@@ -102,5 +103,5 @@
     else S.tick();},true);
   function up(e){document.querySelectorAll('.b-down').forEach(function(k){k.classList.remove('b-down');void k.offsetWidth;k.classList.add('b-up');setTimeout(function(){k.classList.remove('b-up');},420);S.release();});}
   document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);
-  document.addEventListener('click',function(e){var kb=closest(e,'.b-knob');if(kb){S.detent(2+Math.floor(R()*3));kb.classList.remove('b-cran');void kb.offsetWidth;kb.classList.add('b-cran');}if(closest(e,'.b-boom'))S.tilt();if(closest(e,'.b-slot')){S.coin();setTimeout(S.drop,260);}},true);
+  document.addEventListener('click',function(e){var kb=closest(e,'.b-knob');if(kb){S.detent(2+Math.floor(R()*3));kb.classList.remove('b-cran');void kb.offsetWidth;kb.classList.add('b-cran');}if(closest(e,'.b-boom'))S.tilt();if(closest(e,'.b-slot')){S.coin();setTimeout(S.drop,380);}},true);
 })();
