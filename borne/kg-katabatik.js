@@ -647,7 +647,7 @@ function c4Init(){
     }
 
     // Board background
-    ctx.fillStyle='rgba(201,168,76,0.08)';
+    ctx.fillStyle='rgba(201,168,76,0.22)';
     ctx.beginPath();
     ctx.roundRect(0,CW,W,CW*ROWS,6);
     ctx.fill();
@@ -661,8 +661,8 @@ function c4Init(){
 
         // Hole background
         ctx.beginPath();ctx.arc(cx,cy,rad,0,Math.PI*2);
-        ctx.fillStyle='rgba(0,0,0,0.55)';
-        ctx.fill();
+        ctx.fillStyle='rgba(0,0,0,0.75)';
+        ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle='rgba(255,227,160,0.28)';ctx.stroke();
 
         if(val!==0){
           var col=val===1?col1:col2;

@@ -113,6 +113,9 @@ cap("kg-katabatik.js", "      ctx.fillText(ln(state.levelNames[_li]),W/2,CW*0.78
 cap("kg-katabatik.js", "  function drop(col){\n    if(state.over||state.turn!==1) return;",
     "  window.__c4k={s:state,d:function(c){drop(c);},r:function(){draw();},n:COLS};\n  function drop(col){\n    if(state.over||state.turn!==1) return;")
 cap("kg-katabatik.js", "go:['space / tap','espace / touche']", "go:['','']")
+# Konnect4 : plateau et trous lisibles sur le noir de l'écran
+cap("kg-katabatik.js", "    ctx.fillStyle='rgba(201,168,76,0.08)';\n    ctx.beginPath();\n    ctx.roundRect(0,CW,W,CW*ROWS,6);", "    ctx.fillStyle='rgba(201,168,76,0.22)';\n    ctx.beginPath();\n    ctx.roundRect(0,CW,W,CW*ROWS,6);")
+cap("kg-katabatik.js", "        ctx.fillStyle='rgba(0,0,0,0.55)';\n        ctx.fill();", "        ctx.fillStyle='rgba(0,0,0,0.75)';\n        ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle='rgba(255,227,160,0.28)';ctx.stroke();")
 # pages en cadre : feuille commune de la borne (borne-frames.css)
 for n in ("reporhogo.html", "tor.html"):
     t = rd(n)
@@ -122,6 +125,8 @@ cap("reporhogo.html", ' placeholder="Comma-separated URLs appear here."', '')
 # SkopoRhogo : Échap désélectionne d'abord le Mask, sans quitter le programme
 k2 = rd("skoporhogo-borne.html")
 k2 = k2.replace("if(e.key==='Escape'&&selected>=0) select(selected);", "if(e.key==='Escape'&&selected>=0){ e.preventDefault(); select(selected); }")
+# à l'accueil, la molette fait défiler la page ; SkopoRhogo zoome à la molette avec Ctrl, ou dans le programme ouvert
+k2 = k2.replace("view.addEventListener('wheel',e=>{ e.preventDefault();", "view.addEventListener('wheel',e=>{ if(/attract=1/.test(location.search)&&!e.ctrlKey)return; e.preventDefault();", 1)
 wr("skoporhogo-borne.html", k2)
 # FotoFauna : le logo déclenche, caméra avant ou arrière, pile et pellicule (borne-fotofauna.js, borne-fotofauna.css)
 cap("fotofauna.html", 'getUserMedia({video:{facingMode:"user",width:{ideal:1280}},audio:false})', 'getUserMedia({video:{facingMode:(window.__ffFacing||"user"),width:{ideal:1280}},audio:false})')

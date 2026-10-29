@@ -180,3 +180,31 @@ html.borne .b-px-bur{font-family:'Bebas Neue',Impact,sans-serif;font-size:14px;l
 html.borne .b-lore.b-shine{animation:bloreglow 2.4s ease-in-out}
 @keyframes bloreglow{0%,100%{filter:none}40%{filter:brightness(1.28) saturate(1.15) drop-shadow(0 0 7px rgba(255,120,90,.55))}}
 @media (prefers-reduced-motion:reduce){html.borne .b-lore.b-shine{animation:none}}
+/* AUDIT 30 oct. (instance indépendante) */
+/* le nom de chaîne vert fait doublon avec l'écran-titre et se posait sur l'en-tête des programmes */
+html.borne .b-chan{display:none!important}
+/* Immersion depuis l'accueil : l'écran prend toute la fenêtre, sans la vitre imprimée */
+html.borne.b-immersion .b-bezel .b-screen{border-image:none!important;border-width:0!important}
+html.borne.b-immersion:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]) .b-glass,html.borne.b-immersion:not([data-prog]) .b-glass{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;max-width:none!important;border-radius:0!important;z-index:9000!important;margin:0!important}
+html.borne.b-immersion .b-attract{opacity:1!important}
+/* FaunInvaders en hauteur : la tranche des flancs reste au bord du meuble, hors de l'écran */
+html.borne[data-big=tate] .b-edgeart{display:none!important}
+/* le pied de l'écran garde ses touches loin de la tranche peinte */
+html.borne[data-prog] .b-bezelfoot{padding-left:clamp(14px,1.6vw,26px)!important;padding-right:clamp(14px,1.6vw,26px)!important}
+/* téléphone : le décompte des Koins ne fait plus sauter Baku Boom à la ligne */
+@media (max-width:700px){html.borne .b-bezelfoot #koins{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden}html.borne .b-bezelfoot .b-boom{flex:none}
+  html.borne .b-date{top:3%!important;bottom:auto!important;right:2.5%!important}}
+/* porte du métal : l'étiquette au-dessus de la serrure */
+html.borne[data-skin=metal] .b-slot b{top:46%!important}
+/* textes : la date de l'écran à 12 px, les gravures à 11 px */
+html.borne .b-date b{font-size:clamp(12px,1vw,14px)!important}
+html.borne .b-date i{font-size:12px!important}
+html.borne .b-row2 .menu a{font-size:11px!important}
+html.borne .bar .dock:first-of-type #export-pl,html.borne .b-px{font-size:11px!important}
+html.borne .b-slot b,html.borne .b-slot b *{font-size:10px!important}
+html.borne .b-slot i.b-lamp{font-size:9px!important}
+/* Online Applicants : discret, lisible (contraste 4,5 au moins) */
+html.borne .b-online,html.borne .b-online span{color:rgba(235,225,205,.66)!important}
+/* zones de toucher de 44 px, dessin inchangé */
+html.borne :is(.b-bell,#export-pl,.b-imm,.b-px){position:relative}
+html.borne :is(.b-bell,#export-pl,.b-imm,.b-px)::after{content:"";position:absolute;inset:-7px;border-radius:6px}

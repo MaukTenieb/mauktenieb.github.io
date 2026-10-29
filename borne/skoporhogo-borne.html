@@ -1379,7 +1379,7 @@ view.addEventListener('pointermove',e=>{ if(!drag) return; const r=view.getBound
   if(Math.hypot(dx,dy)>4) drag.moved=true;
   if(drag.moved&&VIEW.z>1){ VIEW.follow=false; VIEW.x=drag.vx-dx/r.width*2*CAM0.hw/VIEW.z; VIEW.y=drag.vy+dy/r.height*2*CAM0.hh/VIEW.z; applyView(); } });
 view.addEventListener('pointerup',e=>{ const d=drag; drag=null; if(d&&!d.moved) pickAt(e); });
-view.addEventListener('wheel',e=>{ e.preventDefault(); const r=view.getBoundingClientRect();
+view.addEventListener('wheel',e=>{ if(/attract=1/.test(location.search)&&!e.ctrlKey)return; e.preventDefault(); const r=view.getBoundingClientRect();
   zoomAt(e.deltaY<0?1.15:1/1.15,((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1); },{passive:false});
 function pickAt(e){
   const r=view.getBoundingClientRect(); mouse.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);

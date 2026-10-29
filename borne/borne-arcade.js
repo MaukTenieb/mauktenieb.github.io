@@ -6,7 +6,7 @@
   var root=document.documentElement,RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
   var NAME={puck:'KORONG!',chess:'FAUNA CHESS',erratic:'ERRATIK',faunarratics:'FAUNARRATIK',c4:'KONNECT4',hang:'AKASZTÓFA',mm:'MASKERMIND',bb:'SAMPLER',fi:'FAUNINVADERS',
     diktat:'DIKTATFAUNE',fauneye:'BAKUBOOK',vhs:'VHS',photo:'FOTOFAUNA',kapture:'KAPTURE',terminal:'3615',kal:'3615',repo:'REPORHOGO',tor:'FAUNATOR',skopo:'SKOPORHOGO'};
-  var SAYK={c4:'katabatik',hang:'katabatik',mm:'katabatik',bb:'katabatik',fi:'katabatik',kal:'terminal'};
+  var SAYK={c4:'katabatik',hang:'katabatik',mm:'katabatik',kal:'terminal'};
   var INK={fauneye:'#e2c27a',vhs:'#e2c27a',photo:'#e2c27a',kapture:'#e2c27a',terminal:'#66bb6a',kal:'#66bb6a',repo:'#7fe0ff',tor:'#7fe0ff',skopo:'#4fc3f7'};
   var PAID={chess:1,fi:1,faunarratics:1,bb:1,c4:1,hang:1,mm:1,erratic:1};
   function $(i){return document.getElementById(i);}
@@ -27,7 +27,7 @@
   var HOF={},hofT=0;
   function hof(){if(!window.IKP||Date.now()-hofT<300000)return;hofT=Date.now();['korong','fauninvaders'].forEach(function(g){IKP.top(g).then(function(t){if(t&&t.length)HOF[g]=t;}).catch(function(){});});}
   setTimeout(hof,4000);setInterval(hof,60000);
-  var GK={puck:'korong',fi:'fauninvaders'};
+  var GK={fi:'fauninvaders'};
   function hi(k){var t=HOF[GK[k]];return t&&t[0]?t[0].a:null;}
   function hofCard(g){var t=HOF[g];if(!t||!t.length)return null;var c=document.createElement('div');c.className='b-tcard b-tdemo b-thof';
     var rows=t.slice(0,5).map(function(e,i){return '<tr><td>'+['1ST','2ND','3RD','4TH','5TH'][i]+'</td><td>'+esc(String(e.a))+'</td><td>'+esc(String(e.ini||'???').slice(0,3))+'</td></tr>';}).join('');
@@ -46,7 +46,7 @@
   function step(){if(!demo)return;if(!home()){stop();return;}var s=ORDER[si++%ORDER.length];
     if(s==='motel'){hide();stepT=setTimeout(step,7000);return;}
     var c=s==='koin'?koinCard():s.indexOf('hof:')===0?hofCard(s.slice(4)):card(LIST[Math.floor(Math.random()*LIST.length)],true);if(!c){step();return;}show(c,s.indexOf('hof:')===0?6000:4200);stepT=setTimeout(step,s.indexOf('hof:')===0?6200:4400);}
-  function start(){if(demo)return;if(!home()){if(window.__borneTour){clearTimeout(idleT);idleT=setTimeout(start,25000);}return;}demo=true;si=0;root.classList.add('b-demo');step();}
+  function start(){if(demo)return;if(!home()){if(window.__borneTour){clearTimeout(idleT);idleT=setTimeout(start,20000);}return;}demo=true;si=0;root.classList.add('b-demo');step();}
   function stop(){if(!demo)return;demo=false;clearTimeout(stepT);root.classList.remove('b-demo');hide();}
   function poke(){if(demo)stop();clearTimeout(idleT);idleT=setTimeout(start,25000);}
   ['pointerdown','keydown','wheel','touchstart'].forEach(function(ev){addEventListener(ev,poke,{capture:true,passive:true});});
@@ -112,3 +112,10 @@ setInterval(function(){if(window.__borneTour&&document.documentElement.classList
   go();})();
 /* Lore luit de temps en temps, au hasard */
 (function(){function t(){var l=document.querySelector('.b-lore');if(l&&!document.hidden){l.classList.remove('b-shine');void l.offsetWidth;l.classList.add('b-shine');}setTimeout(t,9000+Math.random()*16000);}setTimeout(t,5000);})();
+
+/* AUDIT 30 oct. — au clavier, à l'accueil : les flèches choisissent une touche du panneau, Entrée l'ouvre */
+addEventListener('keydown',function(e){var r=document.documentElement;if(r.dataset.prog||e.altKey||e.ctrlKey||e.metaKey)return;var t=e.target;if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return;
+  if(!window.__borneMark||!window.__borneA)return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();window.__borneMark(1);}
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();window.__borneMark(-1);}
+  else if(e.key==='Enter'&&document.querySelector('.b-panel .cab.b-sel')){e.preventDefault();window.__borneA();}});
