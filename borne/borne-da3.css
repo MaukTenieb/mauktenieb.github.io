@@ -162,3 +162,9 @@ html.borne .b-bezelfoot .b-stick-mini i{transition:none!important}
   html.borne .b-door{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)!important}
   html.borne .b-door>.b-slot{grid-column:2!important}
   html.borne .b-door>.b-knobs{grid-column:3!important;justify-self:start!important}}
+/* les bandes invisibles des bords de l'écran ne volent plus les gestes des jeux : on change de programme par les points sous l'écran, la manette ou PageUp/PageDown */
+html.borne .b-edge{display:none!important}
+/* lisibilité des écrans : lignes de balayage et vignettage allégés ; dans un programme, l'image reste nette jusqu'aux bords */
+html.borne .b-glass::after{background:repeating-linear-gradient(0deg,rgba(0,0,0,.07) 0 1px,transparent 1px 3px)!important;box-shadow:inset 0 0 28px rgba(0,0,0,.4)!important}
+html.borne[data-prog] .b-glass::after{background:repeating-linear-gradient(0deg,rgba(0,0,0,.04) 0 1px,transparent 1px 3px)!important;box-shadow:inset 0 0 14px rgba(0,0,0,.35)!important}
+html.borne[data-mode=device] .b-glass::after,html.borne[data-habit=fauneye] .b-glass::after{background:none!important;box-shadow:none!important}
