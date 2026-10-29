@@ -49,3 +49,18 @@
   rank();
   window.__borneDemo=function(on){if(on){clearTimeout(idleT);start();}else stop();};
 })();
+/* la lumière : le tube de l'enseigne éclaire le haut du meuble, l'écran éclaire le panneau de commande dans la couleur du programme ;
+   l'écran d'accueil garde la trace brûlée d'INSERT KOIN, comme les tubes restés allumés des années en salle */
+(function(){var root=document.documentElement;
+  function mount(){var w=document.querySelector('.wrap'),bar=document.querySelector('.wrap .bar'),pan=document.querySelector('#home .b-panel'),g=document.querySelector('.b-glass');
+    if(!w||!bar||!pan||!g){setTimeout(mount,600);return;}
+    var m=document.createElement('div');m.className='b-mql';m.setAttribute('aria-hidden','true');w.appendChild(m);
+    var s=document.createElement('div');s.className='b-spill';s.setAttribute('aria-hidden','true');pan.appendChild(s);
+    var b=document.createElement('div');b.className='b-burn';b.setAttribute('aria-hidden','true');b.textContent='INSERT KOIN';g.appendChild(b);
+    function place(){var W=w.getBoundingClientRect(),B=bar.getBoundingClientRect(),L=document.querySelector('.b-land'),Lr=L?L.getBoundingClientRect():B;
+      m.style.top=(B.top-W.top-10)+'px';m.style.height=(Math.max(B.bottom,Lr.bottom)-B.top+60)+'px';}
+    place();addEventListener('resize',place);setInterval(place,2000);
+    var INK={korong:'255,170,90',minitel:'120,240,150',vhs:'200,220,255',photo:'255,220,170',fauneye:'255,214,150',repos:'255,176,110',arcade:'255,190,120'};
+    setInterval(function(){var h=root.dataset.habit||'repos',c=INK[h]||INK.arcade,dim=!!document.querySelector('.bar .brand.b-dim');
+      s.style.setProperty('--sp',c);m.classList.toggle('b-off',dim);s.classList.toggle('b-hi',!!root.dataset.prog);},500);}
+  mount();})();

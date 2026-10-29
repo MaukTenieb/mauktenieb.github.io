@@ -22,3 +22,16 @@ html.borne.b-demo #home .b-panel .cabinets>.cab,html.borne.b-demo .b-row2 .menu 
 @media (max-width:700px){html.borne .b-tcard{padding:6% 5% 5%}}
 html.borne.b-demo .b-row2 .menu a{animation-name:bchase2!important}
 @keyframes bchase2{0%{filter:brightness(1.7) drop-shadow(0 0 7px rgba(255,220,170,.8))}14%,100%{filter:none}}
+/* la lumière du tube sur le haut du meuble ; elle s'éteint avec l'enseigne */
+html.borne .b-mql{position:absolute;left:0;right:0;z-index:3;pointer-events:none;mix-blend-mode:screen;opacity:1;transition:opacity .7s ease-in;
+  background:radial-gradient(ellipse 46% 60% at 50% 18%,rgba(255,170,80,.16),rgba(255,140,50,.06) 55%,transparent 80%)}
+html.borne .b-mql.b-off{opacity:.12}
+html.borne[data-mode=device] .b-mql,html.borne.b-immersion .b-mql{display:none}
+/* la lumière de l'écran sur le panneau, plus forte quand un programme tourne */
+html.borne .b-spill{position:absolute;inset:0;z-index:6;pointer-events:none;mix-blend-mode:screen;border-radius:inherit;
+  background:radial-gradient(ellipse 60% 55% at 50% -8%,rgba(var(--sp,255,176,110),.13),transparent 70%);transition:background .6s}
+html.borne .b-spill.b-hi{background:radial-gradient(ellipse 64% 62% at 50% -8%,rgba(var(--sp,255,176,110),.2),transparent 72%)}
+/* la brûlure du tube : INSERT KOIN, à peine visible, sur l'écran d'accueil */
+html.borne .b-burn{position:absolute;left:0;right:0;top:44%;z-index:25;pointer-events:none;text-align:center;font:400 clamp(22px,5.5vw,72px)/1 'Press Start 2P',monospace;
+  color:rgba(255,220,170,.045);mix-blend-mode:screen;filter:blur(1.2px);letter-spacing:.04em}
+html.borne[data-prog] .b-burn{display:none}
