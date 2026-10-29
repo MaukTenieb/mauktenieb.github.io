@@ -35,3 +35,12 @@ html.borne .b-spill.b-hi{background:radial-gradient(ellipse 64% 62% at 50% -8%,r
 html.borne .b-burn{position:absolute;left:0;right:0;top:44%;z-index:25;pointer-events:none;text-align:center;font:400 clamp(22px,5.5vw,72px)/1 'Press Start 2P',monospace;
   color:rgba(255,220,170,.045);mix-blend-mode:screen;filter:blur(1.2px);letter-spacing:.04em}
 html.borne[data-prog] .b-burn{display:none}
+/* START et BACK, un peu à l'écart des boutons BC, TL et IG ; START clignote en démo, comme sur une borne qui attend son joueur */
+html.borne .b-row2 .menu a.b-a{margin-right:clamp(10px,3vw,40px)}
+html.borne .b-row2 .menu a.b-b{margin-left:clamp(10px,3vw,40px)}
+html.borne.b-demo .b-row2 .menu a.b-a{animation:bstart 1s steps(1) infinite!important}
+@keyframes bstart{0%{filter:brightness(1.8) drop-shadow(0 0 8px rgba(255,240,210,.9))}50%{filter:none}}
+html.borne .b-panel .menu a.b-a::before{background-image:url(bouton-start.webp)!important}
+html.borne .b-panel .menu a.b-b::before{background-image:url(bouton-back.webp)!important}
+@media (max-width:700px){html.borne .b-row2 .menu{flex-wrap:nowrap!important;gap:clamp(8px,3.6vw,20px)!important}
+  html.borne .b-row2 .menu a.b-a{margin-right:clamp(4px,2vw,14px)}html.borne .b-row2 .menu a.b-b{margin-left:clamp(4px,2vw,14px)}}

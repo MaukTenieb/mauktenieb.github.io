@@ -111,6 +111,7 @@
   function mark(d){var K=keys();if(!K.length)return;sel=(sel<0?(d>0?0:K.length-1):(sel+d+K.length)%K.length);K.forEach(function(c,i){c.classList.toggle('b-sel',i===sel);});}
   function press(){if(inGame()){key('keydown',' ');setTimeout(function(){key('keyup',' ');},90);return;}
     var K=keys(),c=K[sel];if(c){var h=c.querySelector('.hit,button')||c;h.click();sel=-1;K.forEach(function(x){x.classList.remove('b-sel');});}}
+  window.__borneA=press;window.__borneMark=mark;
   function wire(stick){if(!stick||stick._jeu)return;stick._jeu=1;
     var st=null,lastStep=0;
     stick.addEventListener('pointerdown',function(e){var r=stick.getBoundingClientRect();if(e.clientY>r.top+r.height*.74)return;/* le socle : il déplace la manette */
