@@ -4,10 +4,17 @@
       dans le groupe, sauf dans FaunInvaders et le VHS, qui reçoivent les flèches ; un appui sur la boule envoie Espace. La manette se déplace par son socle. */
 (function(){
   var root=document.documentElement;
-  /* la charte commune, à l'essai : #charte l'allume, #sanscharte l'éteint ; le choix reste dans ce navigateur */
-  function charte(){var h=location.hash;try{if(/sanscharte/.test(h))localStorage.removeItem('borne.charte');else if(/charte/.test(h))localStorage.setItem('borne.charte','1');}catch(e){}
-    var on=false;try{on=localStorage.getItem('borne.charte')==='1';}catch(e){on=/charte/.test(h)&&!/sanscharte/.test(h);}root.classList.toggle('b-charte',on);}
-  charte();addEventListener('hashchange',charte);
+  /* la charte commune, allumée par défaut : #sanscharte l'éteint, #charte la rallume ; le choix reste dans ce navigateur.
+     Les pages en cadre de même origine reçoivent borne-charte-frame.css, et html[data-ch] nomme la page. */
+  var CHF={'3615-local.html':'minitel','borne-fauneye.html':'bakubook','fotofauna.html':'fotofauna','reporhogo.html':'reporhogo','tor.html':'tor','borne-diktat.html':'diktat','skoporhogo-borne.html':'skopo','kg-vhs.html':'vhs'};
+  function chFrame(f,on){try{var d=f.contentDocument;if(!d||!d.head||!d.documentElement)return;var n=(d.location.pathname.split('/').pop()||''),k=CHF[n],l=d.getElementById('b-charte');
+      if(!k||!on){if(l)l.remove();d.documentElement.classList.remove('b-charte');return;}
+      d.documentElement.dataset.ch=k;d.documentElement.classList.add('b-charte');
+      if(!l){l=d.createElement('link');l.id='b-charte';l.rel='stylesheet';l.href='borne-charte-frame.css';d.head.appendChild(l);}}catch(e){}}
+  function chFrames(){var on=root.classList.contains('b-charte');document.querySelectorAll('iframe').forEach(function(f){chFrame(f,on);if(!f._bch){f._bch=1;f.addEventListener('load',function(){chFrame(f,root.classList.contains('b-charte'));});}});}
+  function charte(){var h=location.hash,v=null;try{if(/sanscharte/.test(h))localStorage.setItem('borne.charte','0');else if(/charte/.test(h))localStorage.setItem('borne.charte','1');v=localStorage.getItem('borne.charte');}catch(e){v=/sanscharte/.test(h)?'0':null;}
+    root.classList.toggle('b-charte',v!=='0');chFrames();}
+  charte();addEventListener('hashchange',charte);setInterval(chFrames,1000);
   /* ---------- 1. le jeu à la taille de l'écran ---------- */
   var MAXZ=2.4;
   function panel(){var k=document.getElementById('kg-root');if(!k||!k.offsetParent)return null;var kr=k.getBoundingClientRect(),A=kr.width*kr.height,best=null;
