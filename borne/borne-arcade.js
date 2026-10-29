@@ -91,3 +91,7 @@
 (function(){function mount(){var s=document.querySelector('.b-slot');if(!s){setTimeout(mount,600);return;}if(s.querySelector('.b-lamp'))return;
   ['b-l1','b-l2'].forEach(function(c){var e=document.createElement('i');e.className='b-lamp '+c;e.setAttribute('aria-hidden','true');e.textContent='1 KOIN';s.appendChild(e);});}
   mount();})();
+/* la tranche peinte des flancs : la bande de rayures de chaque côté du meuble, en miroir, sur toute la hauteur */
+(function(){function mount(){var w=document.querySelector('.wrap');if(!w){setTimeout(mount,600);return;}if(w.querySelector('.b-edgeart'))return;
+  ['l','r'].forEach(function(s){var e=document.createElement('i');e.className='b-edgeart b-edgeart-'+s;e.setAttribute('aria-hidden','true');w.appendChild(e);});}
+  mount();})();
