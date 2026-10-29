@@ -419,6 +419,7 @@ body:not(.on-home) .info,body:not(.on-home) .foot{display:none}
 <link rel="stylesheet" href="borne-charte.css">
 <link rel="stylesheet" href="borne-da2.css">
 <link rel="stylesheet" href="borne-da3.css">
+<link rel="stylesheet" href="borne-arcade.css">
 </head>
 <body>
 
@@ -2073,6 +2074,7 @@ const _build=buildLobby;buildLobby=function(){_build();const r=loadRun();const b
   const SAY={"en": {"puck": "Shufflepuck: challenge us!", "chess": "Fairy chess against the Fauna.", "erratic": "Find the pairs.", "faunarratics": "Your own story with us. Build!", "katabatik": "Roll for a mini-game.", "terminal": "Surf the Minitel, earn Koins.", "vhs": "Your own YouTube tapes.", "photo": "Shoot and edit.", "tor": "Browse .onion sites.", "skopo": "Watch us.", "repo": "Find any repo on anything.", "bio": "Meet Mauk Tenieb.", "visit": "Take the tour.", "lore": "Substack and the official Lore.", "refresh": "Refresh!", "tl": "Wear us.", "ig": "The artist’s Instagram.", "kapture": "Kapture it all.", "motel": ""}, "fr": {"puck": "Shufflepuck : défie-nous !", "chess": "Tente ces échecs alternatifs, tiens.", "erratic": "Trouve les clones.", "faunarratics": "Picore, ci et là : construis l’histoire à plusieurs.", "katabatik": "Jette le dé, joue à des mini-jeux.", "terminal": "Consulte ce bon vieux Minitel. Chope des Koins !", "vhs": "Visionne tes programmes YouTube.", "photo": "Prends tes photos, retouche-les dans la foulée.", "tor": "Tomates, salade, .onion !", "skopo": "Tu nous vois ?", "repo": "Toutes les ressources \"code\" sur… tout.", "bio": "Biographie, tiens.", "visit": "Plonge-toi dans ce qui s’anime, s’affiche, s’écoute… Porte d’entrée, d’accord ?", "lore": "Lis le lore. (Oui !)", "refresh": "Rafraîchis tout ça.", "tl": "Revêts-nous. (Si tu peux.)", "ig": "IG de l’artiste.", "kapture": "Conserver l’image... un peu.", "motel": "Voici le Juke Box."}};
   Object.assign(SAY.en,{"g-korhogame":"Challenge us! Or roll for a mini-game.","g-fauneye":"The Kerema sees you anyway.","g-surf":"Find any repo on anything. Browse .onion sites.","bc":"The artist's Bandcamp. U gotta stay TUNEd...","fauneye":"Read it all.","fi":"Factualists want to liquefy you!","bb":"Touched by a muse?"});
   Object.assign(SAY.fr,{"g-korhogame":"Défie-nous ! Ou jette le dé, joue à des mini-jeux.","g-fauneye":"Visionne, lis, prends tes photos.","g-surf":"Tomates, salade, .onion ! Et toutes les ressources \"code\" sur… tout.","bc":"BC de l'artiste. U gotta stay TUNEd...","fauneye":"Lis tout ça.","fi":"Les Divisionistes le font par zéro !","bb":"Touched by a muse?"});
+  window.__borneSAY=function(){try{return SAY[LANG]||SAY.en;}catch(e){return SAY.en;}};
   const g=document.createElement('div');g.className='guide gone';g.setAttribute('role','button');g.setAttribute('aria-label','Guide');g.tabIndex=0;home.appendChild(g);
   const tip=document.createElement('div');tip.className='gtip';home.appendChild(tip);
   let who=null,fw=0,sc=1,frame=0,touring=false,idleT=0,blinkT=0,away=true;
@@ -2206,5 +2208,6 @@ requestAnimationFrame(frame);
 <script src="borne-presence.js"></script>
 <script src="borne-son.js"></script>
 <script src="borne-dekonect.js"></script>
+<script src="borne-arcade.js"></script>
 </body>
 </html>

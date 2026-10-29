@@ -101,3 +101,26 @@ html.b-charte #kg-root #mm-panel .mm-fb .mm-no{color:#d0d0d0!important}
 html.b-charte #kg-root #mem .card-f-name{font-size:clamp(12px,1.6vw,.85rem)!important}
 html.b-charte #kg-root #konklave-panel #kk-counter{font-size:13px!important;opacity:1!important;color:var(--ch-dim)!important}
 html.b-charte #kg-root #bb-panel #bb-motto{font-size:12px!important;letter-spacing:.06em!important;line-height:1.35!important;min-height:0!important}
+
+/* ---------- charte d'arcade (DA.md) : titres en Press Start 2P, ombre portée en escalier ; boutons pleins et biseautés ; curseur ▶ qui clignote sur la sélection ---------- */
+html.b-charte #kg-root :is(#chess,#mem,#mm-panel) :is(h1,h2),
+html.b-charte #kg-root #konklave-panel :is(h1,h2,.kk-title,.kk-top-title),
+html.b-charte #kg-root #hang-gift .hang-work{font-family:'Press Start 2P',monospace!important;letter-spacing:.02em!important;line-height:1.25!important;
+  text-shadow:3px 3px 0 #6b2a00,6px 6px 0 rgba(0,0,0,.6),0 0 16px rgba(255,167,38,.45)!important}
+html.b-charte #kg-root :is(#chess,#mem,#mm-panel) :is(h1,h2){font-size:clamp(20px,3.1vw,46px)!important}
+html.b-charte #kg-root #konklave-panel :is(.kk-title,.kk-top-title){font-size:clamp(13px,1.3vw,18px)!important}
+html.b-charte #kg-root :is(#chess,#mem,#mm-panel) :is(.ch-sel-btn,.ch-go-btn,.m-btn,.w-btn,.mm-lv),
+html.b-charte #kg-root :is(#ch-kerema-btn,#m-quit,#mm-ok,#hang-again,#bb-play-btn,#bb-controls button,#c4-panel>button,#hang-panel>button,#mm-panel>button),
+html.b-charte #kg-root #konklave-panel :is(.kk-big,.kk-ghost,.kk-add,.kk-hand,.kk-fork-btn,.kk-redeal,.kk-exit){position:relative;border:2px solid color-mix(in srgb,var(--ch-acc) 55%,#000)!important;border-radius:3px!important;
+  background:linear-gradient(180deg,#2d2218 0%,#1b140d 55%,#120d08 100%)!important;
+  box-shadow:inset 0 2px 0 rgba(255,235,200,.16),inset 0 -3px 0 rgba(0,0,0,.55),0 3px 0 #000,0 5px 8px rgba(0,0,0,.45)!important;transition:transform .05s,box-shadow .05s,background .12s!important}
+html.b-charte #kg-root :is(#chess,#mem,#mm-panel) :is(.ch-sel-btn,.ch-go-btn,.m-btn,.w-btn,.mm-lv):is(:hover,:focus-visible),
+html.b-charte #kg-root :is(#ch-kerema-btn,#m-quit,#mm-ok,#hang-again,#bb-play-btn,#bb-controls button):is(:hover,:focus-visible),
+html.b-charte #kg-root #konklave-panel :is(.kk-big,.kk-ghost,.kk-add,.kk-fork-btn,.kk-redeal):not(:disabled):is(:hover,:focus-visible){border-color:var(--ch-acc)!important;outline:0!important;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--ch-acc) 22%,#2d2218) 0%,#1b140d 60%)!important;box-shadow:inset 0 2px 0 rgba(255,235,200,.22),inset 0 -3px 0 rgba(0,0,0,.55),0 3px 0 #000,0 0 14px color-mix(in srgb,var(--ch-acc) 40%,transparent)!important}
+html.b-charte #kg-root :is(#chess,#mem,#mm-panel) :is(.ch-sel-btn,.ch-go-btn,.m-btn,.w-btn,.mm-lv):is(:hover,:focus-visible)::before,
+html.b-charte #kg-root :is(#ch-kerema-btn,#mm-ok,#hang-again,#bb-play-btn):is(:hover,:focus-visible)::before,
+html.b-charte #kg-root #konklave-panel :is(.kk-big):is(:hover,:focus-visible)::before{content:"▶";position:absolute;left:-1.6em;top:50%;transform:translateY(-50%);font:12px/1 'Press Start 2P',monospace;color:var(--ch-acc);text-shadow:0 0 8px var(--ch-acc);animation:bcur 1s steps(1) infinite}
+@keyframes bcur{50%{opacity:0}}
+html.b-charte #kg-root :is(#chess,#mem,#mm-panel,#hang-panel,#bb-panel,#konklave-panel) button:not(.mm-peg):not(.hang-key):not(.sq):active{transform:translateY(2px);box-shadow:inset 0 2px 4px rgba(0,0,0,.6),0 1px 0 #000!important}
+@media (prefers-reduced-motion:reduce){html.b-charte #kg-root button::before{animation:none!important}}

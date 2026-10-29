@@ -74,7 +74,7 @@ Ces quatre familles forment tout le lettrage. Le texte à l'écran mesure 12 px 
 | Jeu | le programme | boutons fixes, voyant du programme allumé | sons du jeu, Motel Sound baissé |
 | Fin | scores, saisie des initiales | boutons en attente | jingle de fin |
 
-La borne vit d'un seul tenant : l'enseigne, les boutons, l'écran et le son suivent le même état.
+L'enseigne, les boutons, l'écran et le son suivent tous le même état de la machine.
 
 ## Son
 

@@ -1,0 +1,24 @@
+/* Borne Insert Koin — l'écran d'arcade (DA.md) : écrans-titres, démo au repos, chenillard des touches. */
+html.borne .b-tcard{position:absolute;inset:0;z-index:44;display:grid;grid-template-rows:auto 1fr auto auto;padding:5% 6% 4%;box-sizing:border-box;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 45%,rgba(40,24,10,.55),rgba(0,0,0,.96) 70%),#000;color:#ffe3a0;font-family:'Press Start 2P',monospace;opacity:0;transition:opacity .25s steps(4)}
+html.borne .b-tcard.on{opacity:1}
+html.borne .b-tcard.off{opacity:0}
+html.borne .b-tc-top{display:flex;justify-content:space-between;font-size:clamp(12px,1.3vw,18px);letter-spacing:.06em}
+html.borne .b-tc-top span:first-child{color:#c9302a;text-shadow:0 0 8px rgba(201,48,42,.6)}
+html.borne .b-tc-top span:last-child{color:#ffa726}
+html.borne .b-tc-mid{display:grid;align-content:center;justify-items:center;gap:clamp(14px,2.4vw,30px);text-align:center}
+html.borne .b-tc-mid b{font-weight:400;font-size:clamp(22px,4.4vw,64px);line-height:1.2;letter-spacing:.03em;color:var(--tc-ink,#ffa726);
+  text-shadow:4px 4px 0 #3a1400,8px 8px 0 rgba(0,0,0,.7),0 0 24px color-mix(in srgb,var(--tc-ink,#ffa726) 45%,transparent)}
+html.borne .b-tc-mid i{font-style:normal;font-family:'DM Mono',ui-monospace,monospace;font-size:clamp(13px,1.35vw,19px);letter-spacing:.08em;color:#f3e8d2;max-width:34ch}
+html.borne .b-tc-go{justify-self:center;font-size:clamp(13px,1.6vw,22px);letter-spacing:.08em;color:#4fc3f7;text-shadow:0 0 10px rgba(79,195,247,.6);animation:btgo 1s steps(1) infinite;margin-bottom:clamp(10px,1.6vw,22px)}
+html.borne .b-tc-foot{justify-self:center;font-size:clamp(12px,1vw,14px);color:#c4b9a4;letter-spacing:.1em}
+@keyframes btgo{50%{opacity:0}}
+html.borne .b-tkoin .b-tc-mid b{color:#ffa726;font-size:clamp(28px,6vw,86px)}
+html.borne .b-glass:has(.b-tcard) .b-chan{opacity:0!important}
+/* la démo : le chenillard des touches et des boutons ronds */
+html.borne.b-demo #home .b-panel .cabinets>.cab,html.borne.b-demo .b-row2 .menu a{animation:bchase calc(var(--cn,7) * .28s) steps(1) infinite;animation-delay:calc(var(--ci,0) * .28s)}
+@keyframes bchase{0%{filter:brightness(1.55) saturate(1.2);box-shadow:0 0 22px color-mix(in srgb,var(--nc,#ffa726) 60%,transparent)}14%,100%{filter:none}}
+@media (prefers-reduced-motion:reduce){html.borne .b-tc-go{animation:none}html.borne.b-demo #home .b-panel .cabinets>.cab,html.borne.b-demo .b-row2 .menu a{animation:none}}
+@media (max-width:700px){html.borne .b-tcard{padding:6% 5% 5%}}
+html.borne.b-demo .b-row2 .menu a{animation-name:bchase2!important}
+@keyframes bchase2{0%{filter:brightness(1.7) drop-shadow(0 0 7px rgba(255,220,170,.8))}14%,100%{filter:none}}
