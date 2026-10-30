@@ -123,14 +123,14 @@ function chRawMoves(r,c,board){
   if(p.t==='Q'){[[0,1],[0,-1],[1,0],[-1,0],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(function(d){slide(d[0],d[1]);});}
   return moves;
 }
-/* [IK] draws: the same position three times, or fifty moves each without a capture */
+/* [IK] draws: the same position three times, fifty moves each without a capture, or zero legal move for the side to play */
 var chSeen={},chQuiet=0;
 function chKey(board,turn){var k=turn;for(var r=0;r<8;r++)for(var c=0;c<8;c++){var p=board[r][c];k+=p?(p.col+p.t+(p.moved?'*':'')):'.';}return k;}
 function chDraw(why){
   chOver=true;
   document.getElementById('chess-over-h').textContent='Draw';
   document.getElementById('chess-over-h').style.color='#c9a84c';
-  document.getElementById('chess-over-p').textContent=why==='rep'?'\u2014 the same position, three times':'\u2014 fifty moves without a capture';
+  document.getElementById('chess-over-p').textContent=why==='rep'?'\u2014 the same position, three times':why==='pat'?'\u2014 stalemate':'\u2014 fifty moves without a capture';
   document.getElementById('chess-over').classList.add('show');
   document.getElementById('chess-status').textContent='GAME OVER';
   chRender();
@@ -157,6 +157,7 @@ function chDoMove(r1,c1,r2,c2,board,sim){
     chQuiet=cap?0:chQuiet+1;var pk=chKey(nb,chTurn);chSeen[pk]=(chSeen[pk]||0)+1;
     if(chSeen[pk]>=3){chDraw('rep');return nb;}
     if(chQuiet>=100){chDraw('fifty');return nb;}
+    if(!chAllMoves(chTurn,nb).length){chDraw('pat');return nb;}
     chRender();
     if(chMode==='ai'&&chTurn!==chPlayerColour&&!chOver){if(typeof chAiThink==='function')chAiThink();setTimeout(chAiMove,420);}
   }
