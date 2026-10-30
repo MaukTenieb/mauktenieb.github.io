@@ -156,40 +156,44 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   addEventListener('load',function(){fit();setTimeout(fit,800)});fit();
 })();
 
-/* 30 oct. — la caméra : lancer un jeu, c'est s'approcher de la borne jusqu'à ce que l'écran remplisse la fenêtre ; Baku Boom ou l'accueil font reculer */
+/* 30 oct. — la caméra : lancer un jeu, c'est s'approcher de la borne jusqu'à ce que l'écran remplisse la fenêtre ; Baku Boom ou l'accueil font reculer.
+   Le meuble (.wrap) et son toit (.b-roof : plante, caméra Kapture) bougent ensemble, comme un seul objet devant l'objectif. */
 (function(){
   var R=document.documentElement,T=0,busy=0,IN=460,OUT=520,EASE='cubic-bezier(.55,.06,.25,1)';
   function wrap(){return document.querySelector('.wrap')}
+  function parts(){return [wrap(),document.querySelector('.b-roof')].filter(Boolean)}
   function glass(){return document.querySelector('.b-glass')}
   /* la place de l'écran sans les effets du tube (allumage, extinction) : la taille de la vitre, au centre de son cadre */
   function rect(){var g=glass();if(!g)return null;var S=(g.parentElement||g).getBoundingClientRect(),w=g.offsetWidth,h=g.offsetHeight,cx=S.left+S.width/2,cy=S.top+S.height/2;
     return {left:cx-w/2,top:cy-h/2,width:w,height:h}}
   function target(){var w=innerWidth,h=innerHeight;return w>700?{x:48,y:35,w:w-96,h:h-138}:{x:20,y:31,w:w-40,h:h-174}}
-  function map(A,G){var W=wrap().getBoundingClientRect(),s=Math.min(G.w/A.width,G.h/A.height),
-      gx=G.x+G.w/2,gy=G.y+G.h/2,ax=A.left+A.width/2,ay=A.top+A.height/2;
-    return 'translate('+(gx-W.left-s*(ax-W.left)).toFixed(1)+'px,'+(gy-W.top-s*(ay-W.top)).toFixed(1)+'px) scale('+s.toFixed(4)+')'}
-  /* après le recul, la borne se cadre comme à l'arrivée : en haut, ou juste assez bas pour montrer l'écran entier sur une fenêtre très basse */
+  /* la même prise de vue pour chaque pièce : l'écran A devient le cadre G */
+  function shoot(A,G){var W=wrap().getBoundingClientRect(),s=Math.min(G.w/A.width,G.h/A.height),
+      gx=G.x+G.w/2,gy=G.y+G.h/2,ax=A.left+A.width/2,ay=A.top+A.height/2,tx=gx-W.left-s*(ax-W.left),ty=gy-W.top-s*(ay-W.top);
+    parts().forEach(function(e){var E=e===wrap()?W:e.getBoundingClientRect(),x=tx+(W.left-E.left)*(1-s),y=ty+(W.top-E.top)*(1-s);
+      e.style.transformOrigin='0 0';e.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) scale('+s.toFixed(4)+')';});}
+  function set(prop,v){parts().forEach(function(e){e.style[prop]=v;});}
   function settle(){if(R.hasAttribute('data-prog'))return;var ft=document.querySelector('.b-bezelfoot');if(!ft)return;var fb=ft.getBoundingClientRect().bottom+scrollY;
     var top=fb>innerHeight+1?Math.ceil(fb-innerHeight+6):0;if(Math.abs(top-scrollY)>2)try{scrollTo({top:top,left:0,behavior:'smooth'});}catch(e){scrollTo(0,top);}}
-  function clear(){var wasOut=R.getAttribute('data-cam')==='out';if(wasOut)setTimeout(settle,300);var w=wrap();if(w){w.style.transition='';w.style.transform='';w.style.transformOrigin='';w.style.opacity='';}R.removeAttribute('data-cam');busy=0}
+  function clear(){var wasOut=R.getAttribute('data-cam')==='out';if(wasOut)setTimeout(settle,300);
+    parts().forEach(function(e){e.style.transition='';e.style.transform='';e.style.transformOrigin='';e.style.opacity='';});R.removeAttribute('data-cam');busy=0}
   function stop(){if(!busy)return;clearTimeout(T);var f=busy;busy=0;clear();if(typeof f==='function')f();}
   window.__borneCam={
     ok:function(){return !!(wrap()&&glass())&&!R.classList.contains('b-immersion')&&!matchMedia('(prefers-reduced-motion:reduce)').matches},
     rect:function(){var r=rect();return r?{x:r.left,y:r.top,w:r.width,h:r.height}:target()},
     stop:stop,
-    zoomIn:function(cb){if(typeof busy==='function'){var prev=busy;busy=function(){prev();cb();};return;}stop();var w=wrap(),A=rect();if(!A||!A.width){cb();return;}
-      busy=cb;R.setAttribute('data-cam','in');w.style.transformOrigin='0 0';w.style.transition='transform '+IN+'ms '+EASE;
-      void w.offsetWidth;w.style.transform=map(A,target());
+    zoomIn:function(cb){if(typeof busy==='function'){var prev=busy;busy=function(){prev();cb();};return;}stop();var A=rect();if(!A||!A.width){cb();return;}
+      busy=cb;R.setAttribute('data-cam','in');set('transition','transform '+IN+'ms '+EASE);void wrap().offsetWidth;shoot(A,target());
       T=setTimeout(function(){R.setAttribute('data-cam','swap');var f=busy;busy=0;try{f();}catch(e){}
-        w.style.transition='none';w.style.transform='';void w.offsetWidth;
+        set('transition','none');set('transform','');void wrap().offsetWidth;
         requestAnimationFrame(function(){requestAnimationFrame(clear);});},IN+10);},
-    swap:function(fn){stop();R.setAttribute('data-cam','swap');var w=wrap();if(w)w.style.transition='none';fn();try{window.__borneFit&&window.__borneFit();}catch(e){}try{scrollTo({top:0,left:0,behavior:'instant'});}catch(e){scrollTo(0,0);}},
+    swap:function(fn){stop();R.setAttribute('data-cam','swap');set('transition','none');fn();try{window.__borneFit&&window.__borneFit();}catch(e){}try{scrollTo({top:0,left:0,behavior:'instant'});}catch(e){scrollTo(0,0);}},
     /* le recul : le temps que l'accueil se remonte, l'écran reste noir comme un tube qui se rallume ; puis on part de l'écran plein cadre et on recule jusqu'à la borne entière */
-    zoomOut:function(G){var w=wrap();if(!w){clear();return;}busy=1;w.classList.remove('b-shake');w.style.transition='none';w.style.opacity='0';
+    zoomOut:function(G){var w=wrap();if(!w){clear();return;}busy=1;w.classList.remove('b-shake');set('transition','none');set('opacity','0');
       T=setTimeout(function(){try{window.__borneFit&&(window.__borneFit(),window.__borneFit());}catch(e){}
-        var A=rect();if(!A||!A.width){w.style.opacity='';clear();return;}
-        w.style.transformOrigin='0 0';w.style.transform=map(A,G);void w.offsetWidth;w.style.opacity='';
-        requestAnimationFrame(function(){R.setAttribute('data-cam','out');w.style.transition='transform '+OUT+'ms '+EASE;w.style.transform='';
+        var A=rect();if(!A||!A.width){clear();return;}
+        shoot(A,G);void w.offsetWidth;set('opacity','');
+        requestAnimationFrame(function(){R.setAttribute('data-cam','out');set('transition','transform '+OUT+'ms '+EASE);set('transform','');
           T=setTimeout(clear,OUT+20);});},420);}
   };
 })();

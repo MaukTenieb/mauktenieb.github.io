@@ -157,7 +157,7 @@ html.borne[data-prog] .b-dekonect{display:block!important}
   html.borne[data-bfit]:is([data-skin=bois],[data-skin=metal]):not([data-prog]):not([data-habit=fauneye]):not(.b-immersion) .b-bezel .b-screen{border-top-width:clamp(14px,2.2vh,24px)!important;border-bottom-width:clamp(14px,2.2vh,24px)!important}
   html.borne[data-bfit]:is([data-skin=bois],[data-skin=metal]):not([data-prog]) .b-butee{height:clamp(18px,2.6vh,30px)!important}
   html.borne[data-bfit]:not([data-prog]) .b-land{height:clamp(40px,5.6vh,84px)!important}}
-html.borne[data-bfit] *:not(.wrap){transition:none!important}
+html.borne[data-bfit] *:not(.wrap):not(.b-roof){transition:none!important}
 @media (max-width:700px){
   html.borne:not([data-prog]):is([data-skin=bois],[data-skin=metal]):not([data-mode=device]):not([data-habit=fauneye]):not(.b-immersion) .b-bezel .b-screen{border-style:solid!important;border-image:url(art-bezel-fin.webp) 50 104 52 104 stretch!important;border-width:12px 16px!important;border-radius:0!important}
   html.borne:not([data-prog]):is([data-skin=bois],[data-skin=metal]):not([data-mode=device]):not([data-habit=fauneye]):not(.b-immersion) .b-glass{width:calc(var(--gw) - 32px)!important;height:calc((var(--gw) - 32px) * .75)!important}}
@@ -177,6 +177,6 @@ html.borne[data-prog] .wrap>section{width:100%!important;max-width:100%!importan
 
 /* la caméra : pendant l'approche et le recul, la fenêtre garde ses bords ; à l'échange, le meuble change d'état d'un seul coup */
 html.borne[data-cam],html.borne[data-cam] body{overflow:hidden!important}
-html.borne[data-cam=swap] *:not(.wrap),html.borne[data-cam=out] *:not(.wrap){transition:none!important}
-html.borne[data-cam] .wrap{will-change:transform}
+html.borne[data-cam=swap] *:not(.wrap):not(.b-roof),html.borne[data-cam=out] *:not(.wrap):not(.b-roof){transition:none!important}
+html.borne[data-cam] :is(.wrap,.b-roof){will-change:transform}
 html.borne,html.borne body{overflow-anchor:none}
