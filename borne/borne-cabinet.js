@@ -255,6 +255,8 @@
   function sleep(){try{skf.contentWindow.postMessage({borne:'sleep'},'*');}catch(e){}}
   addEventListener('message',function(e){if(e.source===skf.contentWindow&&e.data&&e.data.borne==='open'&&root.dataset.habit==='repos')IK().go&&IK().go('skopo');});
   document.addEventListener('visibilitychange',function(){if(document.hidden)sleep();else if(root.dataset.habit==='repos')wake();});
+  /* aux trois quarts hors de la fenêtre, la chambre dort ; elle se réveille quand l'écran revient en vue */
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){if(!skf.src)return;if(e.intersectionRatio>=.25){if(root.dataset.habit==='repos')wake();}else sleep();});},{threshold:[0,.25,.5]}).observe(skf);
 
   /* ---------- la manette, en miroir : elle penche avec les flèches et les glissés dans l'écran ---------- */
   var mini=el('div','b-stick b-stick-mini','<i></i>');mini.setAttribute('aria-hidden','true');foot.insertBefore(mini,bb);

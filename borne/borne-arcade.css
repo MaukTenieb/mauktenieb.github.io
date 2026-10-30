@@ -173,3 +173,14 @@ html.borne[data-prog] #game .hud{margin-inline:auto!important}
   html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type #export-pl{grid-column:3!important;grid-row:1!important}}
 html.borne[data-prog]:not(.b-immersion) :is(#home .b-panel,.b-door,.b-dekonect){visibility:hidden!important}
 html.borne .b-sc{font-size:.76em;letter-spacing:inherit;vertical-align:baseline}
+
+/* 30 oct. — cibles tactiles de 44 px au moins, sans changer le dessin : la zone sensible déborde l'objet, invisible */
+@media (pointer:coarse){
+  html.borne .bar .dock:first-of-type #radio-toggle::before{content:"";position:absolute;inset:-7px 0}
+  html.borne .b-plate .b-sticker{position:relative}
+  html.borne .b-plate .b-sticker::after{content:"";position:absolute;inset:-4px -2px}
+}
+
+/* 30 oct. — texte lisible : 12 px au moins sur toute inscription de la borne (afficheur du Motel Sound, compteurs, sigles) */
+html.borne #radio-toggle .motel-l .b-tk span,html.borne .bar .dock #export-pl,html.borne .bar .dock #export-pl *,html.borne .b-bezelfoot #kn,html.borne .b-bezelfoot .b-online b,html.borne .b-bezelfoot .b-online span,
+html.borne .b-bezelfoot .b-imm span,html.borne .b-row2 nav.menu a,html.borne .b-cam #kapture{font-size:max(12px,1em)!important}

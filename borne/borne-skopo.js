@@ -44,7 +44,9 @@
     ['pointerup','pointercancel'].forEach(function(t){v.addEventListener(t,function(e){delete P[e.pointerId];if(Object.keys(P).length<2)d0=0;});});}
   /* endormie, la chambre cesse de se dessiner : une image toutes les 2 s au lieu de 60 par seconde ; les programmes gardent toute la machine */
   var RAF=window.requestAnimationFrame.bind(window),asleep=false;
-  window.requestAnimationFrame=function(cb){return asleep?setTimeout(function(){RAF(cb);},2000):RAF(cb);};
+  /* à l'accueil, la chambre se dessine à 30 images par seconde au plus : la borne garde sa fluidité autour */
+  var ATTR=/attract=1/.test(location.search);
+  window.requestAnimationFrame=function(cb){if(asleep)return setTimeout(function(){RAF(cb);},2000);if(!ATTR)return RAF(cb);return RAF(function(t){if(t-(cb._t||0)<30){window.requestAnimationFrame(cb);return;}cb._t=t;cb(t);});};
   addEventListener('message',function(e){var R=window.__room,d=e.data||{};if(!R||!d.borne)return;
     if(d.borne==='sleep'){asleep=true;R.setSpeed(0);}else if(d.borne==='wake'){asleep=false;catchUp(target());window.__walk=60;R.setSpeed(1);}});
   if(document.readyState==='complete')init();else addEventListener('load',init);

@@ -14,11 +14,13 @@ FEN = [(1920, 1080, False), (1366, 768, False), (820, 1180, True), (390, 844, Tr
 MESURE = """(()=>{
   const H=innerHeight,W=innerWidth,s=document.querySelector('.b-screen'),r=s?s.getBoundingClientRect():null;
   const vis=e=>{const q=e.getBoundingClientRect();if(q.width<1||q.height<1||q.bottom<0||q.top>H)return null;const c=getComputedStyle(e);if(c.visibility==='hidden'||c.display==='none'||+c.opacity===0)return null;return q};
+  const cache=e=>{for(let x=e;x;x=x.parentElement){const k=getComputedStyle(x);if(+k.opacity===0||k.visibility==='hidden'||(k.clipPath||'').includes('inset(50%')||(k.clip||'').startsWith('rect(0'))return true}return false};
+  const zone=(e,q)=>{let w=q.width,h=q.height;for(const ps of ['::before','::after']){const k=getComputedStyle(e,ps);if(k.content==='none'||k.position!=='absolute'||k.pointerEvents==='none')continue;const t=-parseFloat(k.top)||0,b=-parseFloat(k.bottom)||0,l=-parseFloat(k.left)||0,r=-parseFloat(k.right)||0;w=Math.max(w,q.width+Math.max(0,l)+Math.max(0,r));h=Math.max(h,q.height+Math.max(0,t)+Math.max(0,b));}return [w,h]};
   let petit=0,ex=[];
   for(const e of document.querySelectorAll('body *')){if(!e.childNodes.length)continue;let t='';for(const n of e.childNodes)if(n.nodeType===3)t+=n.textContent.trim();if(!t)continue;
-    if(e.closest('iframe,svg,.guide,.gtip'))continue;const q=vis(e);if(!q)continue;const f=parseFloat(getComputedStyle(e).fontSize);if(f<12){petit++;if(ex.length<6)ex.push(t.slice(0,24)+' '+f+'px')}}
+    if(e.closest('iframe,svg,.guide,.gtip'))continue;const q=vis(e);if(!q||cache(e))continue;const f=parseFloat(getComputedStyle(e).fontSize);if(f<12){petit++;if(ex.length<6)ex.push(t.slice(0,24)+' '+f+'px')}}
   let cible=0,cx=[];
-  for(const e of document.querySelectorAll('a,button,[role=button],input,select,.cab')){const q=vis(e);if(!q)continue;if(Math.min(q.width,q.height)<44*(W<900?1:0.6)){cible++;if(cx.length<6)cx.push((e.textContent||e.className||'').toString().trim().slice(0,18)+' '+Math.round(q.width)+'x'+Math.round(q.height))}}
+  for(const e of document.querySelectorAll('a,button,[role=button],input,select,.cab,#radio-toggle')){const q0=vis(e);if(!q0||cache(e))continue;const [zw,zh]=zone(e,q0);const q={width:zw,height:zh};if(Math.min(q.width,q.height)<44*(W<900?1:0.6)){cible++;if(cx.length<6)cx.push((e.textContent||e.className||'').toString().trim().slice(0,18)+' '+Math.round(q.width)+'x'+Math.round(q.height))}}
   return {ecran:r?[Math.round(r.top),Math.round(r.bottom)]:null,ecranEntier:!!r&&r.top>=0&&r.bottom<=H,
     debordeX:document.documentElement.scrollWidth>W+1,hauteurPage:document.documentElement.scrollHeight,
     textePetit:petit,textePetitEx:ex,ciblesPetites:cible,ciblesEx:cx}
