@@ -558,7 +558,7 @@
    un geste du visiteur (molette, doigt qui glisse, clavier) la fige là où il est ; quatre secondes sans geste, elle reprend où elle en était ;
    la molette 👣 de la porte retire les psychopompes, et les rend */
 (function(){var T=0;
-  function hand(){if(!window.__borneTour&&!T)return;window.__borneTourByHand=true;
+  function hand(){window.__borneHandHold=Date.now()+4000;if(!window.__borneTour&&!T)return;window.__borneTourByHand=true;
     if(window.__borneTour&&window.__borneTourPause){try{window.__borneTourPause();}catch(_){}try{scrollTo({top:scrollY,behavior:'instant'});}catch(_){}}
     clearTimeout(T);T=setTimeout(function(){T=0;if(window.__borneNoPsy||document.documentElement.dataset.prog)return;window.__borneTourByHand=false;try{window.__borneTourResume&&window.__borneTourResume();}catch(_){}},4000);}
   addEventListener('wheel',hand,{passive:true,capture:true});addEventListener('touchmove',hand,{passive:true,capture:true});
