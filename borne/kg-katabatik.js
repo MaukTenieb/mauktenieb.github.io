@@ -221,17 +221,21 @@ function bbTick(){
   if(!_bbPlaying||!_bbAC||_bbAC.state==='suspended')return;
   var _bp=document.getElementById('bb-panel');
   if(!_bp||_bp.style.display==='none'||!_bp.getClientRects().length){bbStop();try{bbRender();}catch(_e){}return;}
-  var now=_bbAC.currentTime+.02;
-  _bbTracks.forEach(function(tr,ti){
-    if(tr.steps[_bbStep])bbVoice(_bbAC,ti,now);
-  });
-  bbRenderStep(_bbStep);
-  _bbStep=(_bbStep+1)%8;
-  _bbSeqTimer=setTimeout(bbTick,60000/(_bbBPM*2));
+  /* horloge Web Audio : chaque pas se programme à l'avance sur l'horloge du son ; le tempo reste exact même quand la page peine */
+  var ct=_bbAC.currentTime,dur=60/(_bbBPM*2);
+  if(!window._bbNext)window._bbNext=ct+.05;
+  else while(_bbNext<ct-.01){_bbNext+=dur;_bbStep=(_bbStep+1)%8;} /* page restée bloquée : le pas manqué saute, la mesure garde sa grille */
+  while(_bbNext<ct+.12){
+    var st=_bbStep,at=_bbNext;
+    _bbTracks.forEach(function(tr,ti){if(tr.steps[st])bbVoice(_bbAC,ti,at);});
+    (function(st,ms){setTimeout(function(){if(_bbPlaying)bbRenderStep(st);},ms);})(st,Math.max(0,(at-ct)*1000));
+    _bbStep=(_bbStep+1)%8;_bbNext+=dur;
+  }
+  _bbSeqTimer=setTimeout(bbTick,25);
 }
 
 function bbStop(){
-  _bbPlaying=false;
+  _bbPlaying=false;window._bbNext=0;
   if(_bbSeqTimer){clearTimeout(_bbSeqTimer);_bbSeqTimer=null;}
   _bbStep=0;
 }
