@@ -16,7 +16,7 @@
   function send(p){try{if(ws&&ws.readyState===1)ws.send(p);}catch(e){}}
   function say(kind){send(pub(kind+':'+ME));}
   function paint(){var now=Date.now(),n=1;for(var k in SEEN){if(now-SEEN[k]>50000)delete SEEN[k];else n++;}
-    if(!el)return;el.querySelector('b').textContent=n>99?'99+':String(n);el.hidden=false;el.title=n+' Online Applicants';}
+    if(!el)return;el.querySelector('b').textContent=n>99?'99+':String(n);var w=n===1?'Online Applicant':'Online Applicants';el.querySelector('span').textContent=w;el.hidden=false;el.title=n+' '+w;}
   function onmsg(buf){var a=new Uint8Array(buf),i=0;
     while(i<a.length){var h=a[i++],m=1,l=0,d;do{d=a[i++];l+=(d&127)*m;m*=128;}while(d&128);var p=a.subarray(i,i+l);i+=l;
       if((h>>4)===2){send(sub());say('hello');paint();}
