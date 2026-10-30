@@ -1906,7 +1906,7 @@ window.addEventListener('storage',e=>{if(!e.key||e.key.startsWith('ik.'))syncKoi
 setInterval(syncKoins,1500);syncKoins();
 $('kal').onclick=()=>go('kal');   // 3615Koins : connexion directe au service KOINS (+1 par connexion)
 /* the Korhogo games: one Koin to open, two for a win */
-const _openGame=openGame;openGame=function(k,title){if(k!=='kapture'&&k!=='vhs'&&!pay()){syncKoins();$('kal').classList.remove('pay');void $('kal').offsetWidth;$('kal').classList.add('pay');return;}_openGame(k,title);};
+const _openGame=openGame;openGame=function(k,title){if(k!=='kapture'&&k!=='vhs'&&!(koins>0&&window.__bornePayLater?(window.__bornePayLater(pay),true):pay())){syncKoins();$('kal').classList.remove('pay');void $('kal').offsetWidth;$('kal').classList.add('pay');return;}_openGame(k,title);};
 /* a win rains Koins over the game, then they pour into the counter */
 function koinRain(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;const N=touchDev?16:26;
   for(let i=0;i<N;i++){const c=document.createElement('span');c.className='kdrop';c.textContent='◉';const x=Math.random()*innerWidth,sz=12+Math.random()*16,d=900+Math.random()*900,dl=Math.random()*700;
@@ -2103,7 +2103,7 @@ const _build=buildLobby;buildLobby=function(){_build();const r=loadRun();const b
   async function tour(resume){if(touring)return;touring=true;window.__borneTour=1;idleT=Infinity;ac();const W=ms=>new Promise(r=>setTimeout(r,ms));
     const cabs=[...home.querySelectorAll('.cabinets .cab')],chips=[...home.querySelectorAll('.menu a:not(.b-ab),.menu button')];
     /* every visit goes through the tiles and menus in a random order */
-    let stops;if(resume&&resume.length)stops=resume;else{stops=cabs.concat(chips,[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture')].filter(Boolean));for(let i=stops.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[stops[i],stops[j]]=[stops[j],stops[i]];}}
+    let stops;if(resume&&resume.length)stops=resume;else{stops=cabs.concat(chips,[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture'),document.querySelector('.b-lore')].filter(Boolean));for(let i=stops.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[stops[i],stops[j]]=[stops[j],stops[i]];}}
     if(!(resume&&resume.length)&&window.__borneFirst){const F=window.__borneFirst();stops=stops.filter(x=>F.indexOf(x)<0);stops.splice(1+Math.floor(Math.random()*stops.length),0,F[1]);stops.unshift(F[0]);}
     TQ=stops;
     const L=SAY[LANG]||SAY.en;

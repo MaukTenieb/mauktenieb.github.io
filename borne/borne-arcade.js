@@ -119,3 +119,14 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();window.__borneMark(1);}
   else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();window.__borneMark(-1);}
   else if(e.key==='Enter'&&document.querySelector('.b-panel .cab.b-sel')){e.preventDefault();window.__borneA();}});
+/* la Koin se paie au premier geste de jeu dans l'écran (toucher, clic, touche du clavier) ; zapper d'un écran-titre à l'autre reste gratuit */
+(function(){var pend=null,prog='';
+  window.__bornePayLater=function(pay){pend=pay;prog='';setTimeout(function(){prog=(window.__borneCur&&window.__borneCur())||'';},300);};
+  function hit(e){if(!pend)return;var cur=(window.__borneCur&&window.__borneCur())||'';if(prog&&cur!==prog){pend=null;return;}
+    if(e.type==='keydown'&&/^(Escape|PageUp|PageDown|Tab|Shift|Control|Alt|Meta)$/.test(e.key))return;
+    var g=document.querySelector('.b-glass');if(e.type==='pointerdown'&&!(g&&(g.contains(e.target)||e.target.tagName==='IFRAME')))return;
+    var p=pend;pend=null;try{p();}catch(_){}}
+  document.addEventListener('pointerdown',hit,true);document.addEventListener('keydown',hit,true);
+  setInterval(function(){if(!pend)return;var r=document.documentElement;if(!r.dataset.prog)pend=null;else{var cur=(window.__borneCur&&window.__borneCur())||'';if(prog&&cur!==prog)pend=null;}},300);
+  /* les gestes à l'intérieur des jeux en cadre comptent aussi */
+  setInterval(function(){document.querySelectorAll('.b-glass iframe').forEach(function(f){try{var d=f.contentDocument;if(d&&!d._bpay){d._bpay=1;d.addEventListener('pointerdown',function(){if(pend){var p=pend;pend=null;try{p();}catch(_){}}},true);d.addEventListener('keydown',function(e){if(pend&&!/^(Escape|Tab)$/.test(e.key)){var p=pend;pend=null;try{p();}catch(_){}}},true);}}catch(_){}});},1000);})();

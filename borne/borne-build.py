@@ -71,6 +71,10 @@ s = once(s, "chips=[...home.querySelectorAll('.menu a,.menu button')]", "chips=[
 # la démo de la borne attend la fin de la visite des psychopompes
 s = once(s, "if(touring)return;touring=true;", "if(touring)return;touring=true;window.__borneTour=1;")
 s = once(s, "function stop(){if(!touring)return;touring=false;", "function stop(){if(!touring)return;touring=false;window.__borneTour=0;")
+# la Koin se paie au premier geste de jeu, pas à l'arrivée sur l'écran-titre (zapper reste gratuit)
+s = once(s, "if(k!=='kapture'&&k!=='vhs'&&!pay()){", "if(k!=='kapture'&&k!=='vhs'&&!(koins>0&&window.__bornePayLater?(window.__bornePayLater(pay),true):pay())){")
+# visite complète : les psychopompes passent aussi par l'autocollant Lore (sa réplique « lore » vient de SAY)
+s = once(s, "[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture')].filter(Boolean)", "[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture'),document.querySelector('.b-lore')].filter(Boolean)")
 wr("index.html", s)
 
 k = rd("skoporhogo.html")
@@ -127,6 +131,8 @@ k2 = rd("skoporhogo-borne.html")
 k2 = k2.replace("if(e.key==='Escape'&&selected>=0) select(selected);", "if(e.key==='Escape'&&selected>=0){ e.preventDefault(); select(selected); }")
 # à l'accueil, la molette fait défiler la page ; SkopoRhogo zoome à la molette avec Ctrl, ou dans le programme ouvert
 k2 = k2.replace("view.addEventListener('wheel',e=>{ e.preventDefault();", "view.addEventListener('wheel',e=>{ if(/attract=1/.test(location.search)&&!e.ctrlKey)return; e.preventDefault();", 1)
+# SkopoRhogo suit la charte : DM Mono à la place de VT323 (police chargée de Google Fonts, absente en ligne)
+k2 = k2.replace("'VT323'", "'DM Mono'").replace('"VT323"', '"DM Mono"')
 wr("skoporhogo-borne.html", k2)
 # FotoFauna : le logo déclenche, caméra avant ou arrière, pile et pellicule (borne-fotofauna.js, borne-fotofauna.css)
 cap("fotofauna.html", 'getUserMedia({video:{facingMode:"user",width:{ideal:1280}},audio:false})', 'getUserMedia({video:{facingMode:(window.__ffFacing||"user"),width:{ideal:1280}},audio:false})')
