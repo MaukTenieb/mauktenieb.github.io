@@ -25,5 +25,14 @@
     function fall(){var k=season();if(k&&!RM&&!document.hidden){var f=document.createElement('i');f.className='b-fall b-'+k;f.style.left=(25+Math.random()*50)+'%';
         f.style.setProperty('--dx',((Math.random()*2-1)*40).toFixed(0)+'px');f.style.animationDuration=(3.5+Math.random()*2.5).toFixed(1)+'s';pot.appendChild(f);setTimeout(function(){f.remove();},6500);}
       setTimeout(fall,k==='petal'?9000+Math.random()*12000:14000+Math.random()*20000);}
-    setTimeout(fall,6000);}
+    setTimeout(fall,6000);
+    /* la borne vibre, la plante aussi (Mauk Tenieb, 30 oct. : « qu'elle réagisse presque à chaque geste ») : chaque bruit mécanique
+       du meuble (touche, ressort de la manette, Koin, TILT) lui transmet une secousse à sa mesure ; un geste sur le meuble la pousse loin de la main */
+    var AMP={press:.8,release:.4,tick:.3,detent:.6,knock:2.2,twang:1.4,coin:.8,drop:1.2,tilt:7,suck:.3,clack:1};
+    function shake(a){if(RM)return;kick((Math.random()<.5?-1:1)*a*(9+Math.random()*4));}
+    (function wrap(){var S=window.__borneSon;if(!S){setTimeout(wrap,800);return;}if(S._plant)return;S._plant=1;
+      Object.keys(AMP).forEach(function(k){var f=S[k];if(typeof f!=='function')return;S[k]=function(x){shake(AMP[k]*(k==='knock'&&x?Math.min(2,x):1));return f.apply(this,arguments);};});})();
+    document.addEventListener('pointerdown',function(e){if(RM||document.documentElement.dataset.prog||pot.contains(e.target))return;
+      var r=pl.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=cx-e.clientX,d=Math.hypot(dx,cy-e.clientY);
+      kick((dx>=0?1:-1)*Math.max(1.5,9*Math.exp(-d/520)));},true);}
   go();})();
