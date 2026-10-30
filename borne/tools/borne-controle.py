@@ -6,7 +6,8 @@ Sortie : controle.json (chiffres par fenêtre) et des captures : arrivée, visit
 Chiffres :
 - accueil : écran entier à l'arrivée, texte sous 12 px, cibles tactiles sous 44 px, débordement horizontal, images par seconde ;
 - visite : de 6 à 21 s (court) ou 6 à 46 s, défilement de la page et part du temps où l'écran reste entier ;
-- geste : après une molette du visiteur, la page reste où il l'a mise pendant 8 s ;
+- geste : après une molette du visiteur, la visite se fige 3,5 s au moins puis reprend où elle en était (décision de Mauk Tenieb) ;
+- psychopompe et bulle hors de la rangée de commandes ;
 - jeu : Korong!, 3615, Erratik, Katabatik ouverts ; barre et Baku Boom dans la fenêtre, Baku Boom hors de l'écran de jeu, écran de jeu dans la fenêtre ;
 - erreurs de la page.
 """
@@ -37,6 +38,9 @@ JEU = """(()=>{const W=innerWidth,H=innerHeight,R=s=>{const e=document.querySele
   const sur=(a,c)=>!!a&&!!c&&Math.min(a.right,c.right)-Math.max(a.left,c.left)>4&&Math.min(a.bottom,c.bottom)-Math.max(a.top,c.top)>4;
   return {ouvert:!!document.documentElement.dataset.prog,barreDansFenetre:dans(f),boomDansFenetre:dans(b),boomSurEcran:sur(b,g),ecranDansFenetre:dans(g)}})()"""
 
+GUIDE = """(()=>{const f=document.querySelector('.b-bezelfoot');if(!f)return 0;const r=f.getBoundingClientRect();const hit=q=>Math.min(q.right,r.right)-Math.max(q.left,r.left)>4&&Math.min(q.bottom,r.bottom)-Math.max(q.top,r.top)>4;
+  const g=document.querySelector('.guide'),t=document.querySelector('.gtip.on');return ((g&&g.getClientRects().length&&hit(g.getBoundingClientRect()))||(t&&hit(t.getBoundingClientRect())))?1:0})()"""
+
 FPS = "()=>new Promise(r=>{let n=0,t0=performance.now();function f(){n++;if(performance.now()-t0<3000)requestAnimationFrame(f);else r(Math.round(n/3*10)/10)}requestAnimationFrame(f)})"
 
 def verdict(j):
@@ -61,11 +65,21 @@ async def fenetre(b, url, out, w, h, mob, court):
         ys.append(y); entier += e
         if i == 14: await pg.screenshot(path=os.path.join(out, f"{w}x{h}-visite.png"))
     R["visite"] = {"mouvements": sum(abs(a - c) > 4 for a, c in zip(ys, ys[1:])), "trajetPx": sum(abs(a - c) for a, c in zip(ys, ys[1:])), "ecranEntier": f"{entier}/{len(ys)}"}
-    await pg.mouse.move(w // 2, h // 2); await pg.mouse.wheel(0, 300); await pg.wait_for_timeout(700)
-    y0 = await pg.evaluate("Math.round(scrollY)"); mini = y0
-    for i in range(16):
-        await pg.wait_for_timeout(500); mini = min(mini, await pg.evaluate("Math.round(scrollY)"))
-    R["geste"] = {"apresGeste": y0, "plusHaut8s": mini, "remonte": mini < y0 - 4}
+    # geste du visiteur (décision de Mauk Tenieb) : la visite se fige, puis reprend où elle en était ; ici, figée 3,5 s au moins, puis reprise
+    await pg.mouse.move(w // 2, h - 30); await pg.mouse.wheel(0, 200); await pg.wait_for_timeout(300)
+    y0 = await pg.evaluate("Math.round(scrollY)"); fige = 0; reprise = False
+    for i in range(20):
+        await pg.wait_for_timeout(500)
+        st = await pg.evaluate("[Math.round(scrollY),!!window.__borneTour]")
+        if not reprise and abs(st[0] - y0) <= 4 and not st[1]: fige = round(0.3 + (i + 1) * 0.5, 1)
+        if st[1]: reprise = True
+    R["geste"] = {"figeeS": fige, "reprise": reprise, "conforme": fige >= 3.5 and reprise}
+    # psychopompe et bulle hors de la rangée de commandes (lieu de clarté absolue)
+    sur = 0
+    for i in range(20):
+        await pg.wait_for_timeout(500)
+        sur += await pg.evaluate(GUIDE)
+    R["guideSurCommandes"] = f"{sur}/20"
     J = []
     for k in JEUX:
         try:
@@ -91,6 +105,6 @@ async def main():
         a = r["arrivee"]
         print(f'{r["fenetre"]:>9}  écran entier à l\'arrivée {"oui" if a["ecranEntier"] else "NON"}  visite {r["visite"]["ecranEntier"]} ({r["visite"]["trajetPx"]} px)  '
               f'texte<12px {a["textePetit"]}  cibles<44px {a["ciblesPetites"]}  débord {"OUI" if a["debordeX"] else "non"}  {r["fpsAccueil"]} img/s  erreurs {len(r["erreurs"])}')
-        print(f'{"":>9}  geste : {"la page REMONTE" if r["geste"]["remonte"] else "la page reste"}  ;  jeu : ' + "  ".join(f'{j["programme"]} {verdict(j)}' for j in r["jeu"]))
+        print(f'{"":>9}  geste : {"figée puis reprise" if r["geste"]["conforme"] else "NON CONFORME"} ({r["geste"]["figeeS"]} s)  ;  guide sur les commandes {r["guideSurCommandes"]}  ;  jeu : ' + "  ".join(f'{j["programme"]} {verdict(j)}' for j in r["jeu"]))
 
 asyncio.run(main())

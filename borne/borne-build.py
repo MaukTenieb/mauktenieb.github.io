@@ -44,7 +44,7 @@ s = once(s, "function openGame(k,title){", "function openGame(k,title){window.__
 i = s.index("function goHome(){"); j = s.index("\n", i)
 s = s[:i] + "function goHome(){window.__borneHome&&window.__borneHome();" + s[i+len("function goHome(){"):j+1] \
     + "window.__ik={go:k=>go(k),goHome:()=>goHome(),openCalque:(a,b,c,d)=>openCalque(a,b,c,d),openGame:(k,t)=>openGame(k,t),boom:cb=>boom(cb),ac:()=>ac(),tone:(...a)=>tone(...a),burst:(...a)=>burst(...a),lang:()=>LANG};\n" + s[j+1:]
-s = re.sub(r"<title>[^<]*</title>", "<title>Borne Insert Koin — essai</title>", s, count=1)
+s = re.sub(r"<title>[^<]*</title>", "<title>Insert Koin — Mauk Tenieb</title>", s, count=1)
 # devant Korong! : l'image de l'écran titre, avec ses zones cliquables (borne-lobby.json, repères de poster.webp, 1200 x 896)
 import json
 B = json.load(open(os.path.join(D, "borne-lobby.json"), encoding="utf-8"))
@@ -193,7 +193,7 @@ if "borne-fotofauna.js" not in t:
     i = t.rfind("</body>"); wr("fotofauna.html", t[:i] + '<script src="borne-fotofauna.js"></script>\n' + t[i:])
 # les paroles des psychopompes passent sous l'enseigne, jamais dessus
 s2 = rd("index.html")
-s2 = once(s2, "tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');}", "tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');{const B=document.getElementById('brand'),M=B&&(B.closest('.b-marquee,.marquee')||B);if(M){const m=M.getBoundingClientRect(),t=tip.getBoundingClientRect();if(t.top<m.bottom&&t.bottom>m.top&&t.left<m.right&&t.right>m.left)tip.style.top=(parseFloat(tip.style.top)+m.bottom-t.top+6)+'px';}}}")
+s2 = once(s2, "tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');}", "tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');{const B=document.getElementById('brand'),M=B&&(B.closest('.b-marquee,.marquee')||B);if(M){const m=M.getBoundingClientRect(),t=tip.getBoundingClientRect();if(t.top<m.bottom&&t.bottom>m.top&&t.left<m.right&&t.right>m.left)tip.style.top=(parseFloat(tip.style.top)+m.bottom-t.top+6)+'px';}}{const Fo=document.querySelector('.b-bezelfoot');if(Fo&&!Fo.contains(el)){const m=Fo.getBoundingClientRect(),t=tip.getBoundingClientRect();if(t.top<m.bottom&&t.bottom>m.top&&t.left<m.right&&t.right>m.left)tip.style.top=(parseFloat(tip.style.top)-(t.bottom-m.top)-6)+'px';}}}")
 wr("index.html", s2)
 # l'enseigne : INSERT KOIN domine ; INTERSEKTION, NOIR INSEKT, SEKTOR INN viennent brouiller son signal, souvent, peu de temps (décision du 30 oct.)
 s3 = rd("index.html")
@@ -203,7 +203,7 @@ s3 = once(s3, "function later(){setTimeout(go2,26000+Math.random()*34000);}", "f
 wr("index.html", s3)
 # le psychopompe se pose à côté de l'enseigne, du compteur de Koins et de Baku Boom, jamais dessus (lieux de clarté absolue, DA.md)
 s4 = rd("index.html")
-s4 = once(s4, "tx=Math.max(4,Math.min(HW-gw-4,tx));place(tx,ty);", "tx=Math.max(4,Math.min(HW-gw-4,tx));{const F=[document.getElementById('brand'),document.getElementById('koins'),document.querySelector('.b-bezelfoot .b-boom')].filter(x=>x&&x.getClientRects().length&&x!==el&&!x.contains(el)&&!el.contains(x)).map(homeXY);for(const f of F){if(tx<f.x+f.w&&tx+gw>f.x&&ty<f.y+f.h&&ty+H>f.y){const L=f.x-gw-6,Rr=f.x+f.w+6;if(L<4&&Rr+gw>HW-4){ty=f.y+f.h+4;}else tx=(L>=4&&(Math.abs(L-tx)<=Math.abs(Rr-tx)||Rr+gw>HW-4))?L:Rr;}}tx=Math.max(4,Math.min(HW-gw-4,tx));}place(tx,ty);")
+s4 = once(s4, "tx=Math.max(4,Math.min(HW-gw-4,tx));place(tx,ty);", "tx=Math.max(4,Math.min(HW-gw-4,tx));{const F=[document.getElementById('brand'),document.querySelector('.b-bezelfoot'),document.getElementById('koins'),document.querySelector('.b-bezelfoot .b-boom')].filter(x=>x&&x.getClientRects().length&&x!==el&&!x.contains(el)&&!el.contains(x)).map(homeXY);for(const f of F){if(tx<f.x+f.w&&tx+gw>f.x&&ty<f.y+f.h&&ty+H>f.y){const L=f.x-gw-6,Rr=f.x+f.w+6;if(L<4&&Rr+gw>HW-4){ty=f.y+f.h+4;}else tx=(L>=4&&(Math.abs(L-tx)<=Math.abs(Rr-tx)||Rr+gw>HW-4))?L:Rr;}}tx=Math.max(4,Math.min(HW-gw-4,tx));}place(tx,ty);")
 wr("index.html", s4)
 # la visite part quand l'arrivée est faite : borne dévoilée, écran entier à l'écran, puis quelques secondes (téléphone couché compris)
 s5 = rd("index.html")
