@@ -84,3 +84,8 @@ html.b-charte:is([data-ch=reporhogo],[data-ch=tor],[data-ch=diktat],[data-ch=sko
 html.b-charte[data-ch=reporhogo] h1,html.b-charte[data-ch=tor] #notice h1,html.b-charte[data-ch=diktat] h1{font-family:'Press Start 2P',monospace!important;font-weight:400!important;letter-spacing:.02em!important;line-height:1.25!important;
   font-size:clamp(18px,2.6vw,34px)!important;text-shadow:3px 3px 0 #6b2a00,6px 6px 0 rgba(0,0,0,.6),0 0 16px rgba(255,167,38,.45)!important}
 html.b-charte[data-ch=skopo] #cname{font:400 16px/1.2 'Press Start 2P',monospace!important;letter-spacing:.02em;text-shadow:2px 2px 0 #0b3a52,0 0 12px rgba(79,195,247,.45)}
+/* 30 oct., 23 h 31 — audit UI de SkopoRhogo : nom du Mask en Bebas Neue capitales (Press Start 2P dessinait « è » en minuscule) ;
+   ligne choisie lisible (encre sombre sur le bleu) ; boutons de 44 px au tactile ; lignes de la liste à 44 px */
+html.b-charte[data-ch=skopo] #cname{font:400 28px/1 'Bebas Neue',Impact,sans-serif!important;letter-spacing:.08em!important;text-transform:uppercase}
+html.b-charte[data-ch=skopo] .row.on,html.b-charte[data-ch=skopo] .row.on *{color:var(--ch-acc-ink)!important}
+@media (pointer:coarse){html.b-charte[data-ch=skopo] button{min-height:44px}html.b-charte[data-ch=skopo] .row{min-height:44px}}

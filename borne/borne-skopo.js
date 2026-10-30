@@ -26,7 +26,11 @@
     var m=nowMin();R.tMin=m>=390?1440+390:18*60;catchUp(target());
     /* l'horloge à la minute exacte ; la marche et les gestes à vitesse naturelle (×60 sur le temps du jeu) */
     R.SPEEDS[1]=1/60;window.__walk=60;R.setSpeed(1);
-    setInterval(function(){var d=R.tMin-target();if(d>.5)R.tMin=target();else if(d<-.5)catchUp(target());},5000);
+    setInterval(function(){/* recalage sur l'heure réelle à ×1 seulement : pause, ×4, ×15 et ×60 gardent leur temps (audit UI de SkopoRhogo, S1) */
+      var on=[].findIndex.call(document.querySelectorAll('#speeds button'),function(b){return b.classList.contains('on');});if(on!==1)return;
+      var d=R.tMin-target();if(d>.5)R.tMin=target();else if(d<-.5)catchUp(target());},5000);
+    /* chaque bouton dit ce qu'il fait (S12) */
+    [].forEach.call(document.querySelectorAll('#speeds button'),function(b,i){var t=i===0?'PAUSE':b.textContent+(i===1?' · DIRECT':'');b.title=t;b.setAttribute('aria-label',t);});
     if(attract){if(R.VIEW&&R.applyView){R.VIEW.z=1.25;R.applyView();}
       var zm=document.getElementById('zoom');if(zm)document.body.appendChild(zm);
       var cd=document.getElementById('card');if(cd)document.body.appendChild(cd);
