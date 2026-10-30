@@ -11,7 +11,7 @@
       +'#view{border:0!important;box-shadow:none!important;outline:0!important;flex:none!important;max-width:none!important;max-height:none!important;cursor:grab}'
       +'#card{position:fixed!important;right:10px;top:10px;z-index:20;width:min(300px,46vw);background:rgba(10,9,8,.86)!important;backdrop-filter:blur(3px);font-size:13px}'
       +'#card #hint{display:none!important}#card #cbody{grid-template-columns:72px 1fr!important}#card #pcv{width:72px!important;height:72px!important}#card #cname{font-size:20px!important}'
-      +'#zoom{position:fixed!important;left:10px;bottom:10px;z-index:20;display:flex!important;gap:6px}html body #zoom button,html body .b-open{width:34px!important;height:34px!important;min-width:0!important;min-height:0!important;padding:0!important;border-radius:50%!important;border:1px solid rgba(255,224,138,.35)!important;background:rgba(10,9,8,.55)!important;box-shadow:none!important;color:rgba(255,224,138,.85)!important;font:16px/1 monospace!important;cursor:pointer;opacity:.8;text-shadow:none!important}html body #zoom button:hover,html body .b-open:hover{opacity:1}html body #zoom button::after,html body .b-open::after{content:"";position:absolute;inset:-5px}html body #zoom button,html body .b-open{position:relative}@media (pointer:coarse),(max-width:520px){html body #zoom{display:none!important}html body .b-open{left:10px!important;top:10px!important;bottom:auto!important}}'
+      +'#zoom{position:fixed!important;left:10px;bottom:10px;z-index:20;display:flex!important;gap:6px}html body #zoom button,html body .b-open{width:34px!important;height:34px!important;min-width:0!important;min-height:0!important;padding:0!important;border-radius:50%!important;border:1px solid rgba(255,224,138,.35)!important;background:rgba(10,9,8,.55)!important;box-shadow:none!important;color:rgba(255,224,138,.85)!important;font:16px/1 monospace!important;cursor:pointer;opacity:.8;text-shadow:none!important}html body #zoom button:hover,html body .b-open:hover{opacity:1}html body #zoom button::after,html body .b-open::after{content:"";position:absolute;inset:-5px}html body #zoom button,html body .b-open{position:relative}@media (pointer:coarse){html body #zoom{display:none!important}html body .b-open{left:10px!important;top:10px!important;bottom:auto!important}}'
       +'html body .b-open{position:fixed!important;left:92px;bottom:10px;z-index:20}';
     document.head.appendChild(st);}
   function nowMin(){var d=new Date();return d.getHours()*60+d.getMinutes()+d.getSeconds()/60;}
@@ -23,7 +23,7 @@
   function cover(){if(!attract)return;var v=document.getElementById('view');if(!v)return;var k=Math.max(innerWidth/800,innerHeight/500);
     v.style.setProperty('width',Math.ceil(800*k)+'px','important');v.style.setProperty('height',Math.ceil(500*k)+'px','important');}
   function init(){var R=window.__room;if(!R||!R.SPEEDS)return setTimeout(init,80);
-    var m=nowMin();R.tMin=m>=390?1440+390:18*60;catchUp(target());
+    var m=nowMin();R.tMin=m>=390?1440+390:18*60;catchUp(target());try{R.updateRoster&&R.updateRoster();}catch(e){}
     /* l'horloge à la minute exacte ; la marche et les gestes à vitesse naturelle (×60 sur le temps du jeu) */
     R.SPEEDS[1]=1/60;window.__walk=60;R.setSpeed(1);
     setInterval(function(){/* recalage sur l'heure réelle à ×1 seulement : pause, ×4, ×15 et ×60 gardent leur temps (audit UI de SkopoRhogo, S1) */
@@ -52,7 +52,7 @@
   var ATTR=/attract=1/.test(location.search);
   window.requestAnimationFrame=function(cb){if(asleep)return setTimeout(function(){RAF(cb);},2000);if(!ATTR)return RAF(cb);return RAF(function(t){if(t-(cb._t||0)<30){window.requestAnimationFrame(cb);return;}cb._t=t;cb(t);});};
   addEventListener('message',function(e){var R=window.__room,d=e.data||{};if(!R||!d.borne)return;
-    if(d.borne==='sleep'){asleep=true;R.setSpeed(0);}else if(d.borne==='wake'){asleep=false;catchUp(target());window.__walk=60;R.setSpeed(1);}});
+    if(d.borne==='sleep'){asleep=true;R.setSpeed(0);}else if(d.borne==='wake'){asleep=false;catchUp(target());try{R.updateRoster&&R.updateRoster();}catch(e){}window.__walk=60;R.setSpeed(1);}});
   /* programme ouvert (audit UI, S3 et S4) : la fiche du Mask choisi vient à l'écran ; la date et l'heure de la borne s'affichent dans la barre */
   if(!attract){
     document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.row'))setTimeout(function(){var c=document.getElementById('card');if(c&&c.getClientRects().length){var q=c.getBoundingClientRect();if(q.top<0||q.bottom>innerHeight)c.scrollIntoView({block:'nearest',behavior:'smooth'});}},60);});

@@ -205,6 +205,8 @@ k2 = once(k2, "</style>", """  @media (orientation:landscape) and (max-height:50
 k2 = once(k2, "applyLang();\ndocument.getElementById('hint').textContent=TXT[lang].hint;", "applyLang();\nif(window.top!==window){langBtn.hidden=true;try{const P=parent.document.documentElement,sync=()=>{const l=P.lang==='fr'?'fr':'en';if(l!==lang){lang=l;applyLang();}};sync();new MutationObserver(sync).observe(P,{attributes:true,attributeFilter:['lang']});}catch(e){}}\ndocument.getElementById('hint').textContent=TXT[lang].hint;")
 # lettrage A (décision de Mauk Tenieb, 30 oct., 19 h 25) : « les capitales partout : très lisibles », liste et fiche des Masks comprises
 k2 = once(k2, "</style>", "  aside, aside *, #hint{ text-transform:uppercase; letter-spacing:0; }\n</style>")
+# après le rattrapage des heures, la liste suit la scène (audit UI de SkopoRhogo, S10)
+k2 = once(k2, "window.__room={SPEEDS,", "window.__room={updateRoster,SPEEDS,")
 wr("skoporhogo-borne.html", k2)
 # FotoFauna : le logo déclenche, caméra avant ou arrière, pile et pellicule (borne-fotofauna.js, borne-fotofauna.css)
 cap("fotofauna.html", 'getUserMedia({video:{facingMode:"user",width:{ideal:1280}},audio:false})', 'getUserMedia({video:{facingMode:(window.__ffFacing||"environment"),width:{ideal:1280}},audio:false})')  # caméra arrière par défaut

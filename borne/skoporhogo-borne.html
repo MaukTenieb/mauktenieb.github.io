@@ -1447,7 +1447,7 @@ function frame(now){
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
-window.__room={SPEEDS,VIEW,applyView,zoomAt,step:stepSim,AG,SP,setSpeed,get tMin(){return tMin;},set tMin(v){tMin=v;},occ,select,PL,plantGrow,plantDraw,plantSave,
+window.__room={updateRoster,SPEEDS,VIEW,applyView,zoomAt,step:stepSim,AG,SP,setSpeed,get tMin(){return tMin;},set tMin(v){tMin=v;},occ,select,PL,plantGrow,plantDraw,plantSave,
   force(i,k){ const a=AG[i]; if(!a||a.inAnchor) return false; release(a); if(a.mv){ const ti=I(a.mv.tx,a.mv.tz); if(occ[ti]===a.id) occ[ti]=-1; occ[I(a.cx,a.cz)]=a.id; }
     a.act=null; a.path=[]; a.mv=null; a.state='idle'; return start(a,k); }};
 })();
