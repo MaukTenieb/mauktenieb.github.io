@@ -21,12 +21,13 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 
 ## Deux états
 - La borne au repos (accueil) : le meuble entier et ses décors, vitre imprimée, enseigne, bandeau Burrows, plante, caméra, aimant ; les psychopompes la font visiter.
+- La visite des psychopompes est obligatoire : elle tient lieu de mode d'emploi. Un geste du visiteur (molette, doigt, clavier) la fige ; quatre secondes sans geste, elle reprend où elle en était.
 - Le jeu (chaque programme) : l'écran seul, à la taille maximale de la fenêtre, sans cadre ni décor ; dessous, une rangée : Koins, son, PL, Kapture, Immersion, Baku Boom. Burrows reste à l'accueil.
 - Chaque programme s'ouvre directement sur son propre écran, sans carte-titre de la borne ; au repos, l'écran montre SkopoRhogo en direct.
 - En jeu, la page reste immobile : Espace, flèches et molette vont au jeu ; un jeu plus haut que l'écran se réduit d'un bloc et tient entier.
 - Le passage : lancer un jeu rapproche la caméra de la borne jusqu'à ce que l'écran remplisse la fenêtre, en une demi-seconde ; Baku Boom fait le tilt, le tube s'éteint, puis la caméra recule de l'écran plein cadre jusqu'à la borne entière.
 - Panneau : BC, TL, IG en rangée de départ ; la manette au milieu, entre quatre touches-pavés lumineuses, KorhoGame (grands jeux d'un côté, Katabatik et son dé de l'autre), FaunEye (BakuBook, VHS, FotoFauna, Musik, DiktatFaune), 3615, SURFAUNA (Reporhogo, FaunaTor) ; la plaque émaillée Mauk Tenieb sur le bord avant, qui ouvre https://github.com/mauktenieb.
-- Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les molettes 🧤 (skin bois ou métal), 🎶 (tout le son) et FR · EN, sur leur plaque à droite de la porte ; l'aimant Dekonect en bas à droite ; tout en bas, le copyright.
+- Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les molettes 🧤 (skin bois ou métal), 🎶 (tout le son), FR · EN et 👣 (les psychopompes, présents par défaut), sur leur plaque à droite de la porte ; l'aimant Dekonect en bas à droite ; tout en bas, le copyright.
 
 ## Grammaire commune
 1. Toucher = agir.

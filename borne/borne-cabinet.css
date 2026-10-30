@@ -1129,3 +1129,5 @@ html.borne[data-prog] .kdrop{display:none!important}
 html.borne .kdrop{font-size:0!important;width:18px;height:18px;background:url(koin.webp) center/contain no-repeat;text-shadow:none!important;filter:drop-shadow(0 1px 2px rgba(0,0,0,.65)) brightness(1.05)}
 /* la Koin que pose un psychopompe : même matière que les autres Koins */
 html.borne .gkoin{font-size:0!important;width:24px;height:24px;background:url(koin.webp) center/contain no-repeat!important;text-shadow:none!important;border:0!important;filter:drop-shadow(0 2px 3px rgba(0,0,0,.6))}
+/* molette 👣 sur arrêt : les psychopompes quittent la borne */
+html.borne.b-nopsy .guide,html.borne.b-nopsy .gtip{display:none!important}

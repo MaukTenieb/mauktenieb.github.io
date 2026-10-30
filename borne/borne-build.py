@@ -84,6 +84,9 @@ s = once(s, "ax=cl(L(p.ax,q.ax),pdk-250,250-pdk),az=cl(L(p.az,q.az),0,300);", "a
 # Koins : une seule matière et une seule mécanique ; les Koins qui tombent (psychopompes, gains, pluie) font le bruit de vraies Koins du meuble (borne-son.js)
 s = once(s, "tone(2093+Math.random()*900,.05,'triangle',.03);tone(3136,.07,'triangle',.018,0,.03);", "(window.__borneSon?window.__borneSon.tick():(tone(2093+Math.random()*900,.05,'triangle',.03),tone(3136,.07,'triangle',.018,0,.03)));")
 s = once(s, "tone(2093,.05,'triangle',.05);tone(3136,.09,'triangle',.03,0,.04);", "(window.__borneSon?window.__borneSon.clack():(tone(2093,.05,'triangle',.05),tone(3136,.09,'triangle',.03,0,.04)));")
+# psychopompes (Mauk Tenieb, 30 oct.) : la visite reste obligatoire ; un geste du visiteur la fige, elle reprend où elle en était ; la molette 👣 de la porte les retire
+s = once(s, "window.__borneTourStop=function(){clearTimeout(g._tourT);stop();};", "window.__borneTourStop=function(){clearTimeout(g._tourT);stop();};window.__borneTourPause=function(){if(touring){pending=TQ.slice(TI);stop();}};window.__borneTourResume=function(){if(pending&&!touring&&!fl&&!g._drag){const q=pending;pending=null;tour(q);return true;}return false;};")
+s = once(s, "async function tour(resume){if(touring)return;", "async function tour(resume){if(touring||window.__borneNoPsy)return;")
 # Koin gratuite à zéro : au bout de 60 s (Mauk Tenieb, 30 oct.)
 s = once(s, "function pay(){if(koins<1){if(!freeAt)freeAt=Date.now()+30000;", "function pay(){if(koins<1){if(!freeAt)freeAt=Date.now()+60000;")
 s = once(s, "if(koins<1&&!freeAt){freeAt=Date.now()+30000;saveKoins();}", "if(koins<1&&!freeAt){freeAt=Date.now()+60000;saveKoins();}")
