@@ -14,7 +14,10 @@
   /* ---------- le toit : la plante et la caméra ---------- */
   var roof=el('div','b-roof'),pot=el('div','b-pot'),plant=el('div','b-plant'),care=el('div','b-care'),cam=el('div','b-cam');
   pot.tabIndex=0;pot.setAttribute('role','group');pot.setAttribute('aria-label','Plante');
-  [['water','💧','EAU'],['sun','☀','SOLEIL'],['cut','✂','TAILLE']].forEach(function(a){var b=el('button',null,'<i>'+a[1]+'</i><span>'+a[2]+'</span>');b.type='button';b.dataset.care=a[0];care.appendChild(b);});
+  /* les soins de la plante suivent la langue de la borne (FR · EN) */
+  [['water','💧','EAU','WATER'],['sun','☀','SOLEIL','SUN'],['cut','✂','TAILLE','PRUNE']].forEach(function(a){var b=el('button',null,'<i>'+a[1]+'</i><span data-fr="'+a[2]+'" data-en="'+a[3]+'">'+a[3]+'</span>');b.type='button';b.dataset.care=a[0];care.appendChild(b);});
+  function careLang(){var fr=document.documentElement.lang==='fr';[].forEach.call(care.querySelectorAll('span[data-fr]'),function(x){x.textContent=fr?x.dataset.fr:x.dataset.en;});}
+  careLang();new MutationObserver(careLang).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   pot.appendChild(care);pot.appendChild(plant);roof.appendChild(pot);if($('kapture'))cam.appendChild($('kapture'));roof.appendChild(cam);
   wrap.parentNode.insertBefore(roof,wrap);
 
