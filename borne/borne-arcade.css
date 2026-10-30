@@ -44,12 +44,10 @@ html.borne .b-care button:hover,html.borne .b-care button:focus-visible{color:#f
 @media (prefers-reduced-motion:reduce){html.borne .b-plant{animation:none}}
 /* l'aimant de Dekonect, un vrai fer à cheval rouge aux pôles d'acier, posé sur la caisse */
 html.borne .b-dekonect{color:#c9302a!important;filter:drop-shadow(0 3px 3px rgba(0,0,0,.7))!important;animation:bmagnet 6s ease-in-out infinite}
-html.borne .b-dekonect:hover,html.borne .b-dekonect:focus-visible{filter:drop-shadow(0 0 8px rgba(255,90,60,.8)) drop-shadow(0 3px 3px rgba(0,0,0,.7))!important}
+html.borne .b-dekonect:hover,html.borne .b-dekonect:focus-visible{filter:drop-shadow(0 3px 3px rgba(0,0,0,.7))!important}
 @keyframes bmagnet{0%,88%,100%{transform:none}92%{transform:rotate(-6deg)}96%{transform:rotate(4deg)}}
 html.borne .b-dekonect.b-dklow{color:#c9302a!important}
 @media (prefers-reduced-motion:reduce){html.borne .b-dekonect{animation:none}}
-html.borne .b-dekonect .bfield{opacity:0;transition:opacity .2s}
-html.borne .b-dekonect:hover .bfield,html.borne .b-dekonect:focus-visible .bfield{opacity:1}
 html.borne .b-dekonect svg{overflow:visible}
 /* lisibilité : rien sous 11 px sur le meuble */
 html.borne .b-online{font-size:11px!important}html.borne .b-online b{font-size:11px!important}

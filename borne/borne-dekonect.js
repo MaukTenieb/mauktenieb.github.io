@@ -24,7 +24,8 @@
         var t=(e.style.translate||'0px 0px').split(' ');e.style.translate=(parseFloat(t[0])+dx)+'px '+(parseFloat(t[1]||0)+dy)+'px';e.style.rotate=((R()*2-1)*5).toFixed(1)+'deg';e.style.zIndex=30+i;});
       setTimeout(function(){place(next,rects,top,P,true);order=same(next,P)?null:next;setTimeout(function(){busy=false;},700);},380);
     });});}
-  function place(seq,rects,top,P,anim){var y=top;seq.forEach(function(e,k){var r=rects[P.indexOf(e)],dy=y-r.top;y+=r.height;
+  /* chaque tronçon prend la place suivante ; les jours d'origine entre les tronçons restent les mêmes (la caisse tombait mal sans eux) */
+  function place(seq,rects,top,P,anim){var gaps=rects.map(function(r,i){return i<rects.length-1?Math.max(0,rects[i+1].top-r.bottom):0;});var y=top;seq.forEach(function(e,k){var r=rects[P.indexOf(e)],dy=y-r.top;y+=r.height+(gaps[k]||0);
       e.style.transition=anim?'translate .5s cubic-bezier(.2,1.5,.4,1) '+(k*70)+'ms,rotate .5s '+(k*70)+'ms':'none';e.style.translate='0px '+dy+'px';e.style.rotate='0deg';
       if(anim)setTimeout(function(){son('clack');},420+k*70);});}
   window.__borneDekonect=press;
@@ -33,7 +34,7 @@
   var W0=innerWidth;addEventListener('resize',function(){if(innerWidth!==W0){W0=innerWidth;if(order)reset(false);}});
   function mount(){var d=document.querySelector('.b-door');if(!d){setTimeout(mount,500);return;}
     var b=document.createElement('button');b.type='button';b.className='b-dekonect';b.setAttribute('aria-label','Dekonect');b.title='Dekonect';
-    b.innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 4h6v13a3 3 0 0 0 6 0V4h6v13a9 9 0 0 1-18 0z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M7 9h6M19 9h6" stroke="currentColor" stroke-width="2.2"/><path d="M3 26l3-2M29 26l-3-2M16 30v-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    b.innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 4h6v13a3 3 0 0 0 6 0V4h6v13a9 9 0 0 1-18 0z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M7 9h6M19 9h6" stroke="currentColor" stroke-width="2.2"/></svg>';
     b.onclick=function(e){e.stopPropagation();press();};
     /* l'aimant reste en bas à droite du meuble, quoi qu'il arrive aux blocs */
     var w=d.parentElement;w.classList.add('b-dkhost');w.appendChild(b);
