@@ -1,7 +1,7 @@
 /* Borne Insert Koin — Online Applicants.
    Chaque visiteur annonce sa présence toutes les 20 s sur un canal MQTT public, par WebSocket, sous un numéro tiré au hasard
    (zéro nom, zéro adresse, zéro cookie). Le compteur montre les numéros entendus dans les 50 dernières secondes, visiteur compris.
-   Trois relais publics, essayés l'un après l'autre. */
+   Trois relais publics, essayés l'un après l'autre, à partir du premier geste du visiteur ; après un échec, l'attente double jusqu'à une minute. */
 (function(){
   var BROKERS=['wss://broker.emqx.io:8084/mqtt','wss://broker.hivemq.com:8884/mqtt','wss://test.mosquitto.org:8081/mqtt'];
   if(window.__presenceBrokers)BROKERS=window.__presenceBrokers;
@@ -22,17 +22,21 @@
       if((h>>4)===2){send(sub());say('hello');paint();}
       else if((h>>4)===3){var tl=(p[0]<<8)|p[1],s=dec.decode(p.subarray(2+tl)),kv=s.split(':');if(kv[0]==='bye'&&kv[1]){delete SEEN[kv[1]];paint();}else if(kv[1]&&kv[1]!==ME){var fresh=!SEEN[kv[1]];SEEN[kv[1]]=Date.now();
         if(kv[0]==='hello'&&fresh)setTimeout(function(){say('here');},300+Math.random()*1500);paint();}}}}
-  function open(){if(document.hidden)return;try{ws=new WebSocket(BROKERS[bi%BROKERS.length],'mqtt');}catch(e){bi++;setTimeout(open,4000);return;}
+  var fails=0,started=false;
+  function open(){if(document.hidden||!started)return;try{ws=new WebSocket(BROKERS[bi%BROKERS.length],'mqtt');}catch(e){bi++;setTimeout(open,4000);return;}
     ws.binaryType='arraybuffer';var ok=false;
-    ws.onopen=function(){ok=true;send(connect());};
+    ws.onopen=function(){ok=true;fails=0;send(connect());};
     ws.onmessage=function(e){onmsg(e.data);};
-    ws.onclose=ws.onerror=function(){clearInterval(beat);clearInterval(ping);if(ws){ws.onclose=ws.onerror=null;}ws=null;if(!ok)bi++;setTimeout(open,ok?3000:1500);};
+    ws.onclose=ws.onerror=function(){clearInterval(beat);clearInterval(ping);if(ws){ws.onclose=ws.onerror=null;}ws=null;if(!ok){bi++;fails++;}else fails=0;setTimeout(open,Math.min(60000,(ok?3000:1500)*Math.pow(2,Math.min(fails,5))));};
     clearInterval(beat);clearInterval(ping);
     beat=setInterval(function(){say('here');paint();},20000);ping=setInterval(function(){send(new Uint8Array([0xC0,0]));},30000);}
-  document.addEventListener('visibilitychange',function(){if(document.hidden){if(ws){say('bye');try{ws.close();}catch(e){}}}else if(!ws)open();});
+  document.addEventListener('visibilitychange',function(){if(document.hidden){if(ws){say('bye');try{ws.close();}catch(e){}}}else if(!ws&&started)open();});
   addEventListener('pagehide',function(){say('bye');});
   function mount(){var foot=document.querySelector('.b-bezelfoot');if(!foot){setTimeout(mount,600);return;}
     el=document.createElement('div');el.className='b-online';el.hidden=true;el.innerHTML='<i></i><b>1</b><span>Online Applicants</span>';
     var boom=foot.querySelector('.b-stick-mini')||foot.querySelector('.b-boom');foot.insertBefore(el,boom);paint();}
-  mount();setTimeout(open,1200);setInterval(paint,10000);
+  /* le compteur se branche au premier geste du visiteur : avant, zéro connexion vers les relais */
+  function first(){if(started)return;started=true;['pointerdown','keydown','wheel','touchstart'].forEach(function(t){removeEventListener(t,first,true);});open();}
+  ['pointerdown','keydown','wheel','touchstart'].forEach(function(t){addEventListener(t,first,true);});
+  mount();setInterval(paint,10000);
 })();
