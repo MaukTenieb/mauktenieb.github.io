@@ -481,7 +481,9 @@
   /* gros plan : la Koin surgit en grand au milieu de la fenêtre, tourne, prend la lumière, puis rétrécit et file :
      gagnée, vers le compteur ; payée, vers la fente (ou l'écran). Chaque fois un numéro tiré au hasard. */
   var busyC=false;
-  function closeup(kind,k,slot,scr){if(RM||!document.body.animate||busyC||document.hidden){spin(k);return;}busyC=true;
+  /* en jeu, l'écran reste au jeu (règle du 30 oct. : zéro décor qui prend de l'écran) : la Koin tourne au compteur, son bruit seul ; le gros plan reste à l'accueil */
+  function closeup(kind,k,slot,scr){if(document.documentElement.dataset.prog){spin(k);try{window.__borneSon&&window.__borneSon[kind==='win'?'clack':'drop']();}catch(e){}return;}
+    if(RM||!document.body.animate||busyC||document.hidden){spin(k);return;}busyC=true;
     var W=innerWidth,H=innerHeight,S=Math.round(Math.min(W,H)*.42),img=Math.random()<.5?'koin-hd-a.webp':'koin-hd-b.webp';
     var veil=document.createElement('div');veil.className='b-kveil';document.body.appendChild(veil);
     var c=document.createElement('div');c.className='b-kbig';c.innerHTML='<i style="background-image:url('+img+')"></i><s></s>';c.style.width=c.style.height=S+'px';c.style.left=(W/2-S/2)+'px';c.style.top=(H/2-S/2)+'px';document.body.appendChild(c);

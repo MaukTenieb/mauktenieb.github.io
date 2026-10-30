@@ -36,7 +36,7 @@ D'un programme à l'autre : les points sous l'écran, la manette, ou Page préc.
 Écran : commandes toujours au même endroit, une icône et un mot au plus, zéro phrase d'explication, cibles de 44 px au moins, état toujours visible. Plafond : 99 pour tout (Koins, cassettes, morceaux d'une cassette, Kuration, livres, récits, poses).
 
 ## Fichiers
-- `borne-cabinet.css`, `borne-cabinet.js` : le meuble, les habits, le tilt, la porte, la grammaire commune, les éclats et reflets, la Koin qui tourne (payée, elle vole du compteur à la fente ou dans l'écran).
+- `borne-cabinet.css`, `borne-cabinet.js` : le meuble, les habits, le tilt, la porte, la grammaire commune, les éclats et reflets, la Koin qui tourne (à l'accueil, gros plan puis vol vers le compteur ou la fente ; en jeu, elle tourne au compteur seulement, sans gros plan ni pluie).
 - `borne-aimant.js` : les blocs aimantés ; souris, appuyer puis glisser ; doigt, appui long ; ramené près de sa place, le bloc s'y recolle ; positions gardées par skin.
 - La manette a un ressort : poussée, elle dépasse, cogne sa butée, tremble et revient ; le panneau encaisse le choc ; elle suit la boule saisie, les flèches et les glissés sur l'écran.
 - `borne-presence.js` : Online Applicants, une diode et un chiffre au pied de l'écran ; chaque visiteur s'annonce toutes les 20 s sous un numéro tiré au hasard, sur un canal MQTT public (trois relais) ; zéro nom, zéro cookie.
