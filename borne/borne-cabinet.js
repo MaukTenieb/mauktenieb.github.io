@@ -585,4 +585,6 @@
     if(fresh){var s=null;try{s=sessionStorage.getItem(K);}catch(e){}if(!s){o.n=(o.n||0)+1;try{sessionStorage.setItem(K,'1');}catch(e){}}}
     put(o);show(o.n||0);}
   apply(true);
+  /* aperçu pour l'auteur : ?usure=1, 2 ou 3 montre un palier sans toucher au compteur, avec le skin bois */
+  try{var q=/[?&]usure=([0-3])/.exec(location.search);if(q){d.dataset.skin='bois';if(+q[1])d.dataset.usure=q[1];else delete d.dataset.usure;}}catch(e){}
   window.__borneUsure=function(n){var o=get();o.n=n;put(o);show(n);};})();
