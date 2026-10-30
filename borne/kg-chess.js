@@ -422,3 +422,17 @@ try{window.closeCrazyChess=closeCrazyChess;}catch(e){}
 try{
   window.openChess=openChess;
 }catch(e){}
+
+/* 30 oct. — clavier et manette : les flèches promènent un curseur sur l'échiquier, Espace ou Entrée prend ou pose la pièce */
+(function(){var kr=-1,kc=0,R0=chRender;
+  function mark(){var bd=document.getElementById('chess-board');if(!bd)return;var s=bd.querySelectorAll('.sq'),n=Math.round(Math.sqrt(s.length))||8;
+    [].forEach.call(s,function(q,i){q.classList.toggle('kcur',kr>=0&&i===kr*n+kc);});}
+  chRender=function(){R0.apply(this,arguments);mark();};
+  document.addEventListener('keydown',function(e){var ch=document.getElementById('chess');if(!ch||!ch.classList.contains('open'))return;
+    var bd=document.getElementById('chess-board');if(!bd||bd.style.visibility==='hidden')return;var n=Math.round(Math.sqrt(bd.querySelectorAll('.sq').length))||8,k=e.key;
+    if(kr<0){if(/^Arrow/.test(k)){kr=n-1;kc=0;e.preventDefault();mark();}return;}
+    if(k==='ArrowRight')kc=(kc+1)%n;else if(k==='ArrowLeft')kc=(kc-1+n)%n;else if(k==='ArrowDown')kr=(kr+1)%n;else if(k==='ArrowUp')kr=(kr-1+n)%n;
+    else if(k===' '||k==='Enter'){e.preventDefault();chSqClick(kr,kc);mark();return;}else return;
+    e.preventDefault();mark();});
+  document.addEventListener('pointerdown',function(){if(kr>=0){kr=-1;mark();}},true);
+})();

@@ -203,3 +203,6 @@ html.borne .b-bezelfoot .b-boom{margin-right:14px!important}
   html.borne[data-prog] #select:not([hidden]){display:flex!important;flex-direction:column!important;min-height:100%}
   html.borne[data-prog] #select:not([hidden]) .lobby{margin-top:auto!important;margin-bottom:auto!important}
 }
+
+/* 30 oct. — curseur du clavier et de la manette dans Erratik et Fauna Chess */
+html.borne #m-board .card.kcur,html.borne #chess-board .sq.kcur{outline:3px solid #ffb54a!important;outline-offset:-3px;box-shadow:0 0 14px rgba(255,181,74,.55)!important;z-index:2}

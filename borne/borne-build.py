@@ -195,6 +195,12 @@ if "borne-fotofauna.js" not in t:
 s2 = rd("index.html")
 s2 = once(s2, "tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');}", "tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');{const B=document.getElementById('brand'),M=B&&(B.closest('.b-marquee,.marquee')||B);if(M){const m=M.getBoundingClientRect(),t=tip.getBoundingClientRect();if(t.top<m.bottom&&t.bottom>m.top&&t.left<m.right&&t.right>m.left)tip.style.top=(parseFloat(tip.style.top)+m.bottom-t.top+6)+'px';}}}")
 wr("index.html", s2)
+# l'enseigne : INSERT KOIN domine ; INTERSEKTION, NOIR INSEKT, SEKTOR INN viennent brouiller son signal, souvent, peu de temps (décision du 30 oct.)
+s3 = rd("index.html")
+s3 = once(s3, "let cur=NM[(Math.random()*NM.length)|0];", "let cur=NM[0];")
+s3 = once(s3, "busy=true;const nx=pick(cur);", "busy=true;const nx=cur===NM[0]?pick(cur):NM[0];")
+s3 = once(s3, "function later(){setTimeout(go2,26000+Math.random()*34000);}", "function later(){setTimeout(go2,cur===NM[0]?7000+Math.random()*11000:1300+Math.random()*2700);}")
+wr("index.html", s3)
 # la borne en français : fr.html sort de la borne finie, avec la langue et l'en-tête français d'InsertKoin (fr-head.json)
 import json as _json
 f = rd("index.html")

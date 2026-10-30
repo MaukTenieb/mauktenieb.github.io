@@ -90,6 +90,14 @@ L'enseigne, les boutons, l'écran et le son suivent tous le même état de la ma
 - Sur téléphone, le bas de l'écran devient la manette et les deux boutons.
 - Les points sous l'écran restent un secours discret.
 
+## Confusion voulue
+
+Décision de Mauk Tenieb, 30 oct. 2026 : l'expérience du visiteur est, par moments et à certains endroits, artistiquement confuse. La confusion vient de la machine et de son auteur, délibérément ; le visiteur la reçoit et garde toujours la main.
+
+- Lieux de la confusion : l'enseigne (INSERT KOIN domine ; INTERSEKTION, NOIR INSEKT, SEKTOR INN la brouillent au hasard, souvent, une à quatre secondes), le titre de l'onglet, BIO, BIOGRAPHIK, BIOTENIEB, les fautes voulues (Kam BAK et FRONT, KORONG!, Kompete!), le pendu hongrois, le Kerema, les paroles des psychopompes, les parasites de l'écran commun, les tirages au hasard (skin, images d'attente, chambres de Korong!).
+- Lieux de la clarté absolue : les commandes (manette, touches, Baku Boom, Échap), la fente et le compte des Koins, le prix d'une partie, le retour à l'accueil, l'écran de jeu. Un geste y produit toujours le même effet ; chaque commande garde son nom, sa place et son sens.
+- Mesure : la confusion brouille un signal que le visiteur a déjà reçu ; le signal premier revient toujours (INSERT KOIN reste le nom le plus vu de l'enseigne, sept dixièmes du temps environ).
+
 ## Contrôle
 
 Chaque modification passe ces questions, dans l'ordre :
@@ -99,3 +107,4 @@ Chaque modification passe ces questions, dans l'ordre :
 3. La caméra est-elle la même ?
 4. Les couleurs et les lettres sont-elles celles des tableaux ?
 5. L'élément suit-il l'état de la machine ?
+6. Une confusion, s'il y en a une, vient-elle de la machine, dans un lieu de confusion, et laisse-t-elle les commandes intactes ?
