@@ -61,15 +61,15 @@ Ces quatre familles forment tout le lettrage. Le texte à l'écran mesure 12 px 
 ## Écran
 
 - Un tube à phosphore 4:3 : balayage léger, coins arrondis, image nette jusqu'aux bords.
-- Chaque programme s'ouvre sur son écran-titre : logo en pixels, INSERT KOIN ou PRESS START qui clignote, 1UP, HI-SCORE, CREDIT.
-- Au repos, après 20 secondes sans geste, la borne passe en démo : écrans-titres, extraits, table des scores, en boucle.
+- Chaque programme s'ouvre directement sur son propre écran d'entrée (lobby de Korong!, niveaux de Fauna Chess, menu d'Erratik) ; zéro carte-titre de borne par-dessus (Mauk Tenieb, 30 oct.).
+- Au repos, l'écran montre SkopoRhogo en direct, à l'heure du visiteur.
 - Les commandes à l'écran ont l'allure d'un jeu : boutons pleins et biseautés, curseur clignotant, sélection par la manette.
 
 ## États de la machine
 
 | État | Écran | Lumières | Son |
 |---|---|---|---|
-| Repos | démo en boucle | chenillard des boutons, enseigne pleine | ventilateur, jingle de démo bas |
+| Repos | SkopoRhogo en direct | chenillard des boutons, enseigne pleine | ventilateur, Motel Sound quand le son est ouvert |
 | Crédit | INSERT KOIN devient PRESS START | les touches clignotent | Koin qui roule et tombe |
 | Jeu | le programme | boutons fixes, voyant du programme allumé | sons du jeu, Motel Sound baissé |
 | Fin | scores, saisie des initiales | boutons en attente | jingle de fin |
