@@ -79,6 +79,8 @@ wr("index.html", s)
 
 # la visite des psychopompes s'arrête quand un programme s'ouvre (borne-cabinet.js appelle __borneTourStop)
 s = once(s, "async function tour(resume){if(touring)return;", "window.__borneTourStop=function(){clearTimeout(g._tourT);stop();};async function tour(resume){if(touring)return;")
+# Korong! : la raquette du joueur se dessine à la position réelle de la souris (zéro retard d'image) ; la physique lit la souris à chaque pas, comme avant (Mauk Tenieb, 30 oct.)
+s = once(s, "ax=cl(L(p.ax,q.ax),pdk-250,250-pdk),az=cl(L(p.az,q.az),0,300);", "ax=cl(e.running?mouse[0]-ORIGIN_H:L(p.ax,q.ax),pdk-250,250-pdk),az=cl(e.running?330-mouse[1]:L(p.az,q.az),0,300);")
 # Koin gratuite à zéro : au bout de 60 s (Mauk Tenieb, 30 oct.)
 s = once(s, "function pay(){if(koins<1){if(!freeAt)freeAt=Date.now()+30000;", "function pay(){if(koins<1){if(!freeAt)freeAt=Date.now()+60000;")
 s = once(s, "if(koins<1&&!freeAt){freeAt=Date.now()+30000;saveKoins();}", "if(koins<1&&!freeAt){freeAt=Date.now()+60000;saveKoins();}")

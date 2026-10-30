@@ -1632,7 +1632,7 @@ function smoke(c){const p=prog();c.fillStyle=`rgba(190,180,160,${.03+p*.1})`;c.f
 function render(a,dt){const c=ctx,e=G.e,p=G.prev,q=G.cur,L=(u,v)=>u+(v-u)*a;
   room(c);c.drawImage(ctL,0,0,W,H);
   const cl=(v,lo,hi)=>v<lo?lo:(v>hi?hi:v),sck=e.p.puck_size,pdk=e.p.pad_size,bdk=e.p.back_pad_size;
-  const ox=cl(L(p.ox,q.ox),bdk-250,250-bdk),oz=cl(L(p.oz,q.oz),0,e.p.back),px=cl(L(p.px,q.px),sck-250,250-sck),pz=cl(L(p.pz,q.pz),0,e.p.back),ax=cl(L(p.ax,q.ax),pdk-250,250-pdk),az=cl(L(p.az,q.az),0,300);
+  const ox=cl(L(p.ox,q.ox),bdk-250,250-bdk),oz=cl(L(p.oz,q.oz),0,e.p.back),px=cl(L(p.px,q.px),sck-250,250-sck),pz=cl(L(p.pz,q.pz),0,e.p.back),ax=cl(e.running?mouse[0]-ORIGIN_H:L(p.ax,q.ax),pdk-250,250-pdk),az=cl(e.running?330-mouse[1]:L(p.az,q.az),0,300);
   portrait(c,Math.round(ox*.08));c.drawImage(rlL,0,0,W,H);
   let oa=.95;if(G.r.sig==='silent')oa=Math.max(.06,Math.min(.95,1.1-Math.hypot(px-ox,pz-oz)/320));if(e.down>0)oa=0;
   const objs=[{z:az,d:()=>plate(c,ax,az,e.p.pad_size,'rgba(233,226,207,.16)','#e9e2cf',1)}];if(G.fl)objs.push({z:G.fl.z,d:()=>kDraw(c)});
