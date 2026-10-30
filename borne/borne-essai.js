@@ -27,11 +27,12 @@
     "html.borne.b-essai .b-online i{width:9px!important;height:9px!important;border-radius:50%;background:radial-gradient(circle at 40% 35%,#d9ffcf,#46d14a 45%,#1d6b22)!important;box-shadow:0 0 8px 2px rgba(80,230,90,.55)!important}",
     "html.borne.b-essai .b-online span{font:12px 'Bebas Neue',sans-serif!important;letter-spacing:.18em!important;color:#6f675d!important;text-transform:uppercase}",
     /* afficheur du Motel Sound */
-    "html.borne.b-essai .b-vfd{flex:1;min-width:0;height:30px;display:flex;align-items:center;gap:10px;margin:0 14px;padding:0 12px;background:#060504;border:0;border-radius:3px;box-shadow:inset 0 2px 5px #000,0 0 0 1px #3a322b;overflow:hidden;cursor:pointer;color:inherit}",
+    "html.borne.b-essai .b-vfd{flex:1 1 0;width:0;max-width:100%;contain:inline-size;min-width:0;height:30px;display:flex;align-items:center;gap:10px;margin:0 14px;padding:0 12px;background:#060504;border:0;border-radius:3px;box-shadow:inset 0 2px 5px #000,0 0 0 1px #3a322b;overflow:hidden;cursor:pointer;color:inherit}",
     "html.borne.b-essai .b-vfd s{flex:none;width:20px;height:20px;border-radius:50%;background:repeating-radial-gradient(circle,#2b2522 0 2px,#0c0a09 2px 4px);box-shadow:0 0 0 1px #3a322b}",
     "html.borne.b-essai .b-vfd.on s{box-shadow:0 0 0 1px #ffa726,0 0 8px rgba(255,167,38,.5)}",
-    "html.borne.b-essai .b-vfd b{font:22px/1 VT323,monospace;color:#ffb24a;text-shadow:0 0 6px rgba(255,160,40,.7);white-space:nowrap;letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis}",
+    "html.borne.b-essai .b-vfd b{min-width:0;flex:1 1 auto;font:22px/1 VT323,monospace;color:#ffb24a;text-shadow:0 0 6px rgba(255,160,40,.7);white-space:nowrap;letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis}",
     "html.borne.b-essai .b-vfd:not(.on) b{color:#7a5a2a;text-shadow:none}",
+    "@media (max-width:520px){html.borne.b-essai .b-vfd em{display:none}html.borne.b-essai .b-vfd{margin:0 6px;padding:0 8px}}",
     "html.borne.b-essai .b-vfd em{flex:none;font:12px 'Bebas Neue',sans-serif;font-style:normal;letter-spacing:.2em;color:#7a5a2a}",
     /* ce qui part : le son et PL rejoignent l'afficheur, Immersion passe au double toucher */
     "html.borne.b-essai .b-px-son,html.borne.b-essai .b-px-pl,html.borne.b-essai .b-imm{display:none!important}",
