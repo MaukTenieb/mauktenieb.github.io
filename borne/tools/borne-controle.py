@@ -7,7 +7,7 @@ Chiffres :
 - accueil : écran entier à l'arrivée, texte sous 12 px, cibles tactiles sous 44 px, débordement horizontal, images par seconde ;
 - visite : de 6 à 21 s (court) ou 6 à 46 s, défilement de la page et part du temps où l'écran reste entier ;
 - geste : après une molette du visiteur, la visite se fige 3,5 s au moins puis reprend où elle en était (décision de Mauk Tenieb) ;
-- psychopompe et bulle hors des commandes : rangée du bas, touches du panneau, son, PL et afficheur du fronton ;
+- psychopompe et bulle hors des commandes : rangée du bas, touches du panneau, son, PL et afficheur du fronton ; la commande que la visite montre (classe sweep) reste hors du compte ;
 - jeu : Korong!, 3615, Erratik, Katabatik ouverts ; barre et Baku Boom dans la fenêtre, Baku Boom hors de l'écran de jeu, écran de jeu dans la fenêtre ;
 - erreurs de la page.
 """
@@ -38,7 +38,7 @@ JEU = """(()=>{const W=innerWidth,H=innerHeight,R=s=>{const e=document.querySele
   const sur=(a,c)=>!!a&&!!c&&Math.min(a.right,c.right)-Math.max(a.left,c.left)>4&&Math.min(a.bottom,c.bottom)-Math.max(a.top,c.top)>4;
   return {ouvert:!!document.documentElement.dataset.prog,barreDansFenetre:dans(f),boomDansFenetre:dans(b),boomSurEcran:sur(b,g),ecranDansFenetre:dans(g)}})()"""
 
-GUIDE = """(()=>{const Z=[...document.querySelectorAll('.b-bezelfoot,.b-row2 nav a,.bar .dock #radio-toggle,.bar .dock button,.b-pfx .b-px')].map(x=>x.getBoundingClientRect()).filter(r=>r.width>0);const hit=q=>Z.some(r=>Math.min(q.right,r.right)-Math.max(q.left,r.left)>4&&Math.min(q.bottom,r.bottom)-Math.max(q.top,r.top)>4);
+GUIDE = """(()=>{const Z=[...document.querySelectorAll('.b-bezelfoot,.b-row2 nav a,.bar .dock #radio-toggle,.bar .dock button,.b-pfx .b-px')].filter(x=>!x.closest('.sweep')&&!x.querySelector('.sweep')).map(x=>x.getBoundingClientRect()).filter(r=>r.width>0);const hit=q=>Z.some(r=>Math.min(q.right,r.right)-Math.max(q.left,r.left)>4&&Math.min(q.bottom,r.bottom)-Math.max(q.top,r.top)>4);
   const g=document.querySelector('.guide'),t=document.querySelector('.gtip.on');return ((g&&g.getClientRects().length&&hit(g.getBoundingClientRect()))||(t&&hit(t.getBoundingClientRect())))?1:0})()"""
 
 FPS = "()=>new Promise(r=>{let n=0,t0=performance.now();function f(){n++;if(performance.now()-t0<3000)requestAnimationFrame(f);else r(Math.round(n/3*10)/10)}requestAnimationFrame(f)})"
