@@ -239,6 +239,7 @@ wr("index.html", s6)
 s7 = rd("index.html")
 s7 = once(s7, "if(performance.now()-window.__borneReadyT<3500){g._tourT=setTimeout(goT,700);return;}", "if(performance.now()-window.__borneReadyT<3500||(window.__borneHandHold||0)>Date.now()){g._tourT=setTimeout(goT,700);return;}")
 s7 = once(s7, "async function tour(resume){if(touring||window.__borneNoPsy)return;", "async function tour(resume){if(touring||window.__borneNoPsy)return;if(!resume&&(window.__borneHandHold||0)>Date.now())return;")
+s7 = once(s7, "say(el,go==='motel'?'':nm,said)", "say(el,go==='motel'?'MOTEL SOUND':nm,said)")  # chaque bulle a son titre : l'arrêt de la radio prend le nom de la radio
 wr("index.html", s7)
 # la borne en français : fr.html sort de la borne finie, avec la langue et l'en-tête français d'InsertKoin (fr-head.json)
 import json as _json
