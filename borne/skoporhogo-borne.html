@@ -1383,6 +1383,7 @@ const langBtn=document.getElementById('lang');
 function applyLang(){ langBtn.textContent=lang==='en'?'FR':'EN'; document.documentElement.lang=lang; updateCard(); }
 langBtn.onclick=()=>{ lang=lang==='en'?'fr':'en'; try{ localStorage.setItem('kf-room-lang',lang); localStorage.setItem('ik.lang',lang); }catch(e){} applyLang(); };
 applyLang();
+if(window.top!==window){langBtn.hidden=true;try{const P=parent.document.documentElement,sync=()=>{const l=P.lang==='fr'?'fr':'en';if(l!==lang){lang=l;applyLang();}};sync();new MutationObserver(sync).observe(P,{attributes:true,attributeFilter:['lang']});}catch(e){}}
 document.getElementById('hint').textContent=TXT[lang].hint;
 
 const ray=new THREE.Raycaster(), mouse=new THREE.Vector2();
