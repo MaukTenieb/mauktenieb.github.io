@@ -77,6 +77,9 @@ s = once(s, "if(k!=='kapture'&&k!=='vhs'&&!pay()){", "if(k!=='kapture'&&k!=='vhs
 s = once(s, "[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture')].filter(Boolean)", "[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture'),document.querySelector('.b-lore')].filter(Boolean)")
 wr("index.html", s)
 
+# la visite des psychopompes s'arrête quand un programme s'ouvre (borne-cabinet.js appelle __borneTourStop)
+s = once(s, "async function tour(resume){if(touring)return;", "window.__borneTourStop=function(){clearTimeout(g._tourT);stop();};async function tour(resume){if(touring)return;")
+wr("index.html", s)
 k = rd("skoporhogo.html")
 k = once(k, "window.__room={step:stepSim,", "window.__room={SPEEDS,VIEW,applyView,zoomAt,step:stepSim,")
 # la marche des Masks à vitesse naturelle, l'horloge à la minute exacte (window.__walk, posé par borne-skopo.js)
@@ -126,6 +129,8 @@ for n in ("reporhogo.html", "tor.html"):
     if "borne-frames.css" not in t:
         wr(n, t.replace("</head>", '<link rel="stylesheet" href="borne-frames.css">\n</head>', 1))
 cap("reporhogo.html", ' placeholder="Comma-separated URLs appear here."', '')
+# un programme Korhogo reste ouvert pendant les effets du tube et les mouvements de caméra (écran aplati un instant) : il se ferme après une seconde sans écran, au lieu de 300 ms
+cap("kg-loader.js", "if(++s.hidden>=2)endSession(name);  // hidden on two consecutive checks (~300 ms)", "if(++s.hidden>=7)endSession(name);  // hidden on seven consecutive checks (~1 s)")
 # SkopoRhogo : Échap désélectionne d'abord le Mask, sans quitter le programme
 k2 = rd("skoporhogo-borne.html")
 k2 = k2.replace("if(e.key==='Escape'&&selected>=0) select(selected);", "if(e.key==='Escape'&&selected>=0){ e.preventDefault(); select(selected); }")

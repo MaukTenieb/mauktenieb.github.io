@@ -173,6 +173,9 @@
     setTimeout(relayout,820);}
   var CAMGO=0;
   window.__borneGo=function(k){var C=window.__borneCam;
+    try{window.__borneTourStop&&window.__borneTourStop();}catch(e){}
+    /* les mini-jeux et DiktatFaune passent par leur vraie touche : le dé de Katabatik, le calque de DiktatFaune */
+    if(KATA.indexOf(k)>=0){kata(k);return true;}if(k==='diktat'){play('diktat');return true;}
     if(!CAMGO&&C&&C.ok()&&root.dataset.habit==='repos'&&!root.dataset.prog&&k!=='visit'){C.zoomIn(function(){CAMGO=1;try{IK().go(k);}finally{CAMGO=0;}});return true;}
     setBig(bigOf(k));CUR=k==='katabatik'?(function(){var d=document.querySelector('.cab.dice b'),f=d?DICE.indexOf(d.dataset.d):0;return KATA[f]||'c4';})():k;paintDots();
     if(k==='fauneye'){IK().ac&&IK().ac();dress('fauneye');mark(k);IK().openCalque('borne-fauneye.html','FAUNEYE');return true;}
@@ -226,7 +229,8 @@
   window.__borneBoom=function(cb){if(tilting)return;tilting=true;
     try{IK().burst&&IK().burst(90,'lowpass',.35,.5);IK().tone&&IK().tone(70,.5,'sawtooth',.06,-30);IK().tone&&IK().tone(1046,.08,'square',.025,0,.45);}catch(e){}
     wrap.classList.remove('b-shake');void wrap.offsetWidth;wrap.classList.add('b-shake');hab.textContent='TILT';hab.classList.add('tilt');
-    var fl=el('div','b-bbflash','BAKU BOOM'),gr=glass.getBoundingClientRect();fl.style.left=(gr.left+gr.width/2)+'px';fl.style.top=(gr.top+gr.height/2)+'px';document.body.appendChild(fl);setTimeout(function(){fl.remove();},650);
+    /* le mot BAKU BOOM s'allume une fois le tube éteint, sur le noir, jamais par-dessus l'image du jeu */
+    var gr=glass.getBoundingClientRect();setTimeout(function(){var fl=el('div','b-bbflash','BAKU BOOM');fl.style.left=(gr.left+gr.width/2)+'px';fl.style.top=(gr.top+gr.height/2)+'px';document.body.appendChild(fl);setTimeout(function(){fl.remove();},560);},360);
     glass.classList.remove('b-on');glass.classList.add('b-off');
     setTimeout(function(){try{cb&&cb();}catch(e){}glass.classList.remove('b-off');glass.classList.add('b-on');},480);
     setTimeout(function(){glass.classList.remove('b-on');wrap.classList.remove('b-shake');hab.classList.remove('tilt');hab.textContent=LABEL[root.dataset.habit]||'';tilting=false;},1150);};
@@ -424,7 +428,8 @@
 
   dress('repos');
   /* la page d'origine reste voilée jusqu'ici : le visiteur voit la borne d'emblée */
-  requestAnimationFrame(function(){root.classList.add('borne-ready');});
+  /* la borne se montre quand elle est montée entière (images, mesures de l'écran) : borne-arcade.js lève le voile ; sinon, tout de suite */
+  requestAnimationFrame(function(){if(!window.__borneFit)root.classList.add('borne-ready');});
 })();
 
 /* ---------- éclats et reflets (25 oct.) : les boutons scintillent de temps en temps ; les autocollants et les plaques prennent un reflet qui suit la souris, le doigt ou le défilement ---------- */

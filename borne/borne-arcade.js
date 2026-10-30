@@ -1,66 +1,5 @@
-/* Borne Insert Koin — l'écran d'arcade (DA.md).
-   Chaque programme s'ouvre sur son écran-titre : 1UP et CREDIT en haut, le nom en pixels, sa phrase, PRESS START ou INSERT KOIN qui clignote.
-   Au repos, après 25 secondes sans geste, la borne passe en démo : cartes INSERT KOIN et écrans-titres des programmes, entre deux vues du motel,
-   et les touches du panneau s'allument en chenillard. Le premier geste rend la main. */
-(function(){
-  var root=document.documentElement,RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  var NAME={puck:'KORONG!',chess:'FAUNA CHESS',erratic:'ERRATIK',faunarratics:'FAUNARRATIK',c4:'KONNECT4',hang:'AKASZTÓFA',mm:'MASKERMIND',bb:'SAMPLER',fi:'FAUNINVADERS',
-    diktat:'DIKTATFAUNE',fauneye:'BAKUBOOK',vhs:'VHS',photo:'FOTOFAUNA',kapture:'KAPTURE',terminal:'3615',kal:'3615',repo:'REPORHOGO',tor:'FAUNATOR',skopo:'SKOPORHOGO'};
-  var SAYK={c4:'katabatik',hang:'katabatik',mm:'katabatik',kal:'terminal'};
-  var INK={fauneye:'#e2c27a',vhs:'#e2c27a',photo:'#e2c27a',kapture:'#e2c27a',terminal:'#66bb6a',kal:'#66bb6a',repo:'#7fe0ff',tor:'#7fe0ff',skopo:'#4fc3f7'};
-  var PAID={chess:1,fi:1,faunarratics:1,bb:1,c4:1,hang:1,mm:1,erratic:1};
-  function $(i){return document.getElementById(i);}
-  function credits(){return parseInt((($('kn')||{}).textContent||'0'),10)||0;}
-  function say(k){try{var S=window.__borneSAY&&window.__borneSAY();return (S&&S[SAYK[k]||k])||'';}catch(e){return '';}}
-  function glass(){return document.querySelector('.b-glass');}
-  function esc(t){return String(t).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
-  function card(k,demo){var c=document.createElement('div');c.className='b-tcard'+(demo?' b-tdemo':'');c.style.setProperty('--tc-ink',INK[k]||'#ffa726');
-    var cr=credits(),go=(PAID[k]&&cr<1)?'INSERT KOIN':'PRESS START';
-    var H=hi(k);c.innerHTML='<div class="b-tc-top"><span>1UP</span>'+(H!=null?'<span class="b-tc-hi">HI-SCORE '+esc(String(H))+'</span>':'')+'<span>CREDIT '+cr+'</span></div>'+
-      '<div class="b-tc-mid"><b>'+esc(NAME[k]||k.toUpperCase())+'</b>'+(say(k)?'<i>'+esc(say(k))+'</i>':'')+'</div>'+
-      '<div class="b-tc-go">'+go+'</div><div class="b-tc-foot">© KORHOGO</div>';
-    return c;}
-  function koinCard(){var c=document.createElement('div');c.className='b-tcard b-tdemo b-tkoin';var cr=credits();
-    c.innerHTML='<div class="b-tc-top"><span>1UP</span><span>CREDIT '+cr+'</span></div><div class="b-tc-mid"><b>INSERT<br>KOIN</b><i>1 KOIN — 1 PLAY</i></div><div class="b-tc-go">'+(cr>0?'PRESS START':'INSERT KOIN')+'</div><div class="b-tc-foot">© KORHOGO</div>';return c;}
-
-  /* les vrais palmarès de Korong! et de FaunInvaders (IKP : palmares.json et les relais Nostr), relus toutes les 5 minutes */
-  var HOF={},hofT=0;
-  function hof(){if(!window.IKP||Date.now()-hofT<300000)return;hofT=Date.now();['korong','fauninvaders'].forEach(function(g){IKP.top(g).then(function(t){if(t&&t.length)HOF[g]=t;}).catch(function(){});});}
-  setTimeout(hof,4000);setInterval(hof,60000);
-  var GK={fi:'fauninvaders'};
-  function hi(k){var t=HOF[GK[k]];return t&&t[0]?t[0].a:null;}
-  function hofCard(g){var t=HOF[g];if(!t||!t.length)return null;var c=document.createElement('div');c.className='b-tcard b-tdemo b-thof';
-    var rows=t.slice(0,5).map(function(e,i){return '<tr><td>'+['1ST','2ND','3RD','4TH','5TH'][i]+'</td><td>'+esc(String(e.a))+'</td><td>'+esc(String(e.ini||'???').slice(0,3))+'</td></tr>';}).join('');
-    c.innerHTML='<div class="b-tc-top"><span>HI-SCORES</span><span>CREDIT '+credits()+'</span></div><div class="b-tc-mid"><b>'+(g==='korong'?'KORONG!':'FAUNINVADERS')+'</b><table>'+rows+'</table></div><div class="b-tc-go">'+(credits()>0?'PRESS START':'INSERT KOIN')+'</div><div class="b-tc-foot">© KORHOGO</div>';return c;}
-  var shown=null,hideT=0;
-  function show(c,ms){var g=glass();if(!g)return;hide(true);shown=c;g.appendChild(c);void c.offsetWidth;c.classList.add('on');clearTimeout(hideT);hideT=setTimeout(function(){hide();},ms);}
-  function hide(now){clearTimeout(hideT);var c=shown;shown=null;if(!c)return;if(now||RM){c.remove();return;}c.classList.remove('on');c.classList.add('off');setTimeout(function(){c.remove();},380);}
-  /* l'écran-titre à l'ouverture d'un programme */
-  var last='';
-  setInterval(function(){var cur=(window.__borneCur&&window.__borneCur())||'',on=!!root.dataset.prog;
-    if(!on){last='';return;}
-    if(cur&&cur!==last){last=cur;if(!demo)show(card(cur,false),RM?700:1500);}},200);
-  /* la démo au repos */
-  var demo=false,idleT=0,stepT=0,ORDER=['koin','motel','prog','motel','hof:korong','motel','prog','motel','koin','motel','hof:fauninvaders','motel','prog','motel'],si=0,LIST=['chess','puck','faunarratics','erratic','terminal','vhs','photo','repo','tor','skopo','fauneye','fi','mm','c4','hang','bb','diktat'];
-  function home(){return !root.dataset.prog&&root.dataset.habit==='repos'&&!root.classList.contains('b-immersion')&&!document.hidden&&!window.__borneTour;}
-  function step(){if(!demo)return;if(!home()){stop();return;}var s=ORDER[si++%ORDER.length];
-    if(s==='motel'){hide();stepT=setTimeout(step,7000);return;}
-    var c=s==='koin'?koinCard():s.indexOf('hof:')===0?hofCard(s.slice(4)):card(LIST[Math.floor(Math.random()*LIST.length)],true);if(!c){step();return;}show(c,s.indexOf('hof:')===0?6000:4200);stepT=setTimeout(step,s.indexOf('hof:')===0?6200:4400);}
-  function start(){if(demo)return;if(!home()){if(window.__borneTour){clearTimeout(idleT);idleT=setTimeout(start,20000);}return;}demo=true;si=0;root.classList.add('b-demo');step();}
-  function stop(){if(!demo)return;demo=false;clearTimeout(stepT);root.classList.remove('b-demo');hide();}
-  function poke(){if(demo)stop();clearTimeout(idleT);idleT=setTimeout(start,25000);}
-  ['pointerdown','keydown','wheel','touchstart'].forEach(function(ev){addEventListener(ev,poke,{capture:true,passive:true});});
-  addEventListener('keydown',function(e){if(shown&&!shown.classList.contains('b-tdemo'))hide();},true);
-  document.addEventListener('pointerdown',function(e){if(shown&&!shown.classList.contains('b-tdemo')&&glass()&&glass().contains(e.target))hide();},true);
-  poke();
-  /* le chenillard : chaque touche et chaque bouton rond reçoit son rang */
-  function rank(){var L=[].slice.call(document.querySelectorAll('#home .b-panel .cabinets>.cab, .b-row2 .menu a'));if(!L.length){setTimeout(rank,600);return;}
-    L.forEach(function(e,i){e.style.setProperty('--ci',i);});root.style.setProperty('--cn',L.length);}
-  rank();
-  window.__borneDemo=function(on){if(on){clearTimeout(idleT);start();}else stop();};
-})();
-/* la lumière : le tube de l'enseigne éclaire le haut du meuble, l'écran éclaire le panneau de commande dans la couleur du programme ;
-   l'écran d'accueil garde la trace brûlée d'INSERT KOIN, comme les tubes restés allumés des années en salle */
+/* Borne Insert Koin — l'écran d'arcade (DA.md). Chaque programme s'ouvre directement sur son propre écran ; au repos, l'écran montre SkopoRhogo en direct. */
+/* la lumière : le tube de l'enseigne éclaire le haut du meuble, l'écran éclaire le panneau de commande dans la couleur du programme ; */
 (function(){var root=document.documentElement;
   function mount(){var w=document.querySelector('.wrap'),bar=document.querySelector('.wrap .bar'),pan=document.querySelector('#home .b-panel'),g=document.querySelector('.b-glass');
     if(!w||!bar||!pan||!g){setTimeout(mount,600);return;}
@@ -77,8 +16,6 @@
 (function(){function mount(){var w=document.querySelector('.wrap');if(!w){setTimeout(mount,600);return;}if(w.querySelector('.b-edgeart'))return;
   ['l','r'].forEach(function(s){var e=document.createElement('i');e.className='b-edgeart b-edgeart-'+s;e.setAttribute('aria-hidden','true');w.appendChild(e);});}
   mount();})();
-/* la visite des psychopompes a la priorité : la démo s'efface dès qu'elle commence */
-setInterval(function(){if(window.__borneTour&&document.documentElement.classList.contains('b-demo')&&window.__borneDemo)window.__borneDemo(false);},400);
 /* l'aimant de Dekonect dessiné en fer à cheval rouge, pôles d'acier, reflet ; ses lignes de champ s'allument au survol */
 (function(){function go(){var b=document.querySelector('.b-dekonect');if(!b){setTimeout(go,600);return;}if(b._art)return;b._art=1;
   b.innerHTML='<svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="bmg" x1="0" x2="1"><stop offset="0" stop-color="#7a1210"/><stop offset=".35" stop-color="#e0443a"/><stop offset=".6" stop-color="#c9302a"/><stop offset="1" stop-color="#6a0e0c"/></linearGradient><linearGradient id="bms" x1="0" x2="1"><stop offset="0" stop-color="#6a6e74"/><stop offset=".45" stop-color="#f2f4f6"/><stop offset="1" stop-color="#7a7e84"/></linearGradient></defs>'+
@@ -128,7 +65,9 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   function home(){return innerWidth>700&&!R.hasAttribute('data-prog')&&R.getAttribute('data-mode')!=='device'&&R.getAttribute('data-habit')!=='fauneye'&&!R.classList.contains('b-immersion')}
   function px(e,p){return parseFloat(getComputedStyle(e)[p])||0}
   function fit(){
-    if(busy)return;busy=1;
+    /* pendant un mouvement de caméra, le meuble est agrandi : on ne mesure pas, on reprend à la fin */
+    var cm=R.getAttribute('data-cam');if(cm==='in'||cm==='out')return;
+    if(busy)return;busy=1;R.setAttribute('data-fitting','');
     try{
       if(!home()){R.removeAttribute('data-bfit');R.removeAttribute('data-bsmall');['--fitW','--wc','--bzs'].forEach(function(k){R.style.removeProperty(k)});return}
       var scr=document.querySelector('.b-bezel .b-screen'),foot=document.querySelector('.b-bezelfoot');if(!scr)return;
@@ -137,7 +76,9 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
         wc=Math.max(600,Math.min(W-32,Math.max(gw*1.357+150,Math.min(H*.98+30,gw*1.537+150))));
         R.style.setProperty('--fitW',Math.round(gw)+'px');R.style.setProperty('--wc',Math.round(wc)+'px');R.setAttribute('data-bfit','');
         var r=scr.getBoundingClientRect(),top=r.top+scrollY+px(scr,'borderTopWidth'),bot=px(scr,'borderBottomWidth'),fh=foot?foot.getBoundingClientRect().height+16:60;
-        var byH=(H-top-bot-fh-8)/.925,byW=(wc-150)/(W<1000?1.2:1.357),ng=Math.max(360,Math.min(byH,byW,1100));
+        /* fenêtre basse : le toit (plante, caméra) peut passer au-dessus du cadre, l'enseigne reste visible ; l'écran y gagne sa hauteur */
+        var rf=document.querySelector('.b-roof'),off=H<760&&rf?Math.max(0,rf.getBoundingClientRect().bottom+scrollY-10):0;
+        var byH=(H-top+off-bot-fh-8)/.925,byW=(W-32-150)/(W<1000?1.2:1.357),ng=Math.max(360,Math.min(byH,byW,1100));
         if(Math.abs(ng-gw)<1.5){gw=ng;break}gw=ng;
       }
       /* le meuble garde une largeur de borne ; la vitre imprimée s'étire sur les côtés d'une fois et demie au plus */
@@ -147,13 +88,18 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
       R.style.setProperty('--bzs',Math.max(0,Math.round((scr.clientWidth-gw)/2))+'px');
       /* fenêtre très basse : à l'arrivée, la page descend juste assez pour montrer l'écran entier et son pied */
       if(!arrived&&document.readyState==='complete'){arrived=1;var fb=foot?foot.getBoundingClientRect().bottom+scrollY:0;if(scrollY===0&&fb>H)scrollTo(0,Math.ceil(fb-H+6))}
-    }finally{busy=0}
+    }finally{busy=0;requestAnimationFrame(function(){requestAnimationFrame(function(){R.removeAttribute('data-fitting');});});}
   }
   var t;function later(){clearTimeout(t);t=setTimeout(fit,60)}
   addEventListener('resize',later);window.__borneFit=fit;
   new MutationObserver(later).observe(R,{attributes:true,attributeFilter:['data-prog','data-mode','data-habit','data-skin','class']});
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
-  addEventListener('load',function(){fit();setTimeout(fit,800)});fit();
+  /* le voile se lève quand les matières du meuble sont décodées (bois, métal, vitre imprimée, enseigne), 3 s au plus */
+  function mats(){var U={};[].forEach.call(document.querySelectorAll('.b-roof, .b-roof *, .wrap, .wrap .bar, .wrap .bar *, .b-bezel, .b-bezel *, .b-butee, .b-land'),function(e){['backgroundImage','borderImageSource'].forEach(function(k){var v=getComputedStyle(e)[k]||'';v.replace(/url\(["']?([^"')]+)["']?\)/g,function(_,u){U[u]=1;});});
+      try{var b=getComputedStyle(e,'::before').borderImageSource||'';b.replace(/url\(["']?([^"')]+)["']?\)/g,function(_,u){U[u]=1;});}catch(_){}});
+    return Promise.race([Promise.all(Object.keys(U).slice(0,40).map(function(u){var i=new Image();i.src=u;return (i.decode?i.decode():Promise.resolve()).catch(function(){});})),new Promise(function(r){setTimeout(r,3000);})]);}
+  function ready(){if(R.classList.contains('borne-ready'))return;fit();mats().then(function(){fit();requestAnimationFrame(function(){fit();requestAnimationFrame(function(){R.classList.add('borne-ready');});});});}
+  addEventListener('load',function(){var f=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();f.then(ready,ready);setTimeout(fit,800)});fit();
 })();
 
 /* 30 oct. — la caméra : lancer un jeu, c'est s'approcher de la borne jusqu'à ce que l'écran remplisse la fenêtre ; Baku Boom ou l'accueil font reculer.
@@ -175,25 +121,41 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   function set(prop,v){parts().forEach(function(e){e.style[prop]=v;});}
   function settle(){if(R.hasAttribute('data-prog'))return;var ft=document.querySelector('.b-bezelfoot');if(!ft)return;var fb=ft.getBoundingClientRect().bottom+scrollY;
     var top=fb>innerHeight+1?Math.ceil(fb-innerHeight+6):0;if(Math.abs(top-scrollY)>2)try{scrollTo({top:top,left:0,behavior:'smooth'});}catch(e){scrollTo(0,top);}}
-  function clear(){var wasOut=R.getAttribute('data-cam')==='out';if(wasOut)setTimeout(settle,300);
+  function clear(){var wasOut=R.getAttribute('data-cam')==='out';if(wasOut)setTimeout(function(){try{window.__borneFit&&window.__borneFit();}catch(e){}settle();},120);
     parts().forEach(function(e){e.style.transition='';e.style.transform='';e.style.transformOrigin='';e.style.opacity='';});R.removeAttribute('data-cam');busy=0}
   function stop(){if(!busy)return;clearTimeout(T);var f=busy;busy=0;clear();if(typeof f==='function')f();}
+  window.__borneSettle=settle;
+  /* la visite des psychopompes finie, la borne revient au cadre de l'arrivée */
+  var wasTour=0;setInterval(function(){var t=!!window.__borneTour;if(wasTour&&!t&&!R.hasAttribute('data-prog')&&!busy)settle();wasTour=t;},300);
   window.__borneCam={
     ok:function(){return !!(wrap()&&glass())&&!R.classList.contains('b-immersion')&&!matchMedia('(prefers-reduced-motion:reduce)').matches},
     rect:function(){var r=rect();return r?{x:r.left,y:r.top,w:r.width,h:r.height}:target()},
     stop:stop,
     zoomIn:function(cb){if(typeof busy==='function'){var prev=busy;busy=function(){prev();cb();};return;}stop();var A=rect();if(!A||!A.width){cb();return;}
       busy=cb;R.setAttribute('data-cam','in');set('transition','transform '+IN+'ms '+EASE);void wrap().offsetWidth;shoot(A,target());
-      T=setTimeout(function(){R.setAttribute('data-cam','swap');var f=busy;busy=0;try{f();}catch(e){}
-        set('transition','none');set('transform','');void wrap().offsetWidth;
+      var Z={w:0,h:0};T=setTimeout(function(){R.setAttribute('data-cam','swap');var f=busy;busy=0;var sc=Math.min(target().w/A.width,target().h/A.height);Z.w=A.width*sc;Z.h=A.height*sc;
+        /* le meuble reprend sa taille avant l'ouverture du programme : chaque programme mesure son écran au repos */
+        set('transition','none');set('transform','');void wrap().offsetWidth;try{f();}catch(e){}
+        /* l'écran de jeu, plus large que le tube 4:3, s'ouvre depuis le cadre où la caméra s'est arrêtée */
+        var g=glass();if(g&&R.hasAttribute('data-prog')){var B=g.getBoundingClientRect(),ix=Math.max(0,(B.width-Z.w)/2),iy=Math.max(0,(B.height-Z.h)/2);
+          if(ix>2||iy>2){g.style.transition='none';g.style.clipPath='inset('+iy.toFixed(0)+'px '+ix.toFixed(0)+'px round 6px)';void g.offsetWidth;
+            requestAnimationFrame(function(){g.style.transition='clip-path 280ms cubic-bezier(.3,.6,.2,1)';g.style.clipPath='inset(0px 0px round 6px)';setTimeout(function(){g.style.transition='';g.style.clipPath='';},320);});}}
         requestAnimationFrame(function(){requestAnimationFrame(clear);});},IN+10);},
     swap:function(fn){stop();R.setAttribute('data-cam','swap');set('transition','none');fn();try{window.__borneFit&&window.__borneFit();}catch(e){}try{scrollTo({top:0,left:0,behavior:'instant'});}catch(e){scrollTo(0,0);}},
     /* le recul : le temps que l'accueil se remonte, l'écran reste noir comme un tube qui se rallume ; puis on part de l'écran plein cadre et on recule jusqu'à la borne entière */
     zoomOut:function(G){var w=wrap();if(!w){clear();return;}busy=1;w.classList.remove('b-shake');set('transition','none');set('opacity','0');
-      T=setTimeout(function(){try{window.__borneFit&&(window.__borneFit(),window.__borneFit());}catch(e){}
+      /* l'accueil se remonte : on attend que la taille de l'écran ne bouge plus, puis on part de là */
+      function stable(cb){var last=-1,n=0,t0=Date.now();(function f(){try{window.__borneFit&&window.__borneFit();}catch(e){}var g=glass(),sc=g&&g.parentElement?Math.round(g.parentElement.getBoundingClientRect().top+scrollY):0,v=g?g.offsetWidth+'x'+g.offsetHeight+'@'+sc:'';
+        if(v===last){if(++n>=3)return cb();}else{n=0;last=v;}if(Date.now()-t0>1600)return cb();T=setTimeout(f,70);})();}
+      T=setTimeout(function(){stable(go);},140);function go(){
         var A=rect();if(!A||!A.width){clear();return;}
         shoot(A,G);void w.offsetWidth;set('opacity','');
         requestAnimationFrame(function(){R.setAttribute('data-cam','out');set('transition','transform '+OUT+'ms '+EASE);set('transform','');
-          T=setTimeout(clear,OUT+20);});},420);}
+          T=setTimeout(clear,OUT+20);});}}
   };
 })();
+
+/* 30 oct. — en jeu, Espace et les flèches restent au jeu : la page ne défile jamais dessous */
+addEventListener('keydown',function(e){var R=document.documentElement;if(!R.hasAttribute('data-prog')||R.classList.contains('b-immersion'))return;
+  var t=e.target,tag=t&&t.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(t&&t.isContentEditable))return;
+  if(/^(Space| |ArrowUp|ArrowDown|PageUp|PageDown|Home|End)$/.test(e.code||e.key)&&!e.defaultPrevented){if(e.code!=='PageUp'&&e.code!=='PageDown')e.preventDefault();}},false);

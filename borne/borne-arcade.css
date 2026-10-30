@@ -1,27 +1,4 @@
-/* Borne Insert Koin — l'écran d'arcade (DA.md) : écrans-titres, démo au repos, chenillard des touches. */
-html.borne .b-tcard{position:absolute;inset:0;z-index:44;display:grid;grid-template-rows:auto 1fr auto auto;padding:5% 6% 4%;box-sizing:border-box;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 45%,rgba(40,24,10,.55),rgba(0,0,0,.96) 70%),#000;color:#ffe3a0;font-family:'Press Start 2P',monospace;opacity:0;transition:opacity .25s steps(4)}
-html.borne .b-tcard.on{opacity:1}
-html.borne .b-tcard.off{opacity:0}
-html.borne .b-tc-top{display:flex;justify-content:space-between;font-size:clamp(12px,1.3vw,18px);letter-spacing:.06em}
-html.borne .b-tc-top span:first-child{color:#c9302a;text-shadow:0 0 8px rgba(201,48,42,.6)}
-html.borne .b-tc-top span:last-child{color:#ffa726}
-html.borne .b-tc-mid{display:grid;align-content:center;justify-items:center;gap:clamp(14px,2.4vw,30px);text-align:center}
-html.borne .b-tc-mid b{font-weight:400;font-size:clamp(22px,4.4vw,64px);line-height:1.2;letter-spacing:.03em;color:var(--tc-ink,#ffa726);
-  text-shadow:4px 4px 0 #3a1400,8px 8px 0 rgba(0,0,0,.7),0 0 24px color-mix(in srgb,var(--tc-ink,#ffa726) 45%,transparent)}
-html.borne .b-tc-mid i{font-style:normal;font-family:'DM Mono',ui-monospace,monospace;font-size:clamp(13px,1.35vw,19px);letter-spacing:.08em;color:#f3e8d2;max-width:34ch}
-html.borne .b-tc-go{justify-self:center;font-size:clamp(13px,1.6vw,22px);letter-spacing:.08em;color:#4fc3f7;text-shadow:0 0 10px rgba(79,195,247,.6);animation:btgo 1s steps(1) infinite;margin-bottom:clamp(10px,1.6vw,22px)}
-html.borne .b-tc-foot{justify-self:center;font-size:clamp(12px,1vw,14px);color:#c4b9a4;letter-spacing:.1em}
-@keyframes btgo{50%{opacity:0}}
-html.borne .b-tkoin .b-tc-mid b{color:#ffa726;font-size:clamp(28px,6vw,86px)}
-html.borne .b-glass:has(.b-tcard) .b-chan{opacity:0!important}
-/* la démo : le chenillard des touches et des boutons ronds */
-html.borne.b-demo #home .b-panel .cabinets>.cab,html.borne.b-demo .b-row2 .menu a{animation:bchase calc(var(--cn,7) * .28s) steps(1) infinite;animation-delay:calc(var(--ci,0) * .28s)}
-@keyframes bchase{0%{filter:brightness(1.55) saturate(1.2);box-shadow:0 0 22px color-mix(in srgb,var(--nc,#ffa726) 60%,transparent)}14%,100%{filter:none}}
-@media (prefers-reduced-motion:reduce){html.borne .b-tc-go{animation:none}html.borne.b-demo #home .b-panel .cabinets>.cab,html.borne.b-demo .b-row2 .menu a{animation:none}}
-@media (max-width:700px){html.borne .b-tcard{padding:6% 5% 5%}}
-html.borne.b-demo .b-row2 .menu a{animation-name:bchase2!important}
-@keyframes bchase2{0%{filter:brightness(1.7) drop-shadow(0 0 7px rgba(255,220,170,.8))}14%,100%{filter:none}}
+/* Borne Insert Koin — l'écran d'arcade (DA.md) : lumière, vitre imprimée, caméra, les deux états de la borne. */
 /* la lumière du tube sur le haut du meuble ; elle s'éteint avec l'enseigne */
 html.borne .b-mql{position:absolute;left:0;right:0;z-index:3;pointer-events:none;mix-blend-mode:screen;opacity:1;transition:opacity .7s ease-in;
   background:radial-gradient(ellipse 46% 60% at 50% 18%,rgba(255,170,80,.16),rgba(255,140,50,.06) 55%,transparent 80%)}
@@ -32,13 +9,6 @@ html.borne .b-spill{position:absolute;inset:0;z-index:6;pointer-events:none;mix-
   background:radial-gradient(ellipse 60% 55% at 50% -8%,rgba(var(--sp,255,176,110),.13),transparent 70%);transition:background .6s}
 html.borne .b-spill.b-hi{background:radial-gradient(ellipse 64% 62% at 50% -8%,rgba(var(--sp,255,176,110),.2),transparent 72%)}
 /* la table des scores de la démo */
-html.borne .b-thof .b-tc-mid b{font-size:clamp(18px,3vw,40px)}
-html.borne .b-thof table{border-collapse:collapse;font-size:clamp(12px,1.5vw,20px);letter-spacing:.06em}
-html.borne .b-thof td{padding:.42em .9em;text-align:left}
-html.borne .b-thof tr:nth-child(1) td{color:#ffa726}html.borne .b-thof tr:nth-child(2) td{color:#ffe3a0}html.borne .b-thof tr:nth-child(3) td{color:#4fc3f7}
-html.borne .b-thof tr:nth-child(n+4) td{color:#c4b9a4}
-html.borne .b-thof td:nth-child(2){text-align:right}
-html.borne .b-tc-hi{color:#ffe3a0}
 /* le panneau de commande a un rebord avant épais, moulé, qui accroche la lumière sur son arête */
 html.borne .b-panel::after{height:26px!important;background:linear-gradient(180deg,#5a544c 0%,#2a2622 9%,var(--pan-lip,#0e0c0a) 55%,#000 100%)!important;
   box-shadow:inset 0 1px 0 rgba(255,240,220,.35),inset 0 -2px 3px rgba(0,0,0,.7),0 10px 18px rgba(0,0,0,.7)!important}
@@ -124,8 +94,7 @@ html.borne[data-big=tate] .b-edgeart{display:none!important}
 /* le pied de l'écran garde ses touches loin de la tranche peinte */
 html.borne[data-prog] .b-bezelfoot{padding-left:clamp(14px,1.6vw,26px)!important;padding-right:clamp(14px,1.6vw,26px)!important}
 /* téléphone : le décompte des Koins ne fait plus sauter Baku Boom à la ligne */
-@media (max-width:700px){html.borne .b-bezelfoot #koins{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden}html.borne .b-bezelfoot .b-boom{flex:none}
-  html.borne .b-date{top:3%!important;bottom:auto!important;right:2.5%!important}}
+@media (max-width:700px){html.borne .b-bezelfoot #koins{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden}html.borne .b-bezelfoot .b-boom{flex:none}}
 /* porte du métal : l'étiquette au-dessus de la serrure */
 html.borne[data-skin=metal] .b-slot b{top:46%!important}
 /* textes : la date de l'écran à 12 px, les gravures à 11 px */
@@ -152,23 +121,22 @@ html.borne[data-prog] .b-dekonect{display:block!important}
   html.borne[data-bfit]:not([data-prog]):not([data-mode=device]):not([data-habit=fauneye]):not(.b-immersion) .b-bezel .b-screen::before{content:"";position:absolute;z-index:3;top:0;left:0;right:0;
     height:calc(var(--gw) * .925);box-sizing:border-box;pointer-events:none;
     border-style:solid;border-width:calc(var(--gw) * .086) var(--bzs,calc(var(--gw) * .179)) calc(var(--gw) * .089);border-image:url(art-bezel-fin.webp) 50 104 52 104 stretch}
-  html.borne[data-bfit]:not([data-prog]) .b-roof{height:clamp(56px,8vh,120px)!important}
-  html.borne[data-bfit]:not([data-prog]):not([data-mode=device]) .wrap .bar :is(.brand,.dock){min-height:clamp(72px,9.4vh,104px)!important;height:clamp(72px,9.4vh,104px)!important}
-  html.borne[data-bfit]:is([data-skin=bois],[data-skin=metal]):not([data-prog]):not([data-habit=fauneye]):not(.b-immersion) .b-bezel .b-screen{border-top-width:clamp(14px,2.2vh,24px)!important;border-bottom-width:clamp(14px,2.2vh,24px)!important}
-  html.borne[data-bfit]:is([data-skin=bois],[data-skin=metal]):not([data-prog]) .b-butee{height:clamp(18px,2.6vh,30px)!important}
-  html.borne[data-bfit]:not([data-prog]) .b-land{height:clamp(40px,5.6vh,84px)!important}}
-html.borne[data-bfit] *:not(.wrap):not(.b-roof){transition:none!important}
+  html.borne[data-bfit]:not([data-prog]) .b-roof{height:clamp(52px,6.6vh,120px)!important}
+  html.borne[data-bfit]:not([data-prog]):not([data-mode=device]) .wrap .bar :is(.brand,.dock){min-height:clamp(64px,8.2vh,104px)!important;height:clamp(64px,8.2vh,104px)!important}
+  html.borne[data-bfit]:is([data-skin=bois],[data-skin=metal]):not([data-prog]):not([data-habit=fauneye]):not(.b-immersion) .b-bezel .b-screen{border-width:0!important;border-image:none!important}
+  html.borne[data-bfit]:is([data-skin=bois],[data-skin=metal]):not([data-prog]) .b-butee{height:clamp(14px,2.1vh,30px)!important}
+  html.borne[data-bfit]:not([data-prog]) .b-land{height:clamp(36px,4.8vh,84px)!important}}
+/* pendant la mesure de l'écran, le meuble change de taille d'un coup ; le contenu des programmes garde ses propres transitions */
+html.borne[data-fitting] :is(.wrap,.b-roof,.b-roof *,.bar,.bar *,.b-land,.b-butee,.b-bezel,.b-screen,.b-glass,.b-bezelfoot){transition:none!important}
 @media (max-width:700px){
   html.borne:not([data-prog]):is([data-skin=bois],[data-skin=metal]):not([data-mode=device]):not([data-habit=fauneye]):not(.b-immersion) .b-bezel .b-screen{border-style:solid!important;border-image:url(art-bezel-fin.webp) 50 104 52 104 stretch!important;border-width:12px 16px!important;border-radius:0!important}
   html.borne:not([data-prog]):is([data-skin=bois],[data-skin=metal]):not([data-mode=device]):not([data-habit=fauneye]):not(.b-immersion) .b-glass{width:calc(var(--gw) - 32px)!important;height:calc((var(--gw) - 32px) * .75)!important}}
-/* petit écran d'accueil : la date monte en haut à droite, loin des boutons du zoom */
-html.borne[data-bsmall]:not([data-prog]) .b-date{top:3%!important;bottom:auto!important;right:2.5%!important}
 /* le titre du morceau reste dans le fronton, à l'écart de la tranche peinte */
 @media (min-width:701px){html.borne:not([data-mode=device]) .wrap .bar{padding-left:calc(clamp(12px,1.5vw,22px) + 6px)!important;padding-right:calc(clamp(12px,1.5vw,22px) + 6px)!important}}
 @media (max-width:700px){html.borne[data-prog] .b-bezelfoot{padding-left:6px!important;padding-right:6px!important;column-gap:8px!important}}
 
 /* mode jeu : l'écran maximal ; zéro cadre autour de l'image, le meuble se réduit à ses bords et au pied de l'écran */
-html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]):not([data-big=tate]):not(.b-immersion) .b-bezel .b-screen{border-width:0!important;border-image:none!important;border-radius:6px!important}
+html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]):not(.b-immersion) .b-bezel .b-screen{border-width:0!important;border-image:none!important;border-radius:6px!important}
 @media (min-width:701px){
   html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]):not([data-big=tate]){--gw:calc(100vw - var(--pgx,96px))!important;--gh:calc(100dvh - var(--pgy,138px))!important}}
 @media (max-width:700px){
@@ -177,6 +145,30 @@ html.borne[data-prog] .wrap>section{width:100%!important;max-width:100%!importan
 
 /* la caméra : pendant l'approche et le recul, la fenêtre garde ses bords ; à l'échange, le meuble change d'état d'un seul coup */
 html.borne[data-cam],html.borne[data-cam] body{overflow:hidden!important}
-html.borne[data-cam=swap] *:not(.wrap):not(.b-roof),html.borne[data-cam=out] *:not(.wrap):not(.b-roof){transition:none!important}
+html.borne:is([data-cam=swap],[data-cam=out]) :is(.b-roof *,.bar,.bar *,.b-land,.b-butee,.b-bezel,.b-screen,.b-glass,.b-bezelfoot,.b-panel,.b-door){transition:none!important}
 html.borne[data-cam] :is(.wrap,.b-roof){will-change:transform}
 html.borne,html.borne body{overflow-anchor:none}
+/* 30 oct. — le jeu : la page ne bouge plus sous le jeu (Espace, flèches, molette restent au jeu) ; le meuble se réduit à l'écran et à sa rangée, sans bois, sans tranche peinte, sans cadre */
+html.borne[data-prog]:not(.b-immersion),html.borne[data-prog]:not(.b-immersion) body{overflow:hidden!important;height:100%!important;overscroll-behavior:none}
+html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .wrap{background:#0b0908!important;border-color:transparent!important;box-shadow:none!important;background-image:none!important}
+html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .wrap::before,html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .wrap::after{display:none!important}
+html.borne[data-prog] .b-edgeart{display:none!important}
+html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezel{background:none!important;box-shadow:none!important;border-color:transparent!important}
+html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezel::before,html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezel::after{display:none!important}
+/* FaunInvaders, écran redressé : toute la hauteur de la fenêtre, en 3:4, sans cadre */
+@media (min-width:701px){html.borne[data-skin][data-prog][data-big=tate]:not([data-mode=device]){--gh:calc(100dvh - 138px)!important;--gw:calc((100dvh - 138px) * .75)!important}}
+@media (max-width:700px){html.borne[data-skin][data-prog][data-big=tate]:not([data-mode=device]){--gw:min(calc(100vw - 40px),calc((100dvh - 174px) * .75))!important;--gh:min(calc(100dvh - 174px),calc((100vw - 40px) * 4 / 3))!important}}
+/* Korong!, la chambre du choix : l'image entière dans l'écran, à ses proportions, centrée ; les Masks restent à leur place sur l'image */
+html.borne[data-prog] #select .lobby{width:min(100%,calc((var(--gh) - 64px) * 512 / 382))!important;margin-inline:auto!important}
+html.borne[data-prog] #game .stage{margin-inline:auto!important}
+html.borne[data-prog] #game .hud{margin-inline:auto!important}
+/* téléphone : le haut-parleur, le titre du morceau, le son et PL sur une seule rangée sous l'enseigne ; l'écran remonte d'autant */
+@media (max-width:700px){
+  html.borne:not([data-mode=device]) .wrap .bar{grid-template-rows:auto auto!important}
+  html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type{height:52px!important;min-height:52px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 34px 34px!important;grid-template-rows:1fr!important;align-items:center!important;column-gap:6px!important;
+    padding:0 6px 0 54px!important;background-position:6px center!important;background-size:auto 40px!important;background-repeat:no-repeat!important}
+  html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type>*{grid-row:1!important;margin:0!important;align-self:center!important;position:relative!important;top:auto!important;bottom:auto!important;transform:none!important}
+  html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type #radio-toggle{grid-column:1!important;grid-row:1!important;width:auto!important;min-width:0!important}
+  html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type .b-bell{grid-column:2!important;grid-row:1!important}
+  html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type #export-pl{grid-column:3!important;grid-row:1!important}}
+html.borne[data-prog]:not(.b-immersion) :is(#home .b-panel,.b-door,.b-dekonect){visibility:hidden!important}

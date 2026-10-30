@@ -32,7 +32,21 @@
   var cur=null,busy=0;
   function fit(){busy=0;var p=panel();
     if(cur&&cur!==p){cur.style.transform='';cur.style.transformOrigin='';cur.classList.remove('b-fit');cur=null;}
-    if(!p)return;var old=p.style.transform;p.classList.add('b-fitting');p.style.transform='';var b=bounds(p);
+    if(!p)return;
+    /* un jeu plus haut que l'écran (pendu, MaskerMind, Sampler) : ses éléments se réduisent ensemble (zoom), le jeu tient entier, centré, sans défilement caché */
+    [].forEach.call(p.children,function(c){if(c.style.zoom)c.style.zoom='';});
+    var ps=getComputedStyle(p),pv=(parseFloat(ps.paddingTop)||0)+(parseFloat(ps.paddingBottom)||0);
+    /* la hauteur réelle du jeu : chaque élément compte pour ce qu'il montre, débordement compris */
+    function need(){var t=0,col=/column/.test(getComputedStyle(p).flexDirection)||getComputedStyle(p).display!=='flex';if(!col)return p.scrollHeight-pv;
+      [].forEach.call(p.children,function(c){var cs=getComputedStyle(c);if(cs.display==='none'||/fixed|absolute/.test(cs.position))return;var z=parseFloat(c.style.zoom)||1;
+        t+=Math.max(c.offsetHeight,c.scrollHeight)*z+((parseFloat(cs.marginTop)||0)+(parseFloat(cs.marginBottom)||0))*z;});
+      var g=parseFloat(getComputedStyle(p).rowGap)||0;return t+g*Math.max(0,p.children.length-1);}
+    var avail=p.clientHeight-pv,n0=need();
+    if(p.clientHeight>0&&n0>avail+4){p.style.transform='';p.classList.remove('b-fit');
+      var q=Math.max(.45,avail/n0);
+      for(var it=0;it<4;it++){[].forEach.call(p.children,function(c){c.style.zoom=q.toFixed(3);});var n1=need();if(n1<=avail+2||q<=.45)break;q=Math.max(.45,q*avail/n1);}
+      cur=p;return;}
+    var old=p.style.transform;p.classList.add('b-fitting');p.style.transform='';var b=bounds(p);
     function done(){void getComputedStyle(p).transform;p.classList.remove('b-fitting');}
     if(!b){p.style.transform=old;done();return;}
     var cw=b.r-b.l,ch=b.b-b.t,f=Math.min(MAXZ,(b.W*.94)/cw,(b.H*.92)/ch);
