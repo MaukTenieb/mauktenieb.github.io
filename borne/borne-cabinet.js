@@ -126,7 +126,7 @@
     s.setProperty('--i-cam','url('+pick(['camera-a.webp','camera-b.webp'])+')');var mt=pick(['manette-a.webp','manette-b.webp']);s.setProperty('--i-stick','url('+mt+')');s.setProperty('--stk-cut',mt==='manette-a.webp'?'50%':'76%');s.setProperty('--ball-cut',mt==='manette-a.webp'?'39.5%':'37.5%');})();
   var sw=el('div','b-knobw'),sb=el('button','b-knob b-skin');sb.type='button';sb.setAttribute('aria-label','Skin');sb.dataset.pos=SKINS.indexOf(skin);
   sw.appendChild(sb);sw.appendChild(el('span','b-knoblab','🧤'));knobs.appendChild(sw);
-  sb.onclick=function(){skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
+  sb.onclick=function(){try{window.__borneUsure&&window.__borneUsure(0);}catch(e){}skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
     try{IK().tone&&IK().tone(220,.05,'square',.03);IK().tone&&IK().tone(330,.05,'square',.03,0,.06);}catch(e){}
     scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');setTimeout(function(){if(skin==='1960')variants();root.dataset.skin=skin;},250);};
   /* VOL : la molette du volume de la machine (sons des jeux et de la mécanique) ; trois crans, 0, moyen, fort */
@@ -573,3 +573,16 @@
     b.addEventListener('click',function(){on=!on;try{window.__borneSon&&window.__borneSon.detent(2);}catch(_){}apply();});apply();}
   knob();
 })();
+
+/* vieillissement (décision de Mauk Tenieb, 30 oct. ; images Midjourney Retexture du 30 oct., 22 h 30) : la borne s'use avec les visites du visiteur,
+   comptées dans son navigateur ; 5 visites : usure légère, 20 : moyenne, 60 : forte ; le bouton SKIN remet la borne à neuf (compteur à zéro) ; le skin tiré au hasard à l'arrivée garde le compteur.
+   Le skin bois seul a ses images usées (panneau, flanc, porte) */
+(function(){var K='borne.usure',d=document.documentElement;
+  function get(){try{return JSON.parse(localStorage.getItem(K)||'{}')||{};}catch(e){return {};}}
+  function put(o){try{localStorage.setItem(K,JSON.stringify(o));}catch(e){}}
+  function show(n){var t=n>=60?3:n>=20?2:n>=5?1:0;if(t)d.dataset.usure=String(t);else delete d.dataset.usure;}
+  function apply(fresh){var o=get();
+    if(fresh){var s=null;try{s=sessionStorage.getItem(K);}catch(e){}if(!s){o.n=(o.n||0)+1;try{sessionStorage.setItem(K,'1');}catch(e){}}}
+    put(o);show(o.n||0);}
+  apply(true);
+  window.__borneUsure=function(n){var o=get();o.n=n;put(o);show(n);};})();

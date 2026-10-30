@@ -286,3 +286,15 @@ html.borne .gtip{text-transform:uppercase;letter-spacing:.04em}
 html.borne .b-date b,html.borne .b-date i{text-transform:uppercase}
 html.borne .vhs :is(select,option,ol,ul,li,input,.vhs-tracklist,.vhs-track,.vhs-local-list,.vhs-local-item,.vhs-osd-track,.vhs-message,.vhs-status,.vhs-ttx,.vhs-rec-hint,.vhs-tracklist button,.vhs-local-list button),html.borne .vhs input::placeholder{text-transform:uppercase!important}
 html.borne .b-copy{text-transform:uppercase;font-size:12px!important;letter-spacing:.06em}
+/* 30 oct., 22 h 30 — vieillissement du skin bois : trois paliers selon les visites (borne-cabinet.js, data-usure) ; images Midjourney Retexture de Mauk Tenieb */
+html.borne[data-skin=bois][data-usure="1"]{--pan:url(skin-bois-panneau-u1.webp)}
+html.borne[data-skin=bois][data-usure="2"]{--pan:url(skin-bois-panneau-u2.webp)}
+html.borne[data-skin=bois][data-usure="3"]{--pan:url(skin-bois-panneau-u3.webp)}
+html.borne[data-skin=bois][data-usure="1"] .b-panel{background-image:url(skin-bois-panneau-u1.webp)!important}
+html.borne[data-skin=bois][data-usure="2"] .b-panel{background-image:url(skin-bois-panneau-u2.webp)!important}
+html.borne[data-skin=bois][data-usure="3"] .b-panel{background-image:url(skin-bois-panneau-u3.webp)!important}
+html.borne[data-skin=bois][data-usure="2"] .b-slot{background-image:url(skin-bois-porte-u2.webp)!important}
+html.borne[data-skin=bois][data-usure="3"] .b-slot{background-image:url(skin-bois-porte-u3.webp)!important}
+html.borne.borne[data-skin=bois][data-usure="1"]:is(:not([data-prog]),[data-mode=device],[data-habit=fauneye]) .wrap.wrap{background-image:url(skin-bois-flanc-long-u1.webp)!important}
+html.borne.borne[data-skin=bois][data-usure="2"]:is(:not([data-prog]),[data-mode=device],[data-habit=fauneye]) .wrap.wrap{background-image:url(skin-bois-flanc-long-u2.webp)!important}
+html.borne.borne[data-skin=bois][data-usure="3"]:is(:not([data-prog]),[data-mode=device],[data-habit=fauneye]) .wrap.wrap{background-image:url(skin-bois-flanc-long-u3.webp)!important}
