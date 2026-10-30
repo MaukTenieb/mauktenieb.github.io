@@ -170,7 +170,7 @@ k2 = once(k2, "const aw=st.clientWidth-(mob?4:20), ah=mob?innerHeight*.62:Math.m
   "const inF=window.top!==window, aw=inF?st.clientWidth:st.clientWidth-(mob?4:20), ah=inF?Math.max(160,st.clientHeight):(mob?innerHeight*.62:Math.max(240,st.clientHeight-20));\n  let k=Math.min(aw/W,ah/H); if(k>=1&&!inF) k=Math.floor(k*4)/4; view.style.imageRendering=k<1?'auto':'';")
 wr("skoporhogo-borne.html", k2)
 # FotoFauna : le logo déclenche, caméra avant ou arrière, pile et pellicule (borne-fotofauna.js, borne-fotofauna.css)
-cap("fotofauna.html", 'getUserMedia({video:{facingMode:"user",width:{ideal:1280}},audio:false})', 'getUserMedia({video:{facingMode:(window.__ffFacing||"user"),width:{ideal:1280}},audio:false})')
+cap("fotofauna.html", 'getUserMedia({video:{facingMode:"user",width:{ideal:1280}},audio:false})', 'getUserMedia({video:{facingMode:(window.__ffFacing||"environment"),width:{ideal:1280}},audio:false})')  # caméra arrière par défaut
 cap("fotofauna.html", "let img=vframe(src,!!CAM,VSIDE);", "let img=vframe(src,!!CAM&&window.__ffMirror!==false,VSIDE);")
 cap("fotofauna.html", "</head>", '<link rel="stylesheet" href="borne-fotofauna.css">\n</head>')
 t = rd("fotofauna.html")

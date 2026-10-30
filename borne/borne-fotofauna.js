@@ -9,7 +9,8 @@
   var L=fr?{one:'Une',stack:'Superposer',roll:'Pellicule',flip:'Caméra avant ou arrière',done:'Terminer la pile',trig:'Déclencher'}
           :{one:'One',stack:'Stack',roll:'Roll',flip:'Front or back camera',done:'Finish the stack',trig:'Shutter'};
   var get=function(k,d){try{var v=localStorage.getItem(k);return v===null?d:v;}catch(e){return d;}},set=function(k,v){try{localStorage.setItem(k,v);}catch(e){}};
-  window.__ffFacing=get('borne.ff.facing','user');window.__ffMirror=window.__ffFacing==='user';
+  /* par défaut, la caméra arrière (générale) ; le dernier choix du visiteur est gardé */
+  window.__ffFacing=get('borne.ff.facing2','environment');window.__ffMirror=window.__ffFacing==='user';
   var MODE=get('borne.ff.mode','one'),MAX=99,ACC=null,N=0,ROLL=[];
   var row=$('shutterRow'),stage=$('stage');if(!row||!stage||typeof shoot!=='function')return;
 
@@ -26,7 +27,7 @@
   [['one',L.one],['stack',L.stack],['roll',L.roll]].forEach(function(m){var b=document.createElement('button');b.type='button';b.dataset.ff=m[0];b.textContent=m[1];
     b.onclick=function(){if(MODE==='stack'&&N&&m[0]!=='stack')finish();MODE=m[0];set('borne.ff.mode',MODE);paint();};modes.appendChild(b);});
   var flip=document.createElement('button');flip.type='button';flip.className='key ff-flip';flip.setAttribute('aria-label',L.flip);flip.title=L.flip;flip.textContent='⇄';
-  flip.onclick=function(){window.__ffFacing=window.__ffFacing==='user'?'environment':'user';window.__ffMirror=window.__ffFacing==='user';set('borne.ff.facing',window.__ffFacing);
+  flip.onclick=function(){window.__ffFacing=window.__ffFacing==='user'?'environment':'user';window.__ffMirror=window.__ffFacing==='user';set('borne.ff.facing2',window.__ffFacing);
     if(CAM){if(MODE==='stack'&&N)return;stopCam();$('bShoot').click();}paint();};
   var done=document.createElement('button');done.type='button';done.className='key ff-done';done.setAttribute('aria-label',L.done);done.title=L.done;done.innerHTML='✓ <b></b>';done.hidden=true;
   done.onclick=function(){finish();};

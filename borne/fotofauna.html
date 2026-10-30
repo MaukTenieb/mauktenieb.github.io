@@ -12254,7 +12254,7 @@ let qT=0;$("q").addEventListener("input",e=>{clearTimeout(qT);qT=setTimeout(()=>
 
 /* ---------- caméra : viseur en direct sur la grande scène, déclencheur rond ---------- */
 let CAM=null;
-$("bShoot").onclick=async()=>{if(CAM){shutterPress();return}endSession();closeVideo();try{const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:(window.__ffFacing||"user"),width:{ideal:1280}},audio:false});const v=$("cam");v.srcObject=st;await v.play();CAM={st,v,run:1};
+$("bShoot").onclick=async()=>{if(CAM){shutterPress();return}endSession();closeVideo();try{const st=await navigator.mediaDevices.getUserMedia({video:{facingMode:(window.__ffFacing||"environment"),width:{ideal:1280}},audio:false});const v=$("cam");v.srcObject=st;await v.play();CAM={st,v,run:1};
   $("stageWrap").classList.add("live");$("shutterRow").hidden=false;$("bShoot").querySelector("span").textContent=t("shutter");VSIDE=VMAX;VFT=0;STN="";setPvMode(PVMODE);setLabel();fit();vloop()}catch(e){CAM=null;$("fShoot").click()}};
 function stopCam(){if(!CAM)return;if(REC)recStop(true);if(MIC){MIC.getTracks().forEach(x=>x.stop());MIC=null}VLOOP.tok++;STN="";CAM.run=0;CAM.st.getTracks().forEach(t=>t.stop());CAM=null;$("stageWrap").classList.remove("live");$("shutterRow").hidden=true;$("bShoot").querySelector("span").textContent=t("shoot");setLabel();fit()}
 async function shoot(){if(!CAM)return;const v=CAM.v,c=FF.util.canvas(v.videoWidth,v.videoHeight),g=c.getContext("2d");g.translate(c.width,0);g.scale(-1,1);g.drawImage(v,0,0);const fx=$("flashFx");fx.hidden=false;fx.style.opacity=1;setTimeout(()=>{fx.style.opacity=0;setTimeout(()=>fx.hidden=true,300)},60);
