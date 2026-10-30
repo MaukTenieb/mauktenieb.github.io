@@ -153,7 +153,11 @@
   var LABEL={minitel:'3615',vhs:'VHS',photo:'FOTOFAUNA',fauneye:'FAUNEYE',korong:'KORONG!',arcade:'',repos:''};
   var morphT=0;
   function relayout(){try{window.dispatchEvent(new Event('resize'));}catch(e){}try{var f=$('cf');if(f&&f.contentWindow)f.contentWindow.dispatchEvent(new Event('resize'));}catch(e){}}
-  function dress(h,device){var mode=device?'device':'arcade',change=root.dataset.habit!==h||root.dataset.mode!==mode;
+  /* la caméra : en lançant un jeu, on s'approche de l'écran ; en revenant à l'accueil, on recule (borne-arcade.js, __borneCam) */
+  function dress(h,device){var C=window.__borneCam;
+    if(C&&C.ok()&&root.dataset.prog&&h==='repos'){var g=C.rect();C.swap(function(){delete root.dataset.big;dress0(h,device);});Promise.resolve().then(function(){try{window.__borneFit&&window.__borneFit();}catch(e){}C.zoomOut(g);});return;}
+    if(C)C.stop();dress0(h,device);}
+  function dress0(h,device){var mode=device?'device':'arcade',change=root.dataset.habit!==h||root.dataset.mode!==mode;
     if(change&&!matchMedia('(prefers-reduced-motion:reduce)').matches){scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');
       clearTimeout(morphT);morphT=setTimeout(function(){scr.classList.remove('b-morph');},1000);}
     root.dataset.habit=h;root.dataset.mode=mode;if(h==='repos')delete root.dataset.prog;else{root.dataset.prog='1';[60,700].forEach(function(t){setTimeout(function(){scrollTo({top:0,behavior:t>100?'smooth':'auto'});},t);});}hab.classList.remove('tilt');hab.textContent=LABEL[h]||'';
@@ -167,7 +171,10 @@
     return {puck:'wide',chess:'wide',faunarratics:'wide'}[k]||'';}
   function setBig(v){if(v)root.dataset.big=v;else delete root.dataset.big;
     setTimeout(relayout,820);}
-  window.__borneGo=function(k){setBig(bigOf(k));CUR=k==='katabatik'?(function(){var d=document.querySelector('.cab.dice b'),f=d?DICE.indexOf(d.dataset.d):0;return KATA[f]||'c4';})():k;paintDots();
+  var CAMGO=0;
+  window.__borneGo=function(k){var C=window.__borneCam;
+    if(!CAMGO&&C&&C.ok()&&root.dataset.habit==='repos'&&!root.dataset.prog&&k!=='visit'){C.zoomIn(function(){CAMGO=1;try{IK().go(k);}finally{CAMGO=0;}});return true;}
+    setBig(bigOf(k));CUR=k==='katabatik'?(function(){var d=document.querySelector('.cab.dice b'),f=d?DICE.indexOf(d.dataset.d):0;return KATA[f]||'c4';})():k;paintDots();
     if(k==='fauneye'){IK().ac&&IK().ac();dress('fauneye');mark(k);IK().openCalque('borne-fauneye.html','FAUNEYE');return true;}
     if(k==='skopo'){dress('arcade');mark(k);IK().openCalque('skoporhogo-borne.html','SkopoRhogo');return true;}
     if(k==='visit'){full('/katabase/','BURROWS');return true;}

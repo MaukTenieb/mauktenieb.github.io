@@ -16,6 +16,7 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 ## Deux états
 - La borne au repos (accueil) : le meuble entier et ses décors, vitre imprimée, enseigne, bandeau Burrows, plante, caméra, aimant ; les psychopompes la font visiter.
 - Le jeu (chaque programme) : l'écran seul, à la taille maximale de la fenêtre, sans cadre ni décor ; dessous, une rangée : Koins, son, PL, Kapture, Immersion, Baku Boom. Burrows reste à l'accueil.
+- Le passage : lancer un jeu rapproche la caméra de la borne jusqu'à ce que l'écran remplisse la fenêtre, en une demi-seconde ; Baku Boom fait le tilt, le tube s'éteint, puis la caméra recule de l'écran plein cadre jusqu'à la borne entière.
 - Panneau : BC, TL, IG en rangée de départ ; la manette au milieu, entre quatre touches-pavés lumineuses, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (BakuBook, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; la plaque émaillée Mauk Tenieb sur le bord avant, qui ouvre https://github.com/mauktenieb.
 - Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les molettes 🧤 (skin bois ou métal), 🎶 (tout le son) et FR · EN, sur leur plaque à droite de la porte ; l'aimant Dekonect en bas à droite ; tout en bas, le copyright.
 
