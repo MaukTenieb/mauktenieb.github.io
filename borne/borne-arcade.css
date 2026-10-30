@@ -247,3 +247,4 @@ html.borne #m-board .card.kcur,html.borne #chess-board .sq.kcur{outline:3px soli
 @media (max-width:700px){
   html.borne[data-skin][data-prog][data-big=tate]:not([data-mode=device]) .b-bezel .b-screen{margin-top:max(0px,calc((100dvh - 174px - var(--gh)) / 2))!important}
 }
+@media (max-width:700px){html.borne .wrap .bar .dock #export-pl{font-size:12px!important}}
