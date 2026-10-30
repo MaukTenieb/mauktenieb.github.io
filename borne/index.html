@@ -1693,12 +1693,12 @@ let koins=3,freeAt=0;try{const k=localStorage.getItem('ik.koins');if(k!==null)ko
 function kfmt(n){return n<1e5?String(n):n<1e8?Math.floor(n/1e3)+'K':n<1e11?Math.floor(n/1e6)+'M':Math.floor(n/1e9)+'G';}
 function saveKoins(){try{localStorage.setItem('ik.koins',koins);localStorage.setItem('ik.freeAt',freeAt);}catch(e){}$('kn').textContent=kfmt(koins);$('koins').title=koins+(Math.random()<.5?' Koins':' Kinos');}
 function koinFx(){const k=$('koins');k.classList.remove('pay');void k.offsetWidth;k.classList.add('pay');}
-function pay(){if(koins<1){if(!freeAt)freeAt=Date.now()+30000;saveKoins();return false;}koins--;saveKoins();koinFx();if(typeof koinOut==='function')koinOut();ac();tone(988,.06,'square',.05);tone(1319,.12,'square',.05,0,.07);return true;}
+function pay(){if(koins<1){if(!freeAt)freeAt=Date.now()+60000;saveKoins();return false;}koins--;saveKoins();koinFx();if(typeof koinOut==='function')koinOut();ac();tone(988,.06,'square',.05);tone(1319,.12,'square',.05,0,.07);return true;}
 /* any win, in any game, brings exactly one Koin — the rule the 3615 KOINS screen gives ("+1 when you win in a game") */
 function earn(){const b=koins;koins=Math.min(99,koins+1);const n=koins-b;saveKoins();koinFx();if(typeof koinDrop==='function')koinDrop(n);const f=document.createElement('span');f.className='kgain';f.textContent='+1';$('koins').appendChild(f);setTimeout(()=>f.remove(),1400);for(let i=0;i<Math.min(n,6);i++)tone(1319+i*120,.08,'square',.04,0,i*.09);}
-setInterval(()=>{if(koins>99){koins=99;saveKoins();}if(koins<1&&!freeAt){freeAt=Date.now()+30000;saveKoins();}if(koins<1&&freeAt&&Date.now()>=freeAt){koins=1;freeAt=0;saveKoins();koinFx();}
+setInterval(()=>{if(koins>99){koins=99;saveKoins();}if(koins<1&&!freeAt){freeAt=Date.now()+60000;saveKoins();}if(koins<1&&freeAt&&Date.now()>=freeAt){koins=1;freeAt=0;saveKoins();koinFx();}
   if(koins<1&&freeAt)$('kn').textContent='0 · '+Math.max(0,Math.ceil((freeAt-Date.now())/1000))+'s';
-  const p=$('pick');if(p&&!$('select').hidden){p.textContent=koins<1?tr('nokoin')+Math.max(0,Math.ceil(((freeAt||Date.now()+30000)-Date.now())/1000))+'s':tr('pick');}},500);
+  const p=$('pick');if(p&&!$('select').hidden){p.textContent=koins<1?tr('nokoin')+Math.max(0,Math.ceil(((freeAt||Date.now()+60000)-Date.now())/1000))+'s':tr('pick');}},500);
 saveKoins();
 
 /* ---- Navigation ---- */

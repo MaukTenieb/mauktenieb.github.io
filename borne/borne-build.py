@@ -52,7 +52,7 @@ for mid, box in B.items():
     pat = re.compile(r'("id": "' + mid + r'"(?:(?!"id": ).)*?"box": )\[[0-9, ]+\]', re.S)
     s, n = pat.subn(lambda m: m.group(1) + json.dumps(box), s, count=1)
     assert n == 1, mid
-# Koins : 99 au plus ; à zéro, le décompte de la Koin gratuite part tout de suite (30 s), sans attendre un refus
+# Koins : 99 au plus ; à zéro, le décompte de la Koin gratuite part tout de suite (60 s, plus bas), sans attendre un refus
 s = once(s, "if(k!==null)koins=+k;freeAt=", "if(k!==null)koins=Math.min(99,+k);freeAt=")
 s = once(s, "koins=Math.min(Number.MAX_SAFE_INTEGER,koins+1)", "koins=Math.min(99,koins+1)")
 s = once(s, "setInterval(()=>{if(koins<1&&freeAt&&Date.now()>=freeAt)", "setInterval(()=>{if(koins>99){koins=99;saveKoins();}if(koins<1&&!freeAt){freeAt=Date.now()+30000;saveKoins();}if(koins<1&&freeAt&&Date.now()>=freeAt)")
@@ -79,6 +79,10 @@ wr("index.html", s)
 
 # la visite des psychopompes s'arrête quand un programme s'ouvre (borne-cabinet.js appelle __borneTourStop)
 s = once(s, "async function tour(resume){if(touring)return;", "window.__borneTourStop=function(){clearTimeout(g._tourT);stop();};async function tour(resume){if(touring)return;")
+# Koin gratuite à zéro : au bout de 60 s (Mauk Tenieb, 30 oct.)
+s = once(s, "function pay(){if(koins<1){if(!freeAt)freeAt=Date.now()+30000;", "function pay(){if(koins<1){if(!freeAt)freeAt=Date.now()+60000;")
+s = once(s, "if(koins<1&&!freeAt){freeAt=Date.now()+30000;saveKoins();}", "if(koins<1&&!freeAt){freeAt=Date.now()+60000;saveKoins();}")
+s = once(s, "((freeAt||Date.now()+30000)-Date.now())", "((freeAt||Date.now()+60000)-Date.now())")
 wr("index.html", s)
 k = rd("skoporhogo.html")
 k = once(k, "window.__room={step:stepSim,", "window.__room={SPEEDS,VIEW,applyView,zoomAt,step:stepSim,")
