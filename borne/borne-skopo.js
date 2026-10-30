@@ -31,7 +31,7 @@
       var d=R.tMin-target();if(d>.5)R.tMin=target();else if(d<-.5)catchUp(target());},5000);
     /* chaque bouton dit ce qu'il fait (S12) */
     [].forEach.call(document.querySelectorAll('#speeds button'),function(b,i){var t=i===0?'PAUSE':b.textContent+(i===1?' · DIRECT':'');b.title=t;b.setAttribute('aria-label',t);});
-    if(attract){if(R.VIEW&&R.applyView){R.VIEW.z=1.25;R.applyView();}
+    if(attract){if(R.VIEW&&R.applyView){R.VIEW.z=innerWidth<400?1.25:1;R.applyView();/* la chambre entière dans l’écran, la date sur le noir (S13) ; au téléphone, les Masks gardent leur taille */}
       var zm=document.getElementById('zoom');if(zm)document.body.appendChild(zm);
       var cd=document.getElementById('card');if(cd)document.body.appendChild(cd);
       var op=document.createElement('button');op.className='b-open';op.type='button';op.textContent='⤢';op.setAttribute('aria-label','SkopoRhogo');

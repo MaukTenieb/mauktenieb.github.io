@@ -94,3 +94,10 @@ html.b-charte[data-ch=skopo] .row .nm{grid-column:2/4;grid-row:1}
 html.b-charte[data-ch=skopo] .row .vb{grid-column:2;grid-row:2;white-space:normal!important;overflow:visible!important;line-height:1.25}
 html.b-charte[data-ch=skopo] .row .rm{padding:0 3px!important;align-self:start}
 html.b-charte[data-ch=skopo] .row .rm{grid-column:3;grid-row:2}
+/* grand écran (audit UI de SkopoRhogo, S6) : la liste, la fiche et la barre grandissent avec l'écran */
+@media (min-width:1600px) and (min-height:860px){
+  html.b-charte[data-ch=skopo] aside{width:420px}
+  html.b-charte[data-ch=skopo] aside *,html.b-charte[data-ch=skopo] header button,html.b-charte[data-ch=skopo] #skclock{font-size:15px!important}
+  html.b-charte[data-ch=skopo] .row .vb,html.b-charte[data-ch=skopo] .row .rm{font-size:13px!important}
+  html.b-charte[data-ch=skopo] #cname{font-size:32px!important}
+}
