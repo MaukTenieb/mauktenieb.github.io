@@ -233,3 +233,12 @@ html.borne #m-board .card.kcur,html.borne #chess-board .sq.kcur{outline:3px soli
   html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type #export-pl{grid-row:2!important;grid-column:3!important;margin:0 0 0 4px!important;justify-self:auto!important}
   html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type.b-narrow::after{inset:0!important;background-position:center!important;background-size:contain!important}
 }
+
+/* 30 oct. — fronton : l'afficheur du Motel Sound sur toute la largeur du pied du haut-parleur gauche ; son et PL au pied du droit (borne-arcade.js) */
+@media (min-width:701px){
+  html.borne.b-sonadroite:not([data-mode=device]) .wrap .bar .dock:first-of-type{grid-template-columns:minmax(0,1fr)!important}
+  html.borne.b-sonadroite:not([data-mode=device]) .wrap .bar .dock:first-of-type #radio-toggle{grid-column:1!important;border-radius:4px!important}
+  html.borne.b-sonadroite:not([data-mode=device]) .wrap .bar .dock:last-of-type{display:flex!important;align-items:flex-end!important;justify-content:center!important;gap:4px!important}
+  html.borne.b-sonadroite:not([data-mode=device]) .wrap .bar .dock:last-of-type .b-bell,html.borne.b-sonadroite:not([data-mode=device]) .wrap .bar .dock:last-of-type #export-pl{position:relative;z-index:1;margin:0!important;width:34px!important;height:30px!important;min-height:30px!important;padding:0!important;display:grid!important;place-items:center!important;box-sizing:border-box;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 40%),#141210!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:4px!important;box-shadow:0 2px 4px rgba(0,0,0,.6)!important;color:#d8cfbd!important;font-family:'DM Mono',monospace!important;font-size:12px!important;letter-spacing:.06em!important;text-shadow:none!important}
+}
