@@ -172,3 +172,4 @@ html.borne[data-prog] #game .hud{margin-inline:auto!important}
   html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type .b-bell{grid-column:2!important;grid-row:1!important}
   html.borne:not([data-mode=device]) .wrap .bar .dock:first-of-type #export-pl{grid-column:3!important;grid-row:1!important}}
 html.borne[data-prog]:not(.b-immersion) :is(#home .b-panel,.b-door,.b-dekonect){visibility:hidden!important}
+html.borne .b-sc{font-size:.76em;letter-spacing:inherit;vertical-align:baseline}
