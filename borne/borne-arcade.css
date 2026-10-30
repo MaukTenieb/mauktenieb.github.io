@@ -151,7 +151,7 @@ html.borne[data-cam] :is(.wrap,.b-roof){will-change:transform}
 html.borne,html.borne body{overflow-anchor:none}
 /* 30 oct. — le jeu : la page ne bouge plus sous le jeu (Espace, flèches, molette restent au jeu) ; le meuble se réduit à l'écran et à sa rangée, sans bois, sans tranche peinte, sans cadre */
 html.borne[data-prog]:not(.b-immersion),html.borne[data-prog]:not(.b-immersion) body{overflow:hidden!important;height:100%!important;overscroll-behavior:none}
-html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .wrap{background:#0b0908!important;border-color:transparent!important;box-shadow:none!important;background-image:none!important}
+html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .wrap{background:#0b0908!important;border-color:transparent!important;border-image:none!important;box-shadow:none!important;background-image:none!important}
 html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .wrap::before,html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .wrap::after{display:none!important}
 html.borne[data-prog] .b-edgeart{display:none!important}
 html.borne[data-prog]:not([data-mode=device]):not([data-habit=fauneye]) .b-bezel{background:none!important;box-shadow:none!important;border-color:transparent!important}
@@ -279,3 +279,5 @@ html.borne .b-pfx .b-px-son.on svg [fill]:not([fill=none]){fill:#1e0d04!importan
 html.borne .b-pfx .b-px-son::before{display:none!important}
 html.borne .b-bezelfoot .b-imm span{display:none!important}
 html.borne .b-bezelfoot .b-imm i{display:block!important;width:18px!important;height:18px!important;border:0!important;box-shadow:none!important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f6eedd' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5'/%3E%3C/svg%3E") center/contain no-repeat!important;filter:drop-shadow(0 1px 1px rgba(0,0,0,.8))}
+/* 30 oct., 20 h 33 — afficheur du Motel Sound : capitales lisibles à toute largeur (lettrage A, « très lisibles »), 12 px au lieu de 9 */
+html.borne .bar .dock:first-of-type #radio-toggle .motel-l,html.borne .bar .dock:first-of-type.b-narrow #radio-toggle .motel-l{font-size:12px!important;letter-spacing:.1em!important;line-height:16px!important;padding:0 6px!important}

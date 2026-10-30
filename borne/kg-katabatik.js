@@ -1531,7 +1531,7 @@ document.addEventListener('keydown',function(e){var p=document.getElementById('h
     ctx.save();if(S.shake>0){ctx.translate((Math.random()-.5)*S.shake,(Math.random()-.5)*S.shake);S.shake*=.85;if(S.shake<.5)S.shake=0;}
     var g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#07060a');g.addColorStop(.75,'#0c0907');g.addColorStop(1,'#2a1a0b');ctx.fillStyle=g;ctx.fillRect(-20,-20,W+40,H+40);
     ctx.textBaseline='top';ctx.font='14px "Press Start 2P",monospace';ctx.fillStyle='#e9e2d4';ctx.textAlign='left';ctx.fillText(('00000'+S.score).slice(-5),16,14);
-    ctx.textAlign='center';ctx.fillStyle='#8a8174';ctx.font='12px "DM Mono",monospace';ctx.fillText(T('wave')+' '+S.wave+'   '+T('best')+' '+('00000'+Math.max(best(),S.score)).slice(-5),W/2,20);
+    ctx.textAlign='center';ctx.fillStyle='#c9a84c';ctx.font='10px "Press Start 2P",monospace';ctx.fillText(T('wave')+' '+S.wave+'   '+T('best')+' '+('00000'+Math.max(best(),S.score)).slice(-5),W/2,20);
     for(var i=0;i<S.lives;i++)ship(W-24-i*26,26,.6,'#c9a84c');
     var fr2=S.beat%2;
     S.f.forEach(function(a){if(!a.alive)return;var p=pos(a),im=SPR[a.m.id];
