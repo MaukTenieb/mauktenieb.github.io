@@ -216,3 +216,11 @@ html.borne #m-board .card.kcur,html.borne #chess-board .sq.kcur{outline:3px soli
   html.borne[data-prog] .b-bezelfoot .b-imm span{display:none!important}
   html.borne[data-prog] .b-bezelfoot .b-imm{width:44px!important;min-width:0!important;padding:0!important;justify-content:center}
 }
+
+/* 30 oct. — en jeu, la rangée de commandes garde la même place dans tous les programmes : collée au bas de la fenêtre, même largeur (audit du 30 oct., défaut 5) */
+@media (min-width:701px) and (min-height:521px){
+  html.borne[data-prog]:not(.b-immersion) .b-bezelfoot{position:fixed!important;left:28px!important;right:28px!important;bottom:3px!important;top:auto!important;width:auto!important;margin:0!important;z-index:60}
+}
+@media (max-width:700px){
+  html.borne[data-prog]:not(.b-immersion) .b-bezelfoot{position:fixed!important;left:18px!important;right:18px!important;bottom:47px!important;top:auto!important;width:auto!important;margin:0!important;z-index:60}
+}
