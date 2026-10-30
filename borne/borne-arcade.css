@@ -206,3 +206,12 @@ html.borne .b-bezelfoot .b-boom{margin-right:14px!important}
 
 /* 30 oct. — curseur du clavier et de la manette dans Erratik et Fauna Chess */
 html.borne #m-board .card.kcur,html.borne #chess-board .sq.kcur{outline:3px solid #ffb54a!important;outline-offset:-3px;box-shadow:0 0 14px rgba(255,181,74,.55)!important;z-index:2}
+
+/* 30 oct. — téléphone couché, en jeu : l'écran prend la hauteur entière, à gauche de la colonne de commandes */
+@media (max-height:520px) and (orientation:landscape){
+  html.borne[data-prog]{--pgx:132px;--pgy:48px}
+  html.borne[data-prog][data-prog][data-mode=device]:not([data-habit=fauneye]){--gh:calc(100dvh - 48px)!important;--gw:calc(100vw - 132px)!important}
+  html.borne[data-skin][data-prog][data-prog][data-big=tate]:not([data-mode=device]){--gh:calc(100dvh - 48px)!important;--gw:calc((100dvh - 48px) * .75)!important}
+  html.borne[data-prog] .b-bezelfoot .b-imm span{display:none!important}
+  html.borne[data-prog] .b-bezelfoot .b-imm{width:44px!important;min-width:0!important;padding:0!important;justify-content:center}
+}

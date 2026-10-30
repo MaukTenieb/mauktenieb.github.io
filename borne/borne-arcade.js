@@ -113,7 +113,7 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   /* la place de l'écran sans les effets du tube (allumage, extinction) : la taille de la vitre, au centre de son cadre */
   function rect(){var g=glass();if(!g)return null;var S=(g.parentElement||g).getBoundingClientRect(),w=g.offsetWidth,h=g.offsetHeight,cx=S.left+S.width/2,cy=S.top+S.height/2;
     return {left:cx-w/2,top:cy-h/2,width:w,height:h}}
-  function target(){var w=innerWidth,h=innerHeight;return w>700?{x:48,y:35,w:w-96,h:h-138}:{x:20,y:31,w:w-40,h:h-174}}
+  function target(){var w=innerWidth,h=innerHeight;if(h<=520&&w>h)return {x:8,y:8,w:w-96,h:h-16};return w>700?{x:48,y:35,w:w-96,h:h-138}:{x:20,y:31,w:w-40,h:h-174}}
   /* la même prise de vue pour chaque pièce : l'écran A devient le cadre G */
   function shoot(A,G){var W=wrap().getBoundingClientRect(),s=Math.min(G.w/A.width,G.h/A.height),
       gx=G.x+G.w/2,gy=G.y+G.h/2,ax=A.left+A.width/2,ay=A.top+A.height/2,tx=gx-W.left-s*(ax-W.left),ty=gy-W.top-s*(ay-W.top);
