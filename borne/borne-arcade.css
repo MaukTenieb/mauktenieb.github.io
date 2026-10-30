@@ -242,3 +242,8 @@ html.borne #m-board .card.kcur,html.borne #chess-board .sq.kcur{outline:3px soli
   html.borne.b-sonadroite:not([data-mode=device]) .wrap .bar .dock:last-of-type .b-bell,html.borne.b-sonadroite:not([data-mode=device]) .wrap .bar .dock:last-of-type #export-pl{position:relative;z-index:1;margin:0!important;width:34px!important;height:30px!important;min-height:30px!important;padding:0!important;display:grid!important;place-items:center!important;box-sizing:border-box;
     background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 40%),#141210!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:4px!important;box-shadow:0 2px 4px rgba(0,0,0,.6)!important;color:#d8cfbd!important;font-family:'DM Mono',monospace!important;font-size:12px!important;letter-spacing:.06em!important;text-shadow:none!important}
 }
+
+/* 30 oct. — téléphone debout, jeu vertical (FaunInvaders) : l'écran se centre dans la hauteur libre au-dessus de la rangée de commandes */
+@media (max-width:700px){
+  html.borne[data-skin][data-prog][data-big=tate]:not([data-mode=device]) .b-bezel .b-screen{margin-top:max(0px,calc((100dvh - 174px - var(--gh)) / 2))!important}
+}
