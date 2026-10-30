@@ -1417,7 +1417,9 @@ document.addEventListener('keydown',function(e){var p=document.getElementById('h
   function fit(){if(!cv)return;var p=document.getElementById('fi-panel'),foot=p?p.querySelector('.kb-foot'):null,fh=foot?foot.offsetHeight+24:60;
     var d=Math.min(2,window.devicePixelRatio||1),s=Math.min((p.clientWidth-20)/W,(p.clientHeight-fh-20)/H);s=Math.max(.3,s);
     cv.style.width=Math.round(W*s)+'px';cv.style.height=Math.round(H*s)+'px';cv.width=Math.round(W*s*d);cv.height=Math.round(H*s*d);ctx.setTransform(cv.width/W,0,0,cv.height/H,0,0);}
-  function newGame(){S={mode:'play',score:0,lives:3,wave:0,inv:0,shot:null,bombs:[],embers:[],puddles:[],parts:[],tags:[],p:{x:W/2},beat:0,beatT:0,dir:1,shake:0,endT:0};nextWave();}
+  function newGame(){S={mode:'play',score:0,lives:3,wave:0,inv:0,shot:null,bombs:[],embers:[],puddles:[],parts:[],tags:[],p:{x:W/2},beat:0,beatT:0,dir:1,shake:0,endT:0};nextWave();
+    /* Space Invaders (1978) : une base de plus à 1 500 points, soit une vague et demie de son barème ; ici, la même part de notre barème */
+    S.bonusAt=Math.round(S.f.reduce(function(t,a){return t+10*(a.m.lv+1);},0)*1500/990);S.bonusGiven=false;}
   function nextWave(){S.wave++;S.bombs=[];S.shot=null;S.dir=1;S.beat=0;S.beatT=0;S.f=[];
     for(var r=0;r<ROWS;r++)for(var c=0;c<COLS;c++){var m=MASKS[(ROWS-1-r)*COLS+c];S.f.push({m:m,r:r,c:c,hp:m.sig==='rhythm'?3:(m.sig==='armour'||m.CON>=9)?2:1,alive:true,hit:0});}
     S.ox=(W-COLS*CW)/2+4;S.oy=86+Math.min(5,S.wave-1)*16;S.bunk=[0,1,2,3].map(function(i){return barrel(52+i*(W-104)/3);});}
@@ -1427,7 +1429,7 @@ document.addEventListener('keydown',function(e){var p=document.getElementById('h
   function erode(x,y,r){S.bunk.forEach(function(b){for(var i=b.length-1;i>=0;i--){var c=b[i];if((c.x+1.5-x)*(c.x+1.5-x)+(c.y+1.5-y)*(c.y+1.5-y)<r*r)b.splice(i,1);}});}
   function bunkHit(x,y,w){for(var j=0;j<S.bunk.length;j++){var b=S.bunk[j];for(var i=0;i<b.length;i++){var c=b[i];if(x+w/2>c.x&&x-w/2<c.x+3&&y>c.y&&y<c.y+3)return true;}}return false;}
   function isFront(a,live){return !live.some(function(b){return b!==a&&b.c===a.c&&b.r>a.r;});}
-  function drop(a){var m=a.m,p=pos(a),x=p.x,y=p.y,px=S.p.x,sp=1.7+m.STR*.11+S.wave*.08;
+  function drop(a){var m=a.m,p=pos(a),x=p.x,y=p.y,px=S.p.x,sp=(1.7+m.STR*.11+S.wave*.08)*(S.f.filter(function(q){return q.alive;}).length<=3?1.25:1); /* Space Invaders : les derniers envahisseurs tirent 25 % plus vite */
     function B(o){var b={x:x,y:y+18,vx:0,vy:sp,m:m,w:5,h:12,t:0,r:9};for(var k in o)b[k]=o[k];S.bombs.push(b);}
     function aim(acc){var t=(PY-y)/sp,err=(11-acc)*14*(Math.random()-.5);return(px+err-x)/t;}
     if(KAR)switch(m.id){
@@ -1499,7 +1501,7 @@ document.addEventListener('keydown',function(e){var p=document.getElementById('h
       if(s.y<40)S.shot=null;
       else if(bunkHit(s.x,s.y,2)){erode(s.x,s.y,5);S.shot=null;}
       else for(var j=0;j<A.length;j++){var a=A[j],p=pos(a);if(Math.abs(s.x-p.x)<SW/2-4&&Math.abs(s.y-p.y)<SH/2){S.shot=null;a.hp--;a.hit=8;
-          if(a.hp<=0){a.alive=false;if(KAR&&a.m.id==='aube'&&!a.reborn){a.reborn=true;a.dawn=240;}S.score+=10*(a.m.lv+1);burst(p.x,p.y,a.m.c,26);S.tags.push({x:p.x,y:p.y,s:a.m.name,c:a.m.c,t:60});tone(300,60,.25,'sawtooth',.05);}
+          if(a.hp<=0){a.alive=false;if(KAR&&a.m.id==='aube'&&!a.reborn){a.reborn=true;a.dawn=240;}S.score+=10*(a.m.lv+1);if(!S.bonusGiven&&S.score>=S.bonusAt){S.bonusGiven=true;S.lives++;tone(523,1047,.35,'square',.05);tone(784,1568,.35,'square',.04,.12);}burst(p.x,p.y,a.m.c,26);S.tags.push({x:p.x,y:p.y,s:a.m.name,c:a.m.c,t:60});tone(300,60,.25,'sawtooth',.05);}
           else{burst(p.x,p.y,'#e9e2d4',6);tone(500,300,.06,'square',.03);}break;}}
       for(var i=S.bombs.length-1;S.shot&&i>=0;i--){var b=S.bombs[i];if(Math.abs(b.x-S.shot.x)<b.w/2+2&&Math.abs(b.y-S.shot.y)<b.h){S.bombs.splice(i,1);burst(b.x,b.y,b.m.c,6);S.shot=null;}}}
     if(KAR)S.f.forEach(function(a){if(a.dawn>0&&--a.dawn===0){a.alive=true;a.hp=1;a.hit=16;var p=pos(a);burst(p.x,p.y,a.m.c,18);tone(660,990,.3,'triangle',.04);}});
