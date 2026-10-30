@@ -187,3 +187,19 @@ html.borne .b-bezelfoot .b-imm span,html.borne .b-row2 nav.menu a,html.borne .b-
 
 /* 30 oct. — la dynamite entière, en retrait du jonc latéral du meuble */
 html.borne .b-bezelfoot .b-boom{margin-right:14px!important}
+
+/* 30 oct. — téléphone, en jeu : toutes les commandes sur une seule rangée sous l'écran ; l'écran gagne la hauteur des deux rangées retirées */
+@media (max-width:700px){
+  html.borne[data-prog] .b-bezelfoot{flex-wrap:nowrap!important;gap:3px!important;justify-content:space-between!important;height:auto!important}
+  html.borne[data-prog] .b-pfx{order:0!important;width:auto!important;gap:2px!important}
+  html.borne[data-prog] .b-bezelfoot .b-online{display:none!important}
+  html.borne[data-prog] .b-bezelfoot .koins{padding-left:5px!important;padding-right:5px!important;min-width:0!important;width:auto!important;flex:none!important}
+  html.borne[data-prog] .b-bezelfoot #koins.b-credit::before{content:none!important;display:none!important}
+  html.borne[data-prog] .b-bezelfoot .b-boom{margin-right:0!important}
+}
+
+/* 30 oct. — téléphone : le tableau des Masks de Korong! se tient au milieu de l'écran, pas collé en haut sur un vide noir */
+@media (max-width:700px){
+  html.borne[data-prog] #select:not([hidden]){display:flex!important;flex-direction:column!important;min-height:100%}
+  html.borne[data-prog] #select:not([hidden]) .lobby{margin-top:auto!important;margin-bottom:auto!important}
+}
