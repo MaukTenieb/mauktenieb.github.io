@@ -53,7 +53,8 @@
     if(!(f>1.06)){p.classList.remove('b-fit');cur=p;done();return;}
     var cx=(b.l+b.r)/2,cy=(b.t+b.b)/2;
     p.style.transformOrigin=cx+'px '+cy+'px';p.style.transform='translate('+(b.W/2-cx)+'px,'+(b.H/2-cy)+'px) scale('+f.toFixed(3)+')';p.classList.add('b-fit');cur=p;done();}
-  function soon(){if(!busy)busy=setTimeout(fit,180);}
+  /* un jeu qui vient d'apparaître se met à la taille de l'écran tout de suite, sans montrer sa petite taille d'origine */
+  var seen=null;function soon(){if(busy)return;var p=panel();if(p&&p!==seen){seen=p;busy=requestAnimationFrame(fit);return;}busy=setTimeout(fit,180);}
   function hook(){var k=document.getElementById('kg-root');if(!k){setTimeout(hook,800);return;}
     new MutationObserver(function(m){for(var i=0;i<m.length;i++){if(m[i].target&&m[i].target.closest&&m[i].target.closest('.b-fit')&&m[i].type==='attributes'&&m[i].attributeName==='style'&&m[i].target.classList.contains('b-fit'))continue;soon();return;}})
       .observe(k,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','hidden']});

@@ -119,9 +119,15 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
     parts().forEach(function(e){var E=e===wrap()?W:e.getBoundingClientRect(),x=tx+(W.left-E.left)*(1-s),y=ty+(W.top-E.top)*(1-s);
       e.style.transformOrigin='0 0';e.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) scale('+s.toFixed(4)+')';});}
   function set(prop,v){parts().forEach(function(e){e.style[prop]=v;});}
+  /* le mouvement de caméra par Web Animations : il part tout de suite et se joue jusqu'au bout, même quand la page peine (rendu lent) */
+  var AN=[];function play(A,G,dir,dur,done){shoot(A,G);var tr=parts().map(function(e){return e.style.transform;});set('transition','none');set('transform','');
+    AN.forEach(function(a){try{a.cancel();}catch(_){}});AN=parts().map(function(e,i){var k=[{transform:'none'},{transform:tr[i]}];if(dir<0)k.reverse();
+      return e.animate(k,{duration:dur,easing:EASE,fill:'forwards'});});
+    var f=AN[0];if(!f){done();return;}var ok=0;function end(){if(ok)return;ok=1;done();}f.finished.then(end,end);setTimeout(end,dur*4+400);}
+  function unplay(){AN.forEach(function(a){try{a.cancel();}catch(_){}});AN=[];}
   function settle(){if(R.hasAttribute('data-prog'))return;var ft=document.querySelector('.b-bezelfoot');if(!ft)return;var fb=ft.getBoundingClientRect().bottom+scrollY;
     var top=fb>innerHeight+1?Math.ceil(fb-innerHeight+6):0;if(Math.abs(top-scrollY)>2)try{scrollTo({top:top,left:0,behavior:'smooth'});}catch(e){scrollTo(0,top);}}
-  function clear(){var wasOut=R.getAttribute('data-cam')==='out';if(wasOut)setTimeout(function(){try{window.__borneFit&&window.__borneFit();}catch(e){}settle();},120);
+  function clear(){unplay();var wasOut=R.getAttribute('data-cam')==='out';if(wasOut)setTimeout(function(){try{window.__borneFit&&window.__borneFit();}catch(e){}settle();},120);
     parts().forEach(function(e){e.style.transition='';e.style.transform='';e.style.transformOrigin='';e.style.opacity='';});R.removeAttribute('data-cam');busy=0}
   function stop(){if(!busy)return;clearTimeout(T);var f=busy;busy=0;clear();if(typeof f==='function')f();}
   window.__borneSettle=settle;
@@ -132,15 +138,15 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
     rect:function(){var r=rect();return r?{x:r.left,y:r.top,w:r.width,h:r.height}:target()},
     stop:stop,
     zoomIn:function(cb){if(typeof busy==='function'){var prev=busy;busy=function(){prev();cb();};return;}stop();var A=rect();if(!A||!A.width){cb();return;}
-      busy=cb;R.setAttribute('data-cam','in');set('transition','transform '+IN+'ms '+EASE);void wrap().offsetWidth;shoot(A,target());
-      var Z={w:0,h:0};T=setTimeout(function(){R.setAttribute('data-cam','swap');var f=busy;busy=0;var sc=Math.min(target().w/A.width,target().h/A.height);Z.w=A.width*sc;Z.h=A.height*sc;
+      busy=cb;R.setAttribute('data-cam','in');
+      var Z={w:0,h:0};play(A,target(),1,IN,function(){if(R.getAttribute('data-cam')!=='in')return;R.setAttribute('data-cam','swap');var f=busy;busy=0;var sc=Math.min(target().w/A.width,target().h/A.height);Z.w=A.width*sc;Z.h=A.height*sc;
         /* le meuble reprend sa taille avant l'ouverture du programme : chaque programme mesure son écran au repos */
-        set('transition','none');set('transform','');void wrap().offsetWidth;try{f();}catch(e){}
+        unplay();set('transition','none');set('transform','');void wrap().offsetWidth;try{f();}catch(e){}
         /* l'écran de jeu, plus large que le tube 4:3, s'ouvre depuis le cadre où la caméra s'est arrêtée */
         var g=glass();if(g&&R.hasAttribute('data-prog')){var B=g.getBoundingClientRect(),ix=Math.max(0,(B.width-Z.w)/2),iy=Math.max(0,(B.height-Z.h)/2);
           if(ix>2||iy>2){g.style.transition='none';g.style.clipPath='inset('+iy.toFixed(0)+'px '+ix.toFixed(0)+'px round 6px)';void g.offsetWidth;
             requestAnimationFrame(function(){g.style.transition='clip-path 280ms cubic-bezier(.3,.6,.2,1)';g.style.clipPath='inset(0px 0px round 6px)';setTimeout(function(){g.style.transition='';g.style.clipPath='';},320);});}}
-        requestAnimationFrame(function(){requestAnimationFrame(clear);});},IN+10);},
+        requestAnimationFrame(function(){requestAnimationFrame(clear);});});},
     swap:function(fn){stop();R.setAttribute('data-cam','swap');set('transition','none');fn();try{window.__borneFit&&window.__borneFit();}catch(e){}try{scrollTo({top:0,left:0,behavior:'instant'});}catch(e){scrollTo(0,0);}},
     /* le recul : le temps que l'accueil se remonte, l'écran reste noir comme un tube qui se rallume ; puis on part de l'écran plein cadre et on recule jusqu'à la borne entière */
     zoomOut:function(G){var w=wrap();if(!w){clear();return;}busy=1;w.classList.remove('b-shake');set('transition','none');set('opacity','0');
@@ -149,9 +155,7 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
         if(v===last){if(++n>=3)return cb();}else{n=0;last=v;}if(Date.now()-t0>1600)return cb();T=setTimeout(f,70);})();}
       T=setTimeout(function(){stable(go);},140);function go(){
         var A=rect();if(!A||!A.width){clear();return;}
-        shoot(A,G);void w.offsetWidth;set('opacity','');
-        requestAnimationFrame(function(){R.setAttribute('data-cam','out');set('transition','transform '+OUT+'ms '+EASE);set('transform','');
-          T=setTimeout(clear,OUT+20);});}}
+        set('opacity','');R.setAttribute('data-cam','out');play(A,G,-1,OUT,function(){unplay();clear();});}}
   };
 })();
 

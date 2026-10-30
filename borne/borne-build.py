@@ -131,6 +131,33 @@ for n in ("reporhogo.html", "tor.html"):
 cap("reporhogo.html", ' placeholder="Comma-separated URLs appear here."', '')
 # un programme Korhogo reste ouvert pendant les effets du tube et les mouvements de caméra (écran aplati un instant) : il se ferme après une seconde sans écran, au lieu de 300 ms
 cap("kg-loader.js", "if(++s.hidden>=2)endSession(name);  // hidden on two consecutive checks (~300 ms)", "if(++s.hidden>=7)endSession(name);  // hidden on seven consecutive checks (~1 s)")
+# 3615 sur téléphone : le texte suit la largeur de l'écran (40 colonnes), 11 px au moins ; une page plus longue que l'écran défile au doigt
+cap("3615-local.html", "document.documentElement.style.setProperty('--fs',Math.min(h*0.88/(24*1.3),w*0.86/(40*0.62)).toFixed(2)+'px')",
+    "document.documentElement.style.setProperty('--fs',(w<520?Math.max(11,Math.min(h*0.88/(15*1.3),w*0.86/(40*0.62))):Math.min(h*0.88/(24*1.3),w*0.86/(40*0.62))).toFixed(2)+'px')")
+cap("3615-local.html", ".out{margin-top:1.2em;white-space:pre-wrap;flex:1;min-height:0;overflow:hidden}",
+    ".out{margin-top:1.2em;white-space:pre-wrap;flex:1;min-height:0;overflow:hidden}@media (max-width:520px){.out{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}}")
+# Faunarratik : un toucher, un clic ou une touche pendant la présentation du Kerema passe aussitôt à la consigne ; les textes restent les mêmes
+cap("kg-faunarratics.js", """  setTimeout(function(){
+    if(p1) p1.classList.add('fadeout');
+    setTimeout(function(){
+      if(p1) p1.style.display='none';
+      if(p2){
+        p2.style.animation='';
+        p2.classList.add('visible');
+      }
+    },800);
+  },5400);
+}""", """  var done=false,t1,t2;
+  function next(){if(done)return;done=true;clearTimeout(t1);clearTimeout(t2);p1.style.display='none';p2.style.animation='';p2.classList.add('visible');off();}
+  function skip(e){if(p1.style.display==='none')return off();if(e&&e.type==='keydown'&&/^(Escape|Tab|Shift|Control|Alt|Meta)$/.test(e.key))return;
+    if(e){e.preventDefault();e.stopPropagation();}p1.classList.add('fadeout');t2=setTimeout(next,260);}
+  function off(){document.removeEventListener('pointerdown',skip,true);document.removeEventListener('keydown',skip,true);}
+  document.addEventListener('pointerdown',skip,true);document.addEventListener('keydown',skip,true);
+  t1=setTimeout(function(){
+    if(p1) p1.classList.add('fadeout');
+    t2=setTimeout(next,800);
+  },5400);
+}""")
 # SkopoRhogo : Échap désélectionne d'abord le Mask, sans quitter le programme
 k2 = rd("skoporhogo-borne.html")
 k2 = k2.replace("if(e.key==='Escape'&&selected>=0) select(selected);", "if(e.key==='Escape'&&selected>=0){ e.preventDefault(); select(selected); }")
