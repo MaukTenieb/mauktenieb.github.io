@@ -48,11 +48,12 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   else if(e.key==='Enter'&&document.querySelector('.b-panel .cab.b-sel')){e.preventDefault();window.__borneA();}});
 /* la Koin se paie au premier geste de jeu dans l'écran (toucher, clic, touche du clavier) ; zapper d'un écran-titre à l'autre reste gratuit */
 (function(){var pend=null,prog='';
-  window.__bornePayLater=function(pay){pend=pay;prog='';setTimeout(function(){prog=(window.__borneCur&&window.__borneCur())||'';},300);};
+  window.__bornePending=function(){return !!pend;};
+  window.__bornePayLater=function(pay){window.__bornePay=pay;pend=pay;prog='';setTimeout(function(){prog=(window.__borneCur&&window.__borneCur())||'';},300);};
   function hit(e){if(!pend)return;var cur=(window.__borneCur&&window.__borneCur())||'';if(prog&&cur!==prog){pend=null;return;}
     if(e.type==='keydown'&&/^(Escape|PageUp|PageDown|Tab|Shift|Control|Alt|Meta)$/.test(e.key))return;
     var g=document.querySelector('.b-glass');if(e.type==='pointerdown'&&!(g&&(g.contains(e.target)||e.target.tagName==='IFRAME')))return;
-    var p=pend;pend=null;try{p();}catch(_){}}
+    var p=pend;pend=null;window.__bornePaidAt=Date.now();try{p();}catch(_){}}
   document.addEventListener('pointerdown',hit,true);document.addEventListener('keydown',hit,true);
   setInterval(function(){if(!pend)return;var r=document.documentElement;if(!r.dataset.prog&&!r.hasAttribute('data-cam'))pend=null;else{var cur=(window.__borneCur&&window.__borneCur())||'';if(prog&&cur!==prog)pend=null;}},300);
   /* les gestes à l'intérieur des jeux en cadre comptent aussi */
@@ -163,3 +164,19 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
 addEventListener('keydown',function(e){var R=document.documentElement;if(!R.hasAttribute('data-prog')||R.classList.contains('b-immersion'))return;
   var t=e.target,tag=t&&t.tagName;if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT'||(t&&t.isContentEditable))return;
   if(/^(Space| |ArrowUp|ArrowDown|PageUp|PageDown|Home|End)$/.test(e.code||e.key)&&!e.defaultPrevented){if(e.code!=='PageUp'&&e.code!=='PageDown')e.preventDefault();}},false);
+
+/* rejouer coûte une Koin (Mauk Tenieb, 30 oct.) : une nouvelle partie lancée d'un geste, dans un programme déjà payé, paie à son tour ;
+   la première partie reste payée par le premier geste ; à zéro Koin, la partie attend le décompte du compteur */
+(function(){var gest=0;
+  function mark(){gest=Date.now();}
+  document.addEventListener('pointerdown',mark,true);document.addEventListener('keydown',mark,true);
+  setInterval(function(){document.querySelectorAll('.b-glass iframe').forEach(function(f){try{var d=f.contentDocument;if(d&&!d._brep){d._brep=1;d.addEventListener('pointerdown',mark,true);d.addEventListener('keydown',mark,true);}}catch(_){}});},1000);
+  window.__borneReplay=function(){var r=document.documentElement,P=window.__bornePay,now=Date.now();
+    if(!r.dataset.prog||!P)return true;                       /* hors jeu, ou programme gratuit */
+    if(window.__bornePending&&window.__bornePending())return true; /* la première partie attend encore son premier geste */
+    if(now-gest>800)return true;                              /* appel du programme lui-même (ouverture), sans geste */
+    if(now-(window.__bornePaidAt||0)<1500)return true;        /* ce geste vient de payer la première partie */
+    var ok=false;try{ok=P();}catch(_){ok=true;}if(ok)window.__bornePaidAt=now;return ok;};
+  function wrap(n){var f=window[n];if(typeof f!=='function'||f._brep)return false;var g=function(){if(!window.__borneReplay())return;return f.apply(this,arguments);};g._brep=1;window[n]=g;return true;}
+  var names=['hangNew','mmNew','mStart','mRestartSame','chStart','chRestart'],t=setInterval(function(){names=names.filter(function(n){return !wrap(n);});if(!names.length)clearInterval(t);},500);
+})();

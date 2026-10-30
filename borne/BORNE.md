@@ -13,6 +13,12 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 - Cadre : l'enseigne Burrows, éclairée, au-dessus de l'écran ; l'autocollant Lore collé de travers au coin ; sous l'écran, les Koins et la dynamite Baku Boom (le mot BAKU BOOM s'allume à l'activation) ; dans un programme, la manette en miroir.
 - Écran : la vitre imprimée l'entoure à l'accueil ; l'écran tient entier dans la fenêtre à l'arrivée, sur toute taille ; les Koins au pied de l'écran, avec le décompte de la Koin gratuite à zéro ; SkopoRhogo à la minute exacte de l'heure du visiteur ; FaunInvaders redresse l'écran à la verticale.
 
+## Koins
+- Départ à 3, plafond 99 ; une Koin par victoire, quel que soit le jeu ; une par connexion 3615 KOINS.
+- La première partie d'un programme se paie au premier geste dans l'écran ; zapper reste gratuit.
+- Rejouer dans un programme ouvert (autre mot, autre grille, autre niveau, nouvelle partie) coûte une Koin (borne-arcade.js, __borneReplay).
+- À zéro Koin, une Koin gratuite revient au bout de 60 s.
+
 ## Deux états
 - La borne au repos (accueil) : le meuble entier et ses décors, vitre imprimée, enseigne, bandeau Burrows, plante, caméra, aimant ; les psychopompes la font visiter.
 - Le jeu (chaque programme) : l'écran seul, à la taille maximale de la fenêtre, sans cadre ni décor ; dessous, une rangée : Koins, son, PL, Kapture, Immersion, Baku Boom. Burrows reste à l'accueil.

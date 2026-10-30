@@ -1554,7 +1554,7 @@ document.addEventListener('keydown',function(e){var p=document.getElementById('h
     ctx.restore();}
   function shown(){var p=document.getElementById('fi-panel');return p&&p.style.display!=='none'&&p.getClientRects().length>0;}
   function loop(now){if(!shown()){raf=0;return;}acc+=Math.min(100,now-last);last=now;while(acc>=1000/60){acc-=1000/60;tick();}draw();raf=requestAnimationFrame(loop);}
-  function start(){if(S.mode!=='play'&&Date.now()-S.endT>600){newGame();}}
+  function start(){if(S.mode!=='play'&&Date.now()-S.endT>600){if(S.mode!=='title'&&window.__borneReplay&&!window.__borneReplay())return;newGame();}}
   function bind(){
     document.addEventListener('keydown',function(e){if(!shown())return;K[e.code]=true;if(['Space','ArrowLeft','ArrowRight','ArrowUp'].indexOf(e.code)>=0)e.preventDefault();au();if(e.code==='Space'||e.code==='Enter')start();});
     document.addEventListener('keyup',function(e){K[e.code]=false;});
