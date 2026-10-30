@@ -5,8 +5,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BakuBook — Borne Insert Koin</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&amp;family=IM+Fell+English+SC&amp;family=EB+Garamond:ital@0;1&amp;family=Literata:ital,opsz@0,7..72;1,7..72&amp;family=Atkinson+Hyperlegible:ital@0;1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts-bakubook.css">
 <style>
 :root{--paper:#e9dfc8;--ink:#2e2213;--brass1:#f0d58c;--brass2:#b8892f;--wood:#3a2416;--dim:#6b5a3e}
 *{box-sizing:border-box}
@@ -165,7 +164,13 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
       num();keep();if(cur.pre&&i+1<cur.n)cur.pre(i+1);}).catch(function(){wait.textContent=T.err;});}
   function openPages(o){clear();cur=o;cur.i=saved[o.key]!=null?Math.min(saved[o.key],o.n-1):(o.start||0);side(o.au,o.ti,o.ed,o.srcName,o.href);stage.classList.add('pages');tools();showPage();
     if(o.text){$('mode').hidden=false;$('mode').textContent=T.txt;$('mode').onclick=function(){openText(o.text(),o);};}}
-  function openArticle(html,o){clear();var a=document.createElement('article');a.innerHTML=html;stage.insertBefore(a,wait);
+  // every book page passes here: parsed inert, then stripped of what runs code (scripts, frames, handlers, javascript: links)
+  function clean(html){var d=new DOMParser().parseFromString('<body>'+html,'text/html');
+    [].forEach.call(d.querySelectorAll('script,iframe,frame,frameset,object,embed,applet,link,meta,base,form,noscript,template'),function(x){x.remove();});
+    [].forEach.call(d.body.querySelectorAll('*'),function(x){for(var i=x.attributes.length-1;i>=0;i--){var n=x.attributes[i].name.toLowerCase(),v=x.attributes[i].value.replace(/[\s\u0000-\u001f]/g,'').toLowerCase();
+      if(n.indexOf('on')===0||n==='srcdoc'||n==='formaction'||(/^(href|src|xlink:href|action|poster|background|data)$/.test(n)&&(/^(javascript|vbscript):/.test(v)||(/^data:/.test(v)&&!/^data:image\/(png|jpe?g|gif|webp)/.test(v)))))x.removeAttribute(x.attributes[i].name);}});
+    return d.body.innerHTML;}
+  function openArticle(html,o){clear();var a=document.createElement('article');a.innerHTML=clean(html);stage.insertBefore(a,wait);
     cur={key:o.key,n:0,i:0,art:a,au:o.au,ti:o.ti};side(o.au,o.ti,o.ed,o.srcName,o.href);num();tools();
     try{var y=saved[o.key];if(y)setTimeout(function(){a.scrollTop=y;},60);}catch(e){}
     a.addEventListener('scroll',function(){num();saved[o.key]=a.scrollTop;try{localStorage.setItem('borne.fauneye',JSON.stringify(saved));}catch(e){}});
@@ -257,7 +262,7 @@ body[data-th=nuit] .side .au{color:#c9a46a}body[data-th=nuit] .side a{color:#e0b
     $('fsv').textContent=Math.round(TS.s);[].forEach.call(document.querySelectorAll('#fonts button'),function(b){b.setAttribute('aria-pressed',String(+b.dataset.f===TS.f));});
     [].forEach.call(document.querySelectorAll('[data-th]'),function(b){b.setAttribute('aria-pressed',String(b.dataset.th===TS.th));});
     if(cur&&cur.rend)epubType(cur.rend);}
-  var GF='https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital@0;1&family=Literata:ital@0;1&family=Atkinson+Hyperlegible:ital@0;1&display=swap';
+  var GF=new URL('fonts-bakubook.css',location.href).href;
   var THC={papier:['#e9dfc8','#2e2213'],sepia:['#f1e3c2','#3b2a14'],nuit:['#17120c','#e6dcc6']};
   function epubType(r){try{var c=THC[TS.th];r.themes.override('font-family',FONTS[TS.f][0]);r.themes.override('line-height',String(TS.l));r.themes.fontSize(TS.s+'px');
     r.themes.override('color',c[1]);r.themes.override('background',c[0]);}catch(e){}}
