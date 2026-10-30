@@ -263,3 +263,19 @@ html.borne .msg .big{font-size:clamp(16px,3.2vw,30px)!important}
 html.borne .over h2{font-size:clamp(22px,4.4vw,40px)!important}
 html.borne .count{font-size:clamp(26px,5vw,48px)!important}
 html.borne .champ .chT b{font-size:clamp(16px,3.2vw,28px)!important}
+
+/* 30 oct., réponse 3a de Mauk Tenieb : la rangée de commandes en jeu devient des boutons d'arcade ronds ; chapeau tiré de sa photo de bouton (bouton-tl.webp, gris au repos : bouton-gris.webp), pictogramme imprimé ; le son s'allume en orange ; jugé deux fois par une instance neuve */
+html.borne .b-pfx{gap:8px!important;align-items:center!important}
+html.borne .b-bezelfoot .b-pfx .b-px,html.borne .b-bezelfoot .b-imm{width:36px!important;height:36px!important;min-width:36px!important;max-width:36px!important;padding:0!important;border:0!important;border-radius:50%!important;box-shadow:0 2px 3px rgba(0,0,0,.6)!important;
+  background:url(bouton-gris.webp) center/contain no-repeat!important;display:grid!important;place-items:center!important;color:#f6eedd!important;font-family:"Bebas Neue",Impact,sans-serif!important;font-size:17px!important;letter-spacing:.06em!important;text-shadow:0 1px 2px rgba(0,0,0,.85)!important;transition:transform .08s}
+html.borne .b-pfx .b-px:active,html.borne .b-bezelfoot .b-imm:active{transform:translateY(1px) scale(.97)}
+html.borne .b-pfx .b-px svg{width:18px!important;height:18px!important;filter:drop-shadow(0 1px 1px rgba(0,0,0,.8))}
+html.borne .b-pfx .b-px-son svg .x{opacity:1}
+html.borne .b-pfx .b-px-son.on svg .x{opacity:0}
+html.borne .b-pfx .b-px-son.on{background-image:url(bouton-tl.webp)!important;color:#1e0d04!important;text-shadow:none!important;box-shadow:0 0 10px rgba(255,140,40,.7),0 2px 3px rgba(0,0,0,.6)!important}
+html.borne .b-pfx .b-px-son.on svg{filter:none!important}
+html.borne .b-pfx .b-px-son.on svg *{stroke:#1e0d04!important}
+html.borne .b-pfx .b-px-son.on svg [fill]:not([fill=none]){fill:#1e0d04!important}
+html.borne .b-pfx .b-px-son::before{display:none!important}
+html.borne .b-bezelfoot .b-imm span{display:none!important}
+html.borne .b-bezelfoot .b-imm i{display:block!important;width:18px!important;height:18px!important;border:0!important;box-shadow:none!important;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f6eedd' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5'/%3E%3C/svg%3E") center/contain no-repeat!important;filter:drop-shadow(0 1px 1px rgba(0,0,0,.8))}
