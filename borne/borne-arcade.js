@@ -195,3 +195,16 @@ addEventListener('keydown',function(e){var R=document.documentElement;if(!R.hasA
 (function(){var last='';setInterval(function(){var p=document.documentElement.dataset.prog||'';if(p===last)return;last=p;if(!p)return;
   var n=0;(function t(){var f=[].find.call(document.querySelectorAll('.b-glass iframe,#kg-root iframe'),function(x){return /\/3615\//.test(x.src)&&x.getClientRects().length;});
     if(f){try{f.focus();f.contentWindow.focus();}catch(e){}return;}if(++n<20)setTimeout(t,250);})();},400);})();
+
+/* 30 oct., 23 h 38 — la lumière de l'écran (Mauk Tenieb : « des couleurs, des choses vivantes, des électroluminescences intelligentes », « plutôt que mal éclairé ») :
+   la couleur moyenne de l'image affichée éclaire le tour de la vitre et le haut du panneau, comme un tube dans une salle sombre ; elle suit l'image.
+   Lumière seule (R4) : la matière reste celle des images. */
+(function(){var R=document.documentElement,cv=document.createElement('canvas');cv.width=cv.height=8;var cx=cv.getContext('2d',{willReadFrequently:true}),cur=[0,0,0];
+  function src(){var f=document.querySelector('.b-glass iframe');try{var d=f&&f.contentDocument;var c=d&&(d.querySelector('#view')||d.querySelector('canvas'));if(c&&c.width)return c;}catch(e){}
+    var k=document.querySelector('#kg-root canvas');return k&&k.width&&k.getClientRects().length?k:null;}
+  function tick(){if(document.hidden)return;var f0=document.querySelector('.b-glass iframe');try{var w=f0&&f0.contentWindow&&f0.contentWindow.__scr;if(w){mix(w[0],w[1],w[2]);return;}}catch(e){}var c=src();if(!c){R.style.setProperty('--scr-a','0');return;}
+    try{cx.drawImage(c,0,0,8,8);var p=cx.getImageData(0,0,8,8).data,r=0,g=0,b=0;for(var i=0;i<p.length;i+=4){r+=p[i];g+=p[i+1];b+=p[i+2];}mix(r/64,g/64,b/64);}catch(e){}}
+  function mix(r,g,b){cur=[cur[0]*.6+r*.4,cur[1]*.6+g*.4,cur[2]*.6+b*.4];var L=(cur[0]+cur[1]+cur[2])/765,mx=Math.max(1,cur[0],cur[1],cur[2]);/* la teinte de l'image, portée à pleine lumière ; l'intensité suit la luminosité */
+      R.style.setProperty('--scr',Math.round(cur[0]*255/mx)+','+Math.round(cur[1]*255/mx)+','+Math.round(cur[2]*255/mx));R.style.setProperty('--scr-a',Math.min(.75,.3+L*1.6).toFixed(3));}
+  setInterval(tick,450);
+  (function put(){var p=document.querySelector('#home .b-panel');if(!p){setTimeout(put,500);return;}if(p.querySelector('.b-scrlight'))return;var l=document.createElement('i');l.className='b-scrlight';l.setAttribute('aria-hidden','true');p.appendChild(l);})();})();

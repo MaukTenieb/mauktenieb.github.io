@@ -61,5 +61,9 @@
       var lang=h.querySelector('#lang');if(lang)h.insertBefore(k,lang);else h.appendChild(k);
       function tick(){var t='';try{var b=parent.document.querySelector('.b-date b');t=b?b.textContent:'';}catch(e){}k.textContent=t;}tick();setInterval(tick,1000);})();
   }
+  /* la couleur moyenne de l'image, lue juste après le rendu (le tampon WebGL s'efface ensuite) : la borne en éclaire le meuble */
+  (function(){var cv=document.createElement('canvas');cv.width=cv.height=8;var cx=cv.getContext('2d',{willReadFrequently:true}),last=0,RAF0=window.requestAnimationFrame;
+    function smp(){var v=document.getElementById('view');if(!v||!v.width)return;try{cx.drawImage(v,0,0,8,8);var p=cx.getImageData(0,0,8,8).data,r=0,g=0,b=0;for(var i=0;i<p.length;i+=4){r+=p[i];g+=p[i+1];b+=p[i+2];}window.__scr=[r/64,g/64,b/64];}catch(e){}}
+    window.requestAnimationFrame=function(cb){return RAF0(function(t){cb(t);if(t-last>450){last=t;smp();}});};})();
   if(document.readyState==='complete')init();else addEventListener('load',init);
 })();
