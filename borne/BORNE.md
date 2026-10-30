@@ -11,9 +11,13 @@ https://mauktenieb.github.io/borne/ range Insert Koin dans une borne d'arcade. L
 - Fronton : l'enseigne entre deux haut-parleurs ; Motel Sound joue dès l'arrivée, son coupé, une cloche barrée ouvre le son.
 - Écran d'attente : une des vingt-sept images de Mauk Tenieb (attente-01 à attente-27), au hasard, le temps que la borne se monte.
 - Cadre : l'enseigne Burrows, éclairée, au-dessus de l'écran ; l'autocollant Lore collé de travers au coin ; sous l'écran, les Koins et la dynamite Baku Boom (le mot BAKU BOOM s'allume à l'activation) ; dans un programme, la manette en miroir.
-- Écran : les Koins au pied de l'écran, avec le décompte de la Koin gratuite à zéro ; SkopoRhogo à la minute exacte de l'heure du visiteur ; chaque programme s'ouvre dedans, et le meuble se replie autour de l'écran, qui prend la hauteur de la fenêtre ; FaunInvaders redresse l'écran à la verticale.
+- Écran : la vitre imprimée l'entoure à l'accueil ; l'écran tient entier dans la fenêtre à l'arrivée, sur toute taille ; les Koins au pied de l'écran, avec le décompte de la Koin gratuite à zéro ; SkopoRhogo à la minute exacte de l'heure du visiteur ; FaunInvaders redresse l'écran à la verticale.
+
+## Deux états
+- La borne au repos (accueil) : le meuble entier et ses décors, vitre imprimée, enseigne, bandeau Burrows, plante, caméra, aimant ; les psychopompes la font visiter.
+- Le jeu (chaque programme) : l'écran seul, à la taille maximale de la fenêtre, sans cadre ni décor ; dessous, une rangée : Koins, son, PL, Kapture, Immersion, Baku Boom. Burrows reste à l'accueil.
 - Panneau : BC, TL, IG en rangée de départ ; la manette au milieu, entre quatre touches-pavés lumineuses, KORHOGAME (grands jeux d'un côté, Katabatik et son dé de l'autre), FAUNEYE (BakuBook, VHS, FotoFauna), 3615, SURFAUNA (Reporhogo, FaunaTor) ; la plaque émaillée Mauk Tenieb sur le bord avant, qui ouvre https://github.com/mauktenieb.
-- Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin), deux fentes 1 KOIN éclairées ; les molettes 🧤 (skin bois ou métal), 🎶 (tout le son) et FR · EN, sur leur plaque à droite de la porte ; l'aimant Dekonect en bas à droite ; tout en bas, le copyright.
+- Porte : la fente INSERT KOIN (décompte de la Koin gratuite à zéro Koin) ; les molettes 🧤 (skin bois ou métal), 🎶 (tout le son) et FR · EN, sur leur plaque à droite de la porte ; l'aimant Dekonect en bas à droite ; tout en bas, le copyright.
 
 ## Grammaire commune
 1. Toucher = agir.

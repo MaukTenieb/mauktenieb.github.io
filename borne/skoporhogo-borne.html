@@ -1402,8 +1402,8 @@ addEventListener('keydown',e=>{
 
 function fit(){
   const st=document.getElementById('stage'), mob=innerWidth<=900;
-  const aw=st.clientWidth-(mob?4:20), ah=mob?innerHeight*.62:Math.max(240,st.clientHeight-20);
-  let k=Math.min(aw/W,ah/H); if(k>=1) k=Math.floor(k*4)/4;
+  const inF=window.top!==window, aw=inF?st.clientWidth:st.clientWidth-(mob?4:20), ah=inF?Math.max(160,st.clientHeight):(mob?innerHeight*.62:Math.max(240,st.clientHeight-20));
+  let k=Math.min(aw/W,ah/H); if(k>=1&&!inF) k=Math.floor(k*4)/4; view.style.imageRendering=k<1?'auto':'';
   view.style.width=Math.round(W*k)+'px'; view.style.height=Math.round(H*k)+'px';
 }
 addEventListener('resize',fit); fit();

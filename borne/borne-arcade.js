@@ -66,21 +66,12 @@
     if(!w||!bar||!pan||!g){setTimeout(mount,600);return;}
     var m=document.createElement('div');m.className='b-mql';m.setAttribute('aria-hidden','true');w.appendChild(m);
     var s=document.createElement('div');s.className='b-spill';s.setAttribute('aria-hidden','true');pan.appendChild(s);
-    var b=document.createElement('div');b.className='b-burn';b.setAttribute('aria-hidden','true');b.textContent='INSERT KOIN';g.appendChild(b);
     function place(){var W=w.getBoundingClientRect(),B=bar.getBoundingClientRect(),L=document.querySelector('.b-land'),Lr=L?L.getBoundingClientRect():B;
       m.style.top=(B.top-W.top-10)+'px';m.style.height=(Math.max(B.bottom,Lr.bottom)-B.top+60)+'px';}
     place();addEventListener('resize',place);setInterval(place,2000);
     var INK={korong:'255,170,90',minitel:'120,240,150',vhs:'200,220,255',photo:'255,220,170',fauneye:'255,214,150',repos:'255,176,110',arcade:'255,190,120'};
     setInterval(function(){var h=root.dataset.habit||'repos',c=INK[h]||INK.arcade,dim=!!document.querySelector('.bar .brand.b-dim');
       s.style.setProperty('--sp',c);m.classList.toggle('b-off',dim);s.classList.toggle('b-hi',!!root.dataset.prog);},500);}
-  mount();})();
-/* l'œuvre peinte de la caisse : deux décors en miroir, aux coins bas, sous la fente et les molettes */
-(function(){function mount(){var d=document.querySelector('.b-door');if(!d){setTimeout(mount,600);return;}if(d.querySelector('.b-cart'))return;
-  ['l','r'].forEach(function(s){var e=document.createElement('i');e.className='b-cart b-cart-'+s;e.setAttribute('aria-hidden','true');d.insertBefore(e,d.firstChild);});}
-  mount();})();
-/* les deux fentes à Koin éclairées de la porte */
-(function(){function mount(){var s=document.querySelector('.b-slot');if(!s){setTimeout(mount,600);return;}if(s.querySelector('.b-lamp'))return;
-  ['b-l1','b-l2'].forEach(function(c){var e=document.createElement('i');e.className='b-lamp '+c;e.setAttribute('aria-hidden','true');e.textContent='1 KOIN';s.appendChild(e);});}
   mount();})();
 /* la tranche peinte des flancs : la bande de rayures de chaque côté du meuble, en miroir, sur toute la hauteur */
 (function(){function mount(){var w=document.querySelector('.wrap');if(!w){setTimeout(mount,600);return;}if(w.querySelector('.b-edgeart'))return;
@@ -105,7 +96,6 @@ setInterval(function(){if(window.__borneTour&&document.documentElement.classList
   var sb=mk('b-px-son','','Motel Sound',function(){bell.click();sync();});
   if(pl)mk('b-px-pl','PL','Playlist',function(){pl.click();});
   if(kap)mk('b-px-kap','<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 7l1.6-2.4h4.8L16 7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>','Kapture',function(){kap.click();});
-  if(land)mk('b-px-bur','BURROWS','Burrows',function(){land.click();});
   function sync(){sb.innerHTML=bell.innerHTML;sb.classList.toggle('on',bell.classList.contains('on'));}
   new MutationObserver(sync).observe(bell,{attributes:true,childList:true,subtree:true});sync();
   var imm=foot.querySelector('.b-imm');foot.insertBefore(box,imm||null);}
@@ -130,3 +120,38 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   setInterval(function(){if(!pend)return;var r=document.documentElement;if(!r.dataset.prog)pend=null;else{var cur=(window.__borneCur&&window.__borneCur())||'';if(prog&&cur!==prog)pend=null;}},300);
   /* les gestes à l'intérieur des jeux en cadre comptent aussi */
   setInterval(function(){document.querySelectorAll('.b-glass iframe').forEach(function(f){try{var d=f.contentDocument;if(d&&!d._bpay){d._bpay=1;d.addEventListener('pointerdown',function(){if(pend){var p=pend;pend=null;try{p();}catch(_){}}},true);d.addEventListener('keydown',function(e){if(pend&&!/^(Escape|Tab)$/.test(e.key)){var p=pend;pend=null;try{p();}catch(_){}}},true);}}catch(_){}});},1000);})();
+
+
+/* 30 oct., nuit — l'écran entier à l'arrivée sur ordinateur : la largeur de l'image se calcule sur la hauteur libre sous le fronton, mesurée ; le meuble garde sa largeur de borne */
+(function(){
+  var R=document.documentElement,busy=0,arrived=0;
+  function home(){return innerWidth>700&&!R.hasAttribute('data-prog')&&R.getAttribute('data-mode')!=='device'&&R.getAttribute('data-habit')!=='fauneye'&&!R.classList.contains('b-immersion')}
+  function px(e,p){return parseFloat(getComputedStyle(e)[p])||0}
+  function fit(){
+    if(busy)return;busy=1;
+    try{
+      if(!home()){R.removeAttribute('data-bfit');R.removeAttribute('data-bsmall');['--fitW','--wc','--bzs'].forEach(function(k){R.style.removeProperty(k)});return}
+      var scr=document.querySelector('.b-bezel .b-screen'),foot=document.querySelector('.b-bezelfoot');if(!scr)return;
+      var H=innerHeight,W=innerWidth,gw=640,wc;
+      for(var i=0;i<3;i++){
+        wc=Math.max(600,Math.min(W-32,Math.max(gw*1.357+150,Math.min(H*.98+30,gw*1.537+150))));
+        R.style.setProperty('--fitW',Math.round(gw)+'px');R.style.setProperty('--wc',Math.round(wc)+'px');R.setAttribute('data-bfit','');
+        var r=scr.getBoundingClientRect(),top=r.top+scrollY+px(scr,'borderTopWidth'),bot=px(scr,'borderBottomWidth'),fh=foot?foot.getBoundingClientRect().height+16:60;
+        var byH=(H-top-bot-fh-8)/.925,byW=(wc-150)/(W<1000?1.2:1.357),ng=Math.max(360,Math.min(byH,byW,1100));
+        if(Math.abs(ng-gw)<1.5){gw=ng;break}gw=ng;
+      }
+      /* le meuble garde une largeur de borne ; la vitre imprimée s'étire sur les côtés d'une fois et demie au plus */
+      wc=Math.max(600,Math.min(W-32,Math.max(gw*1.357+150,Math.min(H*.98+30,gw*1.537+150))));
+      R.style.setProperty('--fitW',Math.round(gw)+'px');R.style.setProperty('--wc',Math.round(wc)+'px');
+      if(gw<500)R.setAttribute('data-bsmall','');else R.removeAttribute('data-bsmall');
+      R.style.setProperty('--bzs',Math.max(0,Math.round((scr.clientWidth-gw)/2))+'px');
+      /* fenêtre très basse : à l'arrivée, la page descend juste assez pour montrer l'écran entier et son pied */
+      if(!arrived&&document.readyState==='complete'){arrived=1;var fb=foot?foot.getBoundingClientRect().bottom+scrollY:0;if(scrollY===0&&fb>H)scrollTo(0,Math.ceil(fb-H+6))}
+    }finally{busy=0}
+  }
+  var t;function later(){clearTimeout(t);t=setTimeout(fit,60)}
+  addEventListener('resize',later);
+  new MutationObserver(later).observe(R,{attributes:true,attributeFilter:['data-prog','data-mode','data-habit','data-skin','class']});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+  addEventListener('load',function(){fit();setTimeout(fit,800)});fit();
+})();

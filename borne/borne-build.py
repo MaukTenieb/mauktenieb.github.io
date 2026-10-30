@@ -133,6 +133,9 @@ k2 = k2.replace("if(e.key==='Escape'&&selected>=0) select(selected);", "if(e.key
 k2 = k2.replace("view.addEventListener('wheel',e=>{ e.preventDefault();", "view.addEventListener('wheel',e=>{ if(/attract=1/.test(location.search)&&!e.ctrlKey)return; e.preventDefault();", 1)
 # SkopoRhogo suit la charte : DM Mono à la place de VT323 (police chargée de Google Fonts, absente en ligne)
 k2 = k2.replace("'VT323'", "'DM Mono'").replace('"VT323"', '"DM Mono"')
+# dans la borne, SkopoRhogo remplit tout l'écran qui l'accueille ; sous la taille native, l'image se réduit en lissant, sans damier
+k2 = once(k2, "const aw=st.clientWidth-(mob?4:20), ah=mob?innerHeight*.62:Math.max(240,st.clientHeight-20);\n  let k=Math.min(aw/W,ah/H); if(k>=1) k=Math.floor(k*4)/4;",
+  "const inF=window.top!==window, aw=inF?st.clientWidth:st.clientWidth-(mob?4:20), ah=inF?Math.max(160,st.clientHeight):(mob?innerHeight*.62:Math.max(240,st.clientHeight-20));\n  let k=Math.min(aw/W,ah/H); if(k>=1&&!inF) k=Math.floor(k*4)/4; view.style.imageRendering=k<1?'auto':'';")
 wr("skoporhogo-borne.html", k2)
 # FotoFauna : le logo déclenche, caméra avant ou arrière, pile et pellicule (borne-fotofauna.js, borne-fotofauna.css)
 cap("fotofauna.html", 'getUserMedia({video:{facingMode:"user",width:{ideal:1280}},audio:false})', 'getUserMedia({video:{facingMode:(window.__ffFacing||"user"),width:{ideal:1280}},audio:false})')
