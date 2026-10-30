@@ -404,7 +404,7 @@ function bbBakuBoom(){
     if(feed&&typeof KK_HDR!=='undefined'&&typeof kkKBody!=='undefined'){
       // Aleatoire : Stay tuned. ou motto Unkle Maukie
       var ec=document.createElement('div');ec.className='kk-kerema';
-      ec.innerHTML=KK_HDR+kkKBody('U gotta stay TUNEd...');
+      ec.innerHTML=KK_HDR+kkKBody('U gotta stay tuned...');
       feed.appendChild(ec);feed.scrollTop=feed.scrollHeight;
     }
     if(typeof _bakuGlitch==='function'){

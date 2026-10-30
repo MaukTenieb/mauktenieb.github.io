@@ -76,6 +76,8 @@ s = once(s, "function stop(){if(!touring)return;touring=false;", "function stop(
 s = once(s, "if(k!=='kapture'&&k!=='vhs'&&!pay()){", "if(k!=='kapture'&&k!=='vhs'&&!(koins>0&&window.__bornePayLater?(window.__bornePayLater(pay),true):pay())){")
 # visite complète : les psychopompes passent aussi par l'autocollant Lore (sa réplique « lore » vient de SAY)
 s = once(s, "[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture')].filter(Boolean)", "[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture'),document.querySelector('.b-lore')].filter(Boolean)")
+# « U gotta stay tuned » : tuned en minuscules (demande de Mauk Tenieb, 30 oct.)
+s = s.replace("U gotta stay TUNEd", "U gotta stay tuned")
 wr("index.html", s)
 
 # la visite des psychopompes s'arrête quand un programme s'ouvre (borne-cabinet.js appelle __borneTourStop)
