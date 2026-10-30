@@ -141,7 +141,7 @@ var push0=false;
 /* ---- FaunaTor reads through relays: every public relay is raced, the first good answer wins.
    A relay of your own (a free Cloudflare Worker, see faunator-worker.js) goes first when set:
    localStorage 'tor.relay' = 'https://your-worker.workers.dev/?url=' ---- */
-var RELAY='';   /* ← your own relay, once deployed: 'https://faunator.<you>.workers.dev/?url=' */
+var RELAY='https://faunator.mauktenieb.workers.dev/?url=';   /* le relais de Mauk Tenieb (Cloudflare) ; les relais publics prennent le relais s'il ne répond pas */
 function own(){try{return localStorage.getItem('tor.relay')||RELAY;}catch(e){return RELAY;}}
 var RAW=[
   function(u){var o=own();return o?o+encodeURIComponent(u):null;},
@@ -163,8 +163,9 @@ function timed(url,ms,json){
 }
 function any(ps){return new Promise(function(res,rej){var n=ps.length,f=0;if(!n)rej(new Error('none'));ps.forEach(function(p){p.then(res,function(){if(++f===n)rej(new Error('all'));});});});}
 function fetchRaw(u){
-  var ps=RAW.map(function(f){var x=f(u);return x?timed(x,11000):Promise.reject(0);}).concat(JSONP.map(function(f){return timed(f(u),11000,true);}));
-  return any(ps);
+  /* le relais propre d'abord : l'adresse demandée reste chez Mauk Tenieb ; s'il tombe, les relais publics, tous ensemble */
+  function pub(){var ps=RAW.slice(1).map(function(f){var x=f(u);return x?timed(x,11000):Promise.reject(0);}).concat(JSONP.map(function(f){return timed(f(u),11000,true);}));return any(ps);}
+  var o=RAW[0](u);return o?timed(o,9000).catch(pub):pub();
 }
 /* Tor inside the page (faunator-tor.js): bootstraps as soon as FaunaTor opens */
 var TOR=null,torReady=import('./faunator-tor.js').then(function(m){TOR=m;try{m.warm();}catch(e){}return m;}).catch(function(e){torWhy='tor: '+(e&&e.message||'not loaded');return null;});
