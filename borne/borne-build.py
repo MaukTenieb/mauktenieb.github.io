@@ -191,4 +191,10 @@ cap("fotofauna.html", "</head>", '<link rel="stylesheet" href="borne-fotofauna.c
 t = rd("fotofauna.html")
 if "borne-fotofauna.js" not in t:
     i = t.rfind("</body>"); wr("fotofauna.html", t[:i] + '<script src="borne-fotofauna.js"></script>\n' + t[i:])
-print("index.html, skoporhogo-borne.html ; noms canoniques ; plafond 99 ; FotoFauna")
+# la borne en français : fr.html sort de la borne finie, avec la langue et l'en-tête français d'InsertKoin (fr-head.json)
+import json as _json
+f = rd("index.html")
+for a, b in _json.load(open("fr-head.json", encoding="utf-8")):
+    f = once(f, a, b)
+wr("fr.html", f)
+print("index.html, skoporhogo-borne.html ; noms canoniques ; plafond 99 ; FotoFauna ; fr.html")
