@@ -2105,10 +2105,12 @@ const _build=buildLobby;buildLobby=function(){_build();const r=loadRun();const b
     /* every visit goes through the tiles and menus in a random order */
     let stops;if(resume&&resume.length)stops=resume;else{stops=cabs.concat(chips,[document.getElementById('radio-toggle')||document.querySelector('.motel-bar'),$('kapture'),document.querySelector('.b-lore')].filter(Boolean));for(let i=stops.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[stops[i],stops[j]]=[stops[j],stops[i]];}}
     if(!(resume&&resume.length)&&window.__borneFirst){const F=window.__borneFirst();stops=stops.filter(x=>F.indexOf(x)<0);stops.splice(1+Math.floor(Math.random()*stops.length),0,F[1]);stops.unshift(F[0]);}
+    /* la visite commence par ce que la fenêtre montre, au hasard, puis descend la borne de haut en bas : la page bouge peu, une seule fois */
+    if(!(resume&&resume.length)){const V=x=>{const q=x.getBoundingClientRect();return q.bottom>0&&q.top<innerHeight;},a=stops.filter(V),b=stops.filter(x=>!V(x)).sort((x,y)=>x.getBoundingClientRect().top-y.getBoundingClientRect().top);stops=a.concat(b);}
     TQ=stops;
     const L=SAY[LANG]||SAY.en;
     for(let i=0;i<stops.length;i++){const el=stops[i];TI=i;if(!touring)break;const isCab=el.classList.contains('cab');const hr=(el.getAttribute('href')||(el.querySelector('a')||{}).href||'')+'';const go=el.dataset.grp||(el.querySelector('[data-go]')||el).dataset.go||(/bandcamp/.test(hr)?'bc':'')||(el.id==='kapture'?'kapture':(el.id==='radio-toggle'||el.classList.contains('motel-bar'))?'motel':el.id==='refresh'?'refresh':/substack/.test(hr)?'lore':/threadless/.test(hr)?'tl':/instagram/.test(hr)?'ig':/github\.com\/MaukTenieb/.test(hr)?'bio':'');
-      el.scrollIntoView({block:'center',behavior:RMg?'auto':'smooth'});await W(RMg?60:420);if(!touring)break;
+      {const q=el.getBoundingClientRect(),m=28,d=q.top<m?q.top-m:q.bottom>innerHeight-m?Math.min(q.bottom-innerHeight+m,q.top-m):0;if(Math.abs(d)>2){scrollBy({top:d,behavior:RMg?'auto':'smooth'});await W(RMg?60:420);}}if(!touring)break;
       const r=homeXY(el),gw=parseFloat(g.style.getPropertyValue('--gw'))||60;g.classList.add('walk');face(r.x<parseFloat(g.style.left)?2:3);
       const vt=el.getBoundingClientRect().top,inBar=!!el.closest('.bar'),HW=home.clientWidth;
       /* up in the bar (Kapture), it stops a little short, below and to the left, and never leaves the frame */

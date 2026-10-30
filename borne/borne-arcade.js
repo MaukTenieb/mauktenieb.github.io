@@ -79,7 +79,7 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
         var r=scr.getBoundingClientRect(),top=r.top+scrollY+px(scr,'borderTopWidth'),bot=px(scr,'borderBottomWidth'),fh=foot?foot.getBoundingClientRect().height+16:60;
         /* fenêtre basse : le toit (plante, caméra) peut passer au-dessus du cadre, l'enseigne reste visible ; l'écran y gagne sa hauteur */
         var rf=document.querySelector('.b-roof'),off=H<760&&rf?Math.max(0,rf.getBoundingClientRect().bottom+scrollY-10):0;
-        var byH=(H-top+off-bot-fh-8)/.925,byW=(W-32-150)/(W<1000?1.2:1.357),ng=Math.max(360,Math.min(byH,byW,1100));
+        var byH=(H-top+off-bot-fh-8)/.925,byW=(W-32-150)/(W<1000?1.2:1.357),ng=Math.max(Math.min(360,(H-72)/.925),Math.min(byH,byW,1100));
         if(Math.abs(ng-gw)<1.5){gw=ng;break}gw=ng;
       }
       /* le meuble garde une largeur de borne ; la vitre imprimée s'étire sur les côtés d'une fois et demie au plus */
