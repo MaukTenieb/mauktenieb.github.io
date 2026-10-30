@@ -89,3 +89,8 @@ html.b-charte[data-ch=skopo] #cname{font:400 16px/1.2 'Press Start 2P',monospace
 html.b-charte[data-ch=skopo] #cname{font:400 28px/1 'Bebas Neue',Impact,sans-serif!important;letter-spacing:.08em!important;text-transform:uppercase}
 html.b-charte[data-ch=skopo] .row.on,html.b-charte[data-ch=skopo] .row.on *{color:var(--ch-acc-ink)!important}
 @media (pointer:coarse){html.b-charte[data-ch=skopo] button{min-height:44px}html.b-charte[data-ch=skopo] .row{min-height:44px}}
+/* noms entiers (audit UI de SkopoRhogo, S9) : le nom prend toute la ligne du haut ; la pièce passe sur la ligne de l'activité */
+html.b-charte[data-ch=skopo] .row .nm{grid-column:2/4;grid-row:1}
+html.b-charte[data-ch=skopo] .row .vb{grid-column:2;grid-row:2;white-space:normal!important;overflow:visible!important;line-height:1.25}
+html.b-charte[data-ch=skopo] .row .rm{padding:0 3px!important;align-self:start}
+html.b-charte[data-ch=skopo] .row .rm{grid-column:3;grid-row:2}
