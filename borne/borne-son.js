@@ -96,7 +96,7 @@
   var first=true;
   /* les gestes */
   function closest(e,s){return e.target&&e.target.closest?e.target.closest(s):null;}
-  document.addEventListener('pointerdown',function(e){if(first){first=false;startHum();}
+  document.addEventListener('pointerdown',function(e){if(first){first=false;startHum();amb();}
     var k=closest(e,'.b-panel .cab, .b-row2 .menu a, .b-slot, .b-badge, .b-land, .b-lore, #koins, .b-boom');if(!k)return;
     if(k.matches('.b-panel .cab, .b-row2 .menu a')){S.press();k.classList.remove('b-up');k.classList.add('b-down');}
     else if(k.matches('.b-boom')){}
@@ -104,4 +104,31 @@
   function up(e){document.querySelectorAll('.b-down').forEach(function(k){k.classList.remove('b-down');void k.offsetWidth;k.classList.add('b-up');setTimeout(function(){k.classList.remove('b-up');},420);S.release();});}
   document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);
   document.addEventListener('click',function(e){var kb=closest(e,'.b-knob');if(kb){S.detent(2+Math.floor(R()*3));kb.classList.remove('b-cran');void kb.offsetWidth;kb.classList.add('b-cran');}if(closest(e,'.b-boom'))S.tilt();if(closest(e,'.b-slot')){S.coin();setTimeout(S.drop,380);}},true);
+
+  /* l'ambiance électrique (Mauk Tenieb, 30 oct. : « des sons de moteur, de fréquences électriques »), synthétisée, zéro fichier :
+     le transformateur ronfle à 50 Hz et ses harmoniques, saturé comme une tôle qui vibre ; le ventilateur souffle et respire ;
+     le tube siffle à 15 734 Hz ; de rares crépitements ; au lancement d'un programme, le relais claque et la bobine de démagnétisation tonne.
+     Très bas ; l'interrupteur FX et le volume de la borne le règlent comme le reste. */
+  var A=null;
+  function amb(){var c=ctx();if(!c||A)return;A={};var g=c.createGain();g.gain.value=0;g.connect(M);A.g=g;
+    /* transformateur */
+    var tg=c.createGain();tg.gain.value=.011;var sh=c.createWaveShaper(),cv=new Float32Array(1024);for(var i=0;i<1024;i++){var x=i/511.5-1;cv[i]=Math.tanh(2.4*x);}sh.curve=cv;
+    var bp=c.createBiquadFilter();bp.type='lowpass';bp.frequency.value=520;[[50,.55],[100,1],[150,.38],[200,.22],[300,.1]].forEach(function(h){var o=c.createOscillator(),og=c.createGain();o.frequency.value=h[0]*(1+(R()-.5)*.002);og.gain.value=h[1]*.35;o.connect(og);og.connect(sh);o.start();});
+    sh.connect(bp);bp.connect(tg);tg.connect(g);A.tg=tg;
+    /* ventilateur */
+    var nb=c.createBuffer(1,c.sampleRate*2,c.sampleRate),d=nb.getChannelData(0),l=0;for(var k=0;k<d.length;k++){l=(l+.02*(R()*2-1))/1.02;d[k]=l*3.5;}
+    var ns=c.createBufferSource();ns.buffer=nb;ns.loop=true;var lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=480;var hp=c.createBiquadFilter();hp.type='highpass';hp.frequency.value=70;
+    var fg=c.createGain();fg.gain.value=.05;var lfo=c.createOscillator(),lg=c.createGain();lfo.frequency.value=.23;lg.gain.value=.015;lfo.connect(lg);lg.connect(fg.gain);lfo.start();
+    ns.connect(lp);lp.connect(hp);hp.connect(fg);fg.connect(g);ns.start();
+    /* le sifflement du tube */
+    var w=c.createOscillator(),wg=c.createGain();w.frequency.value=15734;wg.gain.value=.0012;w.connect(wg);wg.connect(g);w.start();
+    /* crépitements rares */
+    (function pop(){setTimeout(function(){if(C&&on()&&!document.hidden){var t=C.currentTime;var s=C.createBufferSource();s.buffer=nbuf(C);var f=C.createBiquadFilter();f.type='bandpass';f.frequency.value=j(3200,.4);f.Q.value=2;var e=C.createGain();env(e,t,.0005,j(.012,.5),j(.03,.5));s.connect(f);f.connect(e);e.connect(g);s.start(t,R()*.3);s.stop(t+.05);}pop();},7000+R()*18000);})();
+    setInterval(function(){if(!C)return;var t=C.currentTime;g.gain.setTargetAtTime(on()?1:0,t,.3);tg.gain.setTargetAtTime(.011+heat*.02,t,.6);},400);}
+  /* relais et démagnétisation au lancement d'un programme */
+  S.degauss=function(){var c=ctx();if(!c||!A)return;var t=c.currentTime+.02;hit('clack',.2,t);
+    var o=c.createOscillator(),f=c.createBiquadFilter(),e=c.createGain(),m=c.createOscillator(),mg=c.createGain();o.type='square';o.frequency.value=50;f.type='lowpass';f.frequency.value=260;
+    m.frequency.value=j(7,.2);mg.gain.value=.03;m.connect(mg);mg.connect(e.gain);e.gain.setValueAtTime(0,t+.05);e.gain.linearRampToValueAtTime(.075,t+.07);e.gain.exponentialRampToValueAtTime(.0001,t+.95);
+    o.connect(f);f.connect(e);e.connect(M);o.start(t+.05);m.start(t+.05);o.stop(t+1);m.stop(t+1);warm(.15);};
+  new MutationObserver(function(){if(document.documentElement.dataset.prog)S.degauss();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-prog']});
 })();
