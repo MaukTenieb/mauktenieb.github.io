@@ -121,10 +121,11 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
       e.style.transformOrigin='0 0';e.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) scale('+s.toFixed(4)+')';});}
   function set(prop,v){parts().forEach(function(e){e.style[prop]=v;});}
   /* le mouvement de caméra par Web Animations : il part tout de suite et se joue jusqu'au bout, même quand la page peine (rendu lent) */
-  var AN=[];function play(A,G,dir,dur,done){shoot(A,G);var tr=parts().map(function(e){return e.style.transform;});set('transition','none');set('transform','');
+  var AN=[],SEQ=0;function play(A,G,dir,dur,done){var my=++SEQ;shoot(A,G);var tr=parts().map(function(e){return e.style.transform;});set('transition','none');set('transform','');
     AN.forEach(function(a){try{a.cancel();}catch(_){}});AN=parts().map(function(e,i){var k=[{transform:'none'},{transform:tr[i]}];if(dir<0)k.reverse();
       return e.animate(k,{duration:dur,easing:EASE,fill:'forwards'});});
-    var f=AN[0];if(!f){done();return;}var ok=0;function end(){if(ok)return;ok=1;done();}f.finished.then(end,end);setTimeout(end,dur*4+400);}
+    /* un mouvement interrompu par un autre (recul coupé par un nouveau programme) ne referme rien derrière lui */
+    var f=AN[0];if(!f){done();return;}var ok=0;function end(){if(ok)return;ok=1;if(my!==SEQ)return;done();}f.finished.then(end,end);setTimeout(end,dur*4+400);}
   function unplay(){AN.forEach(function(a){try{a.cancel();}catch(_){}});AN=[];}
   function settle(){if(R.hasAttribute('data-prog'))return;var ft=document.querySelector('.b-bezelfoot');if(!ft)return;var fb=ft.getBoundingClientRect().bottom+scrollY;
     var top=fb>innerHeight+1?Math.ceil(fb-innerHeight+6):0;if(Math.abs(top-scrollY)>2)try{scrollTo({top:top,left:0,behavior:'smooth'});}catch(e){scrollTo(0,top);}}
