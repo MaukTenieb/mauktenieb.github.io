@@ -38,7 +38,7 @@ JEU = """(()=>{const W=innerWidth,H=innerHeight,R=s=>{const e=document.querySele
   const sur=(a,c)=>!!a&&!!c&&Math.min(a.right,c.right)-Math.max(a.left,c.left)>4&&Math.min(a.bottom,c.bottom)-Math.max(a.top,c.top)>4;
   return {ouvert:!!document.documentElement.dataset.prog,barreDansFenetre:dans(f),boomDansFenetre:dans(b),boomSurEcran:sur(b,g),ecranDansFenetre:dans(g)}})()"""
 
-GUIDE = """(()=>{const f=document.querySelector('.b-bezelfoot');if(!f)return 0;const r=f.getBoundingClientRect();const hit=q=>Math.min(q.right,r.right)-Math.max(q.left,r.left)>4&&Math.min(q.bottom,r.bottom)-Math.max(q.top,r.top)>4;
+GUIDE = """(()=>{const Z=[...document.querySelectorAll('.b-bezelfoot,.b-row2 nav a')].map(x=>x.getBoundingClientRect()).filter(r=>r.width>0);const hit=q=>Z.some(r=>Math.min(q.right,r.right)-Math.max(q.left,r.left)>4&&Math.min(q.bottom,r.bottom)-Math.max(q.top,r.top)>4);
   const g=document.querySelector('.guide'),t=document.querySelector('.gtip.on');return ((g&&g.getClientRects().length&&hit(g.getBoundingClientRect()))||(t&&hit(t.getBoundingClientRect())))?1:0})()"""
 
 FPS = "()=>new Promise(r=>{let n=0,t0=performance.now();function f(){n++;if(performance.now()-t0<3000)requestAnimationFrame(f);else r(Math.round(n/3*10)/10)}requestAnimationFrame(f)})"
@@ -70,7 +70,7 @@ async def fenetre(b, url, out, w, h, mob, court):
     y0 = await pg.evaluate("Math.round(scrollY)"); fige = 0; reprise = False
     for i in range(20):
         await pg.wait_for_timeout(500)
-        st = await pg.evaluate("[Math.round(scrollY),!!window.__borneTour]")
+        st = await pg.evaluate("[Math.round(scrollY),!!window.__borneTour&&String(window.__borneTour)!=='0']")
         if not reprise and abs(st[0] - y0) <= 4 and not st[1]: fige = round(0.3 + (i + 1) * 0.5, 1)
         if st[1]: reprise = True
     R["geste"] = {"figeeS": fige, "reprise": reprise, "conforme": fige >= 3.0 and reprise}
