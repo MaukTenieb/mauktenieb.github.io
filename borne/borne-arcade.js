@@ -48,16 +48,19 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   else if(e.key==='Enter'&&document.querySelector('.b-panel .cab.b-sel')){e.preventDefault();window.__borneA();}});
 /* la Koin se paie au premier geste de jeu dans l'écran (toucher, clic, touche du clavier) ; zapper d'un écran-titre à l'autre reste gratuit */
 (function(){var pend=null,prog='';
+  /* un toucher paie seulement sur un élément jouable (bouton, carte, case, table, canevas) ; un toucher dans le vide reste gratuit (audit du 30 oct., défaut 10) */
+  function jouable(t,stop){for(var x=t;x&&x!==stop&&x.nodeType===1;x=x.parentElement){var n=x.tagName;if(/^(BUTTON|A|INPUT|SELECT|TEXTAREA|CANVAS|VIDEO|LABEL)$/.test(n)||x.hasAttribute('onclick')||x.onclick||x.getAttribute('role')==='button')return true;try{if(getComputedStyle(x).cursor==='pointer')return true;}catch(_){}}return false;}
   window.__bornePending=function(){return !!pend;};
   window.__bornePayLater=function(pay){window.__bornePay=pay;pend=pay;prog='';setTimeout(function(){prog=(window.__borneCur&&window.__borneCur())||'';},300);};
   function hit(e){if(!pend)return;var cur=(window.__borneCur&&window.__borneCur())||'';if(prog&&cur!==prog){pend=null;return;}
     if(e.type==='keydown'&&/^(Escape|PageUp|PageDown|Tab|Shift|Control|Alt|Meta)$/.test(e.key))return;
     var g=document.querySelector('.b-glass');if(e.type==='pointerdown'&&!(g&&(g.contains(e.target)||e.target.tagName==='IFRAME')))return;
+    if(e.type==='pointerdown'&&e.target.tagName!=='IFRAME'&&!jouable(e.target,g))return;
     var p=pend;pend=null;window.__bornePaidAt=Date.now();try{p();}catch(_){}}
   document.addEventListener('pointerdown',hit,true);document.addEventListener('keydown',hit,true);
   setInterval(function(){if(!pend)return;var r=document.documentElement;if(!r.dataset.prog&&!r.hasAttribute('data-cam'))pend=null;else{var cur=(window.__borneCur&&window.__borneCur())||'';if(prog&&cur!==prog)pend=null;}},300);
   /* les gestes à l'intérieur des jeux en cadre comptent aussi */
-  setInterval(function(){document.querySelectorAll('.b-glass iframe').forEach(function(f){try{var d=f.contentDocument;if(d&&!d._bpay){d._bpay=1;d.addEventListener('pointerdown',function(){if(pend){var p=pend;pend=null;try{p();}catch(_){}}},true);d.addEventListener('keydown',function(e){if(pend&&!/^(Escape|Tab)$/.test(e.key)){var p=pend;pend=null;try{p();}catch(_){}}},true);}}catch(_){}});},1000);})();
+  setInterval(function(){document.querySelectorAll('.b-glass iframe').forEach(function(f){try{var d=f.contentDocument;if(d&&!d._bpay){d._bpay=1;d.addEventListener('pointerdown',function(ev){if(pend&&jouable(ev.target,d.documentElement)){var p=pend;pend=null;try{p();}catch(_){}}},true);d.addEventListener('keydown',function(e){if(pend&&!/^(Escape|Tab)$/.test(e.key)){var p=pend;pend=null;try{p();}catch(_){}}},true);}}catch(_){}});},1000);})();
 
 
 /* 30 oct., nuit — l'écran entier à l'arrivée sur ordinateur : la largeur de l'image se calcule sur la hauteur libre sous le fronton, mesurée ; le meuble garde sa largeur de borne */
