@@ -1912,7 +1912,7 @@ function koinRain(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)ret
   for(let i=0;i<N;i++){const c=document.createElement('span');c.className='kdrop';c.textContent='◉';const x=Math.random()*innerWidth,sz=12+Math.random()*16,d=900+Math.random()*900,dl=Math.random()*700;
     c.style.cssText+=`left:${x}px;top:-30px;font-size:${sz}px;z-index:10000`;document.body.appendChild(c);
     const a=c.animate([{transform:'translateY(0) rotateY(0)',opacity:1},{transform:`translate(${(Math.random()-.5)*80}px,${innerHeight+60}px) rotateY(${720+Math.random()*1080}deg)`,opacity:.9}],{duration:d,delay:dl,easing:'cubic-bezier(.45,0,.95,.6)',fill:'both'});
-    if(i%3===0)setTimeout(()=>{try{tone(2093+Math.random()*900,.05,'triangle',.03);tone(3136,.07,'triangle',.018,0,.03);}catch(e){}},dl+d*.92);a.onfinish=()=>c.remove();}}
+    if(i%3===0)setTimeout(()=>{try{(window.__borneSon?window.__borneSon.tick():(tone(2093+Math.random()*900,.05,'triangle',.03),tone(3136,.07,'triangle',.018,0,.03)));}catch(e){}},dl+d*.92);a.onfinish=()=>c.remove();}}
 if(window.KG)KG.onwin=(name,d)=>{earn();koinRain();if(window.IKP&&IKP.kave)IKP.kave.win(name,d);};
 /* saved run: CONTINUE picks it up where it stopped */
 const _build=buildLobby;buildLobby=function(){_build();const r=loadRun();const b=$('run2');b.hidden=!r;if(r)b.textContent=tr('cont');};
@@ -2174,7 +2174,7 @@ function koinOut(){const k=$('koins');if(!k||matchMedia('(prefers-reduced-motion
   const a=c.animate([{transform:'translate(0,0) rotateY(0)',opacity:1},{transform:'translate(-6px,-26px) rotateY(540deg)',opacity:1,offset:.4},{transform:'translate(-14px,60px) rotateY(1080deg)',opacity:0}],{duration:700,easing:'cubic-bezier(.3,.6,.6,1)',fill:'both'});a.onfinish=()=>c.remove();}
 function koinDrop(n){const k=$('koins');if(!k||!n||n<1)return;const r=k.getBoundingClientRect();for(let i=0;i<Math.min(n,6);i++){const c=document.createElement('span');c.className='kdrop';c.textContent='◉';c.style.left=(r.left+4)+'px';c.style.top=(r.top)+'px';document.body.appendChild(c);
   const a=c.animate([{transform:`translate(${(Math.random()-.5)*30}px,-${Math.max(140,r.top+120)}px) rotateY(0deg)`,opacity:0},{opacity:1,offset:.15},{transform:'translate(0,0) rotateY(720deg)',opacity:1,offset:.82},{transform:'translate(0,-6px) rotateY(900deg)',offset:.9},{transform:'translate(0,0) rotateY(1080deg)',opacity:0}],{duration:900,delay:i*170,easing:'cubic-bezier(.5,0,.9,.6)',fill:'both'});
-  a.onfinish=()=>{c.remove();koinFx();try{ac();tone(2093,.05,'triangle',.05);tone(3136,.09,'triangle',.03,0,.04);}catch(e){}};}}
+  a.onfinish=()=>{c.remove();koinFx();try{ac();(window.__borneSon?window.__borneSon.clack():(tone(2093,.05,'triangle',.05),tone(3136,.09,'triangle',.03,0,.04)));}catch(e){}};}}
 /* the opponent's signature, as a sign next to their name; it pulses when they play it */
 const SIGN={lure:'◌',drop:'☎',tell:'♪',wild:'✶',fixed:'▮',armour:'◈',grit:'✹',bank:'⟋',surge:'≋',silent:'∅',endless:'∞',mirror:'⧉',haze:'✿',blaze:'♨',entropy:'⁂',judge:'⚖',slash:'⟍',rhythm:'♩'};
 const _card=card;card=function(r){_card(r);const s=$('oSig');s.textContent=SIGN[r.sig]||'';s.style.color=r.glow;};
