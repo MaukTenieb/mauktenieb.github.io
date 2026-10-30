@@ -933,10 +933,15 @@ function scoreWindow(a,b,c,d,p){
     if(!state.over) draw();
   }
 
-  canvas.addEventListener('click',onClick);
-  canvas.addEventListener('touchend',function(e){e.preventDefault();onClick(e.changedTouches[0]||e);},{passive:false});
-  canvas.addEventListener('mousemove',onMove);
-  canvas.addEventListener('touchmove',function(e){onMove(e);e.preventDefault();},{passive:false});
+  // one set of listeners per canvas: each c4Init() swaps the handlers they call, so an old game never answers a click
+  canvas._c4={click:onClick,move:onMove};
+  if(!canvas._c4bound){
+    canvas._c4bound=true;
+    canvas.addEventListener('click',function(e){canvas._c4.click(e);});
+    canvas.addEventListener('touchend',function(e){e.preventDefault();canvas._c4.click(e.changedTouches[0]||e);},{passive:false});
+    canvas.addEventListener('mousemove',function(e){canvas._c4.move(e);});
+    canvas.addEventListener('touchmove',function(e){canvas._c4.move(e);e.preventDefault();},{passive:false});
+  }
 
   if(C4) C4=null;
   C4={canvas:canvas};
