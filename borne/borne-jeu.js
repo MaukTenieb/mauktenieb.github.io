@@ -50,6 +50,9 @@
     function done(){void getComputedStyle(p).transform;p.classList.remove('b-fitting');}
     if(!b){p.style.transform=old;done();return;}
     var cw=b.r-b.l,ch=b.b-b.t,f=Math.min(MAXZ,(b.W*.94)/cw,(b.H*.92)/ch);
+    /* menu de Fauna Chess (échiquier absent) : taille d'origine, centré, à la même échelle que les menus des autres jeux */
+    var menu=p.id==='chess'&&![].some.call(p.querySelectorAll('.sq'),function(e){return e.getClientRects().length;});
+    if(menu){var mx=(b.l+b.r)/2,my=(b.t+b.b)/2;p.style.transformOrigin='';p.style.transform='translate('+(b.W/2-mx).toFixed(1)+'px,'+(b.H/2-my).toFixed(1)+'px)';p.classList.remove('b-fit');cur=p;done();return;}
     if(!(f>1.06)){p.classList.remove('b-fit');cur=p;done();return;}
     var cx=(b.l+b.r)/2,cy=(b.t+b.b)/2;
     p.style.transformOrigin=cx+'px '+cy+'px';p.style.transform='translate('+(b.W/2-cx)+'px,'+(b.H/2-cy)+'px) scale('+f.toFixed(3)+')';p.classList.add('b-fit');cur=p;done();}
