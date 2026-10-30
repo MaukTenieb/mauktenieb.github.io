@@ -1119,7 +1119,7 @@
     const r = (x, y, w, h) => ({ x, y, w, h });
     if (wide) {
       const o = LAY.wide;
-      const ctrl = Math.max(o.ctrlMin, Math.min(o.ctrlMax, Math.round(W * o.ctrlK)));
+      const ctrl = Math.max(H <= 420 ? 210 : o.ctrlMin, Math.min(o.ctrlMax, Math.round(W * o.ctrlK)));  // borne : téléphone couché, l'écran d'abord (colonne de commandes à 210 px au moins)
       const aw = W - 2 * o.pad - o.gap - ctrl, ah = H - 2 * o.pad;
       const inner = Math.max(40, Math.min(aw - 2 * o.bezel, (ah - 2 * o.bezel) * ASPECT));
       const w = Math.floor(inner / 4) * 4, h = w * 3 / 4;
