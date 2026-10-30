@@ -191,6 +191,10 @@ cap("fotofauna.html", "</head>", '<link rel="stylesheet" href="borne-fotofauna.c
 t = rd("fotofauna.html")
 if "borne-fotofauna.js" not in t:
     i = t.rfind("</body>"); wr("fotofauna.html", t[:i] + '<script src="borne-fotofauna.js"></script>\n' + t[i:])
+# les paroles des psychopompes passent sous l'enseigne, jamais dessus
+s2 = rd("index.html")
+s2 = once(s2, "tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');}", "tip.style.top=(parseFloat(g.style.top)+8)+'px';tip.classList.add('on');{const B=document.getElementById('brand'),M=B&&(B.closest('.b-marquee,.marquee')||B);if(M){const m=M.getBoundingClientRect(),t=tip.getBoundingClientRect();if(t.top<m.bottom&&t.bottom>m.top&&t.left<m.right&&t.right>m.left)tip.style.top=(parseFloat(tip.style.top)+m.bottom-t.top+6)+'px';}}}")
+wr("index.html", s2)
 # la borne en français : fr.html sort de la borne finie, avec la langue et l'en-tête français d'InsertKoin (fr-head.json)
 import json as _json
 f = rd("index.html")

@@ -184,3 +184,6 @@ html.borne .b-sc{font-size:.76em;letter-spacing:inherit;vertical-align:baseline}
 /* 30 oct. — texte lisible : 12 px au moins sur toute inscription de la borne (afficheur du Motel Sound, compteurs, sigles) */
 html.borne #radio-toggle .motel-l .b-tk span,html.borne .bar .dock #export-pl,html.borne .bar .dock #export-pl *,html.borne .b-bezelfoot #kn,html.borne .b-bezelfoot .b-online b,html.borne .b-bezelfoot .b-online span,
 html.borne .b-bezelfoot .b-imm span,html.borne .b-row2 nav.menu a,html.borne .b-cam #kapture{font-size:max(12px,1em)!important}
+
+/* 30 oct. — la dynamite entière, en retrait du jonc latéral du meuble */
+html.borne .b-bezelfoot .b-boom{margin-right:14px!important}
