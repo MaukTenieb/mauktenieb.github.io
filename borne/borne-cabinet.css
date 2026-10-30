@@ -1142,3 +1142,11 @@ html.borne .gkoin{font-size:0!important;width:24px;height:24px;background:url(ko
 html.borne.b-nopsy .guide,html.borne.b-nopsy .gtip{display:none!important}
 /* le copyright laisse la place de l'aimant Dekonect, en bas à droite */
 html.borne .b-copy{padding-right:max(var(--inset,12px),64px)!important}
+/* 31 oct. — Lore posé sur la caisse (la porte), plus sur la plaque de la fente */
+html.borne .b-door{position:relative}
+html.borne .b-door>.b-lore.b-onbox{position:absolute;left:var(--lx,20%);top:var(--ly,10%);z-index:6;width:84px!important;height:38px!important;font-size:.9rem!important;transform:rotate(var(--lr,-6deg))}
+html.borne .b-door>.b-lore.b-onbox:hover{transform:rotate(var(--lr,-6deg)) scale(1.06)}
+/* 31 oct. — la console en perspective passe devant les bandes peintes des flancs (les tiges droites traversaient ses pans obliques) */
+html.borne #home .b-panel{z-index:2}
+/* 31 oct. — la plaque des molettes tient dans la caisse (elle débordait du flanc droit sous 1500 px) */
+@media (max-width:1500px) and (min-width:701px){html.borne .b-door>.b-knobs{zoom:.86}}

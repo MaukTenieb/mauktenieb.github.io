@@ -126,7 +126,7 @@
     s.setProperty('--i-cam','url('+pick(['camera-a.webp','camera-c.webp'])+')');/* caméras du toit : la webcam à pied et lentille bleue, ou la compacte Korhogo (décision de Mauk Tenieb, 30 oct., 22 h 40) */var mt='manette-a.webp';/* la manette courte, à embase (décision de Mauk Tenieb, 30 oct., 23 h 33 : plus réaliste) */s.setProperty('--i-stick','url('+mt+')');s.setProperty('--stk-cut',mt==='manette-a.webp'?'50%':'76%');s.setProperty('--ball-cut',mt==='manette-a.webp'?'39.5%':'37.5%');})();
   var sw=el('div','b-knobw'),sb=el('button','b-knob b-skin');sb.type='button';sb.setAttribute('aria-label','Skin');sb.dataset.pos=SKINS.indexOf(skin);
   sw.appendChild(sb);sw.appendChild(el('span','b-knoblab','🧤'));knobs.appendChild(sw);
-  sb.onclick=function(){try{window.__borneUsure&&window.__borneUsure(0);}catch(e){}skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
+  sb.onclick=function(){try{window.__borneUsure&&window.__borneUsure();}catch(e){}skin=SKINS[(SKINS.indexOf(skin)+1)%SKINS.length];sb.dataset.pos=SKINS.indexOf(skin);try{localStorage.setItem('borne.skin',skin);}catch(e){}
     try{IK().tone&&IK().tone(220,.05,'square',.03);IK().tone&&IK().tone(330,.05,'square',.03,0,.06);}catch(e){}
     scr.classList.remove('b-morph');void scr.offsetWidth;scr.classList.add('b-morph');setTimeout(function(){if(skin==='1960')variants();root.dataset.skin=skin;},250);};
   /* VOL : la molette du volume de la machine (sons des jeux et de la mécanique) ; trois crans, 0, moyen, fort */
@@ -409,23 +409,24 @@
   window.__borneFirst=function(){var a=[land,badge];if(Math.random()<.5)a.reverse();return a;};
   window.__borneScreen=function(){return {left:0,top:0,right:innerWidth,bottom:innerHeight,width:innerWidth,height:innerHeight};};
 
-  /* l'autocollant Lore, collé au hasard : au coin du cadre, ou sur la caisse à pièces, de travers */
+  /* l'autocollant Lore, collé au hasard n'importe où sur la caisse à pièces, de travers (Mauk Tenieb, 31 oct. : il ne fait pas partie de la plaque de la fente) */
   (function(){var slot=document.querySelector('.b-slot');if(!slot)return;
     lore.addEventListener('click',function(e){e.stopPropagation();});
-    function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var S=slot.getBoundingClientRect(),avoid=[];[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).forEach(function(x){var r=x.getBoundingClientRect();for(var z=0;z<6;z++)avoid.push({left:r.left-8,top:r.top-8,right:r.right+8,bottom:r.bottom+8});});
+    function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var P=slot.getBoundingClientRect(),door=slot.closest('.b-door')||slot.parentElement,S=door.getBoundingClientRect(),avoid=[];[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).forEach(function(x){var r=x.getBoundingClientRect();for(var z=0;z<6;z++)avoid.push({left:r.left-8,top:r.top-8,right:r.right+8,bottom:r.bottom+8});});
       /* la fente et la serrure de chaque porte (en % de la porte) */
       var OPEN={bois:[[30,14,72,60],[60,62,86,92]],metal:[[40,14,60,52],[66,58,86,86]]}[document.documentElement.dataset.skin]||[];
-      OPEN.forEach(function(o){avoid.push({left:S.left+S.width*o[0]/100,top:S.top+S.height*o[1]/100,right:S.left+S.width*o[2]/100,bottom:S.top+S.height*o[3]/100});});
+      var BL=document.documentElement.hasAttribute('data-bland');for(var z0=0;z0<(BL?1:3);z0++)avoid.push({left:P.left-6,top:P.top-6,right:P.right+6,bottom:P.bottom+6});/* sur le bois de la caisse, hors de la plaque */
+      OPEN.forEach(function(o){for(var z=0;z<6;z++)avoid.push({left:P.left+P.width*o[0]/100,top:P.top+P.height*o[1]/100,right:P.left+P.width*o[2]/100,bottom:P.top+P.height*o[3]/100});});
       /* ni sur la plaque des molettes, ni sur l'aimant, ni hors du meuble */
-      ['.b-knobs','.b-dekonect','.b-lamp.b-l1','.b-lamp.b-l2'].forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetWidth){var r=e.getBoundingClientRect();for(var z=0;z<3;z++)avoid.push({left:r.left-6,top:r.top-6,right:r.right+6,bottom:r.bottom+6});}});
+      ['.b-knobs','.b-dekonect','.b-lamp.b-l1','.b-lamp.b-l2'].concat(BL?['#home .b-bezel']:[]).forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetWidth){var r=e.getBoundingClientRect();for(var z=0;z<(BL?8:3);z++)avoid.push({left:r.left-6,top:r.top-6,right:r.right+6,bottom:r.bottom+6});}});
       var WR=(document.querySelector('.wrap')||document.body).getBoundingClientRect();
-      [[-1e4,-1e4,WR.left+8,1e4],[WR.right-8,-1e4,1e4,1e4]].forEach(function(r){for(var z=0;z<3;z++)avoid.push({left:r[0],top:r[1],right:r[2],bottom:r[3]});});
-      var C=[[-12,-14],[68,-14],[-14,70],[-16,30],[72,30],[3,4],[58,4],[3,64]];for(var gx=-20;gx<=76;gx+=8)for(var gy=-20;gy<=78;gy+=9)C.push([gx,gy]);C.sort(function(){return Math.random()-.5;});var w=lore.offsetWidth||108,h=lore.offsetHeight||50;
+      [[-1e4,-1e4,WR.left+8,1e4],[WR.right-8,-1e4,1e4,1e4]].concat(BL?[[-1e4,Math.min(WR.bottom,innerHeight)-2,1e4,1e4]]:[]).forEach(function(r){for(var z=0;z<3;z++)avoid.push({left:r[0],top:r[1],right:r[2],bottom:r[3]});});
+      var C=[];for(var gx=-4;gx<=86;gx+=4)for(var gy=-6;gy<=92;gy+=4)C.push([gx,gy]);C.sort(function(){return Math.random()-.5;});var w=lore.offsetWidth||108,h=lore.offsetHeight||50;
       var best=null,bo=1e9;C.forEach(function(c){var L=S.left+S.width*c[0]/100,T=S.top+S.height*c[1]/100,o=0;avoid.forEach(function(a){o+=Math.max(0,Math.min(L+w,a.right)-Math.max(L,a.left))*Math.max(0,Math.min(T+h,a.bottom)-Math.max(T,a.top));});if(o<bo){bo=o;best=c;}});
       C=[best];
       for(var k=0;k<C.length;k++){
         if(true){lore.classList.remove('b-stuck');lore.classList.add('b-onbox');lore.style.setProperty('--lx',C[k][0]+'%');lore.style.setProperty('--ly',C[k][1]+'%');
-          lore.style.setProperty('--lr',((Math.random()*2-1)*12).toFixed(1)+'deg');slot.appendChild(lore);return;}}}
+          lore.style.setProperty('--lr',((Math.random()*2-1)*12).toFixed(1)+'deg');door.appendChild(lore);return;}}}
     setTimeout(place,500);
     var RW=innerWidth;addEventListener('resize',function(){if(Math.abs(innerWidth-RW)>40){RW=innerWidth;clearTimeout(lore._rt);lore._rt=setTimeout(place,500);}});
     /* un autre skin, une autre caisse : l'autocollant se recolle hors de la fente et de son étiquette */
@@ -574,17 +575,16 @@
   knob();
 })();
 
-/* vieillissement (décision de Mauk Tenieb, 30 oct. ; images Midjourney Retexture du 30 oct., 22 h 30) : la borne s'use avec les visites du visiteur,
-   comptées dans son navigateur ; 5 visites : usure légère, 20 : moyenne, 60 : forte ; le bouton SKIN remet la borne à neuf (compteur à zéro) ; le skin tiré au hasard à l'arrivée garde le compteur.
-   Le skin bois seul a ses images usées (panneau, flanc, porte) */
-(function(){var K='borne.usure',d=document.documentElement;
-  function get(){try{return JSON.parse(localStorage.getItem(K)||'{}')||{};}catch(e){return {};}}
+/* vieillissement du formica (décisions de Mauk Tenieb, 30 et 31 oct.) : la borne s'use avec le temps, d'un palier tous les deux ou trois jours
+   (neuve, légère, moyenne, forte), puis le cycle recommence ; le bouton SKIN la remet à neuf. Le skin métal reste tel quel.
+   Le temps se compte dans le navigateur du visiteur, depuis sa première visite. */
+(function(){var K='borne.usure2',d=document.documentElement,DAY=864e5;
+  function get(){try{return JSON.parse(localStorage.getItem(K)||'null');}catch(e){return null;}}
   function put(o){try{localStorage.setItem(K,JSON.stringify(o));}catch(e){}}
-  function show(n){var t=n>=60?3:n>=20?2:n>=5?1:0;if(t)d.dataset.usure=String(t);else delete d.dataset.usure;}
-  function apply(fresh){var o=get();
-    if(fresh){var s=null;try{s=sessionStorage.getItem(K);}catch(e){}if(!s){o.n=(o.n||0)+1;try{sessionStorage.setItem(K,'1');}catch(e){}}}
-    put(o);show(o.n||0);}
-  apply(true);
-  /* aperçu pour l'auteur : ?usure=1, 2 ou 3 montre un palier sans toucher au compteur, avec le skin bois */
-  try{var q=/[?&]usure=([0-3])/.exec(location.search);if(q){d.dataset.skin='bois';if(+q[1])d.dataset.usure=q[1];else delete d.dataset.usure;}}catch(e){}
-  window.__borneUsure=function(n){var o=get();o.n=n;put(o);show(n);};})();
+  function fresh(){var o={t0:Date.now(),st:[0,1,2,3].map(function(){return Math.round((2+Math.random())*DAY);})};put(o);return o;}
+  function tier(o){var e=Date.now()-o.t0,cyc=o.st.reduce(function(a,b){return a+b;},0);e=e%cyc;for(var k=0;k<4;k++){if(e<o.st[k])return k;e-=o.st[k];}return 0;}
+  function show(t){if(t)d.dataset.usure=String(t);else delete d.dataset.usure;}
+  var o=get()||fresh();show(tier(o));setInterval(function(){show(tier(get()||o));},36e5);
+  /* aperçu pour l'auteur : ?usure=1, 2 ou 3 montre un palier sans toucher au temps, avec le skin bois */
+  try{var q=/[?&]usure=([0-3])/.exec(location.search);if(q){d.dataset.skin='bois';show(+q[1]);}}catch(e){}
+  window.__borneUsure=function(){o=fresh();show(0);};})();
