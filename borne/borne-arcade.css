@@ -97,9 +97,10 @@ html.borne[data-prog] .b-bezelfoot{padding-left:clamp(14px,1.6vw,26px)!important
 @media (max-width:700px){html.borne .b-bezelfoot #koins{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden}html.borne .b-bezelfoot .b-boom{flex:none}}
 /* porte du métal : l'étiquette au-dessus de la serrure */
 html.borne[data-skin=metal] .b-slot b{top:46%!important}
-/* textes : la date de l'écran à 12 px, les gravures à 11 px */
-html.borne .b-date b{font-size:clamp(12px,1vw,14px)!important}
-html.borne .b-date i{font-size:12px!important}
+/* textes : la date de l'écran en DM Mono 12 px, discrète dans le coin (Press Start 2P à 12 px et plus la rendait énorme) ; les gravures à 11 px */
+html.borne .b-date{font-family:'DM Mono',monospace!important;gap:2px!important;opacity:.72!important}
+html.borne .b-date b{font-family:'DM Mono',monospace!important;font-weight:500!important;font-size:12px!important;letter-spacing:.06em!important}
+html.borne .b-date i{font-family:'DM Mono',monospace!important;font-size:12px!important}
 html.borne .b-row2 .menu a{font-size:11px!important}
 html.borne .bar .dock:first-of-type #export-pl,html.borne .b-px{font-size:11px!important}
 html.borne .b-slot b,html.borne .b-slot b *{font-size:10px!important}
