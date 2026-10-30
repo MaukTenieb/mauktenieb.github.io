@@ -251,3 +251,15 @@ html.borne #m-board .card.kcur,html.borne #chess-board .sq.kcur{outline:3px soli
 
 /* 30 oct. — téléphone debout : le choix du niveau de Fauna Chess au milieu de l'écran, comme les autres jeux */
 @media (max-width:700px){html.borne[data-prog] #chess-sel{justify-content:center!important}}
+
+/* 30 oct., 19 h 25 (décision de Mauk Tenieb, essai A du lettrage) : des capitales partout, très lisibles.
+   Touches du panneau : Bebas Neue en capitales espacées, gravées comme la plaque ; 3615 garde son afficheur.
+   Écrans : titres, comptes, scores en Press Start 2P (charte de DA.md). */
+html.borne .b-panel .cab b:not([data-t="3615"]),html.borne .b-panel .cab b:not([data-t="3615"]) *{text-transform:uppercase!important;font-variant:normal!important;font-style:normal!important}
+html.borne .b-panel .cab b:not([data-t="3615"]) .b-sc{font-size:inherit!important}
+html.borne .b-panel .cab.b-group b{font-family:"Bebas Neue",Impact,sans-serif!important;letter-spacing:.14em!important;font-size:19px!important}
+html.borne .msg .big,html.borne .over h2,html.borne .count,html.borne .champ .chT b{font-family:"Press Start 2P",monospace!important;letter-spacing:.02em!important}
+html.borne .msg .big{font-size:clamp(16px,3.2vw,30px)!important}
+html.borne .over h2{font-size:clamp(22px,4.4vw,40px)!important}
+html.borne .count{font-size:clamp(26px,5vw,48px)!important}
+html.borne .champ .chT b{font-size:clamp(16px,3.2vw,28px)!important}

@@ -56,7 +56,7 @@ Chaque groupe de programmes garde son encre d'identité (`--nc`) : KorhoGame amb
 | Press Start 2P | l'écran : écrans-titres, crédits, scores, HUD, INSERT KOIN |
 | DM Mono | le texte courant à l'écran et les bandeaux d'affichage (titre du morceau) |
 
-Ces quatre familles forment tout le lettrage. Le texte à l'écran mesure 12 px au moins, hors gravure d'objet.
+Ces quatre familles forment tout le lettrage. Décision du 30 oct., 19 h 25 : des capitales partout, très lisibles ; les touches du panneau en Bebas Neue capitales espacées, 3615 en afficheur Press Start 2P ; titres, comptes et scores des jeux en Press Start 2P. Le texte à l'écran mesure 12 px au moins, hors gravure d'objet.
 
 ## Écran
 
