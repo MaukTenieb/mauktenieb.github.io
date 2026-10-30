@@ -183,6 +183,22 @@ k2 = k2.replace("'VT323'", "'DM Mono'").replace('"VT323"', '"DM Mono"')
 # dans la borne, SkopoRhogo remplit tout l'écran qui l'accueille ; sous la taille native, l'image se réduit en lissant, sans damier
 k2 = once(k2, "const aw=st.clientWidth-(mob?4:20), ah=mob?innerHeight*.62:Math.max(240,st.clientHeight-20);\n  let k=Math.min(aw/W,ah/H); if(k>=1) k=Math.floor(k*4)/4;",
   "const inF=window.top!==window, aw=inF?st.clientWidth:st.clientWidth-(mob?4:20), ah=inF?Math.max(160,st.clientHeight):(mob?innerHeight*.62:Math.max(240,st.clientHeight-20));\n  let k=Math.min(aw/W,ah/H); if(k>=1&&!inF) k=Math.floor(k*4)/4; view.style.imageRendering=k<1?'auto':'';")
+# téléphone couché : la chambre tient la hauteur, la liste des Masks à droite, la barre de réglages resserrée
+k2 = once(k2, "</style>", """  @media (orientation:landscape) and (max-height:500px){
+    body{ height:100vh; min-height:0; }
+    header{ padding:3px 8px; gap:6px; }
+    button{ font-size:15px; padding:1px 6px; }
+    main{ flex-direction:row; min-height:0; overflow:hidden; }
+    #stage{ padding:2px; }
+    aside{ width:210px; border-left:2px solid var(--w); border-top:none; overflow:auto; padding:6px; gap:6px; }
+    #roster{ grid-template-columns:1fr; }
+    #card{ padding:6px; }
+    #cbody{ grid-template-columns:56px 1fr; }
+    #pcv{ width:56px; height:56px; }
+    #cname{ font-size:18px; }
+    .row{ font-size:15px; }
+  }
+</style>""")
 wr("skoporhogo-borne.html", k2)
 # FotoFauna : le logo déclenche, caméra avant ou arrière, pile et pellicule (borne-fotofauna.js, borne-fotofauna.css)
 cap("fotofauna.html", 'getUserMedia({video:{facingMode:"user",width:{ideal:1280}},audio:false})', 'getUserMedia({video:{facingMode:(window.__ffFacing||"environment"),width:{ideal:1280}},audio:false})')  # caméra arrière par défaut

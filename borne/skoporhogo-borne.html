@@ -54,6 +54,20 @@
     header{ padding:8px 16px; gap:8px; }
     button{ font-size:20px; padding:2px 8px; }
   }
+  @media (orientation:landscape) and (max-height:500px){
+    body{ height:100vh; min-height:0; }
+    header{ padding:3px 8px; gap:6px; }
+    button{ font-size:15px; padding:1px 6px; }
+    main{ flex-direction:row; min-height:0; overflow:hidden; }
+    #stage{ padding:2px; }
+    aside{ width:210px; border-left:2px solid var(--w); border-top:none; overflow:auto; padding:6px; gap:6px; }
+    #roster{ grid-template-columns:1fr; }
+    #card{ padding:6px; }
+    #cbody{ grid-template-columns:56px 1fr; }
+    #pcv{ width:56px; height:56px; }
+    #cname{ font-size:18px; }
+    .row{ font-size:15px; }
+  }
 </style>
 </head>
 <body>
