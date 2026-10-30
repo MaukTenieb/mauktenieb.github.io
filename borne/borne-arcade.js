@@ -191,3 +191,8 @@ addEventListener('keydown',function(e){var R=document.documentElement;if(!R.hasA
     if(!L||!Rd||!b||!p||L===Rd)return;var to=mq.matches?Rd:L;if(b.parentNode!==to){to.appendChild(b);to.appendChild(p);}document.documentElement.classList.toggle('b-sonadroite',mq.matches);}
   if(mq.addEventListener)mq.addEventListener('change',place);else mq.addListener(place);
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',place);else place();setTimeout(place,600);})();
+
+/* 30 oct. — le 3615 ouvert reçoit le clavier tout de suite : le focus passe dans son cadre (audit du 3615, défaut 4) */
+(function(){var last='';setInterval(function(){var p=document.documentElement.dataset.prog||'';if(p===last)return;last=p;if(!p)return;
+  var n=0;(function t(){var f=[].find.call(document.querySelectorAll('.b-glass iframe,#kg-root iframe'),function(x){return /\/3615\//.test(x.src)&&x.getClientRects().length;});
+    if(f){try{f.focus();f.contentWindow.focus();}catch(e){}return;}if(++n<20)setTimeout(t,250);})();},400);})();
