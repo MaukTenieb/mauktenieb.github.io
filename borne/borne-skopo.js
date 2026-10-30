@@ -53,5 +53,13 @@
   window.requestAnimationFrame=function(cb){if(asleep)return setTimeout(function(){RAF(cb);},2000);if(!ATTR)return RAF(cb);return RAF(function(t){if(t-(cb._t||0)<30){window.requestAnimationFrame(cb);return;}cb._t=t;cb(t);});};
   addEventListener('message',function(e){var R=window.__room,d=e.data||{};if(!R||!d.borne)return;
     if(d.borne==='sleep'){asleep=true;R.setSpeed(0);}else if(d.borne==='wake'){asleep=false;catchUp(target());window.__walk=60;R.setSpeed(1);}});
+  /* programme ouvert (audit UI, S3 et S4) : la fiche du Mask choisi vient à l'écran ; la date et l'heure de la borne s'affichent dans la barre */
+  if(!attract){
+    document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.row'))setTimeout(function(){var c=document.getElementById('card');if(c&&c.getClientRects().length){var q=c.getBoundingClientRect();if(q.top<0||q.bottom>innerHeight)c.scrollIntoView({block:'nearest',behavior:'smooth'});}},60);});
+    (function clock(){var h=document.querySelector('header');if(!h){setTimeout(clock,300);return;}var k=document.createElement('span');k.id='skclock';
+      k.style.cssText='margin-left:auto;font:400 13px/1 "DM Mono",monospace;letter-spacing:.08em;text-transform:uppercase;opacity:.8;white-space:nowrap';
+      var lang=h.querySelector('#lang');if(lang)h.insertBefore(k,lang);else h.appendChild(k);
+      function tick(){var t='';try{var b=parent.document.querySelector('.b-date b');t=b?b.textContent:'';}catch(e){}k.textContent=t;}tick();setInterval(tick,1000);})();
+  }
   if(document.readyState==='complete')init();else addEventListener('load',init);
 })();
