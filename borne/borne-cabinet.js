@@ -548,3 +548,12 @@
     try{if(fr&&fr.contentDocument&&fr.contentDocument.documentElement){var d=fr.contentDocument.documentElement;d.style.zoom=(on&&fr.offsetWidth&&z>1)?z.toFixed(3):'';}}catch(e){}
     if(key!==last){last=key;try{dispatchEvent(new Event('resize'));}catch(e){}}}
   setInterval(apply,700);addEventListener('resize',function(){setTimeout(apply,50);});})();
+
+/* la visite des psychopompes, 30 oct. : elle fait voir toute la borne, programmes, jeux, services et sites extérieurs ;
+   le visiteur garde la main : molette, doigt qui glisse ou touche du clavier arrêtent la visite là où il est, et la vue reste là ;
+   la visite finie d'elle-même, borne-arcade.js ramène la vue au cadre de l'arrivée */
+(function(){
+  function hand(){if(window.__borneTour&&window.__borneTourStop){window.__borneTourByHand=true;try{window.__borneTourStop();}catch(_){}try{scrollTo({top:scrollY,behavior:'instant'});}catch(_){}}}
+  addEventListener('wheel',hand,{passive:true,capture:true});addEventListener('touchmove',hand,{passive:true,capture:true});
+  addEventListener('keydown',function(e){if(/^(Arrow|Page|Home|End| )/.test(e.key))hand();},true);
+})();

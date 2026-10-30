@@ -133,7 +133,7 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
   function stop(){if(!busy)return;clearTimeout(T);var f=busy;busy=0;clear();if(typeof f==='function')f();}
   window.__borneSettle=settle;
   /* la visite des psychopompes finie, la borne revient au cadre de l'arrivée */
-  var wasTour=0;setInterval(function(){var t=!!window.__borneTour;if(wasTour&&!t&&!R.hasAttribute('data-prog')&&!busy)settle();wasTour=t;},300);
+  var wasTour=0;setInterval(function(){var t=!!window.__borneTour;if(wasTour&&!t&&!R.hasAttribute('data-prog')&&!busy&&!window.__borneTourByHand)settle();if(!wasTour&&t)window.__borneTourByHand=false;wasTour=t;},300);
   window.__borneCam={
     ok:function(){return !!(wrap()&&glass())&&!R.classList.contains('b-immersion')&&!matchMedia('(prefers-reduced-motion:reduce)').matches},
     rect:function(){var r=rect();return r?{x:r.left,y:r.top,w:r.width,h:r.height}:target()},
