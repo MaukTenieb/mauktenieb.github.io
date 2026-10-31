@@ -72,8 +72,18 @@ addEventListener('keydown',function(e){var r=document.documentElement;if(r.datas
     var cm=R.getAttribute('data-cam');if(cm==='in'||cm==='out')return;
     if(busy)return;busy=1;R.setAttribute('data-fitting','');
     try{
-      if(!home()){R.removeAttribute('data-bfit');R.removeAttribute('data-bsmall');['--fitW','--wc','--bzs'].forEach(function(k){R.style.removeProperty(k)});return}
+      if(!home()){R.removeAttribute('data-bfit');R.removeAttribute('data-bsmall');R.removeAttribute('data-bland');['--fitW','--wc','--bzs'].forEach(function(k){R.style.removeProperty(k)});return}
       var scr=document.querySelector('.b-bezel .b-screen'),foot=document.querySelector('.b-bezelfoot');if(!scr)return;
+      /* 31 oct. — téléphone couché : une enseigne mince en haut, puis deux colonnes ; à gauche l'écran et son pied sur toute la hauteur libre, à droite le panneau sur la porte.
+         La largeur de l'image se règle sur la hauteur mesurée entre l'enseigne et le bas de la fenêtre ; le meuble prend la largeur de la fenêtre. */
+      if(matchMedia('(orientation:landscape) and (max-height:500px)').matches){
+        var LW=innerWidth,LH=innerHeight,lw=Math.max(240,Math.min(900,LW-16)),lg=300,lmax=(lw-24-330)/1.16;
+        R.setAttribute('data-bland','');R.setAttribute('data-bfit','');R.removeAttribute('data-bsmall');R.style.removeProperty('--bzs');R.style.setProperty('--wc',lw+'px');
+        for(var j=0;j<4;j++){R.style.setProperty('--fitW',Math.round(lg)+'px');
+          var lb=(foot||scr).getBoundingClientRect().bottom,ln=Math.max(200,Math.min(lmax,lg+(LH-10-lb)/.85));
+          if(Math.abs(ln-lg)<1.5){lg=ln;break}lg=ln;}
+        R.style.setProperty('--fitW',Math.round(lg)+'px');if(scrollY)scrollTo(0,0);arrived=1;try{window.__borneSeat&&window.__borneSeat();}catch(_){}return}
+      if(R.hasAttribute('data-bland')){R.removeAttribute('data-bland');setTimeout(function(){try{window.__borneSeat&&window.__borneSeat();}catch(_){}},80);}
       var H=innerHeight,W=innerWidth,gw=640,wc;
       for(var i=0;i<3;i++){
         wc=Math.max(600,Math.min(W-32,Math.max(gw*1.357+150,Math.min(H*.98+30,gw*1.537+150))));

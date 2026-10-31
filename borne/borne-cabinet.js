@@ -412,21 +412,54 @@
   /* l'autocollant Lore, collé au hasard n'importe où sur la caisse à pièces, de travers (Mauk Tenieb, 31 oct. : il ne fait pas partie de la plaque de la fente) */
   (function(){var slot=document.querySelector('.b-slot');if(!slot)return;
     lore.addEventListener('click',function(e){e.stopPropagation();});
-    function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var P=slot.getBoundingClientRect(),door=slot.closest('.b-door')||slot.parentElement,S=door.getBoundingClientRect(),avoid=[];[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).forEach(function(x){var r=x.getBoundingClientRect();for(var z=0;z<6;z++)avoid.push({left:r.left-8,top:r.top-8,right:r.right+8,bottom:r.bottom+8});});
+    function place(){if(!slot.offsetWidth){setTimeout(place,300);return;}var P=slot.getBoundingClientRect(),door=slot.closest('.b-door')||slot.parentElement,S=door.getBoundingClientRect(),avoid=[];var BL=document.documentElement.hasAttribute('data-bland');[slot.querySelector('b'),slot.querySelector('i')].filter(Boolean).forEach(function(x){var r=x.getBoundingClientRect();for(var z=0;z<(BL?30:6);z++)avoid.push({left:r.left-8,top:r.top-8,right:r.right+8,bottom:r.bottom+8});});
+      /* téléphone couché (data-bland) : placement propre à ce mode (landPlace) */
+      if(BL){landPlace(P,S,door);return;}
       /* la fente et la serrure de chaque porte (en % de la porte) */
       var OPEN={bois:[[30,14,72,60],[60,62,86,92]],metal:[[40,14,60,52],[66,58,86,86]]}[document.documentElement.dataset.skin]||[];
-      var BL=document.documentElement.hasAttribute('data-bland');for(var z0=0;z0<(BL?1:3);z0++)avoid.push({left:P.left-6,top:P.top-6,right:P.right+6,bottom:P.bottom+6});/* sur le bois de la caisse, hors de la plaque */
-      OPEN.forEach(function(o){for(var z=0;z<6;z++)avoid.push({left:P.left+P.width*o[0]/100,top:P.top+P.height*o[1]/100,right:P.left+P.width*o[2]/100,bottom:P.top+P.height*o[3]/100});});
+      for(var z0=0;z0<(BL?0:3);z0++)avoid.push({left:P.left-6,top:P.top-6,right:P.right+6,bottom:P.bottom+6});/* sur le bois de la caisse, hors de la plaque */
+      OPEN.forEach(function(o){for(var z=0;z<(BL?14:6);z++)avoid.push({left:P.left+P.width*o[0]/100,top:P.top+P.height*o[1]/100,right:P.left+P.width*o[2]/100,bottom:P.top+P.height*o[3]/100});});
       /* ni sur la plaque des molettes, ni sur l'aimant, ni hors du meuble */
-      ['.b-knobs','.b-dekonect','.b-lamp.b-l1','.b-lamp.b-l2'].concat(BL?['#home .b-bezel']:[]).forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetWidth){var r=e.getBoundingClientRect();for(var z=0;z<(BL?8:3);z++)avoid.push({left:r.left-6,top:r.top-6,right:r.right+6,bottom:r.bottom+6});}});
+      ['.b-knobs','.b-dekonect','.b-lamp.b-l1','.b-lamp.b-l2'].concat(BL?['#home .b-bezel','#home .b-panel']:[]).forEach(function(q){var e=document.querySelector(q);if(e&&e.offsetWidth){var r=e.getBoundingClientRect();for(var z=0;z<(BL?(q==='#home .b-panel'?3:8):3);z++)avoid.push({left:r.left-6,top:r.top-6,right:r.right+6,bottom:r.bottom+6});}});
       var WR=(document.querySelector('.wrap')||document.body).getBoundingClientRect();
-      [[-1e4,-1e4,WR.left+8,1e4],[WR.right-8,-1e4,1e4,1e4]].concat(BL?[[-1e4,Math.min(WR.bottom,innerHeight)-2,1e4,1e4]]:[]).forEach(function(r){for(var z=0;z<3;z++)avoid.push({left:r[0],top:r[1],right:r[2],bottom:r[3]});});
-      var C=[];for(var gx=-4;gx<=86;gx+=4)for(var gy=-6;gy<=92;gy+=4)C.push([gx,gy]);C.sort(function(){return Math.random()-.5;});var w=lore.offsetWidth||108,h=lore.offsetHeight||50;
-      var best=null,bo=1e9;C.forEach(function(c){var L=S.left+S.width*c[0]/100,T=S.top+S.height*c[1]/100,o=0;avoid.forEach(function(a){o+=Math.max(0,Math.min(L+w,a.right)-Math.max(L,a.left))*Math.max(0,Math.min(T+h,a.bottom)-Math.max(T,a.top));});if(o<bo){bo=o;best=c;}});
+      [[-1e4,-1e4,WR.left+8,1e4],[WR.right-8,-1e4,1e4,1e4]].concat(BL?[[-1e4,Math.min(WR.bottom,innerHeight)-2,1e4,1e4]]:[]).forEach(function(r,i){for(var z=0;z<(i>1?12:3);z++)avoid.push({left:r[0],top:r[1],right:r[2],bottom:r[3]});});
+      var C=[];for(var gx=-4;gx<=86;gx+=4)for(var gy=(BL?-30:-6);gy<=92;gy+=4)C.push([gx,gy]);C.sort(function(){return Math.random()-.5;});var w=lore.offsetWidth||108,h=lore.offsetHeight||50;
+      /* téléphone couché : l'autocollant pose aux trois cinquièmes au moins sur la porte à monnayeur */
+      if(BL){var CP=C.filter(function(c){var L=S.left+S.width*c[0]/100,T=S.top+S.height*c[1]/100;return Math.max(0,Math.min(L+w,P.right)-Math.max(L,P.left))*Math.max(0,Math.min(T+h,P.bottom)-Math.max(T,P.top))>=.6*w*h;});if(CP.length)C=CP;}
+      var best=null,bo=1e9;C.forEach(function(c){var L=S.left+S.width*c[0]/100,T=S.top+S.height*c[1]/100,o=0;avoid.forEach(function(a){o+=Math.max(0,Math.min(L+w,a.right)-Math.max(L,a.left))*Math.max(0,Math.min(T+h,a.bottom)-Math.max(T,a.top));});c.o=o;if(o<bo){bo=o;best=c;}});
+      /* téléphone couché : une place tirée au hasard parmi les meilleures */
+      if(BL){var CB=C.filter(function(c){return c.o<=bo*1.1+40;});best=CB[Math.floor(Math.random()*CB.length)]||best;}
       C=[best];
       for(var k=0;k<C.length;k++){
         if(true){lore.classList.remove('b-stuck');lore.classList.add('b-onbox');lore.style.setProperty('--lx',C[k][0]+'%');lore.style.setProperty('--ly',C[k][1]+'%');
-          lore.style.setProperty('--lr',((Math.random()*2-1)*12).toFixed(1)+'deg');door.appendChild(lore);return;}}}
+          lore.style.setProperty('--lr',((Math.random()*2-1)*(BL?6:12)).toFixed(1)+'deg');door.appendChild(lore);return;}}}
+    function landPlace(P,S,door){var sk=document.documentElement.dataset.skin,w=lore.offsetWidth||92,h=lore.offsetHeight||44;
+      /* la fenêtre sombre de la fente (en % de la plaque) ; son cadre compte comme plaque (décision du 31 oct.) */
+      var OP={bois:[31,19,70,60],metal:[46,26,54,45]}[sk]||[31,19,70,60];
+      function ov(a,x,y,W,H){return Math.max(0,Math.min(x+W,a.r)-Math.max(x,a.l))*Math.max(0,Math.min(y+H,a.b)-Math.max(y,a.t));}
+      var O={l:P.left+P.width*OP[0]/100-6,t:P.top+P.height*OP[1]/100-6,r:P.left+P.width*OP[2]/100+6,b:P.top+P.height*OP[3]/100+6};
+      var lb=slot.querySelector('b'),Lr=lb&&lb.getBoundingClientRect(),LB=Lr&&{l:Lr.left,t:Lr.top,r:Lr.right,b:Lr.bottom},LA=LB?(LB.r-LB.l)*(LB.b-LB.t):0;
+      var kn=document.querySelector('.b-door .b-knobs'),KR=kn&&kn.getBoundingClientRect(),KN=KR&&{l:KR.left-4,t:KR.top-4,r:KR.right+4,b:KR.bottom+4};
+      var pn=document.querySelector('#home .b-panel'),bz=document.querySelector('#home .b-bezel'),WR=document.querySelector('.wrap').getBoundingClientRect();
+      var top=(pn?pn.getBoundingClientRect().bottom:P.top)+3,bot=Math.min(innerHeight,WR.bottom)-3,lft=Math.max(S.left,bz?bz.getBoundingClientRect().right:0)+3,rgt=Math.min(S.right,WR.right)-3;
+      /* LORE au hasard sur la caisse : la fenêtre de la fente nue (6 px), l'étiquette couverte à 15 % au plus, 45 % de sa largeur au plus hors de la plaque, sur le bois de la caisse, sous le rebord du panneau */
+      /* 0,6 au plus bas sous 800 px de large, et en bois jusqu'à 900 px (décision du 31 oct.) */
+      var sc=(innerWidth<800||(sk==='bois'&&innerWidth<900))?[.8,.75,.6]:[.8,.75];
+      for(var i=0;i<sc.length;i++){var W=w*sc[i]+4,H=h*sc[i]+6,C=[];
+        for(var x=lft;x<=rgt-W;x+=2){var out=Math.max(0,P.left-x)+Math.max(0,x+W-P.right);if(out>.45*W)continue;
+          for(var y=top;y<=bot-H;y+=2){if(ov(O,x,y,W,H)||(KN&&ov(KN,x,y,W,H))||(LB&&ov(LB,x,y,W,H)>.15*LA))continue;C.push([x,y]);}}
+        if(!C.length)continue;var k=C[Math.floor(Math.random()*C.length)];
+        lore.classList.remove('b-stuck');lore.classList.add('b-onbox');
+        lore.style.setProperty('--lx',(k[0]+W/2-w/2-S.left).toFixed(1)+'px');lore.style.setProperty('--ly',(k[1]+H/2-h/2-S.top).toFixed(1)+'px');
+        lore.style.setProperty('--ls',sc[i]);lore.style.setProperty('--lr',((Math.random()*2-1)*4).toFixed(1)+'deg');door.appendChild(lore);return true;}
+      /* porte trop petite (740 × 360, bois) : à la plus petite échelle, la place qui dépasse le moins les deux plafonds ; la fenêtre de la fente, le cadre de l'écran, le rebord du panneau et les molettes restent libres */
+      var s3=sc[sc.length-1],W3=w*s3+2,H3=h*s3+2,D=[],mo=1e18;
+      for(var x3=lft;x3<=rgt-W3;x3+=2)for(var y3=top;y3<=bot+2-H3;y3+=2){if(ov(O,x3,y3,W3,H3)||(KN&&ov(KN,x3,y3,W3,H3)))continue;
+        var o3=Math.max(0,P.left-x3)+Math.max(0,x3+W3-P.right),e3=Math.max(0,o3-.45*W3)*H3+(LB?Math.max(0,ov(LB,x3,y3,W3,H3)-.15*LA):0);D.push([x3,y3,e3]);if(e3<mo)mo=e3;}
+      if(!D.length)return false;D=D.filter(function(c){return c[2]<=mo+60;});var k3=D[Math.floor(Math.random()*D.length)];
+      lore.classList.remove('b-stuck');lore.classList.add('b-onbox');
+      lore.style.setProperty('--lx',(k3[0]+W3/2-w/2-S.left).toFixed(1)+'px');lore.style.setProperty('--ly',(k3[1]+H3/2-h/2-S.top).toFixed(1)+'px');
+      lore.style.setProperty('--ls',s3);lore.style.setProperty('--lr','0deg');door.appendChild(lore);return true;}
     setTimeout(place,500);
     var RW=innerWidth;addEventListener('resize',function(){if(Math.abs(innerWidth-RW)>40){RW=innerWidth;clearTimeout(lore._rt);lore._rt=setTimeout(place,500);}});
     /* un autre skin, une autre caisse : l'autocollant se recolle hors de la fente et de son étiquette */

@@ -310,3 +310,62 @@ html.borne{--scr:255,170,90;--scr-a:0}
 html.borne .b-scrlight{position:absolute;inset:0;pointer-events:none;z-index:5;mix-blend-mode:screen;border-radius:inherit;
   background:radial-gradient(120% 70% at 50% 0,rgba(var(--scr),calc(var(--scr-a) * .55)),rgba(var(--scr),calc(var(--scr-a) * .12)) 45%,transparent 75%);transition:background .45s linear}
 html.borne[data-prog] .b-scrlight,html.borne.b-immersion .b-scrlight{display:none}
+/* 31 oct. — téléphone couché, à l'accueil (borne-arcade.js, fit : data-bland, --fitW, --wc) : l'enseigne en bandeau mince, puis deux colonnes.
+   À gauche l'écran et son pied, aussi haut que la fenêtre le permet ; à droite le panneau de commande sur la porte à monnayeur. Le toit, Burrows et le copyright se retirent. */
+@media (orientation:landscape) and (max-height:500px){
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion){--blL:calc(var(--fitW) * 1.16 + 24px)}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) :is(.b-roof,.b-copy,.b-land){display:none!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .wrap{display:grid!important;grid-template-columns:var(--blL) minmax(0,1fr)!important;grid-template-rows:auto minmax(0,1fr)!important;
+    width:var(--wc)!important;max-width:calc(100vw - 16px)!important;height:calc(100vh - 6px)!important;margin:6px auto 0!important;padding:0!important;box-sizing:border-box}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .wrap>.bar{grid-column:1/-1;grid-row:1}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .wrap .bar :is(.brand,.dock){min-height:44px!important;height:44px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) #home{grid-column:1/-1;grid-row:2;display:grid!important;grid-template-columns:var(--blL) minmax(0,1fr);align-items:start;min-height:0}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) #home .b-bezel{grid-column:1;grid-row:1}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) #home .b-panel{grid-column:2;grid-row:1}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .wrap>.b-door{grid-column:2;grid-row:2;align-self:end;z-index:2;margin:0 0 4px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion):not([data-habit=fauneye]) .b-bezel .b-screen{padding:calc(var(--gw) * .05) 0!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion):not([data-habit=fauneye]) .b-bezel .b-screen::before{height:calc(var(--gw) * .85)!important;
+    border-width:calc(var(--gw) * .05) calc(var(--gw) * .08)!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .wrap>.bar{padding-top:3px!important;padding-bottom:3px!important;min-height:0!important;height:auto!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-butee{display:none!important}
+  /* la ligne Online réduite à son point et à son nombre ; la barre finit au ras de la dynamite */
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-bezelfoot .b-online{display:flex!important;margin:0!important;font-size:12px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-bezelfoot .b-online span{display:none!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-bezelfoot .b-boom{margin-right:0!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) #home .b-bezel{margin:4px 0 0 8px!important;padding:8px!important;gap:6px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) #home .b-panel{margin:4px calc(clamp(12px,1.5vw,22px) + 20px) 0 8px!important;padding:8px 10px 28px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-row2{margin:0 0 4px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-row2 .menu{gap:clamp(18px,4vw,34px)!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .menu a,html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .menu button{padding-top:46px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .cabinets{gap:6px!important;margin:0 auto!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .cabinets>.cab{width:94%!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .cabinets>.b-stick{margin:0 2px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .cabinets>.cab:nth-child(1),html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .cabinets>.cab:nth-child(5){transform:translateY(8px)}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-plate{margin-top:8px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .wrap>.b-door{display:flex!important;flex-wrap:nowrap!important;align-items:center;justify-content:flex-end;gap:10px!important;width:auto!important;max-width:100%!important;padding:0 calc(clamp(12px,1.5vw,22px) + 12px) 0 10px!important;justify-self:stretch}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion){--slr:1.83}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion)[data-skin=bois]{--slr:1.43}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-door>.b-slot{height:auto!important;width:min(calc(clamp(56px,calc(100dvh - 296px),118px) * var(--slr)),calc(var(--wc) - var(--blL) - 252px - clamp(12px,1.5vw,22px)))!important;flex:none;container-type:inline-size}
+  /* l'étiquette de la fente tient dans la plaque : la taille suit la largeur de la porte */
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-door>.b-slot b{max-width:none!important;gap:.35em!important;letter-spacing:-.02em!important;font-size:min(12px,6.5cqi)!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-door>.b-slot b *{font-size:inherit!important;letter-spacing:inherit!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-door>.b-knobs{flex:none;zoom:1!important;gap:6px!important;padding:7px 9px 5px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-dekonect{width:48px!important;height:48px!important}
+  /* cibles de 44 px et texte de 12 px au moins, dans ce cadrage où la porte entre dans la fenêtre */
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .cabinets>.cab{min-height:60px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-panel .cab .hit{inset:0!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-door>.b-lore.b-onbox{width:92px!important;height:44px!important;transform:rotate(var(--lr,-4deg)) scale(var(--ls,1))!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-door>.b-lore.b-onbox:hover{transform:rotate(var(--lr,-4deg)) scale(calc(var(--ls,1) * 1.06))!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-door>.b-lore.b-onbox::before{content:"";position:absolute;inset:-8px}
+  /* l'aimant laisse voir la vis du panneau de métal */
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion)[data-skin=metal] .b-dekonect{translate:-12px 0}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) #home .b-panel .cabinets>.cab b{font-size:max(12px,min(clamp(1rem,1.7vw,1.45rem),16cqi))!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-plate .b-badge{height:44px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .bar .dock #radio-toggle::before{content:"";position:absolute;inset:-14px 0}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-knob{font-size:12px!important;text-indent:300%;white-space:nowrap;overflow:hidden}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-knoblab{font-size:12px!important}
+}
+/* téléphone couché, fenêtre étroite (740 × 360) : la plaque des molettes se resserre ; la porte gagne du bois pour LORE */
+@media (orientation:landscape) and (max-height:500px) and (max-width:799px){
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .b-door>.b-knobs{gap:3px!important;padding:7px 6px 5px!important}
+  html.borne[data-bland]:not([data-prog]):not([data-mode=device]):not(.b-immersion) .wrap>.b-door{padding-left:2px!important}}
