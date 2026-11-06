@@ -2,7 +2,7 @@
 
 > Transmedia Underground Worldbuilder. Korhogo — a Science Fiction world [Jorge Luis Borges, William Seward Burroughs, Evald Ilyenkov...] — proliferates through the 18 avatars of the Korhogo Fauna, aka Hordalék or the Masks. Genres? Experimental Hip-Hop, Concept Albums, Illbient, IDM, Experimental Dub — also: RPG, Games, Videos, Pictures, Collaborations, Literature (massive diary).
 
-> Korhogo is Mauk Tenieb's fictional world; the Korhogo Fauna, aka Hordalék or the Masks, are its 18 inhabitants. Korhogo also names a city in Ivory Coast and a Senufo cloth; Mauk Tenieb's Korhogo stands apart from both. Koin, the Kotlin library.
+> Korhogo is Mauk Tenieb's fictional world; the Korhogo Fauna, aka Hordalék or the Masks, are its 18 inhabitants. Korhogo also names a city in Ivory Coast and a Senufo cloth; Mauk Tenieb's Korhogo stands apart from both.
 
 ## Links
 - [Artist](https://github.com/MaukTenieb)
@@ -13,6 +13,7 @@
 
 ## Sites
 - [Insert Koin](https://mauktenieb.github.io/insertkoin/)
+- [Insert Koin notes](https://mauktenieb.github.io/insertkoin/notes/): technical notes on the making of Insert Koin
 - [3615](https://mauktenieb.github.io/3615/)
 - [Hervé Delboy, alchimie](https://mauktenieb.github.io/alchimie-delboy/): Hervé Delboy's site on alchemy (1999–2016), put back online as he wrote it, until it returns to its owner. Why it sits in the Korhogo network, in Mauk Tenieb's words, French and English: [Korhogo, Delboy, l'Idéel](https://github.com/MaukTenieb/method/blob/main/KORHOGO-DELBOY-IDEEL.md)
 
@@ -26,4 +27,3 @@
 
 ## Rights
 Code under MIT, method under CC BY 4.0, Korhogo material reserved (characters, names, marks, lore, texts, images, videos, music). Credit for any reuse: Mauk Tenieb & Korhogo. A person may use an AI assistant to read, explain and adapt the code and the method; training of AI models: reserved. Details: LICENSE.
-- [Insert Koin notes](https://mauktenieb.github.io/insertkoin/notes/): technical notes on the making of Insert Koin
