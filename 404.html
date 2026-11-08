@@ -7,9 +7,10 @@
 <title>Mauk Tenieb</title>
 <script>
 /* short addresses: mauktenieb.github.io/k/<8 to 64 hex> opens that visitor's Korhogo Kuration cassette in the VHS deck of Insert Koin, in French for a French browser */
-(function(){var m=location.pathname.match(/^\/k\/([0-9a-f]{8,64})\/?$/i);if(!m)return;var fr=false;try{var l=localStorage.getItem('ik.lang');fr=l?l==='fr':/^fr/i.test(navigator.language||'');}catch(e){fr=/^fr/i.test(navigator.language||'');}location.replace('/insertkoin/'+(fr?'fr.html':'')+'?k='+m[1].toLowerCase());})();
+/* 8 nov. 2026 (Mauk Tenieb) : toute autre adresse introuvable ramène à https://github.com/MaukTenieb */
+(function(){var m=location.pathname.match(/^\/k\/([0-9a-f]{8,64})\/?$/i);if(!m)return location.replace('https://github.com/MaukTenieb');var fr=false;try{var l=localStorage.getItem('ik.lang');fr=l?l==='fr':/^fr/i.test(navigator.language||'');}catch(e){fr=/^fr/i.test(navigator.language||'');}location.replace('/insertkoin/'+(fr?'fr.html':'')+'?k='+m[1].toLowerCase());})();
 </script>
 <style>body{margin:0;min-height:100vh;display:grid;place-content:center;background:#0b0907;color:#ece4d2;font:14px/1.6 ui-monospace,monospace}a{color:#c9a84c}</style>
 </head>
-<body><p><a href="https://mauktenieb.github.io/">mauktenieb.github.io</a></p></body>
+<body><p><a href="https://github.com/MaukTenieb">github.com/MaukTenieb</a></p></body>
 </html>
