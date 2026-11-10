@@ -1,4 +1,4 @@
-# Tells Bing, Yandex, Seznam, Naver (IndexNow) about every page of every site on mauktenieb.github.io, Hervé Delboy's alchemy site included.
+# Tells Bing, Yandex, Seznam, Naver (IndexNow) about every page of every site on mauktenieb.github.io, the alchemy site included.
 # Runs on each push here, every Monday, and by hand (Actions > IndexNow > Run workflow).
 name: IndexNow
 on:
