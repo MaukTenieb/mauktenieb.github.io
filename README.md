@@ -13,7 +13,7 @@ Code under MIT, method under CC BY 4.0, Korhogo material reserved (characters, n
 
 - [Katabase](https://mauktenieb.github.io/katabase): concept albums, the 18 Masks, the lore
 - [Insert Koin](https://mauktenieb.github.io/insertkoin/): Mauk Tenieb's Korhogo world, games and machines in a browser
-- [3615 KORHOGO](https://mauktenieb.github.io/3615/): the Minitel terminal
+- [3615 KORHOGO](https://mauktenieb.github.io/3615/): the MiniTale
 - [Bandcamp](https://mauktenieb.bandcamp.com): music and sales
 - [Substack](https://korhogo.substack.com): the journal
 - [YouTube](https://www.youtube.com/@mauktenieb): clips and mini-films
