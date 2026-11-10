@@ -3,39 +3,32 @@ User-agent: *
 Allow: /
 Disallow: /mb/
 Disallow: /borne/
-Disallow: /korhogo/
 
 # Answer engines that cite and link (search, not training): explicitly welcome
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /mb/
 Disallow: /borne/
-Disallow: /korhogo/
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /mb/
 Disallow: /borne/
-Disallow: /korhogo/
 User-agent: PerplexityBot
 Allow: /
 Disallow: /mb/
 Disallow: /borne/
-Disallow: /korhogo/
 User-agent: Perplexity-User
 Allow: /
 Disallow: /mb/
 Disallow: /borne/
-Disallow: /korhogo/
 User-agent: Claude-SearchBot
 Allow: /
 Disallow: /mb/
 Disallow: /borne/
-Disallow: /korhogo/
 User-agent: Claude-User
 Allow: /
 Disallow: /mb/
 Disallow: /borne/
-Disallow: /korhogo/
 
 # Model-training crawlers: no
 User-agent: GPTBot
