@@ -1,0 +1,26 @@
+# Relevé de qualité à chaque envoi : HTML (html-validate), apparence (Impeccable, analyse des fichiers), liens (lychee).
+# Relevé seul : l'envoi passe toujours ; les défauts s'affichent en annotations sur le commit.
+name: Qualité
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', '**.css', '**.js']
+  workflow_dispatch:
+jobs:
+  releve:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: html-validate
+        run: npx -y html-validate@9 $(git ls-files '*.html' | grep -v '^\.claude/') || true
+      - name: Impeccable
+        run: |
+          npx -y impeccable@4.8.2 telemetry off >/dev/null 2>&1 || true
+          npx -y impeccable@4.8.2 detect . --github || true
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --offline --root-dir . './**/*.html'
+          fail: false
