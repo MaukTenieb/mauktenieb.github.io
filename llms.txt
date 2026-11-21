@@ -20,6 +20,7 @@
 - [Insert Koin](https://mauktenieb.github.io/insertkoin/)
 - [Insert Koin notes](https://mauktenieb.github.io/insertkoin/notes/): technical notes on the making of Insert Koin
 - [MiniTale](https://mauktenieb.github.io/3615/): the Minitel of the Korhogo Fauna: messages, Koins, Kurations, the Hall of Kave.
+- [Insert Koin, the Kaves](https://mauktenieb.github.io/insertkoin/llms.txt): every Kave of Insert Koin, its names and its addresses.
 
 ## Code
 - [Reporhogo](https://mauktenieb.github.io/reporhogo/): searches forty-one code forges for a topic (MIT). Source: https://github.com/MaukTenieb/reporhogo
