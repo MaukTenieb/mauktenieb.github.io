@@ -19,11 +19,12 @@
 ## Sites
 - [Insert Koin](https://mauktenieb.github.io/insertkoin/)
 - [Insert Koin notes](https://mauktenieb.github.io/insertkoin/notes/): technical notes on the making of Insert Koin
-- [3615](https://mauktenieb.github.io/3615/)
+- [MiniTale](https://mauktenieb.github.io/3615/): the Minitel of the Korhogo Fauna: messages, Koins, Kurations, the Hall of Kave.
 
 ## Code
 - [Reporhogo](https://mauktenieb.github.io/reporhogo/): searches forty-one code forges for a topic (MIT). Source: https://github.com/MaukTenieb/reporhogo
-- [FotoFauna](https://mauktenieb.github.io/insertkoin/fotofauna.html): a photo editor with 2K effekts, part of Insert Koin.
+- [Kamera](https://mauktenieb.github.io/insertkoin/kamera/): the camera and sound recorder of Insert Koin, with 1,998 looks from 2010s photo apps. Also called Kamescope, Kamcorder, VCR, KamOrhogo.
+- [StudioRhogo](https://mauktenieb.github.io/studio/): a 32-track studio that syncs a film to the music. Source: https://github.com/MaukTenieb/studio
 - [FaunaTor](https://mauktenieb.github.io/faunator/): reads web and .onion pages through Tor clients that run in the page (MIT). Source: https://github.com/MaukTenieb/faunator
 - [KorhoTube](https://github.com/MaukTenieb/korhotube): all the videos of a YouTube channel as JSON, with tags, chapters, dubbing, subtitles and exact dates (MIT).
 - [Detour](https://github.com/MaukTenieb/detour): cuts a sheet of eight portraits into a sprite strip (Python).
